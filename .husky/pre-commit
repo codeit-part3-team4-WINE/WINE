@@ -1,0 +1,3 @@
+echo "----------- [HUSKY] 검사 중 ------------"
+pnpm exec lint-staged
+echo "----------- [HUSKY] 검사 완료 -----------"

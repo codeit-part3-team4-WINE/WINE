@@ -1,0 +1,10 @@
+MSG_FILE="$1"
+
+FIRST_LINE=$(head -n1 "$MSG_FILE")
+
+if echo "$FIRST_LINE" | grep -qE "^#"; then
+  echo "❌ 커밋 메시지가 '#'으로 시작할 수 없습니다."
+  exit 1
+fi
+
+pnpm dlx commitlint --edit $1
