@@ -25,8 +25,8 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTIONS }}
         with:
           source-directory: 'output'
-          destination-github-username: evaain706
-          destination-repository-name: WINE
+          destination-github-username: "evaain706"
+          destination-repository-name: "WINE"
           user-email: ${{ secrets.EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
