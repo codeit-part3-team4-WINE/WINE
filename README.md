@@ -15,6 +15,7 @@
 ```bash
 [#123] feat: 로그인 기능 구현함
 [#456] fix(api): 응답 필드 누락 수정함
+[#789] fix(api): 응답 필드 누락 수정
 ```
 
 wine-eta.vercel.app
