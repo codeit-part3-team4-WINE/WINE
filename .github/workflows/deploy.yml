@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    pull_request:
+    branches:
       - main
       - develop
 
@@ -10,40 +10,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: pandoc/latex
+
     steps:
       - uses: actions/checkout@v2
+
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
-      - name: creates output
+
+      - name: Creates output
         run: sh ./build.sh
-      - name: Pushes to another repository (main branch)
 
-        if: github.ref == 'refs/heads/main'
-        id: push_main
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTIONS }}
-        with:
-          source-directory: 'output'
-          destination-github-username: 'evaain706'
-          destination-repository-name: 'WINE'
-          user-email: ${{ secrets.EMAIL }}
-          commit-message: ${{ github.event.commits[0].message }}
-          target-branch: main
-      - name: Pushes to another repository (develop branch)
+      - name: Clone destination repository
+        run: |
+          git clone https://x-access-token:${{ secrets.AUTO_ACTIONS }}@github.com/evaain706/WINE.git dest-repo
 
-        if: github.ref == 'refs/heads/develop'
-        id: push_develop
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTIONS }}
-        with:
-          source-directory: 'output'
-          destination-github-username: 'evaain706'
-          destination-repository-name: 'WINE'
-          user-email: ${{ secrets.EMAIL }}
-          commit-message: ${{ github.event.commits[0].message }}
-          target-branch: develop
+      - name: Sync output to destination branch
+        run: |
+          cd dest-repo
+          git checkout ${{ github.ref_name }}
+          rsync -av --delete ../output/ .
+          git config user.name "github-actions"
+          git config user.email "${{ secrets.EMAIL }}"
+          git add .
+          git commit -m "Auto-deploy: ${{ github.event.head_commit.message }}" || echo "No changes"
+          git push origin ${{ github.ref_name }}
 
-      - name: Test get variable exported by push-to-another-repository
-        run: echo $DESTINATION_CLONED_DIRECTORY
+      - name: Confirm deployment branch
+        run: echo "Synced to branch: ${{ github.ref_name }}"
