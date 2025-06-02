@@ -27,7 +27,7 @@ export default function AppleIcon({
       width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_1_2913)'>
+      <g clipPath='url(#clip0_1_2913)'>
         <path
           d='M8.9939 0C8.9939 0 10.3333 4.32445 12.6987 6.91414C14.7186 9.12555 18.4042 7.78914 18.4042 7.78914C18.4042 7.78914 18.0638 4.59539 15.6509 2.62602C13.985 1.26641 8.9939 0 8.9939 0Z'
           fill={color}
@@ -51,7 +51,7 @@ export default function AppleIcon({
       </g>
       <defs>
         <clipPath id='clip0_1_2913'>
-          <rect fill='white' height={size} width={size} />
+          <rect fill='white' height='40' width='40' />
         </clipPath>
       </defs>
     </svg>

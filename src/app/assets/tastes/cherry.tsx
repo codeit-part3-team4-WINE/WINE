@@ -27,7 +27,7 @@ export default function CherryIcon({
       width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_1_2781)'>
+      <g clipPath='url(#clip0_1_2781)'>
         <path
           d='M39.8433 5.27602C40.0523 5.45117 40.0523 5.77305 39.8433 5.9482C38.6254 6.96875 34.651 9.96242 29.936 9.96242C25.0882 9.96242 22.4801 6.79766 21.8178 5.86672C21.7092 5.71391 21.7092 5.51023 21.8178 5.35742C22.4801 4.42648 25.0882 1.26172 29.936 1.26172C34.651 1.2618 38.6254 4.25547 39.8433 5.27602Z'
           fill={color}
@@ -79,7 +79,7 @@ export default function CherryIcon({
       </g>
       <defs>
         <clipPath id='clip0_1_2781'>
-          <rect fill='white' height={size} width={size} />
+          <rect fill='white' height='40' width='40' />
         </clipPath>
       </defs>
     </svg>

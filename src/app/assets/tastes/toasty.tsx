@@ -27,7 +27,7 @@ export default function ToastyIcon({
       width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_1_2958)'>
+      <g clipPath='url(#clip0_1_2958)'>
         <path
           d='M24.8771 0C17.7257 0 12.0477 2.08523 10.3188 5.08516C12.0417 4.82367 13.821 4.6875 15.5763 4.6875C23.9756 4.6875 33.0153 7.6218 33.0153 14.0625C33.0153 15.3774 32.5885 17.2795 30.6345 19.0784L30.6712 30.4688H34.1501C36.0917 30.4688 37.6657 28.8948 37.6657 26.9531V11.4533C37.6657 11.1111 37.8042 10.793 38.037 10.6019C39.6514 9.27781 39.9909 7.92969 39.9909 7.03133C39.9909 3.02242 33.4933 0 24.8771 0Z'
           fill={color}
@@ -39,7 +39,7 @@ export default function ToastyIcon({
       </g>
       <defs>
         <clipPath id='clip0_1_2958'>
-          <rect fill='white' height={size} width={size} />
+          <rect fill='white' height='40' width='40' />
         </clipPath>
       </defs>
     </svg>

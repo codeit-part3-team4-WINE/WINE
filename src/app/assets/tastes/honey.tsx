@@ -27,7 +27,7 @@ export default function HoneyIcon({
       width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_1_2919)'>
+      <g clipPath='url(#clip0_1_2919)'>
         <path
           d='M38.8281 0H33.3334C30.3878 0 28 2.38781 28 5.33336H38.8281C39.4753 5.33336 40 4.80867 40 4.16148V1.17188C40 0.524687 39.4753 0 38.8281 0V0Z'
           fill={color}
@@ -43,7 +43,7 @@ export default function HoneyIcon({
       </g>
       <defs>
         <clipPath id='clip0_1_2919'>
-          <rect fill='white' height={size} width={size} />
+          <rect fill='white' height='40' width='40' />
         </clipPath>
       </defs>
     </svg>

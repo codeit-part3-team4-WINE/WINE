@@ -27,7 +27,7 @@ export default function WildFlowerIcon({
       width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_1_2833)'>
+      <g clipPath='url(#clip0_1_2833)'>
         <path
           d='M24.1438 34.3666C23.8258 34.3666 23.5594 34.1178 23.5417 33.7962C23.0007 23.9973 21.1607 17.4012 19.7127 13.5933C18.1456 9.47249 16.6884 7.64205 16.6738 7.62404C16.4647 7.36495 16.5047 6.985 16.7632 6.77535C17.022 6.566 17.401 6.60475 17.611 6.86293C17.6741 6.94075 19.1759 8.81239 20.8095 13.0809C22.3009 16.9783 24.1948 23.7245 24.7472 33.73C24.7655 34.0629 24.5107 34.3473 24.1777 34.3656C24.1664 34.3662 24.1551 34.3666 24.1438 34.3666Z'
           fill={color}
@@ -83,7 +83,7 @@ export default function WildFlowerIcon({
       </g>
       <defs>
         <clipPath id='clip0_1_2833'>
-          <rect fill='white' height={size} width={size} />
+          <rect fill='white' height='40' width='40' />
         </clipPath>
       </defs>
     </svg>

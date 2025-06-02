@@ -27,7 +27,7 @@ export default function CitrusIcon({
       width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_1_2869)'>
+      <g clipPath='url(#clip0_1_2869)'>
         <path
           d='M19.2499 34.1659V23.9993C19.2499 23.1659 18.2499 22.8326 17.7499 23.3326L10.5833 30.4993C10.2499 30.8326 10.2499 31.4993 10.6666 31.8326C12.8332 33.5826 15.4999 34.6659 18.3333 34.9992C18.7499 35.1659 19.2499 34.6659 19.2499 34.1659Z'
           fill={color}
@@ -67,7 +67,7 @@ export default function CitrusIcon({
       </g>
       <defs>
         <clipPath id='clip0_1_2869'>
-          <rect fill='white' height={size} width={size} />
+          <rect fill='white' height='40' width='40' />
         </clipPath>
       </defs>
     </svg>

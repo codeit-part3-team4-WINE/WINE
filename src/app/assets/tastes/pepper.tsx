@@ -27,7 +27,7 @@ export default function PepperIcon({
       width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_1_2806)'>
+      <g clipPath='url(#clip0_1_2806)'>
         <path
           d='M30.7946 16.0553L23.9035 9.16409C23.3715 8.63198 22.9687 8.01923 22.6926 7.36523C19.6266 9.13456 15.8468 11.3318 12.586 14.3025C9.262 17.3308 7.9376 19.7587 6.97485 23.2757L16.6828 32.9837C20.1998 32.0209 22.6277 30.6965 25.656 27.3725C28.6259 24.1125 30.8228 20.3339 32.5919 17.2683C31.9285 16.9875 31.3189 16.5795 30.7946 16.0553Z'
           fill={color}
@@ -59,7 +59,7 @@ export default function PepperIcon({
       </g>
       <defs>
         <clipPath id='clip0_1_2806'>
-          <rect fill='white' height={size} width={size} />
+          <rect fill='white' height='40' width='40' />
         </clipPath>
       </defs>
     </svg>

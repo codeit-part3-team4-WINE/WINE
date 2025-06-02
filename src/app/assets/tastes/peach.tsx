@@ -27,7 +27,7 @@ export default function PeachIcon({
       width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_1_2934)'>
+      <g clipPath='url(#clip0_1_2934)'>
         <path
           d='M39.2739 37.7449C38.5585 36.5769 37.9091 33.0939 36.6764 30.5371C33.9999 33.1795 30.3254 34.8134 26.276 34.8134C25.9571 34.8134 25.6389 34.8018 25.3216 34.7813C24.4671 35.76 23.4856 36.6454 22.3796 37.4366C28.1409 39.9508 35.0731 40.0009 38.7974 40.0009C39.431 40.0009 39.9732 39.5112 39.999 38.878C40.0199 38.3678 39.7142 37.9261 39.2739 37.7449Z'
           fill={color}
@@ -43,7 +43,7 @@ export default function PeachIcon({
       </g>
       <defs>
         <clipPath id='clip0_1_2934'>
-          <rect fill='white' height={size} width={size} />
+          <rect fill='white' height='40' width='40' />
         </clipPath>
       </defs>
     </svg>
