@@ -1,0 +1,38 @@
+name: Synchronize to forked repo
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  sync:
+    name: Sync forked repo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with: 
+          token: ${{ secrets.AUTO_ACTIONS }}
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config user.name "evaain706"
+          git config user.email "evaain706@gmail.com"
+
+      - name: Add remote-url
+        run: |
+          git remote add forked-repo https://evaain706:${{ secrets.AUTO_ACTIONS }}@github.com/evaain706/WINE.git
+
+      - name: Push to forked repo (main or develop)
+        run: |
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "Current branch is $CURRENT_BRANCH"
+          git push -f forked-repo $CURRENT_BRANCH
+
+      - name: Clean up
+        run: |
+          git remote remove forked-repo
