@@ -2,12 +2,7 @@
 
 import { useEffect } from 'react';
 
-interface ErrorFallbackProps {
-  error: Error & { digest?: string };
-  reset: () => void;
-  title?: string;
-  description?: string;
-}
+import type { ErrorFallbackProps } from '@/types/error';
 
 export default function ErrorFallback({
   error,

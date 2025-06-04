@@ -1,12 +1,8 @@
 'use client';
 
-import ErrorPage from '@/components/ErrorFallback';
+import ErrorFallback from '@/components/ErrorFallback';
+import type { ErrorFallbackProps } from '@/types/error';
 
-interface ErrorProps {
-  error: Error & { digest?: string };
-  reset: () => void;
-}
-
-export default function Error({ error, reset }: ErrorProps) {
-  return <ErrorPage error={error} reset={reset} />;
+export default function Error({ error, reset }: ErrorFallbackProps) {
+  return <ErrorFallback error={error} reset={reset} />;
 }
