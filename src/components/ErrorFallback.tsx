@@ -2,19 +2,14 @@
 
 import { useEffect } from 'react';
 
-interface ErrorUIProps {
-  error: Error & { digest?: string };
-  reset: () => void;
-  title?: string;
-  description?: string;
-}
+import type { ErrorFallbackProps } from '@/types/error';
 
-export default function ErrorUI({
+export default function ErrorFallback({
   error,
   reset,
   title = '에러가 발생했습니다',
   description,
-}: ErrorUIProps) {
+}: ErrorFallbackProps) {
   useEffect(() => {
     console.error(error);
   }, [error]);

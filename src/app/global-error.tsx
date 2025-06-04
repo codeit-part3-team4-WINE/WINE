@@ -1,18 +1,13 @@
 'use client';
 
-import ErrorPage from '@/components/errorUI';
+import ErrorFallback from '@/components/ErrorFallback';
+import type { ErrorFallbackProps } from '@/types/error';
 
-export default function GlobalError({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function GlobalError({ error, reset }: ErrorFallbackProps) {
   return (
     <html>
       <body>
-        <ErrorPage
+        <ErrorFallback
           description='시스템에 문제가 발생했습니다.'
           error={error}
           reset={reset}
