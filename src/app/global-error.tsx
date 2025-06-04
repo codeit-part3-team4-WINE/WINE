@@ -1,6 +1,6 @@
 'use client';
 
-import ErrorPage from '@/components/errorUI';
+import ErrorPage from '@/components/ErrorFallback';
 
 export default function GlobalError({
   error,
