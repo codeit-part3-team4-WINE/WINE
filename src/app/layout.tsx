@@ -1,6 +1,6 @@
 import './globals.css';
 
-import QueryProvider from '@/libs/queryProvider';
+import QueryProvider from '@/libs/queryProviderRename';
 
 export default function RootLayout({
   children,
