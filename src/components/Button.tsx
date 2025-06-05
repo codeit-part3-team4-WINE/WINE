@@ -11,7 +11,11 @@ import {
 } from '@/constants/button';
 import { cn } from '@/libs/cn';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    'type' | 'onClick' | 'disabled' | 'className' | 'ref'
+  > {
   /** 버튼 클릭 시 호출되는 함수 */
   onClick: () => void;
   /** 버튼에 표시될 자식 요소 (텍스트, 아이콘 등) */
