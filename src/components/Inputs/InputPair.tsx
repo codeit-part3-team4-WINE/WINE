@@ -11,6 +11,7 @@ interface InputProps {
   className?: string;
   labelClassName?: string;
   size?: 'md' | 'lg';
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
 /**
@@ -37,7 +38,7 @@ const sizeClasses = {
  * @param {string} [props.className] - Input에 적용할 추가 CSS 클래스
  * @param {string} [props.labelClassName] - Label에 적용할 추가 CSS 클래스
  * @param {'md' | 'lg'} [props.size='lg'] - 컴포넌트 크기
- *
+ * @param {React.RefObject<HTMLInputElement>} [props.ref] - input ref
  * @returns {JSX.Element} label과 input이 포함된 JSX 엘리먼트
  *
  * @example
@@ -51,6 +52,7 @@ const sizeClasses = {
  * @example
  * 커스텀 스타일
  * <InputPair
+ *   ref={inputRef}
  *   label="이름"
  *   type="text"
  *   size="lg"
@@ -65,6 +67,7 @@ export default function InputPair({
   className,
   labelClassName,
   size = 'lg',
+  ref,
   ...props
 }: InputProps) {
   const currentSize = sizeClasses[size];
@@ -78,6 +81,7 @@ export default function InputPair({
         <span className='cursor-pointer'>{label}</span>
       </label>
       <Input
+        ref={ref}
         id={label}
         name={label}
         type={type}

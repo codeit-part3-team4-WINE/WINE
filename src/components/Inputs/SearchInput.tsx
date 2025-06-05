@@ -7,6 +7,7 @@ interface SearchInputProps {
   type?: string;
   placeholder?: string;
   size?: 'sm' | 'lg';
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
 const sizeClasses = {
@@ -22,7 +23,7 @@ const sizeClasses = {
  * @param {string} props.type - input 타입
  * @param {string} [props.placeholder] - placeholder 텍스트
  * @param {'sm' | 'lg'} [props.size='sm'] - 컴포넌트 크기
- *
+ * @param {React.RefObject<HTMLInputElement>} [props.ref] - input ref
  * @returns {JSX.Element} SearchInput 컴포넌트
  *
  * @example
@@ -38,14 +39,18 @@ export default function SearchInput({
   type = 'text',
   placeholder = '와인을 검색해보세요',
   size = 'sm',
+  ref,
+  ...props
 }: SearchInputProps) {
   return (
     <div className='relative'>
       <SearchIcon className='absolute top-7 left-5' size={20} />
       <Input
+        ref={ref}
         className={cn('rounded-full pl-15', sizeClasses[size])}
         placeholder={placeholder}
         type={type}
+        {...props}
       />
     </div>
   );
