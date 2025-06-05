@@ -5,13 +5,12 @@ import Input from './Input';
 /**
  * InputPair 컴포넌트의 props 타입
  */
-interface InputProps {
-  type?: string;
+interface InputPairProps
+  extends Omit<React.ComponentProps<typeof Input>, 'className' | 'size'> {
   label: string;
-  className?: string;
-  labelClassName?: string;
   size?: 'md' | 'lg';
-  ref?: React.RefObject<HTMLInputElement>;
+  labelClassName?: string;
+  className?: string;
 }
 
 /**
@@ -62,14 +61,12 @@ const sizeClasses = {
  */
 
 export default function InputPair({
-  type,
   label,
   className,
   labelClassName,
   size = 'lg',
-  ref,
-  ...props
-}: InputProps) {
+  ...inputProps
+}: InputPairProps) {
   const currentSize = sizeClasses[size];
 
   return (
@@ -81,12 +78,10 @@ export default function InputPair({
         <span className='cursor-pointer'>{label}</span>
       </label>
       <Input
-        ref={ref}
+        {...inputProps}
+        className={cn(`${currentSize.input}`, className)}
         id={label}
         name={label}
-        type={type}
-        {...props}
-        className={cn(`${currentSize.input}`, className)}
       />
     </div>
   );

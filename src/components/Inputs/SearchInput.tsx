@@ -3,11 +3,10 @@ import { cn } from '@/libs/cn';
 
 import Input from './Input';
 
-interface SearchInputProps {
-  type?: string;
+interface SearchInputProps
+  extends Omit<React.ComponentProps<typeof Input>, 'className' | 'size'> {
   placeholder?: string;
   size?: 'sm' | 'lg';
-  ref?: React.RefObject<HTMLInputElement>;
 }
 
 const sizeClasses = {
@@ -39,18 +38,16 @@ export default function SearchInput({
   type = 'text',
   placeholder = '와인을 검색해보세요',
   size = 'sm',
-  ref,
-  ...props
+  ...inputProps
 }: SearchInputProps) {
   return (
     <div className='relative'>
       <SearchIcon className='absolute top-7 left-5' size={20} />
       <Input
-        ref={ref}
+        {...inputProps}
         className={cn('rounded-full pl-15', sizeClasses[size])}
         placeholder={placeholder}
         type={type}
-        {...props}
       />
     </div>
   );
