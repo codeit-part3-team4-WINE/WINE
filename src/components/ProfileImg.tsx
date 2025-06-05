@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from 'next/image';
 
-import defaultImg from '@/app/assets/image/profile-default.svg';
-import selectedOverlayImg from '@/app/assets/image/profile-select-overlay.svg';
+import defaultImg from '@/app/assets/svgs/profile-default.svg';
+import selectedOverlayImg from '@/app/assets/svgs/profile-select-overlay.svg';
 import { cn } from '@/libs/cn';
 
 const IMG_SIZE = {
