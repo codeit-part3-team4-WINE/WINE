@@ -23,9 +23,9 @@ interface ButtonProps
   /** 버튼의 타입 - 기본값: 'button' */
   type?: 'button' | 'submit' | 'reset';
   /** 버튼 스타일 타입 */
-  variant?: '' | 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
   /** 버튼 크기 */
-  size?: '' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
+  size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs';
   /** 버튼 모서리 스타일 */
   round?: 'rounded' | 'circular' | 'square';
   /** 로딩 상태 표시 여부 */
@@ -57,8 +57,8 @@ function LoadingButton({ className }: { className: string }) {
  * @property {function} onCLick - 버튼이 눌렸을때 실행될 함수입니다.
  * @property {React.ReactNode} children - 버튼 안에 보여질 콘텐츠를 전달 받습니다. 문자열과 아이콘(컴포넌트 이름에 'Icon' 혹은 'Image' 포함 필수)만 가능하며, 그 외에 요소들은 필터링됩니다.
  * @property {'button' | 'submit' | 'reset'} [type] - 버튼의 타입을 정의합니다.
- * @property {'' | 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'} [variant] - 총 5가지의 버튼 테마를 제공합니다. 기본으로 설정된 테마는 없습니다.
- * @property {'' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'} [size] - 버튼의 사이즈를 지정합니다.
+ * @property {'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'} [variant] - 총 5가지의 버튼 테마를 제공합니다. 기본으로 설정된 테마는 없습니다.
+ * @property {'xl' | 'lg' | 'md' | 'sm' | 'xs'} [size] - 버튼의 사이즈를 지정합니다.
  * @property {'rounded' | 'circular' | 'square'} [round] - 버튼의 모서리 스타일을 지정합니다. (default == rounded)
  * @property {boolean} [loading] - 버튼을 로딩 상태로 보여줍니다. 인터랙션이 불가합니다. (default == false)
  * @property {boolean} [disabled] - 버튼을 비활성화 합니다. 인터랙션이 불가합니다. (default == false)
