@@ -1,5 +1,6 @@
 export interface BaseIconProps {
   size?: number | string;
+  className?: string;
 }
 
 export interface ColorIconProps extends BaseIconProps {
