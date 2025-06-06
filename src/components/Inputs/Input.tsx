@@ -1,5 +1,8 @@
 import { cn } from '@/libs/cn';
 
+const BASIC_CLASSNAME =
+  'text-md placeholder:text-md w-1/2 rounded-2xl border border-gray-300 bg-white px-5 py-3 placeholder:text-gray-500 focus:outline-none';
+
 export default function Input({
   ref,
   className,
@@ -13,10 +16,7 @@ export default function Input({
     <div>
       <input
         ref={ref}
-        className={cn(
-          'text-md placeholder:text-md w-1/2 rounded-2xl border border-gray-300 bg-white px-5 py-3 placeholder:text-gray-500 focus:outline-none',
-          className,
-        )}
+        className={cn(BASIC_CLASSNAME, className)}
         id={id}
         name={name}
         placeholder={placeholder}

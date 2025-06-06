@@ -9,7 +9,7 @@ interface SearchInputProps
   size?: 'sm' | 'lg';
 }
 
-const sizeClasses = {
+const SIZE_CLASSES = {
   sm: 'w-[21rem] h-[3.8rem]',
   lg: 'w-[40rem] h-[4.8rem]',
 };
@@ -45,7 +45,7 @@ export default function SearchInput({
       <SearchIcon className='absolute top-7 left-5' size={20} />
       <Input
         {...inputProps}
-        className={cn('rounded-full pl-15', sizeClasses[size])}
+        className={cn('rounded-full pl-15', SIZE_CLASSES[size])}
         placeholder={placeholder}
         type={type}
       />

@@ -10,13 +10,13 @@ interface InputPairProps
   label: string;
   size?: 'md' | 'lg';
   labelClassName?: string;
-  className?: string;
+  inputClassName?: string;
 }
 
 /**
  * InputPair 컴포넌트의 사이즈별 스타일 클래스
  */
-const sizeClasses = {
+const SIZE_CLASSES = {
   md: {
     label: 'text-[1.4rem]',
     input: 'w-[30rem] h-[4.2rem]',
@@ -55,19 +55,19 @@ const sizeClasses = {
  *   label="이름"
  *   type="text"
  *   size="lg"
- *   className="border-blue-500"
+ *   inputClassName="border-blue-500"
  *   labelClassName="text-blue-600"
  * />
  */
 
 export default function InputPair({
   label,
-  className,
+  inputClassName,
   labelClassName,
   size = 'lg',
   ...inputProps
 }: InputPairProps) {
-  const currentSize = sizeClasses[size];
+  const currentSize = SIZE_CLASSES[size];
 
   return (
     <div className='flex flex-col'>
@@ -79,7 +79,7 @@ export default function InputPair({
       </label>
       <Input
         {...inputProps}
-        className={cn(`${currentSize.input}`, className)}
+        className={cn(`${currentSize.input}`, inputClassName)}
         id={label}
         name={label}
       />
