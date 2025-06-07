@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { CommonSelectBox } from '@/components/SelectBox'; // index.ts에서 export한 합성 컴포넌트
+import { SelectBox } from '@/components/SelectBox'; // index.ts에서 export한 합성 컴포넌트
 
 export default function UiSelectBox() {
   const [selected, setSelected] = useState('');
@@ -34,22 +34,22 @@ export default function UiSelectBox() {
 
       <h2 className='mt-10 mb-3 text-xl font-bold text-gray-700'>Example</h2>
       <div className='mb-10 flex flex-col gap-4'>
-        <CommonSelectBox
+        <SelectBox
           label='타입'
           options={OPTIONS}
           onChange={(value) => setSelected(value)}
         >
-          <CommonSelectBox.Trigger />
-          <CommonSelectBox.Options>
+          <SelectBox.Trigger />
+          <SelectBox.Options>
             {OPTIONS.map((opt) => (
-              <CommonSelectBox.Option key={opt} value={opt}>
+              <SelectBox.Option key={opt} value={opt}>
                 <div className='hover:bg-primary-10 hover:text-primary-100 mx-[0.6rem] my-2 flex h-[3.6rem] w-[31.5] items-center rounded-[1.2rem] md:h-[4rem] md:w-[40rem]'>
                   <span className='ml-[1.6em]'>{opt}</span>
                 </div>
-              </CommonSelectBox.Option>
+              </SelectBox.Option>
             ))}
-          </CommonSelectBox.Options>
-        </CommonSelectBox>
+          </SelectBox.Options>
+        </SelectBox>
 
         <p className='text-sm text-gray-600'>
           선택된 값: <strong>{selected}</strong>

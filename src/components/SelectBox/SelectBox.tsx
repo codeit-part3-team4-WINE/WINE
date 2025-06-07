@@ -40,7 +40,7 @@ interface SelectBoxProps {
  *   </Options>
  * </SelectBox>
  */
-export default function SelectBox({
+export default function SelectBoxWrapper({
   children,
   options,
   onChange,

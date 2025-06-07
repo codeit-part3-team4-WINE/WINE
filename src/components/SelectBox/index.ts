@@ -1,7 +1,7 @@
-import Option from './Option';
-import Options from './Options';
-import SelectBox from './SelectBox';
-import Trigger from './Trigger';
+import SelectBoxWrapper from './SelectBox';
+import Option from './SelectBox.Option';
+import Options from './SelectBox.Options';
+import Trigger from './SelectBox.Trigger';
 
 /**
  * 공통 SelectBox 컴포넌트
@@ -17,7 +17,7 @@ import Trigger from './Trigger';
  *   </CommonSelectBox.Options>
  * </CommonSelectBox>
  */
-export const CommonSelectBox = Object.assign(SelectBox, {
+export const SelectBox = Object.assign(SelectBoxWrapper, {
   Trigger,
   Options,
   Option,
