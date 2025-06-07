@@ -20,7 +20,7 @@ export default function Options({
   return (
     <ul
       className={cn(
-        'absolute z-10 mt-2 w-[32.7rem] rounded-[1.6rem] border border-gray-300 md:w-[41.2rem]',
+        'absolute z-10 mt-2 w-[32.7rem] rounded-[1.6rem] border border-gray-300 bg-white md:w-[41.2rem]',
         optionsClassName,
       )}
     >
