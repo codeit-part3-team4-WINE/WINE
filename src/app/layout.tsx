@@ -1,5 +1,6 @@
 import './globals.css';
 
+import Header from '@/components/Header';
 import QueryProvider from '@/libs/queryProvider';
 
 export default function RootLayout({
@@ -10,6 +11,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body>
+        <Header />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
