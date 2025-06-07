@@ -23,6 +23,14 @@ export default function DesignSystem() {
           <h2 className='text-xl font-semibold text-gray-900'>Icons</h2>
           <p className='mt-2 text-gray-600'>View all icons</p>
         </Link>
+
+        <Link
+          className='block rounded-lg border border-gray-200 bg-white p-6 transition-colors hover:bg-gray-50'
+          href='/design-system/ui-selectbox'
+        >
+          <h2 className='text-xl font-semibold text-gray-900'>SelectBox</h2>
+          <p className='mt-2 text-gray-600'>View all selectbox examples</p>
+        </Link>
       </div>
     </div>
   );
