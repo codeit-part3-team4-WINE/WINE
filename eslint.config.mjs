@@ -28,7 +28,14 @@ const eslintConfig = [
       'no-console': ['warn', { allow: ['warn', 'error'] }], // console.warn, console.error는 허용
       'prefer-const': 'warn', // 재할당 없는 let은 const로
       'no-nested-ternary': 'warn', // 삼항 연산자 중첩 금지
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }], // 사용하지 않는 변수 금지 (대문자/밑줄 제외)
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          varsIgnorePattern: '^[A-Z_]',
+          argsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ], // TypeScript용 사용하지 않는 변수 금지 (함수 타입 정의 파라미터 고려)
 
       // React JSX 관련 규칙
       'react/jsx-no-undef': 'error', // 정의되지 않은 JSX 요소 금지
