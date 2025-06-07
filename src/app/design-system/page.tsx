@@ -26,7 +26,7 @@ export default function DesignSystem() {
 
         <Link
           className='block rounded-lg border border-gray-200 bg-white p-6 transition-colors hover:bg-gray-50'
-          href='/design-system/ui-icon'
+          href='/design-system/ui-dropdown'
         >
           <h2 className='text-xl font-semibold text-gray-900'>
             Dropdown Components
