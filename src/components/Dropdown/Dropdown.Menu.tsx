@@ -6,6 +6,26 @@ import { cn } from '@/libs/cn';
 
 import { useDropdownContext } from './DropdownContext';
 
+/**
+ * DropdownMenu
+ *
+ * 드롭다운 메뉴 컨테이너 컴포넌트입니다.
+ *
+ * 드롭다운이 열려 있을 때만 자식 요소들을 보여줍니다.
+ *
+ * @param {ReactNode} props.children - 드롭다운 메뉴에 들어갈 내용 (보통 `DropdownItem` 컴포넌트들)
+ * @param {string} props.menuClassName - 메뉴 컨테이너에 추가로 적용할 클래스명 (선택사항)
+ *
+ * @example
+ * ```tsx
+ * <DropdownMenu>
+ *   <DropdownItem onClick={() => console.log('메뉴 1 클릭')}>메뉴 1</DropdownItem>
+ *   <DropdownItem onClick={() => console.log('메뉴 2 클릭')}>메뉴 2</DropdownItem>
+ * </DropdownMenu>
+ * ```
+ *
+ * ```
+ */
 export function DropdownMenu({
   children,
   menuClassName,
