@@ -25,7 +25,7 @@ import { useDropdownContext } from './DropdownContext';
  * ```
  *
  */
-export function DropdownItem({
+export default function DropdownItem({
   children,
   onClick,
   itemClassName,

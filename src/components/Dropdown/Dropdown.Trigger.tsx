@@ -21,7 +21,7 @@ import { useDropdownContext } from './DropdownContext';
  * ```
  *
  */
-export function DropdownTrigger({ children }: { children: ReactNode }) {
+export default function DropdownTrigger({ children }: { children: ReactNode }) {
   const { isOpen, setIsOpen } = useDropdownContext();
 
   return (

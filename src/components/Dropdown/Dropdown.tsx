@@ -25,7 +25,7 @@ import { DropdownContext } from './DropdownContext';
  * </DropdownWrapper>
  * ```
  */
-export function DropdownWrapper({ children }: { children: ReactNode }) {
+export default function DropdownWrapper({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

@@ -26,7 +26,7 @@ import { useDropdownContext } from './DropdownContext';
  *
  * ```
  */
-export function DropdownMenu({
+export default function DropdownMenu({
   children,
   menuClassName,
 }: {
