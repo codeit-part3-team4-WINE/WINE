@@ -22,10 +22,34 @@ const SIZE_VARIANTS = {
   },
 };
 
+/**
+ * getFillPercent()
+ * : 소수점 이하 별점의 백분율 계산
+ * @param rating 별점
+ * @returns 마지막 별의 채워지는 비율 (0~100)
+ */
 const getFillPercent = (rating: number) => {
   return rating % 1 === 0 ? 100 : (rating % 1) * 100;
 };
 
+/**
+ * RatingSummary()
+ * : 별점 및 리뷰 요약을 보여주는 컴포넌트
+ *
+ * @component
+ * @param {number} rating - 별점
+ * @param {'row'|'col'} [direction='col'] - 레이아웃 방향
+ * @param {'sm'|'md'|'lg'} [size='md'] - 별 아이콘 및 텍스트 크기
+ * @param {string} [iconColor='#6A42DB'] - 별 아이콘 색상 (색상 코드)
+ * @param {string} [className] - 클래스명 추가 (스타일 확장)
+ *
+ * @example
+ * ```tsx
+ * <RatingSummary rating={4.8} size="lg" direction="row">
+ *   <RatingSummary.Text>47개의 후기</RatingSummary.Text>
+ * </RatingSummary>
+ * ```
+ */
 function RatingSummary({
   rating,
   direction = 'col',
@@ -43,6 +67,7 @@ function RatingSummary({
 }) {
   const ratingSize = SIZE_VARIANTS[size].rating;
 
+  // Stars(별점 아이콘)은 레이아웃 고정
   const Content = (
     <>
       <Stars color={iconColor} rating={rating} size={size} />
@@ -63,6 +88,14 @@ function RatingSummary({
   );
 }
 
+/**
+ * Stars()
+ * : 별점 아이콘. 0.1 단위로 색을 채워 소수점 표현.
+ *
+ * @param {number} rating - 별점
+ * @param {'sm'|'md'|'lg'} [size='md'] - 별 아이콘 크기
+ * @param {string} [color='#6A42DB'] - 아이콘 색상
+ */
 function Stars({
   rating,
   size = 'md',
@@ -99,6 +132,15 @@ function Stars({
   );
 }
 
+/**
+ * Text()
+ * : 후기 개수 및 와인 정보를 보여주는 텍스트 컴포넌트 (ex. "100개의 후기" / "Sentinel Carbernet Sauvignon 2016")
+ *   --> 기본으로 제공되는 문자열 템플릿이 없어서 "100개의 후기"라면, "개의 후기"까지 작성하셔야 합니다.
+ *
+ * @param {React.ReactNode} children - 표시할 텍스트
+ * @param {'sm'|'md'|'lg'} [size='md'] - 텍스트 크기
+ * @param {string} [className] - 클래스명 추가 (스타일 확장)
+ */
 function Text({
   children,
   size = 'md',
