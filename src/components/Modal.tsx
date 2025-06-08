@@ -87,9 +87,11 @@ Modal.Trigger = function ModalTrigger({
 };
 
 Modal.Content = function ModalContent({
+  variant = 'default',
   children,
   className,
 }: {
+  variant?: 'default' | 'confirm';
   children: ReactNode;
   className?: string;
 }) {
@@ -107,10 +109,12 @@ Modal.Content = function ModalContent({
 
   const modalOverlayClassNames =
     'fixed inset-0 z-50 flex items-center justify-center bg-black/50';
-  const modalContentClassNames = cn(
-    'content-text min-x-[30rem] absolute bottom-0 flex h-screen max-h-[80%] w-screen flex-col rounded-t-4xl bg-white p-8 shadow-xl md:relative md:h-fit md:w-[40rem] md:max-w-[65rem] md:rounded-4xl',
-    className,
-  );
+
+  const baseClass =
+    variant === 'confirm'
+      ? 'content-text min-x-[30rem] flex h-screen max-h-[80%] w-screen flex-col bg-white p-8 shadow-xl h-fit w-[40rem] max-w-[65rem] rounded-4xl'
+      : 'content-text min-x-[30rem] absolute bottom-0 flex h-screen max-h-[80%] w-screen flex-col rounded-t-4xl bg-white p-8 shadow-xl md:relative md:h-fit md:w-[40rem] md:max-w-[65rem] md:rounded-4xl';
+  const modalContentClassNames = cn(baseClass, className);
 
   return isOpen
     ? createPortal(
@@ -145,7 +149,12 @@ Modal.Title = function ModalTitle({
   className?: string;
 }) {
   return (
-    <h2 className={cn('text-[2rem] font-semibold text-black', className)}>
+    <h2
+      className={cn(
+        'text-[1.6rem] font-semibold text-black md:text-[2rem]',
+        className,
+      )}
+    >
       {children}
     </h2>
   );
