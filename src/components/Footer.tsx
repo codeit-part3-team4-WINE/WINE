@@ -1,4 +1,4 @@
-import GitHub from '../app/assets/icons/github';
+import GitHub from '../app/assets/icons/github-logo';
 
 export default function Footer() {
   return (
@@ -15,6 +15,7 @@ export default function Footer() {
               <h1 className='text-2xl font-bold'>WINE</h1>
             </div>
             <a
+              aria-label='GitHub repository'
               className='content-text flex items-center gap-2 transition-colors duration-200 hover:text-red-400'
               href='https://github.com/codeit-part3-team4-WINE/WINE'
               rel='noopener noreferrer'
@@ -27,14 +28,14 @@ export default function Footer() {
           {/* 날짜 + 정보 영역 */}
           <div className='flex flex-col gap-y-2 md:flex-row md:items-center md:justify-between'>
             <div className='text-md whitespace-nowrap text-gray-300'>
-              <p>2025.06</p>
+              <p>©2025.06</p>
             </div>
             <ul className='text-md flex flex-col flex-wrap gap-y-1 text-gray-300 md:flex-row md:gap-6'>
               <li className='break-words whitespace-normal'>
                 Taeilwind v20.08
               </li>
               <li className='break-words whitespace-normal'>
-                김서연 김태일 명지우 맹은빈 유용민
+                김서연 김태일 맹은빈 명지우 유용민
               </li>
             </ul>
           </div>
