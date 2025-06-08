@@ -33,6 +33,16 @@ export default function DesignSystem() {
           </h2>
           <p className='mt-2 text-gray-600'>View all profileImg examples</p>
         </Link>
+
+        <Link
+          className='block rounded-lg border border-gray-200 bg-white p-6 transition-colors hover:bg-gray-50'
+          href='/design-system/ui-rating-summary'
+        >
+          <h2 className='text-xl font-semibold text-gray-900'>
+            Rating Summary Components
+          </h2>
+          <p className='mt-2 text-gray-600'>View all rating summary examples</p>
+        </Link>
       </div>
     </div>
   );
