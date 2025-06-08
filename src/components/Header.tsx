@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import WineTextIcon from '@/app/assets/icons/wine-text';
+import WineLogoIcon from '@/app/assets/icons/wine-logo';
 
 export default function Header() {
   // const [isLogin, setIsLogin] = useState(false); //추후에 zustand store에서 state를 가져와 User정보 유무에 따라 조건부렌더링으로 수정
@@ -13,8 +13,8 @@ export default function Header() {
     <div className='lg:mx-[2rem]'>
       <header className='mx-[1.6rem] mt-7 h-[5rem] max-w-[120rem] rounded-2xl bg-[#101318] text-white md:mx-[2rem] md:h-[7rem] lg:mx-auto'>
         <div className='flex h-full items-center justify-between px-[4rem] md:px-[8rem]'>
-          <Link href='/'>
-            <WineTextIcon className='cursor-pointer' />
+          <Link aria-label='홈으로 이동' href='/'>
+            <WineLogoIcon className='cursor-pointer' />
           </Link>
 
           <div className='flex items-center space-x-8 text-[1.4rem] md:text-[1.6rem] lg:space-x-20'>
@@ -38,18 +38,18 @@ export default function Header() {
               </>
             )} */}
 
-            <p
+            <button
               className='cursor-pointer transition-colors hover:text-gray-600'
               onClick={() => router.push(`/login`)}
             >
               로그인
-            </p>
-            <p
+            </button>
+            <button
               className='cursor-pointer transition-colors hover:text-gray-600'
               onClick={() => router.push(`/signup`)}
             >
               회원가입
-            </p>
+            </button>
           </div>
         </div>
       </header>

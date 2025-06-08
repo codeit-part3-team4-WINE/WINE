@@ -6,7 +6,7 @@ interface WineTextIconProps extends ColorIconProps {
   className?: string;
 }
 
-export default function WineTextIcon({
+export default function WineLogoIcon({
   width = 70,
   height = 20,
   color = '#fff',
