@@ -11,6 +11,7 @@ export default function RootLayout({
     <html lang='ko'>
       <body>
         <QueryProvider>{children}</QueryProvider>
+        <div id='modal-root' />
       </body>
     </html>
   );
