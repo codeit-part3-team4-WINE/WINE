@@ -155,8 +155,7 @@ Modal.Content = function ModalContent({
 
   if (!isOpen || !mounted) return null;
 
-  const modalRoot = document.getElementById('modal-root');
-  if (!modalRoot) return null;
+  const modalRoot = document.getElementById('modal-root') ?? document.body;
 
   const modalOverlayClassNames =
     'fixed inset-0 z-50 flex items-center justify-center bg-black/50';
