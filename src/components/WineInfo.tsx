@@ -2,12 +2,25 @@ import Image, { StaticImageData } from 'next/image';
 
 import PriceBadge from './PriceBadge';
 
+/**
+ * Props for the WineInfo component
+ */
 interface WineInfoProps {
+  /** 와인의 이름 */
   wineName: string;
+  /** 와인 이미지 (StaticImageData 타입) */
   wineImage: StaticImageData;
+  /** 와인 생산 국가 */
   wineCountry: string;
 }
 
+/**
+ * 와인의 기본 정보를 표시하는 컴포넌트
+ * 와인 이미지, 이름, 국가, 가격을 포함한 정보를 레이아웃으로 구성
+ *
+ * @param props - WineInfo 컴포넌트의 props
+ * @returns 와인 정보를 표시하는 JSX 요소
+ */
 export default function WineInfo({
   wineName,
   wineImage,
