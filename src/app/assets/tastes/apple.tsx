@@ -57,3 +57,5 @@ export default function AppleIcon({
     </svg>
   );
 }
+
+AppleIcon.displayName = 'AppleIcon';

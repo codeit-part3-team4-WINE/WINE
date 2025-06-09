@@ -58,3 +58,5 @@ export default function BerryIcon({
     </svg>
   );
 }
+
+BerryIcon.displayName = 'BerryIcon';
