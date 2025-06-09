@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import RadioGroup from '@/app/wines/[wineId]/components/Radio';
+import RadioGroup from '@/app/wines/components/Radio';
 
 export default function UiRadio() {
   const [selected, setSelected] = useState<number | string | null>(null);
