@@ -163,8 +163,8 @@ Modal.Content = function ModalContent({
 
   const baseClass =
     variant === 'confirm'
-      ? 'content-text min-x-[30rem] flex h-screen max-h-[80%] w-screen flex-col bg-white p-8 shadow-xl h-fit w-[40rem] max-w-[65rem] rounded-4xl'
-      : 'content-text min-x-[30rem] absolute bottom-0 flex h-fit max-h-[85%] w-screen flex-col rounded-t-4xl bg-white p-8 shadow-xl md:relative md:h-fit md:w-[40rem] md:max-w-[65rem] md:rounded-4xl';
+      ? 'content-text min-w-[35rem] flex h-screen max-h-[80%] w-screen flex-col bg-white p-8 shadow-xl h-fit w-[40rem] max-w-[65rem] rounded-4xl'
+      : 'content-text min-w-[35rem] absolute bottom-0 flex h-fit max-h-[85%] w-screen flex-col rounded-t-4xl bg-white p-8 shadow-xl md:relative md:h-fit md:w-[50%] md:max-w-[60rem] md:rounded-4xl';
   const modalContentClassNames = cn(baseClass, className);
 
   return isOpen
