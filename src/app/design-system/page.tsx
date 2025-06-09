@@ -1,38 +1,37 @@
-import Link from 'next/link';
+import LinkButton from './components/LinkButton';
 
+/**
+ * 링크를 추가하는 부분을 컴포넌트로 분리하였습니다.
+ * 예시 코드처럼 LinkButton 컴포넌트를 추가해서 사용해주시면 됩니다.
+ *
+ * @example
+ * ```tsx
+ * <LinkButton description='View all icons' slug='ui-icon' title='Icons' />
+ * ```
+ */
 export default function DesignSystem() {
   return (
     <div className='p-8'>
       <div className='grid gap-4'>
-        <Link
-          className='block rounded-lg border border-gray-200 bg-white p-6 transition-colors hover:bg-gray-50'
-          href='/design-system/ui-button'
-        >
-          <h2 className='text-xl font-semibold text-gray-900'>
-            Button Components
-          </h2>
-          <p className='mt-2 text-gray-600'>
-            View all button variations and examples
-          </p>
-        </Link>
+        <LinkButton
+          description='View all button variations and examples'
+          slug='ui-button'
+          title='Button Components'
+        />
 
-        <Link
-          className='block rounded-lg border border-gray-200 bg-white p-6 transition-colors hover:bg-gray-50'
-          href='/design-system/ui-icon'
-        >
-          <h2 className='text-xl font-semibold text-gray-900'>Icons</h2>
-          <p className='mt-2 text-gray-600'>View all icons</p>
-        </Link>
+        <LinkButton description='View all icons' slug='ui-icon' title='Icons' />
 
-        <Link
-          className='block rounded-lg border border-gray-200 bg-white p-6 transition-colors hover:bg-gray-50'
-          href='/design-system/ui-profileImg'
-        >
-          <h2 className='text-xl font-semibold text-gray-900'>
-            ProfileImg Components
-          </h2>
-          <p className='mt-2 text-gray-600'>View all profileImg examples</p>
-        </Link>
+        <LinkButton
+          description='View all profileImg examples'
+          slug='ui-profileImg'
+          title='ProfileImg Components'
+        />
+
+        <LinkButton
+          description='View all selectbox variations and examples'
+          slug='ui-selectbox'
+          title='Selectbox Components'
+        />
       </div>
     </div>
   );
