@@ -8,7 +8,7 @@ import Badge from './Badge';
  * @param props.price - 표시할 가격 (숫자)
  * @returns 가격이 표시된 배지 JSX 요소
  */
-export default function PriceBadge({ price }: { price: number }) {
+export default function PriceBadge({ price = 0 }: { price: number }) {
   return (
     <Badge>
       <span>₩</span>

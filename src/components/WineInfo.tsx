@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from 'next/image';
 
-import PriceBadge from './PriceBadge';
+// import PriceBadge from './PriceBadge';
 
 /**
  * Props for the WineInfo component
@@ -40,7 +40,7 @@ export default function WineInfo({
         <div className='flex flex-col pb-20'>
           <h1 className='mb-10 w-full text-3xl font-bold'>{wineName}</h1>
           <p className='text-md mb-5 text-gray-500'>{wineCountry}</p>
-          <PriceBadge price={64990} />
+          {/* <PriceBadge /> */}
         </div>
       </div>
     </div>
