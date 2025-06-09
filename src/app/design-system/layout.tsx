@@ -11,7 +11,7 @@ export default function DesignSystemLayout({
   return (
     <div className='min-h-screen'>
       {/* Header */}
-      <header className='sticky top-0 z-10 border-b border-gray-200 bg-white py-3 shadow-sm'>
+      <header className='sticky top-0 z-10 mt-10 border-gray-200 bg-white py-3'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className='flex h-16 items-center justify-between'>
             <div className='flex items-center gap-4'>
