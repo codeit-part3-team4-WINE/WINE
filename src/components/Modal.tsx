@@ -5,6 +5,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import React from 'react';
@@ -149,13 +150,13 @@ Modal.Content = function ModalContent({
   className,
 }: ModalBaseProps & { variant?: 'default' | 'confirm' }) {
   const { isOpen, close } = useModalContext();
-  const [mounted, setMounted] = useState(false);
+  const mountedRef = useRef(false);
 
   useEffect(() => {
-    setMounted(true);
+    mountedRef.current = true;
   }, []);
 
-  if (!isOpen || !mounted) return null;
+  if (!isOpen || !mountedRef.current) return null;
 
   const modalRoot = document.getElementById('modal-root') ?? document.body;
 
