@@ -37,9 +37,7 @@ export default function Trigger({ triggerClassName, children }: TriggerProps) {
       type='button'
       onClick={toggle}
     >
-      {children ? (
-        children
-      ) : (
+      {children || (
         <>
           {selected}
           <TriangleArrowIcon />

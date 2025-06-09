@@ -32,6 +32,10 @@ export default function Option({
   optionClassName,
   children,
 }: OptionProps) {
+  const optionClasses = cn(
+    'flex h-[5.2rem] w-[32.7rem] cursor-pointer items-center rounded-[1.2rem] text-lg font-medium text-gray-800 md:w-[41.2rem]',
+    optionClassName,
+  );
   const { setSelected, onChange, close } = useSelectedBoxContext();
 
   const handleClick = () => {
@@ -41,13 +45,7 @@ export default function Option({
   };
 
   return (
-    <li
-      className={cn(
-        'flex h-[5.2rem] w-[32.7rem] cursor-pointer items-center rounded-[1.2rem] text-lg font-medium text-gray-800 md:w-[41.2rem]',
-        optionClassName,
-      )}
-      onClick={handleClick}
-    >
+    <li className={optionClasses} onClick={handleClick}>
       {children ?? value}
     </li>
   );
