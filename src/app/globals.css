@@ -99,3 +99,9 @@
     @apply text-[1.2rem] font-normal; /* 12px */
   }
 }
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+}
