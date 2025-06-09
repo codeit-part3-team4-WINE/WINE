@@ -1,7 +1,7 @@
 'use client';
 
 import Image, { StaticImageData } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import defaultImg from '@/app/assets/svgs/profile-default.svg';
 import selectedOverlayImg from '@/app/assets/svgs/profile-select-overlay.svg';
@@ -55,6 +55,10 @@ export default function ProfileImg({
   );
   const [isError, setIsError] = useState(false);
 
+  useEffect(() => {
+    if (src) setImgSrc(src);
+  }, [src]);
+
   const handleError = () => {
     if (!isError) {
       setIsError(true);
@@ -76,7 +80,7 @@ export default function ProfileImg({
           alt='프로필 이미지'
           className='pointer-events-none object-cover object-center select-none'
           src={imgSrc}
-          onError={() => handleError}
+          onError={handleError}
         />
         {isSelectable && (
           <div
