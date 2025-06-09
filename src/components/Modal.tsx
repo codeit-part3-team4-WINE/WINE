@@ -22,6 +22,15 @@ interface ModalContextType {
   close: () => void;
 }
 
+interface ModalBaseProps {
+  children?: ReactNode;
+  className?: string;
+}
+
+interface ModalSlotProps extends ModalBaseProps {
+  asChild?: boolean;
+}
+
 const ModalContext = createContext<ModalContextType | null>(null);
 
 function useModalContext() {
@@ -100,10 +109,7 @@ export default function Modal({ children }: { children: ReactNode }) {
 Modal.Trigger = function ModalTrigger({
   children,
   asChild = false,
-}: {
-  children: ReactNode;
-  asChild?: boolean;
-}) {
+}: ModalSlotProps) {
   const { open } = useModalContext();
 
   if (asChild) {
@@ -141,11 +147,7 @@ Modal.Content = function ModalContent({
   variant = 'default',
   children,
   className,
-}: {
-  variant?: 'default' | 'confirm';
-  children: ReactNode;
-  className?: string;
-}) {
+}: ModalBaseProps & { variant?: 'default' | 'confirm' }) {
   const { isOpen, close } = useModalContext();
   const [mounted, setMounted] = useState(false);
 
@@ -194,13 +196,7 @@ Modal.Content = function ModalContent({
  *   <Modal.Title>제목</Modal.Title>
  * </Modal.Header>
  */
-Modal.Header = function ModalHeader({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+Modal.Header = function ModalHeader({ children, className }: ModalBaseProps) {
   return <div className={cn('mb-6', className)}>{children}</div>;
 };
 
@@ -212,13 +208,7 @@ Modal.Header = function ModalHeader({
  * @param {ReactNode} children - 제목 내용
  * @param {string} [className] - 사용자 정의 클래스 (스타일 확장용)
  */
-Modal.Title = function ModalTitle({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+Modal.Title = function ModalTitle({ children, className }: ModalBaseProps) {
   return (
     <h2
       className={cn(
@@ -244,13 +234,7 @@ Modal.Title = function ModalTitle({
  *   이곳에 본문 내용을 자유롭게 추가해주세요.
  * </Modal.Body>
  */
-Modal.Body = function ModalBody({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+Modal.Body = function ModalBody({ children, className }: ModalBaseProps) {
   return (
     <div className={cn('h-fit max-h-full overflow-y-auto pb-4', className)}>
       {children}
@@ -285,13 +269,7 @@ Modal.Body = function ModalBody({
  * </Modal.Footer>
  * ```
  */
-Modal.Footer = function ModalFooter({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+Modal.Footer = function ModalFooter({ children, className }: ModalBaseProps) {
   return (
     <div className={cn('mt-4 flex w-[100%] justify-center gap-2', className)}>
       {children}
@@ -333,11 +311,7 @@ Modal.Close = function ModalClose({
   children,
   asChild = false,
   className,
-}: {
-  children?: ReactNode;
-  asChild?: boolean;
-  className?: string;
-}) {
+}: ModalSlotProps) {
   const { close } = useModalContext();
 
   if (asChild) {
