@@ -1,7 +1,16 @@
 'use client';
 
 import Button from '@/components/Button';
-import Modal from '@/components/Modal';
+import {
+  Modal,
+  ModalBody,
+  ModalClose,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTrigger,
+} from '@/components/Modal';
 
 export default function UiModal() {
   return (
@@ -9,22 +18,22 @@ export default function UiModal() {
       <h1 className='mb-3 text-3xl font-bold text-gray-900'>Modal</h1>
       <div className='content-text w-full bg-gray-50 p-3 leading-10 text-gray-600'>
         <p>
-          <strong>- 구성:</strong> Modal, Modal.Trigger, Modal.Content,
-          Modal.Header, Modal.Title, Modal.Body, Modal.Footer, Modal.Close
+          <strong>- 구성:</strong> Modal, ModalTrigger, ModalContent,
+          ModalHeader, ModalTitle, ModalBody, ModalFooter, ModalClose
         </p>
 
         <p>
-          <strong>- Modal.Content [variant]:</strong> default (default){' '}
+          <strong>- ModalContent [variant]:</strong> default (default){' '}
           <span className='text-gray-400'>|</span> confirm
         </p>
 
         <p>
-          <strong>- Modal.Trigger [asChild]:</strong> false (default){' '}
+          <strong>- ModalTrigger [asChild]:</strong> false (default){' '}
           <span className='text-gray-400'>|</span> true
         </p>
 
         <p>
-          <strong>- Modal.Close [asChild]:</strong> false (default){' '}
+          <strong>- ModalClose [asChild]:</strong> false (default){' '}
           <span className='text-gray-400'>|</span> true
         </p>
 
@@ -33,36 +42,36 @@ export default function UiModal() {
         <p className='font-bold text-black'>🧩 기본 사용 예시</p>
         <pre className='bg-white p-4 text-sm text-gray-800'>
           {`<Modal>
-  <Modal.Trigger>모달 열기</Modal.Trigger>
-  <Modal.Content>
-    <Modal.Header>
-      <Modal.Title>제목</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>본문</Modal.Body>
-    <Modal.Footer>
-      <Modal.Close>닫기</Modal.Close>
-    </Modal.Footer>
-  </Modal.Content>
+  <ModalTrigger>모달 열기</ModalTrigger>
+  <ModalContent>
+    <ModalHeader>
+      <ModalTitle>제목</ModalTitle>
+    </ModalHeader>
+    <ModalBody>본문</ModalBody>
+    <ModalFooter>
+      <ModalClose>닫기</ModalClose>
+    </ModalFooter>
+  </ModalContent>
 </Modal>`}
         </pre>
 
         <p className='mt-6 font-bold text-black'>🧩 asChild 패턴 사용 예시</p>
         <pre className='bg-white p-4 text-sm text-gray-800'>
           {`<Modal>
-  <Modal.Trigger asChild>
+  <ModalTrigger asChild>
     <Button size='sm' variant='secondary'>열기</Button>
-  </Modal.Trigger>
-  <Modal.Content variant='confirm'>
-    <Modal.Body>정말 삭제하시겠습니까?</Modal.Body>
-    <Modal.Footer>
-      <Modal.Close asChild>
+  </ModalTrigger>
+  <ModalContent variant='confirm'>
+    <ModalBody>정말 삭제하시겠습니까?</ModalBody>
+    <ModalFooter>
+      <ModalClose asChild>
         <Button variant='outline'>취소</Button>
-      </Modal.Close>
-      <Modal.Close asChild>
+      </ModalClose>
+      <ModalClose asChild>
         <Button variant='primary'>확인</Button>
-      </Modal.Close>
-    </Modal.Footer>
-  </Modal.Content>
+      </ModalClose>
+    </ModalFooter>
+  </ModalContent>
 </Modal>`}
         </pre>
 
@@ -75,23 +84,23 @@ export default function UiModal() {
       <h2 className='mt-10 mb-3 text-xl font-bold text-gray-700'>Standard</h2>
       <div className='flex flex-wrap gap-5'>
         <Modal>
-          <Modal.Trigger asChild>
+          <ModalTrigger asChild>
             <Button size='sm' variant='secondary' onClick={() => {}}>
               삭제 모달
             </Button>
-          </Modal.Trigger>
+          </ModalTrigger>
 
-          <Modal.Content
+          <ModalContent
             className='flex w-[35rem] flex-col items-center'
             variant='confirm'
           >
-            <Modal.Header>
-              <Modal.Title className='py-8 font-medium'>
+            <ModalHeader>
+              <ModalTitle className='py-8 font-medium'>
                 정말 삭제하시겠습니까?
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Footer>
-              <Modal.Close asChild>
+              </ModalTitle>
+            </ModalHeader>
+            <ModalFooter>
+              <ModalClose asChild>
                 <Button
                   className='flex-1'
                   size='sm'
@@ -100,7 +109,7 @@ export default function UiModal() {
                 >
                   취소
                 </Button>
-              </Modal.Close>
+              </ModalClose>
               <Button
                 className='flex-1'
                 size='sm'
@@ -109,22 +118,22 @@ export default function UiModal() {
               >
                 삭제하기
               </Button>
-            </Modal.Footer>
-          </Modal.Content>
+            </ModalFooter>
+          </ModalContent>
         </Modal>
 
         <Modal>
-          <Modal.Trigger asChild>
+          <ModalTrigger asChild>
             <Button size='sm' variant='primary' onClick={() => {}}>
               예시 모달
             </Button>
-          </Modal.Trigger>
+          </ModalTrigger>
 
-          <Modal.Content>
-            <Modal.Header>
-              <Modal.Title>제목</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className='flex-1 overflow-y-auto'>
+          <ModalContent>
+            <ModalHeader>
+              <ModalTitle>제목</ModalTitle>
+            </ModalHeader>
+            <ModalBody className='flex-1 overflow-y-auto'>
               {Array.from({ length: 10 }, () => (
                 <p key={Math.random()} className='mb-4'>
                   이것은 더미 텍스트입니다. 실제 내용이 들어갈 자리이며,
@@ -134,10 +143,10 @@ export default function UiModal() {
                   있습니다.
                 </p>
               ))}
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.Close />
-              <Modal.Close asChild>
+            </ModalBody>
+            <ModalFooter>
+              <ModalClose />
+              <ModalClose asChild>
                 <Button
                   className='w-full'
                   size='sm'
@@ -148,9 +157,9 @@ export default function UiModal() {
                 >
                   액션 버튼
                 </Button>
-              </Modal.Close>
-            </Modal.Footer>
-          </Modal.Content>
+              </ModalClose>
+            </ModalFooter>
+          </ModalContent>
         </Modal>
       </div>
     </div>
