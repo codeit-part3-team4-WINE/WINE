@@ -20,6 +20,12 @@ export default function DesignSystem() {
         />
 
         <LinkButton description='View all icons' slug='ui-icon' title='Icons' />
+        
+        <LinkButton
+          description='View all rating summary examples'
+          slug='ui-rating-summary'
+          title='Rating Summary Components'
+        />
 
         <LinkButton
           description='View all profileImg examples'
@@ -31,6 +37,12 @@ export default function DesignSystem() {
           description='View all selectbox variations and examples'
           slug='ui-selectbox'
           title='Selectbox Components'
+        />
+        
+       <LinkButton
+          description='View all radio variations and examples'
+          slug='ui-radio'
+          title='Radio Components'
         />
       </div>
     </div>
