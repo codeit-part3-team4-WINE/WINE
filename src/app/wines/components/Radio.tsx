@@ -20,6 +20,15 @@ interface RadioContextType {
   children?: React.ReactNode;
 }
 
+interface RadioProps
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'value' | 'onChange'
+  > {
+  value: number | string;
+  children?: React.ReactNode;
+}
+
 const RadioContext = createContext<RadioContextType | null>(null);
 
 function useRadioContext() {
@@ -99,14 +108,7 @@ RadioGroup.Title = function Title() {
  * @example
  * <RadioGroup.Radio value={1}>전체</RadioGroup.Radio>
  */
-RadioGroup.Radio = function Radio({
-  value,
-  children,
-  ...props
-}: {
-  value: number | string;
-  children?: React.ReactNode;
-}) {
+RadioGroup.Radio = function Radio({ value, children, ...props }: RadioProps) {
   const { onSelect } = useRadioContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
