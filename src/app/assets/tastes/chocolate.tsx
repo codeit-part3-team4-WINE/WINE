@@ -65,3 +65,5 @@ export default function ChocolateIcon({
     </svg>
   );
 }
+
+ChocolateIcon.displayName = 'ChocolateIcon';

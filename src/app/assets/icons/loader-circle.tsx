@@ -21,3 +21,5 @@ export default function LoaderCircleIcon({
     </svg>
   );
 }
+
+LoaderCircleIcon.displayName = 'LoaderCircleIcon';

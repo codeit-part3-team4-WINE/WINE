@@ -73,3 +73,5 @@ export default function CitrusIcon({
     </svg>
   );
 }
+
+CitrusIcon.displayName = 'CitrusIcon';

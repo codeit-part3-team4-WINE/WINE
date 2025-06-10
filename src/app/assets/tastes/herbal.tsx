@@ -34,3 +34,5 @@ export default function HerbalIcon({
     </svg>
   );
 }
+
+HerbalIcon.displayName = 'HerbalIcon';

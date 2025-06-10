@@ -71,3 +71,5 @@ export default function EarthyIcon({
     </svg>
   );
 }
+
+EarthyIcon.displayName = 'EarthyIcon';

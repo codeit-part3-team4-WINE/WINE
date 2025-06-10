@@ -43,3 +43,5 @@ export default function ChevronArrowIcon({
     </svg>
   );
 }
+
+ChevronArrowIcon.displayName = 'ChevronArrowIcon';
