@@ -9,14 +9,14 @@ import { cn } from '@/libs/cn';
  * @type {string} [title] - 제목
  * @type {string} [titleClassName] - 제목 className (스타일 확장용)
  * @type {string} [radioGroupClassName] - 라디오 그룹 className (스타일 확장용)
- * @type {event: React.ChangeEvent<HTMLInputElment> => void} onChange - 라디오 선택 시 값 변경을 위해 사용되는 이벤트 핸들러 (콜백 함수)
+ * @type {(value: string | number) => void} onSelect - 라디오 선택 시 값 변경을 위해 사용되는 이벤트 핸들러 (콜백 함수)
  * @type {React.ReactNode} children
  */
 interface RadioContextType {
   title?: string;
   titleClassName?: string;
   radioGroupClassName?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSelect: (value: string | number) => void;
   children?: React.ReactNode;
 }
 
@@ -33,13 +33,13 @@ function useRadioContext() {
 /**
  * RadioGroup 컴포넌트
  *
- * @description radio input을 재사용할 수 있게 합성 컴포넌트로 구현하였습니다. 외부에서 선택된 값을 관리할 state를 선언하고 사용합니다.
+ * @description radio input을 재사용할 수 있게 합성 컴포넌트로 구현하였습니다. 내부에서 onChange 이벤트를 처리하기 때문에, 외부에서는 선택된 값을 처리할 onSelect 전달하면 됩니다.
  *
  * @component
  * @param {string} [title] - 제목
  * @param {string} [titleClassName] - 제목 className (스타일 확장용)
  * @param {string} [radioGroupClassName] - 라디오 그룹 className (스타일 확장용)
- * @param {event: React.ChangeEvent<HTMLInputElment> => void} onChange - 라디오 선택 시 값 변경을 위해 사용되는 이벤트 핸들러 (콜백 함수)
+ * @param {(value: string | number) => void} onSelect - 라디오 선택 시 값 변경을 위해 사용되는 이벤트 핸들러 (콜백 함수)
  * @param {React.ReactNode} children
  *
  * @example
@@ -48,7 +48,7 @@ function useRadioContext() {
  *   radioGroupClassName="gap-3"
  *   title="Rating"
  *   titleClassName="mb-4 text-[1.8rem]"
- *   onChange={handleChange}
+ *   onSelect={(value) => setValue(value)}
  * >
  *   <RadioGroup.Radio value={1}>전체</RadioGroup.Radio>
  *   <RadioGroup.Radio value={2}>4.5 - 5.0</RadioGroup.Radio>
@@ -62,11 +62,11 @@ export default function RadioGroup({
   title,
   titleClassName,
   radioGroupClassName,
-  onChange,
+  onSelect,
   children,
 }: RadioContextType) {
   return (
-    <RadioContext.Provider value={{ title, onChange, titleClassName }}>
+    <RadioContext.Provider value={{ title, onSelect, titleClassName }}>
       {title && <RadioGroup.Title />}
       <div className={cn('flex flex-col gap-2', radioGroupClassName)}>
         {children}
@@ -107,7 +107,12 @@ RadioGroup.Radio = function Radio({
   value: number | string;
   children?: React.ReactNode;
 }) {
-  const { onChange } = useRadioContext();
+  const { onSelect } = useRadioContext();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    onSelect?.(value);
+  };
 
   return (
     <label className='content-text flex w-fit cursor-pointer items-center gap-4'>
@@ -116,7 +121,7 @@ RadioGroup.Radio = function Radio({
         name='radioGroup'
         type='radio'
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         {...props}
       />
       <div className='peer-checked:after:bg-primary-100 relative size-6 rounded-md border border-gray-300 bg-gray-50 peer-checked:after:absolute peer-checked:after:inset-[0.25rem] peer-checked:after:rounded peer-checked:after:content-[""]' />

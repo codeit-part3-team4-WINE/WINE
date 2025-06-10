@@ -7,10 +7,6 @@ import RadioGroup from '@/app/wines/components/Radio';
 export default function UiRadio() {
   const [selected, setSelected] = useState<number | string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelected(e.target.value);
-  };
-
   return (
     <div className='p-8'>
       <h1 className='mb-3 text-3xl font-bold text-gray-900'>Radio</h1>
@@ -41,7 +37,7 @@ export default function UiRadio() {
   radioGroupClassName="gap-3"
   title="Rating"
   titleClassName="mb-4 text-[1.8rem]"
-  onChange={handleChange}
+  onSelect={(value) => setSelected(value)}
 >
   <RadioGroup.Radio value={1}>전체</RadioGroup.Radio>
   <RadioGroup.Radio value={2}>4.5 - 5.0</RadioGroup.Radio>
@@ -58,7 +54,7 @@ export default function UiRadio() {
         radioGroupClassName='gap-3'
         title='Rating'
         titleClassName='mb-4 text-[1.8rem]'
-        onChange={handleChange}
+        onSelect={(value) => setSelected(value)}
       >
         <RadioGroup.Radio value={1}>전체</RadioGroup.Radio>
         <RadioGroup.Radio value={2}>4.5 - 5.0</RadioGroup.Radio>
