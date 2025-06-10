@@ -27,10 +27,10 @@ export default function Footer() {
 
           {/* 날짜 + 정보 영역 */}
           <div className='flex flex-col gap-y-2 md:flex-row md:items-center md:justify-between'>
-            <div className='text-md whitespace-nowrap text-gray-300'>
+            <div className='text-md whitespace-nowrap text-gray-600'>
               <p>©2025.06</p>
             </div>
-            <ul className='text-md flex flex-col flex-wrap gap-y-1 text-gray-300 md:flex-row md:gap-6'>
+            <ul className='text-md flex flex-col flex-wrap gap-y-1 text-gray-600 md:flex-row md:gap-6'>
               <li className='break-words whitespace-normal'>
                 Taeilwind v20.08
               </li>
