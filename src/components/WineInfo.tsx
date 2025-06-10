@@ -1,8 +1,7 @@
 import Image, { StaticImageData } from 'next/image';
 
+import PriceBadge from '@/components/PriceBadge';
 import { cn } from '@/libs/cn';
-
-import PriceBadge from './PriceBadge';
 
 interface WineInfoProps {
   /**
@@ -33,6 +32,10 @@ interface WineInfoProps {
    * 와인 이미지 스타일링을 위한 선택적 CSS 클래스명
    */
   wineImageClassName?: string;
+  /**
+   * 와인 정보 컨테이너 스타일링을 위한 선택적 CSS 클래스명
+   */
+  className?: string;
 }
 
 /**
@@ -71,9 +74,10 @@ export default function WineInfo({
   wineNameClassName,
   wineCountryClassName,
   wineImageClassName,
+  className,
 }: WineInfoProps) {
   return (
-    <div className='flex'>
+    <div className={cn('flex', className)}>
       <div className='flex h-full w-full gap-4'>
         <div className='relative aspect-[3/4] w-full max-w-xs'>
           <Image
