@@ -26,7 +26,7 @@ export default function ProfileSection({
   return (
     <section
       className={cn(
-        'flex items-center justify-between',
+        'mt-[2rem] flex shrink-0 items-center justify-between',
         'lg:mt-[4rem] lg:h-[40rem] lg:w-[28rem] lg:flex-col lg:justify-around lg:rounded-[1.6rem] lg:border lg:border-gray-300',
       )}
     >
