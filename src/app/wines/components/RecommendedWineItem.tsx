@@ -44,11 +44,11 @@ export default function RecommendedWineItem({
 }: RecommendedWineItemProps) {
   return (
     <Link
-      className='inset-shadow-md flex h-[18rem] w-[26rem] cursor-pointer items-center justify-between gap-4 rounded-2xl bg-white px-5'
+      className='inset-shadow-md flex h-[15rem] min-w-[24rem] cursor-pointer items-center justify-between gap-4 rounded-2xl bg-white px-5 md:h-[18rem] md:w-[26rem]'
       href={`/wines/${id}`}
     >
       {imageSrc ? (
-        <div className='flex h-full w-full items-center justify-center pt-5'>
+        <div className='flex h-full w-full max-w-[10rem] min-w-[8rem] items-center justify-center pt-5'>
           <Image
             alt='wine'
             className='pointer-events-none max-h-full max-w-full object-contain select-none'
@@ -58,13 +58,20 @@ export default function RecommendedWineItem({
           />
         </div>
       ) : (
-        <div className='flex size-[10rem] items-center justify-center'>
+        <div className='flex size-[10rem] max-w-[10rem] min-w-[8rem] items-center justify-center'>
           <WineIcon size={50} />
         </div>
       )}
 
-      <RatingSummary direction='col' rating={rating} size='sm'>
-        <RatingSummary.Text className='w-[13rem]'>{name}</RatingSummary.Text>
+      <RatingSummary
+        className='gap-1'
+        direction='col'
+        rating={rating}
+        size='sm'
+      >
+        <RatingSummary.Text className='mt-2 w-[13rem]'>
+          {name}
+        </RatingSummary.Text>
       </RatingSummary>
     </Link>
   );
