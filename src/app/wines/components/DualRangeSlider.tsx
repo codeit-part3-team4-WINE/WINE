@@ -46,15 +46,16 @@ export default function DualRangeSlider({
   const [rangeMaxValue, setRangeMaxValue] = useState(endValue);
   const [rangeMinPercent, setRangeMinPercent] = useState(0);
   const [rangeMaxPercent, setRangeMaxPercent] = useState(0);
+  const disabledGap = gap * 5;
 
   /** 최소값 슬라이더 변경 핸들러 */
   const rangeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newMinValue = parseInt(e.target.value);
 
-    if (newMinValue >= rangeMaxValue - gap) {
+    if (newMinValue >= rangeMaxValue - disabledGap) {
       // min이 max보다 커지면 max도 같이 함께 커진다.
-      const newMaxValue = Math.min(newMinValue + gap, endValue);
-      const adjustedMinValue = newMaxValue - gap;
+      const newMaxValue = Math.min(newMinValue + disabledGap, endValue);
+      const adjustedMinValue = newMaxValue - disabledGap;
 
       setRangeMinValue(adjustedMinValue);
       setRangeMaxValue(newMaxValue);
@@ -70,10 +71,10 @@ export default function DualRangeSlider({
   const rangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newMaxValue = parseInt(e.target.value);
 
-    if (newMaxValue <= rangeMinValue + gap) {
+    if (newMaxValue <= rangeMinValue + disabledGap) {
       // max가 min보다 작아지면 min도 같이 함께 작아진다.
-      const newMinValue = Math.max(newMaxValue - gap, startValue);
-      const adjustedMaxValue = newMinValue + gap;
+      const newMinValue = Math.max(newMaxValue - disabledGap, startValue);
+      const adjustedMaxValue = newMinValue + disabledGap;
 
       setRangeMinValue(newMinValue);
       setRangeMaxValue(adjustedMaxValue);
