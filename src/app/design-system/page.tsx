@@ -38,8 +38,8 @@ export default function DesignSystem() {
           slug='ui-selectbox'
           title='Selectbox Components'
         />
-        
-       <LinkButton
+
+        <LinkButton
           description='View all radio variations and examples'
           slug='ui-radio'
           title='Radio Components'
