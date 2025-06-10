@@ -95,3 +95,5 @@ export default function TropicalIcon({
     </svg>
   );
 }
+
+TropicalIcon.displayName = 'TropicalIcon';

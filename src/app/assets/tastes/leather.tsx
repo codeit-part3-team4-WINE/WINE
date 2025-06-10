@@ -34,3 +34,5 @@ export default function LeatherIcon({
     </svg>
   );
 }
+
+LeatherIcon.displayName = 'LeatherIcon';

@@ -46,3 +46,5 @@ export default function SpicyIcon({
     </svg>
   );
 }
+
+SpicyIcon.displayName = 'SpicyIcon';

@@ -15,3 +15,5 @@ export default function GitHubLogo() {
     </svg>
   );
 }
+
+GitHubLogo.displayName = 'GitHubLogo';

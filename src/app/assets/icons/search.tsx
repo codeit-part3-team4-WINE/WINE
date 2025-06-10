@@ -21,3 +21,5 @@ export default function SearchIcon({
     </svg>
   );
 }
+
+SearchIcon.displayName = 'SearchIcon';

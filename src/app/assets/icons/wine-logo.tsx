@@ -28,3 +28,5 @@ export default function WineLogoIcon({
     </svg>
   );
 }
+
+WineLogoIcon.displayName = 'WineLogoIcon';

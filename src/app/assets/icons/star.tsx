@@ -53,3 +53,5 @@ export default function StarIcon({
     </svg>
   );
 }
+
+StarIcon.displayName = 'StarIcon';
