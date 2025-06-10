@@ -8,18 +8,22 @@ import { cn } from '@/libs/cn';
 // Modal에서 value 값 전달 할때 사용
 interface InputRangeProps {
   className?: string;
-  // values?: Option;
-  // onChange?: (name: keyof Option, value: number) => void;
+  values: Option;
+  onChange?: (name: keyof Option, value: number) => void;
 }
 
-// type Option = {
-//   body: number;
-//   tannin: number;
-//   sweetness: number;
-//   acidity: number;
-// };
+type Option = {
+  body: number;
+  tannin: number;
+  sweetness: number;
+  acidity: number;
+};
 
-export default function InputRange({ className = '' }: InputRangeProps) {
+export default function InputRange({
+  className = '',
+  // values,
+  onChange,
+}: InputRangeProps) {
   return (
     <div className={cn('mx-auto w-full space-y-4', className)}>
       {rangeItems.map((items) => (
@@ -46,8 +50,11 @@ export default function InputRange({ className = '' }: InputRangeProps) {
               min={-5}
               step={1}
               type='range'
-              // value={50}
-              onChange={() => {}}
+              // value={values[items.name as keyof Option]} 머지되면 모달에서 values 넘김
+
+              onChange={(e) =>
+                onChange?.(items.name as keyof Option, Number(e.target.value))
+              }
             />
           </div>
 
