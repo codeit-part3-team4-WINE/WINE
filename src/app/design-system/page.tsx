@@ -50,6 +50,12 @@ export default function DesignSystem() {
           slug='ui-recommend-wine-item'
           title='Recommend Wine Item Components'
         />
+
+        <LinkButton
+          description='View all Dual Range Slider examples'
+          slug='ui-dual-range-slider'
+          title='Dual Range Slider Components'
+        />
       </div>
     </div>
   );
