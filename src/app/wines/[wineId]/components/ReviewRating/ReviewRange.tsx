@@ -13,7 +13,7 @@ export default function ReviewRange({
       <label className='text-sm leading-none whitespace-nowrap text-gray-500'>
         {label}
       </label>
-      <div className='relative h-2 w-full overflow-hidden rounded-lg bg-gray-200'>
+      <div className='relative h-3 w-full overflow-hidden rounded-lg bg-gray-200'>
         <div
           className='bg-primary-100 h-full rounded-lg transition-all duration-300 ease-out'
           style={{ width: `${percentage}%` }}
