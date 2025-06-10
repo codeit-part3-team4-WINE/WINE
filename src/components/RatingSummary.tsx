@@ -56,6 +56,7 @@ function RatingSummary({
   size = 'md',
   iconColor = '#6A42DB',
   className,
+  ratingClassName,
   children,
 }: {
   rating: number;
@@ -63,6 +64,7 @@ function RatingSummary({
   size?: Size;
   iconColor?: string;
   className?: string;
+  ratingClassName?: string;
   children?: React.ReactNode;
 }) {
   const ratingSize = SIZE_VARIANTS[size].rating;
@@ -77,12 +79,16 @@ function RatingSummary({
 
   return direction === 'col' ? (
     <div className={cn('flex flex-col items-start gap-[1rem]', className)}>
-      <p className={cn('font-bold', ratingSize)}>{rating.toFixed(1)}</p>
+      <p className={cn(`font-bold ${ratingSize}`, ratingClassName)}>
+        {rating.toFixed(1)}
+      </p>
       {Content}
     </div>
   ) : (
     <div className={cn('flex items-center gap-[2rem]', className)}>
-      <p className={cn('font-bold', ratingSize)}>{rating.toFixed(1)}</p>
+      <p className={cn(`font-bold ${ratingSize}`, ratingClassName)}>
+        {rating.toFixed(1)}
+      </p>
       <div className='flex flex-col items-start gap-[1rem]'>{Content}</div>
     </div>
   );
@@ -152,7 +158,12 @@ function Text({
 }) {
   const textSize = SIZE_VARIANTS[size].text;
   return (
-    <p className={cn('w-[10rem] text-gray-500', textSize, className)}>
+    <p
+      className={cn(
+        `line-clamp-2 w-[10rem] text-gray-500 ${textSize}`,
+        className,
+      )}
+    >
       {children}
     </p>
   );
