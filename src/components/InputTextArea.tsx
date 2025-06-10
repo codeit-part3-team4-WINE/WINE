@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+
 interface TextAreaProps {
   size?: 'sm' | 'md' | 'lg';
   placeholder?: string;
@@ -12,8 +14,8 @@ interface TextAreaProps {
 
 const sizeStyle = {
   lg: 'w-full max-w-[412px] h-fit text-lg ',
-  md: 'w-full max-w-[327px] h-fit text-lg  ',
-  sm: 'w-full max-w-[210px] h-fit text-sm  ',
+  md: 'w-full max-w-[327px] h-fit text-lg ',
+  sm: 'w-full max-w-[210px] h-fit text-sm ',
 };
 
 export default function InputTextArea({
@@ -24,7 +26,7 @@ export default function InputTextArea({
   onChange,
   rows = 3,
 }: TextAreaProps) {
-  const commonStyle = ` ${className} ${sizeStyle[size]} resize-none overflow-hidden rounded-xl border border-gray-300 px-4 py-2`;
+  const commonStyle = `${className} ${sizeStyle[size]} resize-none overflow-hidden rounded-xl border border-gray-300 px-4 py-2`;
 
   return (
     <div className='relative mx-auto flex w-full'>

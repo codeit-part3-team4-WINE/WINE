@@ -21,7 +21,7 @@ type Option = {
 
 export default function InputRange({
   className = '',
-  // values,
+  values,
   onChange,
 }: InputRangeProps) {
   return (
@@ -50,8 +50,7 @@ export default function InputRange({
               min={-5}
               step={1}
               type='range'
-              // value={values[items.name as keyof Option]} 머지되면 모달에서 values 넘김
-
+              value={values[items.name as keyof Option]}
               onChange={(e) =>
                 onChange?.(items.name as keyof Option, Number(e.target.value))
               }
