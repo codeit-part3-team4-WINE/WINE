@@ -20,9 +20,11 @@ export default function HeartIcon({
   size = 24,
   color = '#CFDBEA',
   filled = false,
+  className,
 }: FillIconProps) {
   return (
     <svg
+      className={className}
       fill={filled ? color : 'none'}
       height={size}
       stroke={color}
