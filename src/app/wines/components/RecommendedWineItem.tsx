@@ -48,7 +48,7 @@ export default function RecommendedWineItem({
       href={`/wines/${id}`}
     >
       {imageSrc ? (
-        <div className='flex h-full w-full max-w-[10rem] min-w-[8rem] items-center justify-center pt-5'>
+        <div className='flex h-full w-full max-w-[8rem] min-w-[10rem] items-center justify-center pt-5 md:max-w-[10rem] md:min-w-[8rem]'>
           <Image
             alt='wine'
             className='pointer-events-none max-h-full max-w-full object-contain select-none'
@@ -58,18 +58,19 @@ export default function RecommendedWineItem({
           />
         </div>
       ) : (
-        <div className='flex size-[10rem] max-w-[10rem] min-w-[8rem] items-center justify-center'>
+        <div className='flex max-w-[8rem] min-w-[10rem] items-center justify-center'>
           <WineIcon size={50} />
         </div>
       )}
 
       <RatingSummary
-        className='gap-1'
+        className='gap-1 md:gap-3'
         direction='col'
         rating={rating}
+        ratingClassName='text-[3.2rem] md:text-[3.6rem]'
         size='sm'
       >
-        <RatingSummary.Text className='mt-2 w-[13rem]'>
+        <RatingSummary.Text className='mt-2 text-[1rem] md:w-[13rem] md:text-[1.2rem]'>
           {name}
         </RatingSummary.Text>
       </RatingSummary>
