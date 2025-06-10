@@ -50,6 +50,12 @@ export default function DesignSystem() {
           slug='ui-recommend-wine-item'
           title='Recommend Wine Item Components'
         />
+
+        <LinkButton
+          description='View all multi select examples'
+          slug='ui-multi-select'
+          title='Multi Select Components'
+        />
       </div>
     </div>
   );
