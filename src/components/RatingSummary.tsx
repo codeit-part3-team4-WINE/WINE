@@ -152,7 +152,13 @@ function Text({
 }) {
   const textSize = SIZE_VARIANTS[size].text;
   return (
-    <p className={cn('w-[10rem] text-gray-500', textSize, className)}>
+    <p
+      className={cn(
+        'line-clamp-2 w-[10rem] text-gray-500',
+        textSize,
+        className,
+      )}
+    >
       {children}
     </p>
   );
