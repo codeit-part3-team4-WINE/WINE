@@ -72,7 +72,10 @@ export default function InputPair({
   return (
     <div className='flex flex-col'>
       <label
-        className={cn(`${currentSize.label} text-black`, labelClassName)}
+        className={cn(
+          `${currentSize.label} leading-[3.2rem] text-black`,
+          labelClassName,
+        )}
         htmlFor={label}
       >
         <span className='cursor-pointer'>{label}</span>
