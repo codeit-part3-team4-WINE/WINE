@@ -1,10 +1,10 @@
-import { createPrivateInstanceServer } from '@/apis/privateInstanceServer';
+import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 
 import Test from './components/Test';
 
 export default async function AuthLogicTest() {
   //서버 컴포넌트 인스턴스로 요청(로그인시만 가능한 요청 테스트)
-  const instance = await createPrivateInstanceServer();
+  const instance = await createPrivateServerInstance();
 
   try {
     const res = await instance.get('/users/me');

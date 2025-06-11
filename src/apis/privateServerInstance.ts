@@ -22,7 +22,7 @@ import { cookies } from 'next/headers';
 
 import { API_HEADERS, API_TIMEOUT } from '@/constants/apiConstants';
 
-export const createPrivateInstanceServer = async (): Promise<AxiosInstance> => {
+export const createPrivateServerInstance = async (): Promise<AxiosInstance> => {
   const cookieStore = await cookies();
 
   let accessToken = cookieStore.get('accessToken')?.value;
@@ -38,6 +38,7 @@ export const createPrivateInstanceServer = async (): Promise<AxiosInstance> => {
         .map((token) => `${token.name}=${token.value}`)
         .join('; ');
 
+      //쿠키를 직접헤더에 넣음
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/refresh`,
         {},

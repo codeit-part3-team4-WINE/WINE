@@ -19,9 +19,8 @@
     }
   };
 
- *
  * // POST 요청
- * const res = await privateInstance.post('/api/protected', { foo: 'bar' });
+ * const res = await privateInstance.post('/api/wine', { wine: 'hihi' });
  */
 
 import axios, { AxiosInstance } from 'axios';
