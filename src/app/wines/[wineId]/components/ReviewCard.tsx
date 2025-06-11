@@ -26,8 +26,8 @@ export default function ReviewCard() {
           </div>
         </div>
         <div className='flex items-center gap-2 pt-2'>
-          <div className='size-[3.8rem] cursor-pointer'>
-            <HeartIcon className='hover:fill-red-500' />
+          <div className='group size-[3.8rem] cursor-pointer'>
+            <HeartIcon className='group-hover:fill-red-400 group-hover:stroke-red-400' />
           </div>
           <div className='size-[3.8rem] cursor-pointer'>
             <Dropdown>
@@ -52,7 +52,7 @@ export default function ReviewCard() {
           </div>
         ))}
       </div>
-      {isOpen ? (
+      {isOpen && (
         <>
           <div className='text-lg'>
             <p className='text-gray-900'>
@@ -64,7 +64,7 @@ export default function ReviewCard() {
           </div>
           <div>인풋 레인지지</div>
         </>
-      ) : null}
+      )}
       <div
         className='flex cursor-pointer justify-center transition-all'
         onClick={handleOpen}
