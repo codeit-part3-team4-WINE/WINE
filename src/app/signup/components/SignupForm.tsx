@@ -1,10 +1,10 @@
 'use client';
 
 import { AxiosError } from 'axios';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { instance } from '@/apis/instance';
 import useUserStore from '@/stores/Auth-store/authStore';
 
 export default function SignUpForm() {
@@ -26,13 +26,9 @@ export default function SignUpForm() {
     e.preventDefault();
 
     try {
-      const response = await instance.post('/auth/signup', form);
-      const { user, accessToken, refreshToken } = response.data;
+      const response = await axios.post('/api/auth/signUp', form);
 
-      document.cookie = `accessToken=${accessToken}; path=/; max-age=${60 * 60}; secure; samesite=lax`; ///토큰 만료시간과 함께 설정
-      document.cookie = `refreshToken=${refreshToken}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`;
-
-      setUser(user);
+      setUser(response.data.user);
       router.push('/myprofile');
     } catch (err: unknown) {
       const axiosError = err as AxiosError<{ error: string }>;

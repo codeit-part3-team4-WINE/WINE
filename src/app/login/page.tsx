@@ -4,11 +4,11 @@ import { redirect } from 'next/navigation';
 import LoginForm from './components/LoginForm';
 
 export default async function LoginPage() {
-  const cookieStore = cookies();
-  const accessToken = (await cookieStore).get(`accessToken`)?.value;
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get(`accessToken`)?.value;
 
   if (accessToken) {
-    redirect('/myprofile');
+    redirect('/');
   }
   return <LoginForm />;
 }

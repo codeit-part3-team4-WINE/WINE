@@ -1,20 +1,16 @@
 'use client';
 
-import { AxiosError } from 'axios';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { instance } from '@/apis/instance';
 import useUserStore from '@/stores/Auth-store/authStore';
 
 export default function LoginForm() {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
 
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
+  const [form, setForm] = useState({ email: '', password: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,45 +20,62 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      const response = await instance.post('/auth/signIn', form);
-      const { user, accessToken, refreshToken } = response.data;
+      const response = await axios.post('/api/auth/signIn', form, {
+        withCredentials: true,
+      });
 
-      document.cookie = `accessToken=${accessToken}; path=/; max-age=${60 * 60}; secure; samesite=lax`;
-      document.cookie = `refreshToken=${refreshToken}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`;
+      const data = response.data;
 
-      setUser(user);
+      setUser(data.user);
       router.push('/myprofile');
-    } catch (err: unknown) {
-      const axiosError = err as AxiosError<{ error: string }>;
-      alert(axiosError.response?.data?.error || '로그인 실패');
+    } catch (err) {
+      alert((err as Error).message || '로그인 실패');
     }
   };
 
+  const handleKakaoLogin = () => {
+    const redirectUrl = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL ?? '';
+    const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUrl)}&response_type=code`;
+
+    // 카카오 로그인 URL로 리다이렉트
+    window.location.href = kakaoAuthUrl;
+  };
+
   return (
-    <form className='mx-auto flex' onSubmit={handleSubmit}>
+    <form
+      className='flex min-h-screen items-center justify-center p-4'
+      onSubmit={handleSubmit}
+    >
       <div className='flex flex-col'>
+        <label>이메일</label>
         <input
           required
-          className='h-20 w-80 border-2 border-solid border-gray-950'
+          className='h-20 w-full border-2 border-solid border-gray-950'
           name='email'
           placeholder='이메일'
           onChange={handleChange}
         />
-
+        <label>비밀번호</label>
         <input
           required
-          className='h-20 w-80 border-2 border-solid border-gray-950'
+          className='h-20 w-full border-2 border-solid border-gray-950'
           name='password'
           placeholder='비밀번호'
           type='password'
           onChange={handleChange}
         />
-
         <button
-          className='h-20 w-80 cursor-pointer border-2 border-solid border-gray-950'
+          className='mt-4 h-20 w-80 border-2 border-gray-950'
           type='submit'
         >
           로그인
+        </button>
+
+        <button
+          className='mt-4 h-20 w-80 border-2 border-gray-950'
+          onClick={handleKakaoLogin}
+        >
+          카카오로그인
         </button>
       </div>
     </form>

@@ -1,5 +1,7 @@
 import { instance } from '@/apis/instance';
 
+//리프레시토큰을 통해 액세스토큰 갱신용 커스텀훅
+
 const getCookie = (name: string): string | null => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
