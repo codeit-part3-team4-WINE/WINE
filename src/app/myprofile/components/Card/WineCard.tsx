@@ -18,7 +18,7 @@ export default function WineCard({ name, region, image, price }) {
       <div className='absolute -top-8 left-[2rem] h-[18rem] w-[5.3rem] md:-top-17 md:h-[27rem] md:w-[7rem]'>
         <Image fill alt={name} className='object-cover' src={image} />
       </div>
-      <div className='ml-[7rem] flex h-full flex-col justify-center gap-y-2 md:ml-[10rem] md:w-[30rem] md:gap-y-5'>
+      <div className='ml-[7rem] flex h-full flex-col justify-center gap-y-2 md:ml-[14rem] md:w-[30rem] md:gap-y-5'>
         <h1 className='text-xl font-bold text-gray-800 md:text-[3rem]'>
           {name}
         </h1>
