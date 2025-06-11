@@ -1,4 +1,4 @@
-import { user } from './components/mock/mock-data';
+import { reviews, user } from './components/mock/mock-data';
 import ProfileSection from './components/ProfileSection/ProfileSection';
 import Tab from './components/Tab';
 
