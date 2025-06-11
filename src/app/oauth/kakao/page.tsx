@@ -1,3 +1,5 @@
+//oAuth 카카오 로그인용 콜백페이지
+
 'use client';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -11,7 +13,7 @@ export default function KakaoCallbackPage() {
   const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
-    //리다이렉트된 URL에서 code 파라미터를 꺼내옴
+    // URL에서 code 파라미터를 꺼내옴
     const code = searchParams.get('code');
     if (code) {
       axios
