@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ChevronArrowIcon from '@/app/assets/icons/chevron-arrow';
 import HeartIcon from '@/app/assets/icons/heart';
 import VerticalMoreIcon from '@/app/assets/icons/vertical-more';
+import StarBadge from '@/components/Badge/StarBadge';
 import Dropdown from '@/components/Dropdown';
 import ProfileImg from '@/components/ProfileImg';
 import { formatToTimeAgo } from '@/libs/formmatToTimeago';
@@ -42,15 +43,21 @@ export default function ReviewCard() {
           </div>
         </div>
       </div>
-      <div className='flex items-center gap-2'>
-        {['체리', '오크', '카라멜', '시트러스', '꽃'].map((flavor) => (
-          <div
-            key={flavor}
-            className='w-fit rounded-full border border-gray-300 px-5 py-2 text-center text-lg text-gray-900'
-          >
-            {flavor}
-          </div>
-        ))}
+      <div className='flex items-center justify-between gap-2'>
+        <div
+          className='hide-scrollbar flex flex-1 items-center gap-2 overflow-x-scroll'
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {['체리', '오크', '카라멜', '시트러스', '꽃'].map((flavor) => (
+            <div
+              key={flavor}
+              className='flex-shrink-0 rounded-full border border-gray-300 px-5 py-2 text-center text-lg text-gray-900'
+            >
+              {flavor}
+            </div>
+          ))}
+        </div>
+        <StarBadge className='text-2lg flex-shrink-0' rating={4.8} />
       </div>
       {isOpen && (
         <>
