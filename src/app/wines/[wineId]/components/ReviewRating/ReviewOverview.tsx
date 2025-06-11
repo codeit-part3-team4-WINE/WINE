@@ -1,5 +1,4 @@
-import { REVIEW_RANGES } from '@/app/design-system/ui-wine-details/page';
-
+import { REVIEW_RANGES } from '../../dummy';
 import ReviewRangeGroup from './ReviewRangeGroup';
 import ReviewRating from './ReviewRating';
 import ReviewRatingButton from './ReviewRatingButton';
