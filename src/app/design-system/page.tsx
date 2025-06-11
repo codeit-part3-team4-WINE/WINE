@@ -56,6 +56,12 @@ export default function DesignSystem() {
           slug='ui-multi-select'
           title='Multi Select Components'
         />
+
+        <LinkButton
+          description='View wine list card component examples'
+          slug='ui-wine-list-card'
+          title='Wine List Card Components'
+        />
       </div>
     </div>
   );
