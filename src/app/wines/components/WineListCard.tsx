@@ -1,9 +1,11 @@
 import { StaticImageData } from 'next/image';
+import Link from 'next/link';
 
 import RatingSummary from '@/components/RatingSummary';
 import WineInfo from '@/components/WineInfo';
 
 interface WineListItemProps {
+  id: number;
   name: string;
   country: string;
   image: string | StaticImageData;
@@ -20,6 +22,7 @@ interface WineListItemProps {
  * 반응형 디자인을 지원하며 모바일과 데스크탑에서 다른 레이아웃을 제공합니다.
  *
  * @component
+ * @param {string} props.id - 와인 id
  * @param {string} props.name - 와인 이름
  * @param {string} props.country - 와인 생산 국가
  * @param {StaticImageData} props.image - 와인 이미지 데이터
@@ -30,6 +33,7 @@ interface WineListItemProps {
  * @example
  * ```tsx
  * <WineListCard
+ *   id={1}
  *   name="Château Margaux"
  *   country="France"
  *   image={wineImage}
@@ -45,6 +49,7 @@ interface WineListItemProps {
  * - 와인 이름과 국가명, 최신 후기는 텍스트 길이에 따라 말줄임 처리됩니다.
  */
 export default function WineListCard({
+  id,
   name,
   country,
   image,
@@ -53,7 +58,10 @@ export default function WineListCard({
   recentReview,
 }: WineListItemProps) {
   return (
-    <div className='flex min-w-[25rem] flex-col overflow-hidden'>
+    <Link
+      className='flex min-w-[25rem] cursor-pointer flex-col overflow-hidden'
+      href={`/wines/${id}`}
+    >
       <div className='relative flex flex-col gap-10 rounded-t-3xl border-1 border-gray-300 px-8 pt-10 sm:flex-row sm:justify-between'>
         <WineInfo
           price={64990}
@@ -85,6 +93,6 @@ export default function WineListCard({
           {recentReview}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }

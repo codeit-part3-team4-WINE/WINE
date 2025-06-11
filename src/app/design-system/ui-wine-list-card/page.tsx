@@ -10,6 +10,7 @@ export default function UiWineListCard() {
       <div className='flex flex-wrap gap-5'>
         <WineListCard
           country='Western Cape, South Africa'
+          id={1}
           image={dummyWineImage}
           name='Sentinel Carbernet Sauvignon 2016'
           rating={4.8}
@@ -20,6 +21,7 @@ export default function UiWineListCard() {
 
         <WineListCard
           country='Western Cape, South Africa Western Cape, South Africa Western Cape, South Africa'
+          id={2}
           image={dummyWineImage}
           name='Palazzo della Torre 2017 Palazzo della Torre 2017 Palazzo della Torre 2017 Palazzo della Torre 2017'
           rating={4.8}
