@@ -49,6 +49,12 @@ export default function DesignSystem() {
           slug='ui-wine-details'
           title='Wine Details Components'
         />
+
+        <LinkButton
+          description='View all Recommend Wine Item examples'
+          slug='ui-recommend-wine-item'
+          title='Recommend Wine Item Components'
+        />
       </div>
     </div>
   );

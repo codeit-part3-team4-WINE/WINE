@@ -43,3 +43,5 @@ export default function VerticalMoreIcon({
     </svg>
   );
 }
+
+VerticalMoreIcon.displayName = 'VerticalMoreIcon';

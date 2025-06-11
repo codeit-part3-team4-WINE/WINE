@@ -33,3 +33,5 @@ export default function CloseIcon({
     </svg>
   );
 }
+
+CloseIcon.displayName = 'CloseIcon';

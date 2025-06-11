@@ -49,3 +49,5 @@ export default function FloralIcon({
     </svg>
   );
 }
+
+FloralIcon.displayName = 'FloralIcon';

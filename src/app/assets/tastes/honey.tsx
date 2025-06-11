@@ -49,3 +49,5 @@ export default function HoneyIcon({
     </svg>
   );
 }
+
+HoneyIcon.displayName = 'HoneyIcon';

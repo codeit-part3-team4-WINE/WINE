@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Children, isValidElement } from 'react';
+import { Children, isValidElement } from 'react';
 
 import LoaderCircleIcon from '@/app/assets/icons/loader-circle';
 import {
@@ -10,6 +10,10 @@ import {
   LOADER_VARIANTS,
 } from '@/constants/button';
 import { cn } from '@/libs/cn';
+
+type DisplayNameType = {
+  displayName?: string;
+};
 
 interface ButtonProps
   extends Omit<
@@ -103,8 +107,8 @@ export default function Button({
       typeof child === 'string' ||
       (isValidElement(child) &&
         typeof child.type === 'function' &&
-        (child.type.name?.includes('Icon') ||
-          child.type.name?.includes('Image'))),
+        ((child.type as DisplayNameType).displayName?.includes('Icon') ||
+          (child.type as DisplayNameType).displayName?.includes('Image'))),
   );
 
   return (

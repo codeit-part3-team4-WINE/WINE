@@ -45,3 +45,5 @@ export default function MintIcon({
     </svg>
   );
 }
+
+MintIcon.displayName = 'MintIcon';
