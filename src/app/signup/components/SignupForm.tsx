@@ -37,25 +37,31 @@ export default function SignUpForm() {
   };
 
   return (
-    <form className='mx-auto flex' onSubmit={handleSubmit}>
-      <div className='flex flex-col'>
+    <form
+      className='mx-auto flex min-h-screen items-center justify-center bg-gray-50'
+      onSubmit={handleSubmit}
+    >
+      <div className='flex w-[400px] flex-col gap-4 rounded-lg bg-white p-8 shadow-lg'>
+        <h2 className='mb-4 text-center text-2xl font-bold text-gray-800'>
+          회원가입
+        </h2>
         <input
           required
-          className='h-20 w-80 border-2 border-solid border-gray-950'
+          className='h-12 rounded-md border-2 border-gray-300 px-4 transition focus:border-gray-800 focus:outline-none'
           name='email'
           placeholder='이메일'
           onChange={handleChange}
         />
         <input
           required
-          className='h-20 w-80 border-2 border-solid border-gray-950'
+          className='h-12 rounded-md border-2 border-gray-300 px-4 transition focus:border-gray-800 focus:outline-none'
           name='nickname'
           placeholder='닉네임'
           onChange={handleChange}
         />
         <input
           required
-          className='h-20 w-80 border-2 border-solid border-gray-950'
+          className='h-12 rounded-md border-2 border-gray-300 px-4 transition focus:border-gray-800 focus:outline-none'
           name='password'
           placeholder='비밀번호'
           type='password'
@@ -63,14 +69,14 @@ export default function SignUpForm() {
         />
         <input
           required
-          className='h-20 w-80 border-2 border-solid border-gray-950'
+          className='h-12 rounded-md border-2 border-gray-300 px-4 transition focus:border-gray-800 focus:outline-none'
           name='passwordConfirmation'
           placeholder='비밀번호 확인'
           type='password'
           onChange={handleChange}
         />
         <button
-          className='h-20 w-80 cursor-pointer border-2 border-solid border-gray-950'
+          className='mt-4 h-12 rounded-md bg-gray-800 font-semibold text-white transition hover:bg-gray-700'
           type='submit'
         >
           회원가입

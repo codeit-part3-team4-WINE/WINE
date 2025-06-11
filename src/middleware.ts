@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-//로그인이 필수인 마이프로필페이지에만 적용
+//로그인이 필수인 마이프로필페이지에만 적용(현재는 테스트용 페이지도 적용)
 export const config = {
-  matcher: ['/myprofile/:path*'],
+  matcher: ['/myprofile/:path*', '/authlogictest/:path*'],
 };

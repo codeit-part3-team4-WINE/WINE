@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance'; //클라이언트 요청용 인스턴스(로그인확인이 필요한 요청)
-import useLogout from '@/app/login/hooks/useLogout';
+import useLogout from '@/hooks/useLogout';
 
 type User = {
   id: number;

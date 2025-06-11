@@ -1,3 +1,20 @@
+/**
+ * 서버 컴포넌트에서 인증(엑세스토큰)이 필요한 API 요청을 위한 Axios 인스턴스 생성 함수입니다.
+ *
+ * - 서버의 쿠키(accessToken, refreshToken)를 읽어 Authorization 헤더에 자동으로 추가합니다.
+ * - accessToken이 없고 refreshToken만 있을 경우, /api/auth/refresh를 통해 토큰을 재발급받아 사용합니다.
+ *  !!! 재요청후 accessToken을 쿠키에 저장하지 않습니다. 서버 컴포넌트에서는 클라이언트 쿠키에 접근할 수 없어서입니다.
+ *
+ * @example
+ * import { createPrivateInstanceServer } from '@/apis/privateInstanceServer';
+ *
+ * export default async function MyServerComponent() {
+ *   const axiosInstance = await createPrivateInstanceServer();
+ *   const res = await axiosInstance.get('/api/protected');
+ *   // ...
+ * }
+ */
+
 //서버컴포넌트에서의 요청용 인스턴스
 
 import axios, { AxiosInstance } from 'axios';

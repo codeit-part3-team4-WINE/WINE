@@ -43,36 +43,39 @@ export default function LoginForm() {
 
   return (
     <form
-      className='flex min-h-screen items-center justify-center p-4'
+      className='flex min-h-screen items-center justify-center bg-gray-50'
       onSubmit={handleSubmit}
     >
-      <div className='flex flex-col'>
-        <label>이메일</label>
+      <div className='flex w-[400px] flex-col gap-4 rounded-lg bg-white p-8 shadow-lg'>
+        <h2 className='mb-4 text-center text-2xl font-bold text-gray-800'>
+          로그인
+        </h2>
+        <label className='font-medium text-gray-700'>이메일</label>
         <input
           required
-          className='h-20 w-full border-2 border-solid border-gray-950'
+          className='h-12 rounded-md border-2 border-gray-300 px-4 transition focus:border-gray-800 focus:outline-none'
           name='email'
           placeholder='이메일'
           onChange={handleChange}
         />
-        <label>비밀번호</label>
+        <label className='font-medium text-gray-700'>비밀번호</label>
         <input
           required
-          className='h-20 w-full border-2 border-solid border-gray-950'
+          className='h-12 rounded-md border-2 border-gray-300 px-4 transition focus:border-gray-800 focus:outline-none'
           name='password'
           placeholder='비밀번호'
           type='password'
           onChange={handleChange}
         />
         <button
-          className='mt-4 h-20 w-80 border-2 border-gray-950'
+          className='mt-4 h-12 rounded-md bg-gray-800 font-semibold text-white transition hover:bg-gray-700'
           type='submit'
         >
           로그인
         </button>
-
         <button
-          className='mt-4 h-20 w-80 border-2 border-gray-950'
+          className='mt-2 flex h-12 items-center justify-center gap-2 rounded-md bg-yellow-400 font-semibold text-gray-900 transition hover:bg-yellow-300'
+          type='button'
           onClick={handleKakaoLogin}
         >
           카카오로그인
