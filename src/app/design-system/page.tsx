@@ -44,6 +44,11 @@ export default function DesignSystem() {
           slug='ui-radio'
           title='Radio Components'
         />
+        <LinkButton
+          description='View all wine-details components and examples'
+          slug='ui-wine-details'
+          title='Wine Details Components'
+        />
 
         <LinkButton
           description='View all Recommend Wine Item examples'
