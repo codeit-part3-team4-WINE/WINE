@@ -3,6 +3,13 @@ import { getTimeAgo } from '@/utils/getTimeAgo';
 
 import CardDropdown from './CardDropdown';
 
+interface ReviewCard {
+  time: string;
+  rating: number;
+  wine: string;
+  content: string;
+}
+
 /**
  * 리뷰 카드 컴포넌트
  *
@@ -11,7 +18,12 @@ import CardDropdown from './CardDropdown';
  * @param {string} props.wine - 와인 이름
  * @param {string} props.content - 리뷰 내용
  */
-export default function ReviewCard({ time, rating, wine, content }) {
+export default function ReviewCard({
+  time,
+  rating,
+  wine,
+  content,
+}: ReviewCard) {
   const agoTime = getTimeAgo(time);
 
   return (
