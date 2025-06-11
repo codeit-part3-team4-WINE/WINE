@@ -16,6 +16,11 @@ export function getTimeAgo(
   // 현재와 입력 날짜의 차이를 초 단위로 계산
   const diffInSeconds = Math.floor((now.getTime() - past.getTime()) / 1000);
 
+  // 미래 시점이면 그냥 return
+  if (diffInSeconds < 0) {
+    return '';
+  }
+
   // 상대적 시간 포맷터 생성 (ex: '5분 전', '2일 전')
   const relativeFormatter = new Intl.RelativeTimeFormat(locale, {
     numeric: 'always',
