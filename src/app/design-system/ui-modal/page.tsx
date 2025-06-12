@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import Button from '@/components/Button';
 import {
   Modal,
@@ -13,6 +15,8 @@ import {
 } from '@/components/Modal';
 
 export default function UiModal() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className='p-8'>
       <h1 className='mb-3 text-3xl font-bold text-gray-900'>Modal</h1>
@@ -143,6 +147,37 @@ export default function UiModal() {
                   있습니다.
                 </p>
               ))}
+            </ModalBody>
+            <ModalFooter>
+              <ModalClose />
+              <ModalClose asChild>
+                <Button
+                  className='w-full'
+                  size='sm'
+                  variant='primary'
+                  onClick={() => {
+                    console.log('action');
+                  }}
+                >
+                  액션 버튼
+                </Button>
+              </ModalClose>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        {/* 제어 가능 모달 = 드롭다운에서 모달창 띄울 수 있는지 확인 */}
+        <Button variant='outline' onClick={() => setIsOpen(true)}>
+          제어 모달을 열어요
+        </Button>
+
+        <Modal externalIsOpen={isOpen} onExternalChange={setIsOpen}>
+          <ModalContent>
+            <ModalHeader>
+              <ModalTitle>제목</ModalTitle>
+            </ModalHeader>
+            <ModalBody className='flex-1 overflow-y-auto'>
+              외부에서 제어한 모달입니다.
             </ModalBody>
             <ModalFooter>
               <ModalClose />
