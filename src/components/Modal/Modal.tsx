@@ -9,10 +9,27 @@ import { ModalContext } from './ModalContext';
  *
  * @component
  * @description 공통 모달 UI를 구성하는 컴포넌트입니다. 합성 컴포넌트로 구현되어 있으며, 자세한 사용법은 설명을 참고해주세요.
+ * - 기본적으로 비제어 방식으로 동작하며, externalIsOpen + onExternalChange props를 통해 제어 방식으로 동작할 수 있습니다.
  *
- * @example
+ * @example 1. 비제어 방식
  * ```tsx
  * <Modal>
+ *   <Modal.Trigger>열기</Modal.Trigger>
+ *   <Modal.Content>
+ *     <Modal.Header>
+ *       <Modal.Title>제목</Modal.Title>
+ *     </Modal.Header>
+ *     <Modal.Body>본문</Modal.Body>
+ *     <Modal.Footer>
+ *       <Modal.Close>닫기</Modal.Close>
+ *     </Modal.Footer>
+ *   </Modal.Content>
+ * </Modal>
+ * ```
+ *
+ * @example 2. 제어 방식
+ * ```tsx
+ * <Modal externalIsOpen={isOpen} onExternalChange={setIsOpen}>
  *   <Modal.Trigger>열기</Modal.Trigger>
  *   <Modal.Content>
  *     <Modal.Header>

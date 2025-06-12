@@ -23,7 +23,8 @@ export default function UiModal() {
       <div className='content-text w-full bg-gray-50 p-3 leading-10 text-gray-600'>
         <p>
           <strong>- 구성:</strong> Modal, ModalTrigger, ModalContent,
-          ModalHeader, ModalTitle, ModalBody, ModalFooter, ModalClose
+          ModalHeader, ModalTitle, ModalBody, ModalFooter, ModalClose,
+          externalIsOpen(prop), onExternalChange(prop)
         </p>
 
         <p>
@@ -79,6 +80,22 @@ export default function UiModal() {
 </Modal>`}
         </pre>
 
+        <p className='mt-6 font-bold text-black'>🧩 제어 모달 사용 예시</p>
+        <pre className='bg-white p-4 text-sm text-gray-800'>
+          {`<Modal externalIsOpen={isOpen} onExternalChange={setIsOpen}>
+  <Modal.Trigger>열기</Modal.Trigger>
+  <Modal.Content>
+    <Modal.Header>
+      <Modal.Title>제목</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>본문</Modal.Body>
+    <Modal.Footer>
+      <Modal.Close>닫기</Modal.Close>
+    </Modal.Footer>
+  </Modal.Content>
+</Modal>`}
+        </pre>
+
         <p className='mt-6'>
           <strong>⚠️ 참고:</strong> <code>asChild</code>를 사용하는 경우, 반드시
           자식 요소를 단일 React 엘리먼트로 감싸야 합니다.
@@ -87,6 +104,7 @@ export default function UiModal() {
 
       <h2 className='mt-10 mb-3 text-xl font-bold text-gray-700'>Standard</h2>
       <div className='flex flex-wrap gap-5'>
+        {/* 비제어 모달 */}
         <Modal>
           <ModalTrigger asChild>
             <Button size='sm' variant='secondary' onClick={() => {}}>
@@ -166,7 +184,7 @@ export default function UiModal() {
           </ModalContent>
         </Modal>
 
-        {/* 제어 가능 모달 = 드롭다운에서 모달창 띄울 수 있는지 확인 */}
+        {/* 제어 모달 */}
         <Button variant='outline' onClick={() => setIsOpen(true)}>
           제어 모달을 열어요
         </Button>
