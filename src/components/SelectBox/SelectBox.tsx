@@ -9,7 +9,8 @@ import { SelectBoxContext } from './SelectBoxContext';
 interface SelectBoxProps {
   children: ReactNode;
   options: string[];
-  onChange: (value: string) => void; // eslint-disable-line no-unused-vars
+  onChange: (value: string) => void;
+  value?: string;
   label?: string;
   labelClassName?: string;
 }
@@ -44,11 +45,12 @@ export default function SelectBoxWrapper({
   children,
   options,
   onChange,
+  value,
   label,
   labelClassName,
 }: SelectBoxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = useState<string>(value ?? options[0]);
   const ref = useRef<HTMLDivElement>(null);
 
   const toggle = () => setIsOpen((prev) => !prev);
