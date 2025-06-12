@@ -12,6 +12,8 @@ export interface ModalSlotProps extends ModalBaseProps {
 export type ModalVariant = 'default' | 'confirm';
 
 export interface ModalContextType {
+  externalIsOpen?: boolean;
+  onExternalChange?: React.Dispatch<React.SetStateAction<boolean>>;
   isOpen: boolean;
   open: () => void;
   close: () => void;

@@ -26,10 +26,30 @@ import { ModalContext } from './ModalContext';
  * </Modal>
  * ```
  */
-export default function Modal({ children }: { children: ReactNode }) {
+export default function Modal({
+  externalIsOpen = false,
+  onExternalChange,
+  children,
+}: {
+  externalIsOpen?: boolean;
+  onExternalChange?: React.Dispatch<React.SetStateAction<boolean>>;
+  children: ReactNode;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  const close = () => {
+    setIsOpen(false);
+    // 외부 상태도 함께 업데이트
+    if (onExternalChange) {
+      onExternalChange(false);
+    }
+  };
+
+  useEffect(() => {
+    if (externalIsOpen !== undefined) {
+      setIsOpen(externalIsOpen);
+    }
+  }, [externalIsOpen]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
