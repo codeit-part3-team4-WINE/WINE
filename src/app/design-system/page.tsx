@@ -44,6 +44,11 @@ export default function DesignSystem() {
           slug='ui-radio'
           title='Radio Components'
         />
+        <LinkButton
+          description='View all wine-details components and examples'
+          slug='ui-wine-details'
+          title='Wine Details Components'
+        />
 
         <LinkButton
           description='View all Recommend Wine Item examples'
@@ -55,6 +60,12 @@ export default function DesignSystem() {
           description='View all Dual Range Slider examples'
           slug='ui-dual-range-slider'
           title='Dual Range Slider Components'
+        />
+
+        <LinkButton
+          description='View all multi select examples'
+          slug='ui-multi-select'
+          title='Multi Select Components'
         />
       </div>
     </div>
