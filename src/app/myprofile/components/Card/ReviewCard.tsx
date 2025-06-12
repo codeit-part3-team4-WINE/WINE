@@ -27,7 +27,7 @@ export default function ReviewCard({
   const agoTime = getTimeAgo(time);
 
   return (
-    <article className='mt-[1.6rem] flex min-h-[18.7rem] w-full cursor-pointer flex-col gap-[1.7rem] rounded-[1.6rem] border border-gray-300 px-[2rem] py-[1.6rem] md:mt-[2.2rem] md:min-h-[19rem] md:px-[4em] md:py-[2.3rem] lg:min-h-[20rem] lg:gap-[2rem]'>
+    <article className='mt-[1.6rem] flex min-h-[18.7rem] w-full cursor-pointer flex-col gap-[1.7rem] rounded-[1.6rem] border border-gray-300 px-[2rem] py-[1.6rem] md:mt-[2.2rem] md:min-h-[19rem] md:px-[4em] md:py-[2.3rem] xl:min-h-[20rem] xl:gap-[2rem]'>
       <div className='flex w-full items-center justify-between'>
         <div className='flex items-center gap-6 md:gap-8'>
           <StarBadge rating={rating} />
@@ -36,8 +36,8 @@ export default function ReviewCard({
         <CardDropdown />
       </div>
       <div className='flex flex-col gap-[1rem]'>
-        <div className='text-md text-gray-500 lg:text-lg'>{wine}</div>
-        <p className='text-md break-words whitespace-normal text-gray-800 lg:text-lg'>
+        <div className='text-md text-gray-500 xl:text-lg'>{wine}</div>
+        <p className='text-md break-words whitespace-normal text-gray-800 xl:text-lg'>
           {content}
         </p>
       </div>
