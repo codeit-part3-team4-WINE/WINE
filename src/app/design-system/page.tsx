@@ -57,6 +57,12 @@ export default function DesignSystem() {
         />
 
         <LinkButton
+          description='View all Dual Range Slider examples'
+          slug='ui-dual-range-slider'
+          title='Dual Range Slider Components'
+        />
+
+        <LinkButton
           description='View all multi select examples'
           slug='ui-multi-select'
           title='Multi Select Components'
