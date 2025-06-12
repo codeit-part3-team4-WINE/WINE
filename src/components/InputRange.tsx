@@ -5,13 +5,9 @@ import React from 'react';
 import { rangeItems } from '@/constants/rangeItems';
 import { cn } from '@/libs/cn';
 
-// Modal에서 value 값 전달 할때 사용
-interface InputRangeProps {
-  className?: string;
-  values: Option;
-  onChange?: (name: keyof Option, value: number) => void;
-}
-
+/**
+ * 슬라이더 옵션 값 타입
+ */
 type Option = {
   body: number;
   tannin: number;
@@ -19,11 +15,25 @@ type Option = {
   acidity: number;
 };
 
+/**
+ * @param className - 외부에서 전달받는 추가 className
+ * @param values - 각 슬라이더의 현재 값 (body, tannin 등)
+ * @param handleChange - 슬라이더 값이 바뀔 때 실행되는 콜백 함수
+ */
+interface InputRangeProps {
+  className?: string;
+  values: Option;
+  handleChange?: (name: keyof Option, value: number) => void;
+}
+
 export default function InputRange({
   className = '',
   values,
-  onChange,
+  handleChange,
 }: InputRangeProps) {
+  const sliderClass =
+    'h-2.5 w-full cursor-pointer appearance-none rounded-md bg-gray-100 accent-blue-500 [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-600';
+
   return (
     <div className={cn('mx-auto w-full space-y-4', className)}>
       {rangeItems.map((items) => (
@@ -44,7 +54,7 @@ export default function InputRange({
               {items.label}
             </label>
             <input
-              className='h-2.5 w-full cursor-pointer appearance-none rounded-md bg-gray-100 accent-blue-500 [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-600'
+              className={sliderClass}
               id={items.name}
               max={5}
               min={-5}
@@ -52,7 +62,10 @@ export default function InputRange({
               type='range'
               value={values[items.name as keyof Option]}
               onChange={(e) =>
-                onChange?.(items.name as keyof Option, Number(e.target.value))
+                handleChange?.(
+                  items.name as keyof Option,
+                  Number(e.target.value),
+                )
               }
             />
           </div>
