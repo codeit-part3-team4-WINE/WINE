@@ -166,35 +166,3 @@ export const DUMMY_REVIEWS: Review[] = [
     teamId: 'team1',
   },
 ];
-
-// 현재 더미 리뷰들의 평균값 계산 결과
-export const WINE_CHARACTERISTICS_AVERAGE =
-  calculateWineCharacteristics(DUMMY_REVIEWS);
-
-// 각 특성별 자세한 정보를 위한 헬퍼 함수
-export const getWineCharacteristicsWithLabels = (reviews: Review[]) => {
-  const averages = calculateWineCharacteristics(reviews);
-
-  return {
-    lightBold: {
-      value: averages.lightBold,
-      label: '라이트 ← → 볼드',
-      description: '와인의 바디감 (가벼움 vs 진함)',
-    },
-    smoothTannic: {
-      value: averages.smoothTannic,
-      label: '스무스 ← → 타닉',
-      description: '와인의 떫은맛 정도 (부드러움 vs 떫음)',
-    },
-    drySweet: {
-      value: averages.drySweet,
-      label: '드라이 ← → 스위트',
-      description: '와인의 단맛 정도 (드라이 vs 달콤함)',
-    },
-    softAcidic: {
-      value: averages.softAcidic,
-      label: '소프트 ← → 에시딕',
-      description: '와인의 산미 정도 (부드러움 vs 신맛)',
-    },
-  };
-};
