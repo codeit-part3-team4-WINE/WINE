@@ -62,7 +62,7 @@ export default function WineListCard({
       className='flex min-w-[25rem] cursor-pointer flex-col overflow-hidden'
       href={`/wines/${id}`}
     >
-      <div className='relative flex flex-col gap-10 rounded-t-3xl border-1 border-gray-300 px-8 pt-10 sm:flex-row sm:justify-between'>
+      <div className='relative flex flex-col gap-10 rounded-t-3xl border-1 border-gray-300 bg-white px-8 pt-10 sm:flex-row sm:justify-between'>
         <WineInfo
           price={64990}
           priceClassName='text-[1.2rem] sm:text-[1.4rem]'
@@ -85,7 +85,7 @@ export default function WineListCard({
           </RatingSummary.Text>
         </RatingSummary>
       </div>
-      <div className='h-[11rem] w-full rounded-b-3xl border-1 border-t-0 border-gray-300 px-10 py-6'>
+      <div className='h-[11rem] w-full rounded-b-3xl border-1 border-t-0 border-gray-300 bg-white px-10 py-6'>
         <p className='sub-content-text mb-3 font-semibold text-gray-800'>
           최신 후기
         </p>
