@@ -94,9 +94,9 @@ export default function DualRangeSlider({
 
   return (
     <>
-      <div className='relative h-[0.7rem] w-full rounded-2xl bg-gray-100 md:h-[1rem]'>
+      <div className='relative h-[0.7rem] w-full rounded-2xl bg-gray-100 md:h-[0.9rem]'>
         <div
-          className='bg-primary-100 absolute right-[30%] left-[30%] h-[0.7rem] rounded-2xl md:h-[1rem]'
+          className='bg-primary-100 absolute right-[30%] left-[30%] h-[0.7rem] rounded-2xl md:h-[0.9rem]'
           style={{
             left: `${rangeMinPercent}%`,
             right: `${rangeMaxPercent}%`,
