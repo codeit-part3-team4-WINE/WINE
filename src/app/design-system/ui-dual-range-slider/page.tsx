@@ -3,7 +3,6 @@
 import { useState } from 'react';
 
 import DualRangeSlider from '@/app/wines/components/DualRangeSlider';
-import PriceRangeSlider from '@/app/wines/components/PriceRangeSlider';
 
 export default function UiDualRangeSlider() {
   const max = 10000;
@@ -31,10 +30,6 @@ export default function UiDualRangeSlider() {
       <p className='content-text mt-10'>
         {minPrice.toLocaleString()}원 ~ {maxPrice.toLocaleString()}원
       </p>
-
-      <div className='mt-48'>
-        <PriceRangeSlider />
-      </div>
     </div>
   );
 }
