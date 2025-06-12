@@ -57,6 +57,12 @@ export default function SelectBoxWrapper({
   const close = () => setIsOpen(false);
 
   useEffect(() => {
+    if (value !== undefined) {
+      setSelected(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         close();
