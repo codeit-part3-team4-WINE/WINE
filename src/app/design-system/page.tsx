@@ -61,6 +61,11 @@ export default function DesignSystem() {
           slug='ui-multi-select'
           title='Multi Select Components'
         />
+        <LinkButton
+          description='View all aroma analysis examples'
+          slug='ui-aroma-analysis'
+          title='Aroma Analysis Components'
+        />
       </div>
     </div>
   );

@@ -2,6 +2,13 @@ import AromaCard from './AromaCard';
 import { Review } from './types';
 import { analyzeAromaData } from './utils';
 
+/**
+ * 와인 향 분석 컴포넌트
+ *
+ * @param reviews - 리뷰 데이터
+ * @param totalReviews - 총 리뷰 수
+ */
+
 interface AromaAnalysisProps {
   reviews: Review[];
   totalReviews?: number;
