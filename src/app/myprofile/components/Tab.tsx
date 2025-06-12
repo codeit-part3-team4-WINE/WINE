@@ -19,7 +19,7 @@ export default function Tab({ totalCount }: { totalCount: number }) {
           <button
             key={path}
             className={`cursor-pointer hover:text-gray-800 ${
-              pathname === path ? 'text-gray-800' : ''
+              pathname === path && 'text-gray-800'
             }`}
             type='button'
             onClick={() => router.push(path)}
