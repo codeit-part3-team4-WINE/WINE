@@ -21,9 +21,8 @@ export async function POST() {
 
     const res = NextResponse.json({ accessToken, ok: true });
 
-    //액세스토큰은 httpOnly false로설정(클라이언트에서 접근가능하도록)
     res.cookies.set('accessToken', accessToken, {
-      httpOnly: false,
+      httpOnly: true,
       path: '/',
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

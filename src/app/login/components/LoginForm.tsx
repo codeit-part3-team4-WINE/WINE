@@ -1,50 +1,49 @@
 'use client';
 
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useActionState } from 'react';
 
-import useUserStore from '@/stores/Auth-store/authStore';
+import { SignIn } from '@/actions/auth/signin-action';
+import useUserStore, { User } from '@/stores/Auth-store/authStore';
+
+interface LoginState {
+  error?: string;
+  user?: User;
+}
 
 export default function LoginForm() {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
+  const [state, formAction] = useActionState<LoginState, FormData>(SignIn, {
+    user: undefined,
+    error: undefined,
+  });
 
-  const [form, setForm] = useState({ email: '', password: '' });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('/api/auth/signIn', form, {
-        withCredentials: true,
-      });
-
-      const data = response.data;
-
-      setUser(data.user);
-      router.push('/myprofile');
-    } catch (err) {
-      alert((err as Error).message || '로그인 실패');
+  // 서버액션요청 결과에서 유저정보를 받아 zustand 스토어에 저장
+  useEffect(() => {
+    if (state.user) {
+      setUser(state.user);
+      console.log('state:', state);
+      console.log('user:', state.user);
+      alert('로그인 성공');
+      router.push('/');
     }
-  };
+    if (state.error) {
+      alert(state.error);
+    }
+  }, [state, setUser, router]);
 
   const handleKakaoLogin = () => {
     const redirectUrl = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL ?? '';
     const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUrl)}&response_type=code`;
-
-    // 카카오 로그인 URL로 리다이렉트
     window.location.href = kakaoAuthUrl;
   };
 
   return (
     <form
+      action={formAction}
       className='flex min-h-screen items-center justify-center bg-gray-50'
-      onSubmit={handleSubmit}
     >
       <div className='flex w-[400px] flex-col gap-4 rounded-lg bg-white p-8 shadow-lg'>
         <h2 className='mb-4 text-center text-2xl font-bold text-gray-800'>
@@ -56,7 +55,7 @@ export default function LoginForm() {
           className='h-12 rounded-md border-2 border-gray-300 px-4 transition focus:border-gray-800 focus:outline-none'
           name='email'
           placeholder='이메일'
-          onChange={handleChange}
+          type='email'
         />
         <label className='font-medium text-gray-700'>비밀번호</label>
         <input
@@ -65,7 +64,6 @@ export default function LoginForm() {
           name='password'
           placeholder='비밀번호'
           type='password'
-          onChange={handleChange}
         />
         <button
           className='mt-4 h-12 rounded-md bg-gray-800 font-semibold text-white transition hover:bg-gray-700'

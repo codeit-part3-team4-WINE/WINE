@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/signIn/${provider}`,
       { redirectUri, token: code },
-      { withCredentials: true },
     );
 
     const { accessToken, refreshToken, user } = response.data;
@@ -19,7 +18,7 @@ export async function POST(req: NextRequest) {
     const res = NextResponse.json({ user });
 
     res.cookies.set('accessToken', accessToken, {
-      httpOnly: false,
+      httpOnly: true,
       path: '/',
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

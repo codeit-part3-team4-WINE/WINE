@@ -24,29 +24,35 @@
  */
 
 import axios, { AxiosInstance } from 'axios';
-import Cookies from 'js-cookie';
 
 import { API_HEADERS, API_TIMEOUT } from '@/constants/apiConstants';
 
+// 액세스토큰 파싱
+function getAccessToken(): string | null {
+  const cookies = document.cookie.split(';').map((c) => c.trim());
+  const accessTokenCookie = cookies.find((c) => c.startsWith('accessToken='));
+  return accessTokenCookie?.split('=')[1] || null;
+}
+
 const privateInstance: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL,
+  baseURL: '/api',
   timeout: API_TIMEOUT,
   headers: API_HEADERS.JSON,
 });
 
-//  인터셉터로 액세스 토큰을 헤더에 추가
+// 헤더에 액세스토큰 추가
 privateInstance.interceptors.request.use(
   (config) => {
-    const token = Cookies.get('accessToken');
+    const token = getAccessToken();
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${decodeURIComponent(token)}`;
     }
     return config;
   },
   (error) => Promise.reject(error),
 );
 
-// 401 에러 발생 시 api route를 통해 액세스토큰 재발급후 재요청
+//  401이면 리프레시 토큰을 통해 액세스 토큰을 재발급받고, 재요청
 privateInstance.interceptors.response.use(
   (res) => res,
   async (error) => {
@@ -56,10 +62,10 @@ privateInstance.interceptors.response.use(
       originalRequest._retry = true;
       try {
         await axios.post('/api/auth/refresh');
-        const newAccessToken = Cookies.get('accessToken');
+        const newAccessToken = getAccessToken();
 
         if (newAccessToken) {
-          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          originalRequest.headers.Authorization = `Bearer ${decodeURIComponent(newAccessToken)}`;
         }
 
         return privateInstance(originalRequest);

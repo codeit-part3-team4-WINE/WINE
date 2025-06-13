@@ -7,15 +7,24 @@ export async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
 
-  //두개의 토큰 모두없으면 로그인페이지로 리다이렉트
-  if (!accessToken && !refreshToken) {
+  const { pathname } = request.nextUrl;
+
+  //  로그인/회원가입 페이지에 접근했는데 액세스토큰이 있으면 홈으로 리다이렉트
+  if ((pathname === '/login' || pathname === '/signup') && accessToken) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
+  // 로그인이 필요한 페이지에 접근할 때 두 토큰 모두 없으면 로그인 페이지로
+  const protectedPaths = ['/myprofile', '/authlogictest'];
+  const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
+
+  if (isProtected && !accessToken && !refreshToken) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
   return NextResponse.next();
 }
 
-//로그인이 필수인 마이프로필페이지에만 적용(현재는 테스트용 페이지도 적용)
 export const config = {
-  matcher: ['/myprofile/:path*', '/authlogictest/:path*'],
+  matcher: ['/login', '/signup', '/myprofile/:path*', '/authlogictest/:path*'],
 };
