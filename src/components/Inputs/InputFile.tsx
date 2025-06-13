@@ -12,7 +12,7 @@ type NativeInputProps = Omit<
 interface InputFileProps extends NativeInputProps {
   label?: string;
   children: React.ReactNode;
-  onChange?: React.Dispatch<React.SetStateAction<string>>;
+  onChange?: (fileUrl: string) => void;
   accept?: string;
 }
 
