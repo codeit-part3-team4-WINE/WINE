@@ -5,6 +5,7 @@ export default function Wines() {
   const wine = wines.list[0];
   return (
     <WineCard
+      className='cursor-pointer'
       image={wine.image}
       name={wine.name}
       price={wine.price}
