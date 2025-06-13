@@ -44,7 +44,7 @@ export default function DropdownItem({
   return (
     <button
       className={cn(
-        'hover:bg-primary-10 hover:text-primary-100 text-md z-30 h-[4.6rem] w-[10.1rem] cursor-pointer rounded-[1.2rem] font-medium md:w-[11.8rem] md:text-lg',
+        'hover:bg-primary-10 hover:text-primary-100 md:text-md z-30 h-[3.6rem] w-[9.1rem] cursor-pointer rounded-[1.2rem] text-sm font-medium md:h-[4.6rem] md:w-[10.8rem]',
         itemClassName,
       )}
       type='button'

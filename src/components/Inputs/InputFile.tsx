@@ -1,5 +1,6 @@
 'use client';
 
+import { StaticImageData } from 'next/image';
 import { useRef } from 'react';
 
 import Input from './Input';
@@ -12,7 +13,7 @@ type NativeInputProps = Omit<
 interface InputFileProps extends NativeInputProps {
   label?: string;
   children: React.ReactNode;
-  onChange?: React.Dispatch<React.SetStateAction<string>>;
+  onChange?: React.Dispatch<React.SetStateAction<string | StaticImageData>>;
   accept?: string;
 }
 

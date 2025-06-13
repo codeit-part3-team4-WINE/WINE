@@ -1,24 +1,4 @@
-// Review 타입 정의
-export interface Review {
-  id: number;
-  rating: number;
-  lightBold: number;
-  smoothTannic: number;
-  drySweet: number;
-  softAcidic: number;
-  aroma: string[];
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  user: {
-    id: number;
-    nickname: string;
-    image: string;
-  };
-  isLiked: object;
-  wineId: number;
-  teamId: string;
-}
+import { Review } from './AromaAnalysis/types';
 
 export const REVIEW_RANGES = [
   {

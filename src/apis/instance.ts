@@ -4,7 +4,7 @@ import { API_HEADERS, API_TIMEOUT } from '@/constants/apiConstants';
 
 /* Axios 인스턴스 생성 : 기본 Content type = application/json */
 const instance: AxiosInstance = axios.create({
-  baseURL: process.env.API_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL,
   timeout: API_TIMEOUT,
   headers: API_HEADERS.JSON,
 });

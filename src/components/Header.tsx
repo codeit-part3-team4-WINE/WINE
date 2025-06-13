@@ -10,8 +10,8 @@ export default function Header() {
   const router = useRouter();
 
   return (
-    <div className='lg:mx-[2rem]'>
-      <header className='mx-[1.6rem] mt-7 h-[5rem] max-w-[120rem] rounded-2xl bg-[#101318] text-white md:mx-[2rem] md:h-[7rem] lg:mx-auto'>
+    <div className=''>
+      <header className='mt-7 h-[5rem] rounded-2xl bg-[#101318] text-white md:h-[7rem]'>
         <div className='flex h-full items-center justify-between px-[4rem] md:px-[8rem]'>
           <Link aria-label='홈으로 이동' href='/'>
             <WineLogoIcon className='cursor-pointer' />
