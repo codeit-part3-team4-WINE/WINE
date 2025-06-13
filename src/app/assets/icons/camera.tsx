@@ -33,3 +33,5 @@ export default function CameraIcon({
     </svg>
   );
 }
+
+CameraIcon.displayName = 'CameraIcon';

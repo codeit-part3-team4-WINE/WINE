@@ -7,6 +7,7 @@ interface SearchInputProps
   extends Omit<React.ComponentProps<typeof Input>, 'className' | 'size'> {
   placeholder?: string;
   size?: 'sm' | 'lg';
+  className?: string;
 }
 
 const SIZE_CLASSES = {
@@ -38,6 +39,7 @@ export default function SearchInput({
   type = 'text',
   placeholder = '와인을 검색해보세요',
   size = 'sm',
+  className,
   ...inputProps
 }: SearchInputProps) {
   return (
@@ -45,7 +47,7 @@ export default function SearchInput({
       <SearchIcon className='absolute top-7 left-5' size={20} />
       <Input
         {...inputProps}
-        className={cn('rounded-full pl-15', SIZE_CLASSES[size])}
+        className={cn('rounded-full pl-15', SIZE_CLASSES[size], className)}
         placeholder={placeholder}
         type={type}
       />

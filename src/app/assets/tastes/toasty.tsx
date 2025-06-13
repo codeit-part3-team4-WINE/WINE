@@ -45,3 +45,5 @@ export default function ToastyIcon({
     </svg>
   );
 }
+
+ToastyIcon.displayName = 'ToastyIcon';
