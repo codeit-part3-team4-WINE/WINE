@@ -38,10 +38,14 @@ interface WineInfoProps {
    * 와인 정보 컨테이너 스타일링을 위한 선택적 CSS 클래스명
    */
   className?: string;
-
+  /**
    * 가격 배지 스타일링을 위한 선택적 CSS 클래스명
    */
   priceClassName?: string;
+  /**
+   * 와인 정보 컨테이너 스타일링을 위한 선택적 CSS 클래스명
+   */
+  wineInfoClassName?: string;
 }
 
 /**
@@ -83,7 +87,6 @@ export default function WineInfo({
   wineImageClassName,
   className,
   priceClassName,
-
 }: WineInfoProps) {
   return (
     <div className={cn('flex', className)}>
