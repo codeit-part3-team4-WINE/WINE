@@ -44,7 +44,7 @@ export default function UiIcon() {
         <ArrowIcon color='#000' direction='right' size={40} />
         <CameraIcon color='#000' size={40} />
         <ChevronArrowIcon color='#000' direction='bottom' size={40} />
-        <CloseIcon color='#000' size={40} />
+        <CloseIcon className='text-black' size={40} />
         <FilterIcon color='#000' size={40} />
         <GoogleLoginIcon size={40} />
         <HeartIcon filled color='#000' size={40} />

@@ -47,6 +47,11 @@
     font-family: var(--font-sans);
     font-size: 10px; /* rem 기준을 10px로 */
   }
+
+  /* 모달창이 띄워져 있을 때 외부 스크롤 금지 */
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
 }
 
 @layer components {
