@@ -1,34 +1,84 @@
 'use client';
 
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
+import { useState } from 'react';
 
 import FileUpload from '@/app/assets/svgs/wine-modal-file-upload.svg';
 import InputFile from '@/components/Inputs/InputFile';
 
 import InputPair from '../../Inputs/InputPair';
 import { SelectBox } from '../../SelectBox';
+type WineFormData = {
+  name: string;
+  region: string;
+  image: string | StaticImageData;
+  price: number;
+  type: string;
+};
 
 const OPTIONS = ['Red', 'White', 'Sparkling'];
+const INPUT_CLASSNAME = 'w-full border border-gray-300 rounded-[1.6rem]';
 
-export default function WineForm() {
+export default function WineForm({
+  initialData,
+}: {
+  initialData?: WineFormData;
+}) {
+  const isEdit = !!initialData;
+  const [formData, setFormData] = useState<WineFormData>(
+    initialData ?? {
+      name: '',
+      region: '',
+      image: '',
+      price: 0,
+      type: '',
+    },
+  );
+
+  const handleChange =
+    (key: keyof typeof formData) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData((prev) => ({ ...prev, [key]: e.target.value }));
+    };
+
+  const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target;
+    target.value = target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
+  };
+
   return (
-    <form className='flex flex-col gap-[2rem]'>
-      <InputPair inputClassName='w-full' label='와인 이름' type='text' />
+    <form
+      className='flex flex-col gap-[2rem]'
+      id={`wine-${isEdit ? 'change' : 'add'}-form`}
+    >
       <InputPair
-        inputClassName='w-full'
-        label='가격'
-        step='1000'
-        type='number'
-        onInput={(e) => {
-          const target = e.target as HTMLInputElement;
-          target.value = target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
-        }}
+        inputClassName={INPUT_CLASSNAME}
+        label='와인 이름'
+        placeholder={isEdit ? initialData.name : '와인 이름 입력'}
+        type='text'
+        onChange={handleChange('name')}
       />
-      <InputPair inputClassName='w-full' label='원산지' type='text' />
+      <InputPair
+        inputClassName={INPUT_CLASSNAME}
+        label='가격'
+        placeholder={isEdit ? String(initialData.price) : '가격 입력'}
+        step='10000'
+        type='number'
+        onChange={handleChange('price')}
+        onInput={handleNumberInput}
+      />
+      <InputPair
+        inputClassName={INPUT_CLASSNAME}
+        label='원산지'
+        placeholder={isEdit ? initialData.region : '원산지 입력'}
+        type='text'
+        onChange={handleChange('region')}
+      />
       <SelectBox
         label='타입'
         options={OPTIONS}
-        onChange={(value) => console.log(value)}
+        onChange={(value) => setFormData((prev) => ({ ...prev, type: value }))}
+        {...(isEdit && { value: initialData.type })}
       >
         <SelectBox.Trigger triggerClassName='w-full' />
         <SelectBox.Options>
@@ -41,9 +91,26 @@ export default function WineForm() {
           ))}
         </SelectBox.Options>
       </SelectBox>
-      <InputFile label='와인 사진'>
+      <InputFile
+        label='와인 사진'
+        onChange={(value: string) =>
+          setFormData((prev) => ({ ...prev, image: value }))
+        }
+      >
         <div className='relative h-[14rem] w-[14rem]'>
-          <Image fill alt='사진을 업로드 해주세요' src={FileUpload} />
+          {formData.image !== '' ? (
+            <Image
+              key={
+                typeof formData.image === 'string' ? formData.image : undefined
+              }
+              fill
+              alt={formData.name}
+              className='object-contain'
+              src={formData.image}
+            />
+          ) : (
+            <Image fill alt='사진을 업로드 해주세요' src={FileUpload} />
+          )}
         </div>
       </InputFile>
     </form>
