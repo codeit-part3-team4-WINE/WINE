@@ -59,12 +59,14 @@ interface InputRangeProps {
   className?: string;
   values: Option;
   onChange?: (name: keyof Option, value: number) => void;
+  disabled?: boolean;
 }
 
 export default function InputRange({
   className = '',
   values,
   onChange,
+  ...props
 }: InputRangeProps) {
   return (
     <div className={cn('mx-auto w-full space-y-4', className)}>
@@ -87,6 +89,7 @@ export default function InputRange({
             onChange={(e) =>
               onChange?.(item.name as keyof Option, Number(e.target.value))
             }
+            {...props}
           />
           <span className='md:text-md w-[48px] text-right text-xs whitespace-nowrap md:w-[56px]'>
             {item.rightText}
