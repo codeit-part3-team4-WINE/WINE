@@ -26,7 +26,7 @@ function DesktopFilterPanel() {
   const [selectedMaxPrice, setSelectedMaxPrice] = useState<number>(maxRange);
 
   return (
-    <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
+    <div className='sticky top-30 mt-30 flex h-fit w-full flex-col gap-16 max-xl:hidden'>
       <div>
         <MultiSelect
           selectedValues={selectedWineTypes}
@@ -62,6 +62,7 @@ function DesktopFilterPanel() {
           <RadioGroup.Radio value={3}>4.0 - 4.5</RadioGroup.Radio>
           <RadioGroup.Radio value={4}>3.5 - 4.0</RadioGroup.Radio>
           <RadioGroup.Radio value={5}>3.0 - 3.5</RadioGroup.Radio>
+          <RadioGroup.Radio value={5}>3.0 이하</RadioGroup.Radio>
         </RadioGroup>
       </div>
 
