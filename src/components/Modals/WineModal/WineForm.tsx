@@ -1,7 +1,7 @@
 'use client';
 
 import Image, { StaticImageData } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import FileUpload from '@/app/assets/svgs/wine-modal-file-upload.svg';
 import InputFile from '@/components/Inputs/InputFile';
@@ -35,12 +35,29 @@ export default function WineForm({
     },
   );
 
+  // 받아오는 데이터가 변경됨에 따라 formData를 업데이트
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      setFormData({
+        name: '',
+        region: '',
+        image: '',
+        price: 0,
+        type: '',
+      });
+    }
+  }, [initialData]);
+
+  // 입력값이 변경될 때 해당 key에 맞는 formData 상태를 업데이트하는 함수
   const handleChange =
     (key: keyof typeof formData) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData((prev) => ({ ...prev, [key]: e.target.value }));
     };
 
+  // 숫자 입력 input에서 숫자만 허용하도록 하는 함수
   const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     target.value = target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
