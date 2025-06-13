@@ -45,7 +45,7 @@ export default function UiModal() {
         <hr className='my-6 border-gray-200' />
 
         <p className='font-bold text-black'>🧩 기본 사용 예시</p>
-        <pre className='bg-white p-4 text-sm text-gray-800'>
+        <pre className='overflow-scroll bg-white p-4 text-sm text-gray-800'>
           {`<Modal>
   <ModalTrigger>모달 열기</ModalTrigger>
   <ModalContent>
@@ -61,7 +61,7 @@ export default function UiModal() {
         </pre>
 
         <p className='mt-6 font-bold text-black'>🧩 asChild 패턴 사용 예시</p>
-        <pre className='bg-white p-4 text-sm text-gray-800'>
+        <pre className='overflow-scroll bg-white p-4 text-sm text-gray-800'>
           {`<Modal>
   <ModalTrigger asChild>
     <Button size='sm' variant='secondary'>열기</Button>
@@ -81,7 +81,7 @@ export default function UiModal() {
         </pre>
 
         <p className='mt-6 font-bold text-black'>🧩 제어 모달 사용 예시</p>
-        <pre className='bg-white p-4 text-sm text-gray-800'>
+        <pre className='overflow-scroll bg-white p-4 text-sm text-gray-800'>
           {`<Modal externalIsOpen={isOpen} onExternalChange={setIsOpen}>
   <Modal.Trigger>열기</Modal.Trigger>
   <Modal.Content>
