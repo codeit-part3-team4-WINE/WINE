@@ -47,6 +47,11 @@
     font-family: var(--font-sans);
     font-size: 10px; /* rem 기준을 10px로 */
   }
+
+  /* 모달창이 띄워져 있을 때 외부 스크롤 금지 */
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
 }
 
 @layer components {
@@ -101,5 +106,23 @@
 
   .caption-text {
     @apply text-[1.2rem] font-normal; /* 12px */
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .range-slider {
+    @apply absolute -top-[0.6rem] h-2 w-full appearance-none bg-transparent md:-top-[0.7rem];
+    pointer-events: none;
+  }
+
+  .range-slider::-webkit-slider-thumb {
+    @apply size-6 rounded-full border-1 border-gray-300 bg-white hover:size-7 hover:bg-gray-50 md:size-8 md:hover:size-9;
+    -webkit-appearance: none;
+    pointer-events: auto;
+    cursor: pointer;
   }
 }

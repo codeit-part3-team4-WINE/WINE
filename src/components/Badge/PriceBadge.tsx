@@ -6,11 +6,18 @@ import Badge from './Badge';
  *
  * @param props - PriceBadge 컴포넌트의 props
  * @param props.price - 표시할 가격 (숫자)
+ * @param props.className - 가격 문자열의 스타일 확장용 className
  * @returns 가격이 표시된 배지 JSX 요소
  */
-export default function PriceBadge({ price = 0 }: { price: number }) {
+export default function PriceBadge({
+  price = 0,
+  className,
+}: {
+  price: number;
+  className?: string;
+}) {
   return (
-    <Badge>
+    <Badge className={className}>
       <span>₩</span>
       <span>{price.toLocaleString('ko-KR')}</span>
     </Badge>
