@@ -21,6 +21,7 @@ export default function RootLayout({
         <footer className='w-screen'>
           <Footer />
         </footer>
+        <div id='modal-root' />
       </body>
     </html>
   );

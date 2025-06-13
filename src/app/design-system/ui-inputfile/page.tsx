@@ -1,12 +1,13 @@
 'use client';
 
+import { StaticImageData } from 'next/image';
 import { useState } from 'react';
 
 import InputFile from '@/components/Inputs/InputFile';
 import ProfileImg from '@/components/ProfileImg';
 
 export default function UiInputFile() {
-  const [previewSrc, setPreviewSrc] = useState('');
+  const [previewSrc, setPreviewSrc] = useState<string | StaticImageData>('');
 
   return (
     <div className='p-8'>

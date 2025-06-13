@@ -1,3 +1,5 @@
+'use client';
+import Nothing from '@/app/wines/[wineId]/components/Nothing';
 import ReviewOverview from '@/app/wines/[wineId]/components/ReviewRating/ReviewOverview';
 import ReviewRange from '@/app/wines/[wineId]/components/ReviewRating/ReviewRange';
 import ReviewRangeGroup from '@/app/wines/[wineId]/components/ReviewRating/ReviewRangeGroup';
@@ -14,6 +16,7 @@ export default function UiWineDetail() {
       <ReviewRatingButton />
 
       <ReviewOverview data={REVIEW_RANGES} rating={4.8} reviewNumber={100} />
+      <Nothing />
     </div>
   );
 }

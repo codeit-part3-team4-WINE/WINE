@@ -14,6 +14,13 @@ export default function DesignSystem() {
     <div className='p-8'>
       <div className='grid gap-4'>
         <LinkButton
+          description='View all Modals and examples'
+          slug='ui-modal'
+          title='Modal Components'
+        />
+
+        
+        <LinkButton
           description='View all button variations and examples'
           slug='ui-button'
           title='Button Components'
@@ -66,6 +73,12 @@ export default function DesignSystem() {
           description='View all multi select examples'
           slug='ui-multi-select'
           title='Multi Select Components'
+        />
+
+        <LinkButton
+          description='View all aroma analysis examples'
+          slug='ui-aroma-analysis'
+          title='Aroma Analysis Components'
         />
 
         <LinkButton

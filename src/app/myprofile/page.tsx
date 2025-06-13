@@ -1,3 +1,6 @@
+import { redirect } from 'next/navigation';
+
 export default function MyProfilePage() {
-  return <h1 className='text-primary-100 text-3xl'>My Profile</h1>;
+  // 사용자가 /myprofile로 접근했을 때 기본 탭인 /myprofile/reviews로 리다이렉트
+  redirect('/myprofile/reviews');
 }
