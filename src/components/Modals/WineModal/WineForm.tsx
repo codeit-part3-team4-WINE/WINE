@@ -19,14 +19,10 @@ type WineFormData = {
 const OPTIONS = ['Red', 'White', 'Sparkling'];
 const INPUT_CLASSNAME = 'w-full border border-gray-300 rounded-[1.6rem]';
 
-export default function WineForm({
-  initialData,
-}: {
-  initialData?: WineFormData;
-}) {
-  const isEdit = !!initialData;
+export default function WineForm({ wineData }: { wineData?: WineFormData }) {
+  const isEdit = !!wineData;
   const [formData, setFormData] = useState<WineFormData>(
-    initialData ?? {
+    wineData ?? {
       name: '',
       region: '',
       image: '',
@@ -37,8 +33,8 @@ export default function WineForm({
 
   // 받아오는 데이터가 변경됨에 따라 formData를 업데이트
   useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
+    if (wineData) {
+      setFormData(wineData);
     } else {
       setFormData({
         name: '',
@@ -48,7 +44,7 @@ export default function WineForm({
         type: '',
       });
     }
-  }, [initialData]);
+  }, [wineData]);
 
   // 입력값이 변경될 때 해당 key에 맞는 formData 상태를 업데이트하는 함수
   const handleChange =
@@ -71,14 +67,14 @@ export default function WineForm({
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='와인 이름'
-        placeholder={isEdit ? initialData.name : '와인 이름 입력'}
+        placeholder={isEdit ? wineData.name : '와인 이름 입력'}
         type='text'
         onChange={handleChange('name')}
       />
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='가격'
-        placeholder={isEdit ? String(initialData.price) : '가격 입력'}
+        placeholder={isEdit ? String(wineData.price) : '가격 입력'}
         step='10000'
         type='number'
         onChange={handleChange('price')}
@@ -87,7 +83,7 @@ export default function WineForm({
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='원산지'
-        placeholder={isEdit ? initialData.region : '원산지 입력'}
+        placeholder={isEdit ? wineData.region : '원산지 입력'}
         type='text'
         onChange={handleChange('region')}
       />
@@ -95,7 +91,7 @@ export default function WineForm({
         label='타입'
         options={OPTIONS}
         onChange={(value) => setFormData((prev) => ({ ...prev, type: value }))}
-        {...(isEdit && { value: initialData.type })}
+        {...(isEdit && { value: wineData.type })}
       >
         <SelectBox.Trigger triggerClassName='w-full' />
         <SelectBox.Options>

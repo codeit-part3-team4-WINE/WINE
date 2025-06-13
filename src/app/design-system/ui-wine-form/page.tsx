@@ -12,7 +12,7 @@ const wine = {
 export default function UiWineForm() {
   return (
     <div className='flex justify-center'>
-      <WineForm initialData={wine} />
+      <WineForm wineData={wine} />
     </div>
   );
 }
