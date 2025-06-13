@@ -65,3 +65,5 @@ export default function PepperIcon({
     </svg>
   );
 }
+
+PepperIcon.displayName = 'PepperIcon';

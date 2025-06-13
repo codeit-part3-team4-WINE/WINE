@@ -49,3 +49,5 @@ export default function PeachIcon({
     </svg>
   );
 }
+
+PeachIcon.displayName = 'PeachIcon';

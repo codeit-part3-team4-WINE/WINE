@@ -33,3 +33,5 @@ export default function FilterIcon({
     </svg>
   );
 }
+
+FilterIcon.displayName = 'FilterIcon';

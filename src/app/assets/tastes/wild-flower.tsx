@@ -89,3 +89,5 @@ export default function WildFlowerIcon({
     </svg>
   );
 }
+
+WildFlowerIcon.displayName = 'WildFlowerIcon';

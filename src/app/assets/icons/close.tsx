@@ -31,3 +31,5 @@ export default function CloseIcon({ size = 24, className }: BaseIconProps) {
     </svg>
   );
 }
+
+CloseIcon.displayName = 'CloseIcon';

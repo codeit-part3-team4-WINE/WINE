@@ -16,3 +16,5 @@ export default function KakaoLoginIcon({ size = 24 }: BaseIconProps) {
     </svg>
   );
 }
+
+KakaoLoginIcon.displayName = 'KakaoLoginIcon';

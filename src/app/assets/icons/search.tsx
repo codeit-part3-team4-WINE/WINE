@@ -3,9 +3,11 @@ import type { ColorIconProps } from '@/types/icon';
 export default function SearchIcon({
   size = 24,
   color = '#CFDBEA',
+  className,
 }: ColorIconProps) {
   return (
     <svg
+      className={className}
       fill='none'
       height={size}
       viewBox='0 0 24 24'
@@ -19,3 +21,5 @@ export default function SearchIcon({
     </svg>
   );
 }
+
+SearchIcon.displayName = 'SearchIcon';

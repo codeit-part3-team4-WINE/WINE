@@ -28,6 +28,10 @@
   --text-md: 1.4rem;
   --text-sm: 1.3rem;
   --text-xs: 1.2rem;
+
+  /* box-shadow */
+  --inset-shadow-sm: rgba(0, 0, 0, 0.05) 0px 2px 12px;
+  --inset-shadow-md: rgba(0, 0, 0, 0.07) 0px 2px 12px;
 }
 
 @layer base {
@@ -102,5 +106,19 @@
 
   .caption-text {
     @apply text-[1.2rem] font-normal; /* 12px */
+  }
+}
+
+@layer utilities {
+  .range-slider {
+    @apply absolute -top-[0.6rem] h-2 w-full appearance-none bg-transparent md:-top-[0.7rem];
+    pointer-events: none;
+  }
+
+  .range-slider::-webkit-slider-thumb {
+    @apply size-6 rounded-full border-1 border-gray-300 bg-white hover:size-7 hover:bg-gray-50 md:size-8 md:hover:size-9;
+    -webkit-appearance: none;
+    pointer-events: auto;
+    cursor: pointer;
   }
 }

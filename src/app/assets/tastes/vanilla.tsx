@@ -54,3 +54,5 @@ export default function VanillaIcon({
     </svg>
   );
 }
+
+VanillaIcon.displayName = 'VanillaIcon';
