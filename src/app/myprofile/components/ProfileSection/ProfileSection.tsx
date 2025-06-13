@@ -27,10 +27,10 @@ export default function ProfileSection({
     <section
       className={cn(
         'mt-[2rem] flex shrink-0 items-center justify-between',
-        'lg:mt-[4rem] lg:h-[40rem] lg:w-[28rem] lg:flex-col lg:justify-around lg:rounded-[1.6rem] lg:border lg:border-gray-300',
+        'xl:mt-[4rem] xl:h-[40rem] xl:w-[28rem] xl:flex-col xl:justify-around xl:rounded-[1.6rem] xl:border xl:border-gray-300',
       )}
     >
-      <div className={cn('flex items-center gap-[1.6rem]', 'lg:flex-col')}>
+      <div className={cn('flex items-center gap-[1.6rem]', 'xl:flex-col')}>
         <ProfileImg size='lg' src={image} />
         <span className='text-xl font-bold text-gray-800 md:text-2xl'>
           {nickname}
