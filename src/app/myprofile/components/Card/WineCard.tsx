@@ -35,7 +35,7 @@ export default function WineCard({
   return (
     <article
       className={cn(
-        'relative mt-10 flex h-[16rem] w-full rounded-[1.2rem] border border-gray-300 px-[2rem] py-[2rem] md:mt-20 md:h-[22.8rem]',
+        'relative flex h-[16rem] w-full rounded-[1.2rem] border border-gray-300 px-[2rem] py-[2rem] md:mt-20 md:h-[22.8rem]',
         className,
       )}
     >
