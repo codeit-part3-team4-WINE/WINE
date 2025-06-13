@@ -40,7 +40,7 @@ export default function DropdownMenu({
   return (
     <div
       className={cn(
-        'absolute right-0 flex flex-col content-center justify-around rounded-[1.6rem] border border-gray-300 bg-white p-2 md:p-4',
+        'absolute right-0 flex flex-col content-center justify-around rounded-[1.6rem] border border-gray-300 bg-white p-2',
         menuClassName,
       )}
     >

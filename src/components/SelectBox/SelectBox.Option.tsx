@@ -33,7 +33,7 @@ export default function Option({
   children,
 }: OptionProps) {
   const optionClasses = cn(
-    'flex h-[5.2rem] w-[32.7rem] cursor-pointer items-center rounded-[1.2rem] text-lg font-medium text-gray-800 md:w-[41.2rem]',
+    ' h-auto w-[32.7rem] cursor-pointer  px-4 py-3 text-lg font-medium text-gray-800 md:w-[41.2rem]',
     optionClassName,
   );
   const { setSelected, onChange, close } = useSelectedBoxContext();
@@ -46,7 +46,11 @@ export default function Option({
 
   return (
     <li className={optionClasses} onClick={handleClick}>
-      {children ?? value}
+      {children ?? (
+        <span className='hover:bg-primary-10 block w-full rounded-[1.2rem] break-all whitespace-normal'>
+          {value}
+        </span>
+      )}
     </li>
   );
 }
