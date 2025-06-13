@@ -1,4 +1,4 @@
-import { Review } from './AromaAnalysis/types';
+import { Review } from './components/AromaAnalysis/types';
 
 export const REVIEW_RANGES = [
   {

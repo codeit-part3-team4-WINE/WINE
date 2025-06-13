@@ -59,12 +59,14 @@ interface InputRangeProps {
   className?: string;
   values: Option;
   onChange?: (name: keyof Option, value: number) => void;
+  disabled?: boolean;
 }
 
 export default function InputRange({
   className = '',
   values,
   onChange,
+  disabled,
 }: InputRangeProps) {
   return (
     <div className={cn('mx-auto w-full space-y-4', className)}>
@@ -77,6 +79,7 @@ export default function InputRange({
             {item.leftText}
           </span>
           <RangeSlider
+            disabled={disabled}
             id={item.name}
             label={item.label}
             max={10}
@@ -90,6 +93,10 @@ export default function InputRange({
           />
           <span className='md:text-md w-[48px] text-right text-xs whitespace-nowrap md:w-[56px]'>
             {item.rightText}
+          </span>
+          {/* 현재 값 표시 */}
+          <span className='ml-2 w-fit text-center text-xs font-semibold text-gray-400'>
+            {values[item.name as keyof Option]}점
           </span>
         </div>
       ))}

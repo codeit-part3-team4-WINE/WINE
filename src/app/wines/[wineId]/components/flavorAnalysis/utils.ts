@@ -1,4 +1,5 @@
-import { DUMMY_REVIEWS, Review } from './[wineId]/dummy';
+import { DUMMY_REVIEWS } from '../../dummy';
+import { Review } from '../AromaAnalysis/types';
 
 // 4가지 특성의 평균을 계산하는 함수
 export const calculateWineCharacteristics = (reviews: Review[]) => {
