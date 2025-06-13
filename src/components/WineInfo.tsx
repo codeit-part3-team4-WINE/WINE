@@ -2,7 +2,7 @@ import Image, { StaticImageData } from 'next/image';
 
 import { cn } from '@/libs/cn';
 
-import PriceBadge from './PriceBadge';
+import PriceBadge from './Badge/PriceBadge';
 
 interface WineInfoProps {
   /**
