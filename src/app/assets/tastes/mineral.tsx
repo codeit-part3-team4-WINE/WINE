@@ -54,3 +54,5 @@ export default function MineralIcon({
     </svg>
   );
 }
+
+MineralIcon.displayName = 'MineralIcon';

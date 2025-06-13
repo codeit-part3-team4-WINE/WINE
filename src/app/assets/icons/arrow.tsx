@@ -43,3 +43,5 @@ export default function ArrowIcon({
     </svg>
   );
 }
+
+ArrowIcon.displayName = 'ArrowIcon';

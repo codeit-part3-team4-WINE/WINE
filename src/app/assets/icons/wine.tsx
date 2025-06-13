@@ -47,3 +47,5 @@ export default function WineIcon({ size = 24 }: BaseIconProps) {
     </svg>
   );
 }
+
+WineIcon.displayName = 'WineIcon';

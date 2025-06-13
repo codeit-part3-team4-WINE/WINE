@@ -28,3 +28,5 @@ export default function GoogleLoginIcon({ size = 24 }: BaseIconProps) {
     </svg>
   );
 }
+
+GoogleLoginIcon.displayName = 'GoogleLoginIcon';

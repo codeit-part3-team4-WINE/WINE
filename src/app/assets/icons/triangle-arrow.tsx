@@ -43,3 +43,5 @@ export default function TriangleArrowIcon({
     </svg>
   );
 }
+
+TriangleArrowIcon.displayName = 'TriangleArrowIcon';
