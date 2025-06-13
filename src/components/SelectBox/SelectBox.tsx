@@ -50,14 +50,18 @@ export default function SelectBoxWrapper({
   labelClassName,
 }: SelectBoxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string>(value ?? options[0]);
+  const [selected, setSelected] = useState<string>(
+    value === undefined || value === null || value === '' ? options[0] : value,
+  );
   const ref = useRef<HTMLDivElement>(null);
 
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
 
   useEffect(() => {
-    if (value !== undefined) {
+    if (value === undefined || value === null || value === '') {
+      setSelected(options[0]);
+    } else {
       setSelected(value);
     }
   }, [value]);
