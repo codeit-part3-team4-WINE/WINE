@@ -20,6 +20,7 @@ export default function Footer() {
           </a>
         </div>
 
+
         {/* 날짜 + 정보 영역 */}
         <div className='flex flex-col gap-y-2 md:flex-row md:items-center md:justify-between'>
           <div className='text-md whitespace-nowrap text-gray-300'>
