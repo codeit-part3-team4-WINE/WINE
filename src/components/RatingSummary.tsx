@@ -4,6 +4,11 @@ import { cn } from '@/libs/cn';
 type Direction = 'row' | 'col';
 type Size = 'sm' | 'md' | 'lg';
 
+const DIRECTION_VARIANTS = {
+  row: 'items-center gap-[2rem]',
+  col: 'flex-col items-start gap-[1rem]',
+};
+
 const SIZE_VARIANTS = {
   lg: {
     rating: 'text-[5.4rem]',
@@ -69,27 +74,15 @@ function RatingSummary({
 }) {
   const ratingSize = SIZE_VARIANTS[size].rating;
 
-  // Stars(별점 아이콘)은 레이아웃 고정
-  const Content = (
-    <>
-      <Stars color={iconColor} rating={rating} size={size} />
-      {children}
-    </>
-  );
-
-  return direction === 'col' ? (
-    <div className={cn('flex flex-col items-start gap-[1rem]', className)}>
+  return (
+    <div className={cn(`flex ${DIRECTION_VARIANTS[direction]}`, className)}>
       <p className={cn(`font-bold ${ratingSize}`, ratingClassName)}>
         {rating.toFixed(1)}
       </p>
-      {Content}
-    </div>
-  ) : (
-    <div className={cn('flex items-center gap-[2rem]', className)}>
-      <p className={cn(`font-bold ${ratingSize}`, ratingClassName)}>
-        {rating.toFixed(1)}
-      </p>
-      <div className='flex flex-col items-start gap-[1rem]'>{Content}</div>
+      <div className='flex flex-col items-start gap-[0.5rem] sm:gap-[1rem]'>
+        <Stars color={iconColor} rating={rating} size={size} />
+        {children}
+      </div>
     </div>
   );
 }
