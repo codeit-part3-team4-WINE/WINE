@@ -72,7 +72,8 @@ export default function DesignSystem() {
           description='View all aroma analysis examples'
           slug='ui-aroma-analysis'
           title='Aroma Analysis Components'
-          
+        />
+
         <LinkButton
           description='View wine list card component examples'
           slug='ui-wine-list-card'
