@@ -1,17 +1,16 @@
+import WineLogoIcon from '@/app/assets/icons/wine-logo';
+
 import GitHub from '../app/assets/icons/github-logo';
 
 export default function Footer() {
   return (
-    <footer className='w-full overflow-x-hidden bg-black py-20 text-white'>
-      <div className='mx-auto flex w-full max-w-[1200px] flex-col gap-y-14 px-4 sm:px-6 md:px-10'>
-        {/* 로고 영역 */}
+    <footer className='bottom-0 m-0 w-full bg-black py-10'>
+      <div className='flex max-w-[350rem] flex-col gap-8 px-[5vw] md:px-[10vw] xl:px-[15vw]'>
         <div className='flex items-center justify-between'>
-          <div className='flex items-center gap-2'>
-            <h1 className='text-2xl font-bold'>WINE</h1>
-          </div>
+          <WineLogoIcon />
           <a
             aria-label='GitHub repository'
-            className='content-text flex items-center gap-2 transition-colors duration-200 hover:text-red-400'
+            className='flex items-center'
             href='https://github.com/codeit-part3-team4-WINE/WINE'
             rel='noopener noreferrer'
             target='_blank'
@@ -20,18 +19,16 @@ export default function Footer() {
           </a>
         </div>
 
-
-        {/* 날짜 + 정보 영역 */}
-        <div className='flex flex-col gap-y-2 md:flex-row md:items-center md:justify-between'>
-          <div className='text-md whitespace-nowrap text-gray-300'>
-            <p>©2025.06</p>
-          </div>
-          <ul className='text-md flex flex-col flex-wrap gap-y-1 text-gray-300 md:flex-row md:gap-6'>
+        <div className='flex items-center justify-between'>
+          <ul className='sub-content-text flex flex-col flex-wrap items-end gap-y-1 text-gray-300 md:flex-row md:gap-6'>
             <li className='break-words whitespace-normal'>Taeilwind v20.08</li>
             <li className='break-words whitespace-normal'>
-              김서연 김태일 맹은빈 명지우 유용민
+              김서연 | 김태일 | 맹은빈 | 명지우 | 유용민
             </li>
           </ul>
+          <p className='sub-content-text whitespace-nowrap text-gray-300'>
+            ©2025.06
+          </p>
         </div>
       </div>
     </footer>
