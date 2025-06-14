@@ -3,7 +3,7 @@ import { StaticImageData } from 'next/image';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
 
-import { ChangeBtn } from './ChangeBtn';
+import ProfileChangeModal from './ProfileChangeModal/ProfileChangeModal';
 
 /**
  * 프로필 섹션 컴포넌트
@@ -36,7 +36,7 @@ export default function ProfileSection({
           {nickname}
         </span>
       </div>
-      <ChangeBtn />
+      <ProfileChangeModal />
     </section>
   );
 }

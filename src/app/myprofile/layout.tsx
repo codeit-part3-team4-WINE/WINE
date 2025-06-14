@@ -1,5 +1,5 @@
 import { reviews, user } from './components/mock/mock-data';
-import ProfileSection from './components/ProfileSection/ProfileSection';
+import ProfileSection from './components/ProfileSection';
 import Tab from './components/Tab';
 
 export default function MypageLayout({
