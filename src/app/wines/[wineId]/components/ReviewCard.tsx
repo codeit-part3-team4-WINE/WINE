@@ -6,6 +6,7 @@ import HeartIcon from '@/app/assets/icons/heart';
 import VerticalMoreIcon from '@/app/assets/icons/vertical-more';
 import StarBadge from '@/components/Badge/StarBadge';
 import Dropdown from '@/components/Dropdown';
+import InputRange from '@/components/InputRange';
 import ProfileImg from '@/components/ProfileImg';
 import { formatToTimeAgo } from '@/libs/formmatToTimeago';
 
@@ -14,8 +15,18 @@ export default function ReviewCard() {
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+  const [values, setValues] = useState({
+    body: 5,
+    tannin: 5,
+    sweetness: 5,
+    acidity: 5,
+  });
+
+  const handleChange = (name: keyof typeof values, value: number) => {
+    setValues((prev) => ({ ...prev, [name]: value }));
+  };
   return (
-    <div className='relative flex flex-col gap-5 rounded-2xl border border-gray-300 p-5'>
+    <div className='relative flex flex-col gap-5 rounded-2xl border border-gray-300 p-10'>
       <div className='flex items-start justify-between'>
         <div className='flex gap-5'>
           <ProfileImg size='md' />
@@ -57,7 +68,7 @@ export default function ReviewCard() {
             </div>
           ))}
         </div>
-        <StarBadge className='text-2lg flex-shrink-0' rating={4.8} />
+        <StarBadge className='flex-shrink-0 text-[1.8rem]' rating={4.8} />
       </div>
       {isOpen && (
         <>
@@ -69,7 +80,9 @@ export default function ReviewCard() {
               without food.
             </p>
           </div>
-          <div>인풋 레인지지</div>
+          <div>
+            <InputRange disabled values={values} onChange={handleChange} />
+          </div>
         </>
       )}
       <div
