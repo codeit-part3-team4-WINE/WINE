@@ -16,6 +16,7 @@ interface RadioContextType {
   title?: string;
   titleClassName?: string;
   radioGroupClassName?: string;
+  selectedValue?: string | number;
   onSelect: (value: string | number) => void;
   children?: React.ReactNode;
 }
@@ -71,11 +72,14 @@ export default function RadioGroup({
   title,
   titleClassName,
   radioGroupClassName,
+  selectedValue,
   onSelect,
   children,
 }: RadioContextType) {
   return (
-    <RadioContext.Provider value={{ title, onSelect, titleClassName }}>
+    <RadioContext.Provider
+      value={{ title, selectedValue, onSelect, titleClassName }}
+    >
       {title && <RadioGroup.Title />}
       <div className={cn('flex flex-col gap-2', radioGroupClassName)}>
         {children}
@@ -109,7 +113,7 @@ RadioGroup.Title = function Title() {
  * <RadioGroup.Radio value={1}>전체</RadioGroup.Radio>
  */
 RadioGroup.Radio = function Radio({ value, children, ...props }: RadioProps) {
-  const { onSelect } = useRadioContext();
+  const { selectedValue, onSelect } = useRadioContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -119,6 +123,7 @@ RadioGroup.Radio = function Radio({ value, children, ...props }: RadioProps) {
   return (
     <label className='content-text flex w-fit cursor-pointer items-center gap-4'>
       <input
+        checked={selectedValue == value}
         className='peer hidden'
         name='radioGroup'
         type='radio'
