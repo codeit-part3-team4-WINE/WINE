@@ -13,7 +13,7 @@ export default function Tab({ totalCount }: { totalCount: number }) {
   ];
 
   return (
-    <nav className='mt-[4rem] flex h-[2.6rem] w-full items-center justify-between md:h-[3.2rem]'>
+    <nav className='mt-[4rem] mb-[3rem] flex h-[2.6rem] w-full items-center justify-between md:h-[3.2rem]'>
       <div className='md:text-2lg flex shrink-0 gap-[1.6rem] text-lg font-bold text-gray-500 md:gap-[3.2rem]'>
         {TABS.map(({ label, path }) => (
           <button
