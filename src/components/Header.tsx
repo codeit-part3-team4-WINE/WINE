@@ -71,19 +71,6 @@ export default function Header() {
                 </p>
               </>
             )}
-
-            {/* <button
-              className='cursor-pointer transition-colors hover:text-gray-600'
-              onClick={() => router.push(`/login`)}
-            >
-              로그인
-            </button>
-            <button
-              className='cursor-pointer transition-colors hover:text-gray-600'
-              onClick={() => router.push(`/signup`)}
-            >
-              회원가입
-            </button> */}
           </div>
         </div>
       </header>
