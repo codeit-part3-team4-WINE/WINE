@@ -11,6 +11,7 @@ interface InputPairProps
   size?: 'md' | 'lg';
   labelClassName?: string;
   inputClassName?: string;
+  error?: string; // 에러 메세지 추가
 }
 
 /**
@@ -65,6 +66,7 @@ export default function InputPair({
   inputClassName,
   labelClassName,
   size = 'lg',
+  error,
   ...inputProps
 }: InputPairProps) {
   const currentSize = SIZE_CLASSES[size];
@@ -84,8 +86,9 @@ export default function InputPair({
         {...inputProps}
         className={cn(`${currentSize.input}`, inputClassName)}
         id={label}
-        name={label}
+        name={inputProps.name}
       />
+      {error && <p className='text-md mt-1 text-red-500'>{error}</p>}
     </div>
   );
 }
