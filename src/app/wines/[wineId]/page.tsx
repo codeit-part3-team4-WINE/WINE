@@ -1,4 +1,8 @@
 'use client';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { privateInstance } from '@/apis/privateInstance';
 import wineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
 
@@ -7,6 +11,16 @@ import ReviewOverview from './components/ReviewRating/ReviewOverview';
 import { REVIEW_RANGES } from './dummy';
 
 export default function WinePage() {
+  const [info, setInfo] = useState(null);
+  const { wineId } = useParams();
+  useEffect(() => {
+    const fetchWine = async () => {
+      const response = await privateInstance.get(`/wines/${wineId}`);
+      setInfo(response.data);
+    };
+    fetchWine();
+  }, [wineId]);
+  console.log(info);
   return (
     <div className='mt-10 flex w-full flex-col items-center'>
       {/* <div className='mb-40 grid w-full gap-10 rounded-2xl border border-gray-300 px-10 pt-20 md:grid-cols-4 xl:grid-cols-2'>
