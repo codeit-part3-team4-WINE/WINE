@@ -23,6 +23,8 @@ export default function WinePage() {
     fetchWine();
   }, [wineId]);
 
+  const totalReviews = wineInfo?.reviews.length || 0;
+
   console.log(wineInfo);
   return (
     <div className='mt-10 flex w-full flex-col items-center'>
@@ -47,7 +49,7 @@ export default function WinePage() {
           <ReviewOverview
             data={REVIEW_RANGES}
             rating={4.8}
-            reviewNumber={100}
+            reviewNumber={totalReviews}
           />
         </div>
       </div>
