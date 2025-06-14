@@ -66,6 +66,7 @@ export default function InputRange({
   className = '',
   values,
   onChange,
+  disabled,
   ...props
 }: InputRangeProps) {
   return (
