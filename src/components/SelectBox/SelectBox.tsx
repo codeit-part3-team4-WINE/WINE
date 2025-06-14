@@ -53,16 +53,24 @@ export default function SelectBoxWrapper({
   const [selected, setSelected] = useState<string>(
     value === undefined || value === null || value === '' ? options[0] : value,
   );
+  const [hasChanged, setHasChanged] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
 
+  const handleSetSelected = (value: string) => {
+    setSelected(value);
+    setHasChanged(true);
+  };
+
   useEffect(() => {
     if (value === undefined || value === null || value === '') {
       setSelected(options[0]);
+      setHasChanged(false);
     } else {
       setSelected(value);
+      setHasChanged(false);
     }
   }, [value]);
 
@@ -78,7 +86,16 @@ export default function SelectBoxWrapper({
 
   return (
     <SelectBoxContext.Provider
-      value={{ isOpen, selected, toggle, close, setSelected, onChange }}
+      value={{
+        isOpen,
+        selected,
+        toggle,
+        close,
+        setSelected: handleSetSelected,
+        onChange,
+        hasChanged,
+        setHasChanged,
+      }}
     >
       <div ref={ref}>
         {label && (

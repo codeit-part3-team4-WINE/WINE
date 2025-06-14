@@ -97,7 +97,7 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
         <SelectBox.Options>
           {OPTIONS.map((opt) => (
             <SelectBox.Option key={opt} value={opt}>
-              <div className='hover:bg-primary-10 hover:text-primary-100 mx-[0.6rem] my-2 flex h-[3.6rem] w-[31.5] items-center rounded-[1.2rem] md:h-[4rem] md:w-[40rem]'>
+              <div className='hover:bg-primary-10 hover:text-primary-100 mx-[0.6rem] my-2 flex h-[3.6rem] w-[31.5] items-center rounded-[1.2rem] md:h-[4rem] md:w-[38rem]'>
                 <span className='ml-[1.6em]'>{opt}</span>
               </div>
             </SelectBox.Option>
