@@ -8,7 +8,7 @@ import PriceRangeSlider from './PriceRangeSlider';
 import RadioGroup from './Radio';
 
 export default function Filter({ filterState, onFilterChange }) {
-  const maxRange = 100000; // api 연결 이후 등록된 와인의 최대 가격으로 변경할 예정입니다.
+  const maxRange = 10000; // api 연결 이후 등록된 와인의 최대 가격으로 변경할 예정입니다.
   const [selectedRating, setSelectedRating] = useState<number | string>(0); // radio html 업데이트 특성 떄문에 이 이상 상위 객체에서 state를 전달해준다고 사용할 수 없음.
 
   return (

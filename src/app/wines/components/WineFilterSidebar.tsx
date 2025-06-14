@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import FilterIcon from '@/app/assets/icons/filter';
 import Button from '@/components/Button';
 import {
@@ -96,24 +94,24 @@ function MobileFilterButton({ filterState, onFilterChange }) {
   );
 }
 
-export default function WineFilterSidebar() {
-  const maxRange = 10000;
-  const [filterState, setFilterState] = useState({
-    selectedRating: 1,
-    selectedWineTypes: [],
-    selectedMinPrice: 0,
-    selectedMaxPrice: maxRange,
-  });
+export default function WineFilterSidebar({ filterState, onFilterChange }) {
+  // const maxRange = 10000;
+  // const [filterState, setFilterState] = useState({
+  //   selectedRating: 1,
+  //   selectedWineTypes: [],
+  //   selectedMinPrice: 0,
+  //   selectedMaxPrice: maxRange,
+  // });
 
   return (
     <section className='relative col-start-1 col-end-2 row-start-2 row-end-3 xl:col-start-1 xl:col-end-2 xl:row-start-2 xl:row-end-4 xl:w-[25rem]'>
       <DesktopFilterPanel
         filterState={filterState}
-        onFilterChange={setFilterState}
+        onFilterChange={onFilterChange}
       />
       <MobileFilterButton
         filterState={filterState}
-        onFilterChange={setFilterState}
+        onFilterChange={onFilterChange}
       />
     </section>
   );
