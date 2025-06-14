@@ -30,6 +30,11 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
       type: '',
     },
   );
+  const [hasInputChanged, setHasInputChanged] = useState({
+    name: false,
+    price: false,
+    region: false,
+  });
 
   // 받아오는 데이터가 변경됨에 따라 formData를 업데이트
   useEffect(() => {
@@ -44,6 +49,11 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
         type: '',
       });
     }
+    setHasInputChanged({
+      name: false,
+      price: false,
+      region: false,
+    });
   }, [wineData]);
 
   // 입력값이 변경될 때 해당 key에 맞는 formData 상태를 업데이트하는 함수
@@ -51,6 +61,7 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
     (key: keyof typeof formData) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData((prev) => ({ ...prev, [key]: e.target.value }));
+      setHasInputChanged((prev) => ({ ...prev, [key]: true }));
     };
 
   // 숫자 입력 input에서 숫자만 허용하도록 하는 함수
@@ -69,6 +80,7 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
         label='와인 이름'
         placeholder={isEdit ? wineData.name : '와인 이름 입력'}
         type='text'
+        value={!hasInputChanged.name ? '' : formData.name}
         onChange={handleChange('name')}
       />
       <InputPair
@@ -77,6 +89,7 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
         placeholder={isEdit ? String(wineData.price) : '가격 입력'}
         step='10000'
         type='number'
+        value={!hasInputChanged.price ? '' : formData.price}
         onChange={handleChange('price')}
         onInput={handleNumberInput}
       />
@@ -85,6 +98,7 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
         label='원산지'
         placeholder={isEdit ? wineData.region : '원산지 입력'}
         type='text'
+        value={!hasInputChanged.region ? '' : formData.region}
         onChange={handleChange('region')}
       />
       <SelectBox
