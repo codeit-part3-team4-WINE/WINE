@@ -8,6 +8,7 @@ import InputFile from '@/components/Inputs/InputFile';
 
 import InputPair from '../../Inputs/InputPair';
 import { SelectBox } from '../../SelectBox';
+
 type WineFormData = {
   name: string;
   region: string;
@@ -18,17 +19,18 @@ type WineFormData = {
 
 const OPTIONS = ['Red', 'White', 'Sparkling'];
 const INPUT_CLASSNAME = 'w-full border border-gray-300 rounded-[1.6rem]';
+const DEFAULT_DATA: WineFormData = {
+  name: '',
+  region: '',
+  image: '',
+  price: 0,
+  type: '',
+};
 
 export default function WineForm({ wineData }: { wineData?: WineFormData }) {
   const isEdit = !!wineData;
   const [formData, setFormData] = useState<WineFormData>(
-    wineData ?? {
-      name: '',
-      region: '',
-      image: '',
-      price: 0,
-      type: '',
-    },
+    wineData ?? DEFAULT_DATA,
   );
   const [hasInputChanged, setHasInputChanged] = useState({
     name: false,
@@ -41,13 +43,7 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
     if (wineData) {
       setFormData(wineData);
     } else {
-      setFormData({
-        name: '',
-        region: '',
-        image: '',
-        price: 0,
-        type: '',
-      });
+      setFormData(DEFAULT_DATA);
     }
     setHasInputChanged({
       name: false,
@@ -132,7 +128,7 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
               }
               fill
               alt={formData.name}
-              className='object-contain'
+              className='rounded-[1.6rem] border border-gray-300 object-contain'
               src={formData.image}
             />
           ) : (
