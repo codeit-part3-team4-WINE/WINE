@@ -79,6 +79,10 @@ export async function SignIn(
       if (serverMsg === '존재하지 않는 이메일입니다.') {
         return { error: new NonExistentEmailError().message };
       }
+
+      if (serverMsg === '비밀번호가 일치하지 않습니다.') {
+        return { error: new PasswordMismatchError().message };
+      }
     }
 
     return { error: new InternalServerError().message };
