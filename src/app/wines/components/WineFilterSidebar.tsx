@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import FilterIcon from '@/app/assets/icons/filter';
 import Button from '@/components/Button';
 import {
@@ -20,10 +22,10 @@ import Filter from './Filter';
  *
  * @description 데스크탑에서 보여지는 검색 조건 필터링 패널
  */
-function DesktopFilterPanel() {
+function DesktopFilterPanel({ filterState, onFilterChange }) {
   return (
     <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
-      <Filter />
+      <Filter filterState={filterState} onFilterChange={onFilterChange} />
 
       <Button
         className='w-full'
@@ -43,7 +45,7 @@ function DesktopFilterPanel() {
  *
  * @description 모바일과 태블릿에서 보여지는 검색 조건 필터링 버튼
  */
-function MobileFilterButton() {
+function MobileFilterButton({ filterState, onFilterChange }) {
   return (
     <div className='flex h-full w-full items-center xl:hidden'>
       <Modal>
@@ -62,7 +64,7 @@ function MobileFilterButton() {
             <ModalTitle>필터</ModalTitle>
           </ModalHeader>
           <ModalBody>
-            <Filter />
+            <Filter filterState={filterState} onFilterChange={onFilterChange} />
           </ModalBody>
           <ModalFooter>
             <ModalClose />
@@ -95,10 +97,24 @@ function MobileFilterButton() {
 }
 
 export default function WineFilterSidebar() {
+  const maxRange = 10000;
+  const [filterState, setFilterState] = useState({
+    selectedRating: 1,
+    selectedWineTypes: [],
+    selectedMinPrice: 0,
+    selectedMaxPrice: maxRange,
+  });
+
   return (
     <section className='relative col-start-1 col-end-2 row-start-2 row-end-3 xl:col-start-1 xl:col-end-2 xl:row-start-2 xl:row-end-4 xl:w-[25rem]'>
-      <DesktopFilterPanel />
-      <MobileFilterButton />
+      <DesktopFilterPanel
+        filterState={filterState}
+        onFilterChange={setFilterState}
+      />
+      <MobileFilterButton
+        filterState={filterState}
+        onFilterChange={setFilterState}
+      />
     </section>
   );
 }
