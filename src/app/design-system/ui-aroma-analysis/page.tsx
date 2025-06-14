@@ -1,4 +1,4 @@
-import AromaAnalysis from '@/app/wines/[wineId]/AromaAnalysis/AromaAnalysis';
+import AromaAnalysis from '@/app/wines/[wineId]/components/AromaAnalysis/AromaAnalysis';
 import { DUMMY_REVIEWS } from '@/app/wines/[wineId]/dummy';
 
 export default function AromaAnalysisExample() {
