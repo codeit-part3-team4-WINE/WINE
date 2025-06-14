@@ -84,11 +84,15 @@ export default function InputPair({
       </label>
       <Input
         {...inputProps}
-        className={cn(`${currentSize.input}`, inputClassName)}
+        className={cn(
+          `${currentSize.input}`,
+          inputClassName,
+          error && 'border-red-500 focus:border-red-500',
+        )}
         id={label}
         name={inputProps.name}
       />
-      {error && <p className='text-md mt-1 text-red-500'>{error}</p>}
+      {error && <p className='text-md mt-2 ml-2 text-red-500'>{error}</p>}
     </div>
   );
 }
