@@ -1,15 +1,12 @@
-import ReviewCard from '../../components/Card/ReviewCard';
-import { reviews, wines } from '../../components/mock/mock-data';
+import ReviewCard from '@/app/wines/[wineId]/components/ReviewCard';
 
 export default function Favorite() {
-  const review = reviews.list[0];
-  const wine = wines.list[0];
   return (
-    <ReviewCard
-      content={review.content}
-      rating={review.rating}
-      time={review.updatedAt}
-      wine={wine.name}
-    />
+    <div className='flex flex-col gap-10'>
+      {Array.from({ length: 10 }).map((_, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <ReviewCard key={index} />
+      ))}
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 import { cn } from '@/libs/cn';
 
 const BASIC_CLASSNAME =
-  'text-primary-100 bg-primary-100/10 flex w-fit items-center gap-2 rounded-xl px-3 py-2 text-xl font-bold';
+  'text-primary-100 bg-primary-100/10 flex w-fit items-center gap-2 rounded-xl px-3 py-2 text-[1.8rem] font-bold';
 
 /**
  * Props for the Badge component

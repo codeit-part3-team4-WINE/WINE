@@ -19,16 +19,17 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className='flex items-center justify-between'>
-          <ul className='sub-content-text flex flex-col flex-wrap items-end gap-y-1 text-gray-300 md:flex-row md:gap-6'>
+        {/* 날짜 + 정보 영역 */}
+        <div className='flex flex-col gap-y-2 md:flex-row md:items-center md:justify-between'>
+          <div className='text-md whitespace-nowrap text-gray-300'>
+            <p>©2025.06</p>
+          </div>
+          <ul className='text-md flex flex-col flex-wrap gap-y-1 text-gray-300 md:flex-row md:gap-6'>
             <li className='break-words whitespace-normal'>Taeilwind v20.08</li>
             <li className='break-words whitespace-normal'>
               김서연 | 김태일 | 맹은빈 | 명지우 | 유용민
             </li>
           </ul>
-          <p className='sub-content-text whitespace-nowrap text-gray-300'>
-            ©2025.06
-          </p>
         </div>
       </div>
     </footer>
