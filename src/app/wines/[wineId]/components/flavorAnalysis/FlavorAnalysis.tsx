@@ -6,10 +6,10 @@ import { calculateWineCharacteristics } from './utils';
 export default function FlavorAnalysis({ data }: { data: Review[] }) {
   const averages = calculateWineCharacteristics(data);
   const values = {
-    body: averages.lightBold,
-    tannin: averages.smoothTannic,
-    sweetness: averages.drySweet,
-    acidity: averages.softAcidic,
+    lightBold: averages.lightBold,
+    smoothTannic: averages.smoothTannic,
+    drySweet: averages.drySweet,
+    softAcidic: averages.softAcidic,
   };
 
   return (
