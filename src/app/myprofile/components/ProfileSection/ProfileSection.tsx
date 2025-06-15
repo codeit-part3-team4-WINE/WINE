@@ -1,5 +1,6 @@
 import { StaticImageData } from 'next/image';
 
+import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
 
@@ -8,21 +9,15 @@ import { ChangeBtn } from './ChangeBtn';
 /**
  * 프로필 섹션 컴포넌트
  *
- * @param {string} props.nickname - 사용자 닉네임
- * @param {string | StaticImageData} props.image - 프로필 이미지 URL 또는 StaticImageData
- *
  * @example
  * ```tsx
- * <ProfileSection nickname={nickname} image={image} />
+ * <ProfileSection />
  * ```
  */
-export default function ProfileSection({
-  nickname,
-  image,
-}: {
-  nickname: string;
-  image: string | StaticImageData;
-}) {
+export default async function ProfileSection() {
+  const axios = await createPrivateServerInstance();
+  const { data: user } = await axios.get('/users/me');
+
   return (
     <section
       className={cn(
@@ -31,9 +26,9 @@ export default function ProfileSection({
       )}
     >
       <div className={cn('flex items-center gap-[1.6rem]', 'xl:flex-col')}>
-        <ProfileImg size='lg' src={image} />
+        <ProfileImg size='lg' src={user.image as string | StaticImageData} />
         <span className='text-xl font-bold text-gray-800 md:text-2xl'>
-          {nickname}
+          {user.nickname}
         </span>
       </div>
       <ChangeBtn />
