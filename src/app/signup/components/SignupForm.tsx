@@ -28,7 +28,7 @@ export default function SignUpForm() {
   const setUser = useUserStore((state) => state.setUser);
 
   const CustomInputClass =
-    'mt-1 block w-full rounded-xl border border-gray-300 px-6 py-2 shadow-sm focus:outline-none';
+    'mt-1 block w-full rounded-xl border border-gray-300 px-6 py-2  focus:outline-none';
 
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
@@ -72,7 +72,7 @@ export default function SignUpForm() {
 
   return (
     <div className='flex min-h-screen items-center justify-center px-4 py-12'>
-      <div className='w-full max-w-3xl space-y-8 rounded-lg bg-white p-6 shadow-2xl inset-shadow-sm inset-shadow-gray-500 sm:p-8'>
+      <div className='w-full max-w-3xl space-y-8 rounded-xl bg-white p-6 shadow-2xl inset-shadow-sm inset-shadow-gray-200 sm:p-8'>
         <div className='py-8 text-center'>
           <Link aria-label='홈으로 이동' href='/'>
             <WineLogoIcon
@@ -164,7 +164,7 @@ export default function SignUpForm() {
             </div>
 
             {isPending ? (
-              <div className='mt-10 flex items-center justify-center'>
+              <div className='mt-7 flex items-center justify-center'>
                 <Button
                   loading
                   className='w-full'
@@ -172,7 +172,7 @@ export default function SignUpForm() {
                   type='submit'
                   onClick={() => {}}
                 >
-                  회원가입
+                  회원가입중
                 </Button>
               </div>
             ) : (
@@ -189,18 +189,18 @@ export default function SignUpForm() {
               </div>
             )}
 
-            <div className='mt-[1rem] flex items-center justify-center'>
-              <div className='h-px flex-grow bg-gray-900' />
-              <span className='text-md mx-4 flex-shrink text-gray-900'>
+            <div className='mt-[4rem] flex items-center justify-center'>
+              <div className='h-px flex-grow bg-gray-500' />
+              <span className='text-md mx-4 flex-shrink text-gray-600'>
                 또는
               </span>
-              <div className='h-px flex-grow bg-gray-900' />
+              <div className='h-px flex-grow bg-gray-500' />
             </div>
 
-            <div className='mt-6 text-center text-lg text-gray-500'>
+            <div className='mt-6 text-center text-lg text-gray-900'>
               이미 계정이 있으신가요?{' '}
               <Link
-                className='font-medium text-purple-600 hover:text-purple-700 hover:underline'
+                className='text-primary-100 hover:text-primary-100 font-medium hover:underline'
                 href='/login'
               >
                 로그인하기
