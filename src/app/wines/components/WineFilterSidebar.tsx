@@ -82,7 +82,9 @@ function MobileFilterButton({ filterState, onFilterChange }) {
                 className='flex-2'
                 size='sm'
                 variant='primary'
-                onClick={() => {}}
+                onClick={() => {
+                  console.log('이렇게 검색해줘! ', filterState);
+                }}
               >
                 필터 적용하기
               </Button>
