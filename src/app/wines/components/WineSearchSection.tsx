@@ -28,6 +28,7 @@ export default function WineSearchSection() {
     selectedMaxPrice: maxRange,
     searchQuery: '',
   });
+  const [tempFilterState, setTempFilterState] = useState(filterState);
 
   useEffect(() => {
     console.log('Filter state changed:', filterState);
@@ -68,7 +69,9 @@ export default function WineSearchSection() {
                 className='size-[4rem] p-3'
                 round='rounded'
                 variant='outline'
-                onClick={() => {}}
+                onClick={() => {
+                  setTempFilterState(filterState);
+                }}
               >
                 <FilterIcon size={23} />
               </Button>
@@ -79,8 +82,8 @@ export default function WineSearchSection() {
               </ModalHeader>
               <ModalBody>
                 <Filter
-                  filterState={filterState}
-                  onFilterChange={setFilterState}
+                  filterState={tempFilterState}
+                  onFilterChange={setTempFilterState}
                 />
               </ModalBody>
               <ModalFooter>
@@ -90,13 +93,15 @@ export default function WineSearchSection() {
                   size='sm'
                   variant='secondary'
                   onClick={() => {
-                    setFilterState({
+                    const resetState = {
                       selectedRating: 0,
                       selectedWineTypes: [],
                       selectedMinPrice: 0,
                       selectedMaxPrice: maxRange,
-                      searchQuery: filterState.searchQuery,
-                    });
+                      searchQuery: filterState.searchQuery, // 검색어는 유지
+                    };
+                    setFilterState(resetState);
+                    setTempFilterState(resetState);
                   }}
                 >
                   초기화
@@ -107,7 +112,7 @@ export default function WineSearchSection() {
                     size='sm'
                     variant='primary'
                     onClick={() => {
-                      console.log('Filter state changed:', filterState);
+                      setFilterState(tempFilterState);
                     }}
                   >
                     필터 적용하기
