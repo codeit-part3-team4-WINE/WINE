@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 
 import ReviewCard from '../../components/Card/ReviewCard';
+import LoadMoreButton from '../../components/LoadMoreBtn';
 import Nothing from '../../components/Nothing';
 import Tab from '../../components/Tab';
 
@@ -60,6 +61,7 @@ export default async function Reviews() {
           </Link>
         ))}
       </div>
+      <LoadMoreButton initialCursor={data.nextCursor} type='review' />
     </div>
   );
 }

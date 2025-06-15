@@ -1,6 +1,7 @@
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 
 import WineCard from '../../components/Card/WineCard';
+import LoadMoreButton from '../../components/LoadMoreBtn';
 import Nothing from '../../components/Nothing';
 import Tab from '../../components/Tab';
 
@@ -50,6 +51,7 @@ export default async function Wines() {
           />
         ))}
       </div>
+      <LoadMoreButton initialCursor={data.nextCursor} type='wine' />
     </div>
   );
 }
