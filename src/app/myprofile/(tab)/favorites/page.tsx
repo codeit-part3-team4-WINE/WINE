@@ -3,7 +3,7 @@ import ReviewCard from '@/app/wines/[wineId]/components/ReviewCard';
 
 import Nothing from '../../components/Nothing';
 
-type Review = {
+interface Review {
   id: number;
   rating: number;
   aroma: string[];
@@ -20,7 +20,7 @@ type Review = {
     image: string;
   };
   isLiked: boolean;
-};
+}
 
 export default async function Favorite() {
   const axios = await createPrivateServerInstance();
@@ -37,7 +37,7 @@ export default async function Favorite() {
   });
   const wines = data.list;
 
-  // 2. 각 와인 id로 상세 호출하여 liked 리뷰만 수집
+  // 각 와인 id로 상세 호출하여 liked 리뷰만 수집
   const likedReviews: Review[] = [];
 
   for (const wine of wines) {

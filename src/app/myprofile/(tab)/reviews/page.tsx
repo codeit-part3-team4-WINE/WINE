@@ -1,8 +1,25 @@
-/* eslint-disable */
-import { createPrivateServerInstance } from '@/apis/privateServerInstance';
-import ReviewCard from '../../components/Card/ReviewCard';
 import Link from 'next/link';
+
+import { createPrivateServerInstance } from '@/apis/privateServerInstance';
+
+import ReviewCard from '../../components/Card/ReviewCard';
 import Nothing from '../../components/Nothing';
+
+interface Review {
+  id: number;
+  content: string;
+  rating: number;
+  updatedAt: string;
+  wine: {
+    id: number;
+    name: string;
+    region: string;
+    image: string;
+    price: number;
+    avgRating: number;
+    type: string;
+  };
+}
 
 export default async function Reviews() {
   const axios = await createPrivateServerInstance();
@@ -25,7 +42,7 @@ export default async function Reviews() {
 
   return (
     <div className='flex flex-col gap-10'>
-      {reviews.map((review: any) => (
+      {reviews.map((review: Review) => (
         <Link key={review.id} href={`/wines/${review.wine.id}`}>
           <ReviewCard
             key={review.id}

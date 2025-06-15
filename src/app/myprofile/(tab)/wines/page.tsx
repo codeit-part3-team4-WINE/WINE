@@ -1,7 +1,16 @@
-/* eslint-disable */
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
+
 import WineCard from '../../components/Card/WineCard';
 import Nothing from '../../components/Nothing';
+
+interface Wine {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  region: string;
+  rating: number;
+}
 
 export default async function Wines() {
   const axios = await createPrivateServerInstance();
@@ -24,7 +33,7 @@ export default async function Wines() {
 
   return (
     <div className='flex flex-col gap-10'>
-      {wines.map((wine: any) => (
+      {wines.map((wine: Wine) => (
         <WineCard
           key={wine.id}
           className='cursor-pointer'
