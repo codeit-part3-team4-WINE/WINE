@@ -49,10 +49,10 @@ import { cn } from '@/libs/cn';
  */
 
 type Option = {
-  body: number;
-  tannin: number;
-  sweetness: number;
-  acidity: number;
+  lightBold: number;
+  smoothTannic: number;
+  drySweet: number;
+  softAcidic: number;
 };
 
 interface InputRangeProps {

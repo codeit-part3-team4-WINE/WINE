@@ -14,14 +14,30 @@ import { ReviewType } from '../types';
 
 export default function ReviewCard({ review }: { review: ReviewType }) {
   const [isOpen, setIsOpen] = useState(true);
+  const {
+    rating,
+    lightBold,
+    smoothTannic,
+    drySweet,
+    softAcidic,
+    aroma,
+    content,
+    createdAt,
+    user,
+  } = review;
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
-  const [values, setValues] = useState({
-    body: 5,
-    tannin: 5,
-    sweetness: 5,
-    acidity: 5,
+  const [values, setValues] = useState<{
+    lightBold: number;
+    smoothTannic: number;
+    drySweet: number;
+    softAcidic: number;
+  }>({
+    lightBold,
+    smoothTannic,
+    drySweet,
+    softAcidic,
   });
 
   const handleChange = (name: keyof typeof values, value: number) => {
@@ -33,9 +49,9 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
         <div className='flex gap-5'>
           <ProfileImg size='md' />
           <div className='flex flex-col items-center justify-center'>
-            <p className='text-2lg font-bold'>{review.user.nickname}</p>
+            <p className='text-2lg font-bold'>{user.nickname}</p>
             <p className='text-lg text-gray-500'>
-              {formatToTimeAgo(review.createdAt)}
+              {formatToTimeAgo(createdAt)}
             </p>
           </div>
         </div>
@@ -61,7 +77,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
           className='hide-scrollbar flex flex-1 items-center gap-2 overflow-x-scroll'
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {review.aroma.map((flavor) => (
+          {aroma.map((flavor) => (
             <div
               key={flavor}
               className='flex-shrink-0 rounded-full border border-gray-300 px-5 py-2 text-center text-lg text-gray-900'
@@ -70,12 +86,12 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
             </div>
           ))}
         </div>
-        <StarBadge className='text-2lg flex-shrink-0' rating={review.rating} />
+        <StarBadge className='text-2lg flex-shrink-0' rating={rating} />
       </div>
       {isOpen && (
         <>
           <div className='text-lg'>
-            <p className='text-gray-900'>{review.content}</p>
+            <p className='text-gray-900'>{content}</p>
           </div>
           <div>
             <InputRange disabled values={values} onChange={handleChange} />
