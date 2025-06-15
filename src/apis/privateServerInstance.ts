@@ -63,7 +63,7 @@ export const createPrivateServerInstance = async (): Promise<AxiosInstance> => {
   }
 
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL,
+    baseURL: process.env.API_SERVER_URL,
     timeout: API_TIMEOUT,
     headers: {
       ...API_HEADERS.JSON,
