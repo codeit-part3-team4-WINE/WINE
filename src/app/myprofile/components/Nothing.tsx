@@ -19,7 +19,7 @@ const messages = {
   },
   favorite: {
     text: '관심 있는 후기가 없습니다.',
-    button: '관심 있는 후기 찾으러 가기',
+    button: '후기 보러 가기',
   },
 };
 
