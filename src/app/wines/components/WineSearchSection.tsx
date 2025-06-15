@@ -30,12 +30,15 @@ export default function WineSearchSection() {
   });
 
   useEffect(() => {
-    // console.log('Filter state changed:', filterState);
-  }, [filterState]);
+    console.log('Filter state changed:', filterState);
+  }, [filterState.searchQuery]);
 
   return (
     <>
-      <WineSearchBar />
+      <WineSearchBar
+        filterState={filterState}
+        onFilterChange={setFilterState}
+      />
       {/* <WineFilterSidebar
         filterState={filterState}
         onFilterChange={setFilterState}
