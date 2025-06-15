@@ -2,6 +2,7 @@ import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 
 import WineCard from '../../components/Card/WineCard';
 import Nothing from '../../components/Nothing';
+import Tab from '../../components/Tab';
 
 interface Wine {
   id: number;
@@ -25,24 +26,30 @@ export default async function Wines() {
 
   if (!Array.isArray(wines) || wines.length === 0) {
     return (
-      <div className='mt-[5rem] flex items-center justify-center'>
-        <Nothing type='wine' />
+      <div>
+        <Tab totalCount={0} />
+        <div className='mt-[5rem] flex items-center justify-center'>
+          <Nothing type='wine' />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className='flex flex-col gap-10'>
-      {wines.map((wine: Wine) => (
-        <WineCard
-          key={wine.id}
-          className='cursor-pointer'
-          image={wine.image}
-          name={wine.name}
-          price={wine.price}
-          region={wine.region}
-        />
-      ))}
+    <div className='flex flex-col'>
+      <Tab totalCount={data.totalCount} />
+      <div className='flex flex-col gap-10'>
+        {wines.map((wine: Wine) => (
+          <WineCard
+            key={wine.id}
+            className='cursor-pointer'
+            image={wine.image}
+            name={wine.name}
+            price={wine.price}
+            region={wine.region}
+          />
+        ))}
+      </div>
     </div>
   );
 }

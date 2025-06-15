@@ -2,6 +2,7 @@ import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import ReviewCard from '@/app/wines/[wineId]/components/ReviewCard';
 
 import Nothing from '../../components/Nothing';
+import Tab from '../../components/Tab';
 
 interface Review {
   id: number;
@@ -51,17 +52,23 @@ export default async function Favorite() {
 
   if (likedReviews.length === 0) {
     return (
-      <div className='mt-[5rem] flex items-center justify-center'>
-        <Nothing type='favorite' />
+      <div>
+        <Tab totalCount={likedReviews.length} />
+        <div className='mt-[5rem] flex items-center justify-center'>
+          <Nothing type='favorite' />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className='flex flex-col gap-10'>
-      {likedReviews.map((review) => (
-        <ReviewCard key={review.id} review={review} />
-      ))}
+    <div className='flex flex-col'>
+      <Tab totalCount={likedReviews.length} />
+      <div className='flex flex-col gap-10'>
+        {likedReviews.map((review) => (
+          <ReviewCard key={review.id} review={review} />
+        ))}
+      </div>
     </div>
   );
 }
