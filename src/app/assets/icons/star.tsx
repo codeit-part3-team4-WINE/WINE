@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 import type { FillIconProps } from '@/types/icon';
 
 /**
@@ -22,7 +24,7 @@ export default function StarIcon({
   filled = false,
   fillPercent = 100, // 0 ~ 100
 }: FillIconProps & { fillPercent?: number }) {
-  const id = `mask-${Math.random()}`;
+  const id = useId();
 
   return (
     <svg
