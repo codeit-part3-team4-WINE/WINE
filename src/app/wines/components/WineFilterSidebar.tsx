@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import FilterIcon from '@/app/assets/icons/filter';
 import Button from '@/components/Button';
 import {
@@ -44,6 +46,8 @@ function DesktopFilterPanel({ filterState, onFilterChange }) {
  * @description 모바일과 태블릿에서 보여지는 검색 조건 필터링 버튼
  */
 function MobileFilterButton({ filterState, onFilterChange }) {
+  const [tempFilterState, setTempFilterState] = useState(filterState); // 모바일, 태블릿용 임시 filterState
+
   return (
     <div className='flex h-full w-full items-center xl:hidden'>
       <Modal>
@@ -52,7 +56,7 @@ function MobileFilterButton({ filterState, onFilterChange }) {
             className='size-[4rem] p-3'
             round='rounded'
             variant='outline'
-            onClick={() => console.log('button')}
+            onClick={() => setTempFilterState(filterState)}
           >
             <FilterIcon size={23} />
           </Button>
@@ -62,7 +66,10 @@ function MobileFilterButton({ filterState, onFilterChange }) {
             <ModalTitle>필터</ModalTitle>
           </ModalHeader>
           <ModalBody>
-            <Filter filterState={filterState} onFilterChange={onFilterChange} />
+            <Filter
+              filterState={tempFilterState}
+              onFilterChange={setTempFilterState}
+            />
           </ModalBody>
           <ModalFooter>
             <ModalClose />
@@ -71,8 +78,15 @@ function MobileFilterButton({ filterState, onFilterChange }) {
               size='sm'
               variant='secondary'
               onClick={() => {
-                // setSelectedRating(1);
-                // setSelectedWineTypes([]);
+                const resetState = {
+                  selectedRating: 0,
+                  selectedWineTypes: [],
+                  selectedMinPrice: 0,
+                  selectedMaxPrice: 10000, // temp
+                  searchQuery: filterState.searchQuery, // 검색어는 유지
+                };
+                onFilterChange(resetState);
+                setTempFilterState(resetState);
               }}
             >
               초기화
@@ -83,7 +97,7 @@ function MobileFilterButton({ filterState, onFilterChange }) {
                 size='sm'
                 variant='primary'
                 onClick={() => {
-                  console.log('이렇게 검색해줘! ', filterState);
+                  onFilterChange(tempFilterState);
                 }}
               >
                 필터 적용하기
@@ -97,14 +111,6 @@ function MobileFilterButton({ filterState, onFilterChange }) {
 }
 
 export default function WineFilterSidebar({ filterState, onFilterChange }) {
-  // const maxRange = 10000;
-  // const [filterState, setFilterState] = useState({
-  //   selectedRating: 1,
-  //   selectedWineTypes: [],
-  //   selectedMinPrice: 0,
-  //   selectedMaxPrice: maxRange,
-  // });
-
   return (
     <section className='relative col-start-1 col-end-2 row-start-2 row-end-3 xl:col-start-1 xl:col-end-2 xl:row-start-2 xl:row-end-4 xl:w-[25rem]'>
       <DesktopFilterPanel
