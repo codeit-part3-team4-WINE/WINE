@@ -10,16 +10,34 @@ import InputRange from '@/components/InputRange';
 import ProfileImg from '@/components/ProfileImg';
 import { formatToTimeAgo } from '@/libs/formmatToTimeago';
 
-export default function ReviewCard() {
+import { ReviewType } from '../types';
+
+export default function ReviewCard({ review }: { review: ReviewType }) {
   const [isOpen, setIsOpen] = useState(true);
+  const {
+    rating,
+    lightBold,
+    smoothTannic,
+    drySweet,
+    softAcidic,
+    aroma,
+    content,
+    createdAt,
+    user,
+  } = review;
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
-  const [values, setValues] = useState({
-    body: 5,
-    tannin: 5,
-    sweetness: 5,
-    acidity: 5,
+  const [values, setValues] = useState<{
+    lightBold: number;
+    smoothTannic: number;
+    drySweet: number;
+    softAcidic: number;
+  }>({
+    lightBold,
+    smoothTannic,
+    drySweet,
+    softAcidic,
   });
 
   const handleChange = (name: keyof typeof values, value: number) => {
@@ -31,9 +49,9 @@ export default function ReviewCard() {
         <div className='flex gap-5'>
           <ProfileImg size='md' />
           <div className='flex flex-col items-center justify-center'>
-            <p className='text-2lg font-bold'>와인 러버</p>
+            <p className='text-2lg font-bold'>{user.nickname}</p>
             <p className='text-lg text-gray-500'>
-              {formatToTimeAgo('2025-02-10')}
+              {formatToTimeAgo(createdAt)}
             </p>
           </div>
         </div>
@@ -59,7 +77,7 @@ export default function ReviewCard() {
           className='hide-scrollbar flex flex-1 items-center gap-2 overflow-x-scroll'
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {['체리', '오크', '카라멜', '시트러스', '꽃'].map((flavor) => (
+          {aroma.map((flavor) => (
             <div
               key={flavor}
               className='flex-shrink-0 rounded-full border border-gray-300 px-5 py-2 text-center text-lg text-gray-900'
@@ -68,17 +86,12 @@ export default function ReviewCard() {
             </div>
           ))}
         </div>
-        <StarBadge className='flex-shrink-0 text-[1.8rem]' rating={4.8} />
+        <StarBadge className='text-2lg flex-shrink-0' rating={rating} />
       </div>
       {isOpen && (
         <>
           <div className='text-lg'>
-            <p className='text-gray-900'>
-              description, Deep marron color, tasting notes of blackberry,
-              cherry, and chocolate. Super rich and complex, with a long finish.
-              Amazing value for the price. Could drink all day every day with or
-              without food.
-            </p>
+            <p className='text-gray-900'>{content}</p>
           </div>
           <div>
             <InputRange disabled values={values} onChange={handleChange} />
