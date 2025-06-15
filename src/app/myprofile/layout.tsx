@@ -6,9 +6,11 @@ export default async function MypageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className='mx-[1.6rem] mt-7 max-w-[120rem] md:mx-[2rem] lg:mx-[2rem] xl:mx-[auto]'>
+    <main className='relative mx-[1.6rem] mt-7 max-w-[120rem] md:mx-[2rem] lg:mx-[2rem] xl:mx-[auto]'>
       <div className='flex w-full flex-col xl:flex-row xl:gap-[5rem]'>
-        <ProfileSection />
+        <div className='sticky top-[4rem] h-fit'>
+          <ProfileSection />
+        </div>
         <div className='flex w-full flex-col'>{children}</div>
       </div>
     </main>
