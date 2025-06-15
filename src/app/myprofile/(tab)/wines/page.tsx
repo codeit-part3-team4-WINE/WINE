@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import WineCard from '../../components/Card/WineCard';
+import Nothing from '../../components/Nothing';
 
 export default async function Wines() {
   const axios = await createPrivateServerInstance();
@@ -14,7 +15,11 @@ export default async function Wines() {
   const wines = data.list;
 
   if (!Array.isArray(wines) || wines.length === 0) {
-    return <div className='text-gray-500'>등록된 와인이 없습니다.</div>;
+    return (
+      <div className='mt-[5rem] flex items-center justify-center'>
+        <Nothing type='wine' />
+      </div>
+    );
   }
 
   return (

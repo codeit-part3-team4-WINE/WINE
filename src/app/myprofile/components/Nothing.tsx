@@ -1,3 +1,4 @@
+'use client';
 import { useRouter } from 'next/navigation';
 
 import ExclamationMark from '@/app/assets/icons/exclamation-mark';

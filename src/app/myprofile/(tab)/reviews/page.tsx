@@ -2,6 +2,7 @@
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import ReviewCard from '../../components/Card/ReviewCard';
 import Link from 'next/link';
+import Nothing from '../../components/Nothing';
 
 export default async function Reviews() {
   const axios = await createPrivateServerInstance();
@@ -12,12 +13,14 @@ export default async function Reviews() {
     },
   });
 
-  console.log(data.list[0]['wine']);
-
   const reviews = data.list;
 
   if (!Array.isArray(reviews) || reviews.length === 0) {
-    return <div className='text-gray-500'>작성된 리뷰가 없습니다.</div>;
+    return (
+      <div className='mt-[5rem] flex items-center justify-center'>
+        <Nothing type='review' />
+      </div>
+    );
   }
 
   return (
