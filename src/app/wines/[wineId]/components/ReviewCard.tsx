@@ -14,6 +14,7 @@ import { ReviewType } from '../types';
 
 export default function ReviewCard({ review }: { review: ReviewType }) {
   const [isOpen, setIsOpen] = useState(true);
+
   const {
     rating,
     lightBold,
@@ -28,6 +29,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+
   const [values, setValues] = useState<{
     lightBold: number;
     smoothTannic: number;
