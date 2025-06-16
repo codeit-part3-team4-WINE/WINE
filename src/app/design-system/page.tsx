@@ -19,7 +19,6 @@ export default function DesignSystem() {
           title='Modal Components'
         />
 
-        
         <LinkButton
           description='View all button variations and examples'
           slug='ui-button'

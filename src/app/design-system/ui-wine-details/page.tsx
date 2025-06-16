@@ -1,11 +1,12 @@
 'use client';
+import FlavorAnalysis from '@/app/wines/[wineId]/components/flavorAnalysis/FlavorAnalysis';
 import Nothing from '@/app/wines/[wineId]/components/Nothing';
 import ReviewOverview from '@/app/wines/[wineId]/components/ReviewRating/ReviewOverview';
 import ReviewRange from '@/app/wines/[wineId]/components/ReviewRating/ReviewRange';
 import ReviewRangeGroup from '@/app/wines/[wineId]/components/ReviewRating/ReviewRangeGroup';
 import ReviewRating from '@/app/wines/[wineId]/components/ReviewRating/ReviewRating';
 import ReviewRatingButton from '@/app/wines/[wineId]/components/ReviewRating/ReviewRatingButton';
-import { REVIEW_RANGES } from '@/app/wines/[wineId]/dummy';
+import { DUMMY_REVIEWS, REVIEW_RANGES } from '@/app/wines/[wineId]/dummy';
 
 export default function UiWineDetail() {
   return (
@@ -17,6 +18,7 @@ export default function UiWineDetail() {
 
       <ReviewOverview data={REVIEW_RANGES} rating={4.8} reviewNumber={100} />
       <Nothing />
+      <FlavorAnalysis data={DUMMY_REVIEWS} />
     </div>
   );
 }
