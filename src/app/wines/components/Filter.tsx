@@ -5,8 +5,8 @@ import MultiSelect from '@/components/MultiSelect';
 import PriceRangeSlider from './PriceRangeSlider';
 import RadioGroup from './Radio';
 
-export default function Filter({ filterState, onFilterChange }) {
-  const maxRange = 100000; // api 연결 이후 등록된 와인의 최대 가격으로 변경할 예정입니다.
+export default function Filter({ priceMaxRange, filterState, onFilterChange }) {
+  const maxRange = priceMaxRange; // api 연결 이후 등록된 와인의 최대 가격으로 변경할 예정입니다.
 
   return (
     <div className='my-10 flex flex-col gap-12'>

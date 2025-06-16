@@ -22,10 +22,14 @@ import Filter from './Filter';
  *
  * @description 데스크탑에서 보여지는 검색 조건 필터링 패널
  */
-function DesktopFilterPanel({ filterState, onFilterChange }) {
+function DesktopFilterPanel({ priceMaxRange, filterState, onFilterChange }) {
   return (
     <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
-      <Filter filterState={filterState} onFilterChange={onFilterChange} />
+      <Filter
+        filterState={filterState}
+        priceMaxRange={priceMaxRange}
+        onFilterChange={onFilterChange}
+      />
 
       <Button
         className='w-full'
@@ -45,7 +49,7 @@ function DesktopFilterPanel({ filterState, onFilterChange }) {
  *
  * @description 모바일과 태블릿에서 보여지는 검색 조건 필터링 버튼
  */
-function MobileFilterButton({ filterState, onFilterChange }) {
+function MobileFilterButton({ priceMaxRange, filterState, onFilterChange }) {
   const [tempFilterState, setTempFilterState] = useState(filterState); // 모바일, 태블릿용 임시 filterState
 
   return (
@@ -68,6 +72,7 @@ function MobileFilterButton({ filterState, onFilterChange }) {
           <ModalBody>
             <Filter
               filterState={tempFilterState}
+              priceMaxRange={priceMaxRange}
               onFilterChange={setTempFilterState}
             />
           </ModalBody>
@@ -82,7 +87,7 @@ function MobileFilterButton({ filterState, onFilterChange }) {
                   selectedRating: 0,
                   selectedWineTypes: [],
                   selectedMinPrice: 0,
-                  selectedMaxPrice: 100000, // temp
+                  selectedMaxPrice: priceMaxRange, // temp
                   searchQuery: filterState.searchQuery, // 검색어는 유지
                 };
                 onFilterChange(resetState);
@@ -110,15 +115,21 @@ function MobileFilterButton({ filterState, onFilterChange }) {
   );
 }
 
-export default function WineFilterSidebar({ filterState, onFilterChange }) {
+export default function WineFilterSidebar({
+  priceMaxRange,
+  filterState,
+  onFilterChange,
+}) {
   return (
     <section className='relative col-start-1 col-end-2 row-start-2 row-end-3 xl:col-start-1 xl:col-end-2 xl:row-start-2 xl:row-end-4 xl:w-[25rem]'>
       <DesktopFilterPanel
         filterState={filterState}
+        priceMaxRange={priceMaxRange}
         onFilterChange={onFilterChange}
       />
       <MobileFilterButton
         filterState={filterState}
+        priceMaxRange={priceMaxRange}
         onFilterChange={onFilterChange}
       />
     </section>

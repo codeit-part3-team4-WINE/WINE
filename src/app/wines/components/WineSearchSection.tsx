@@ -10,24 +10,24 @@ import WineListContainer from './WineListContainer';
 import WineSearchBar from './WineSearchBar';
 
 export default function WineSearchSection() {
-  const maxRange = 100000;
+  const priceMaxRange = 1000000;
   const [filterState, setFilterState] = useState({
     selectedRating: 0, // 4.0, 4.5 이런식으로 호출
     selectedWineTypes: [],
     selectedMinPrice: 0,
-    selectedMaxPrice: maxRange,
+    selectedMaxPrice: priceMaxRange,
     searchQuery: '',
   });
 
   const fetchWines = async ({ pageParam, filters }) => {
     const params = {
-      limit: 5,
+      limit: 10,
       cursor: pageParam || 0,
-      name: filters.searchQuery,
-      rating: filters.selectedRating,
-      type: filters.selectedWineTypes[0] || 'RED',
-      minPrice: filters.selectedMinPrice,
-      maxPrice: filters.selectedMaxPrice,
+      name: filters.searchQuery || null,
+      rating: filters.selectedRating || null,
+      type: filters.selectedWineTypes[0] || null,
+      minPrice: filters.selectedMinPrice || null,
+      maxPrice: filters.selectedMaxPrice || null,
     };
 
     const response = await privateInstance.get('/wines', { params });
@@ -43,6 +43,7 @@ export default function WineSearchSection() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isLoading,
   } = useInfiniteQuery({
     queryKey: ['wines', filterState], // filterState가 변경되면 자동으로 새로운 쿼리 실행
     queryFn: ({ pageParam = 0 }) =>
@@ -66,11 +67,13 @@ export default function WineSearchSection() {
       />
       <WineFilterSidebar
         filterState={filterState}
+        priceMaxRange={priceMaxRange}
         onFilterChange={setFilterState}
       />
       <WineListContainer
         data={wineList}
         hasNextPage={hasNextPage}
+        isLoading={isLoading}
         isLoadingMore={isFetchingNextPage}
         onLoadMore={fetchNextPage}
       />
