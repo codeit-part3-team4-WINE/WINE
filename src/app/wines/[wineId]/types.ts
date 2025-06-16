@@ -4,15 +4,6 @@ export interface UserType {
   image: string;
 }
 
-export interface UserInfoType {
-  image: string;
-  updatedAt: string;
-  createdAt: string;
-  teamId: string;
-  nickname: string;
-  id: number;
-}
-
 export interface ReviewType {
   id: number;
   rating: number;
