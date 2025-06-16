@@ -25,14 +25,14 @@ export default function WinePage() {
       setWineInfo(response.data);
     };
     fetchWine();
-    if (userInfo?.id === wineInfo?.userId) {
+    if (userInfo?.id && wineInfo?.userId && userInfo.id === wineInfo.userId) {
       setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
-  }, [wineId]);
+  }, [wineId, userInfo?.id, wineInfo?.userId]);
 
   const totalReviews = wineInfo?.reviews.length || 0;
-
-  console.log(wineInfo);
 
   return (
     <div className='mt-10 flex w-full flex-col items-center'>

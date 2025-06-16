@@ -53,7 +53,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
     if (userInfo?.id === user.id) {
       setIsLoggedIn(true);
     }
-  }, [userInfo, user]);
+  }, [userInfo?.id, user?.id]);
 
   const handleChange = (name: keyof typeof values, value: number) => {
     setValues((prev) => ({ ...prev, [name]: value }));
