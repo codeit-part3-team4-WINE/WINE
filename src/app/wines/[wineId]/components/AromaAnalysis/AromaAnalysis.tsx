@@ -1,5 +1,5 @@
+import { ReviewType } from '../../types';
 import AromaCard from './AromaCard';
-import { Review } from './types';
 import { analyzeAromaData } from './utils';
 
 /**
@@ -10,13 +10,13 @@ import { analyzeAromaData } from './utils';
  */
 
 interface AromaAnalysisProps {
-  reviews: Review[];
+  reviews: ReviewType[];
   totalReviews?: number;
 }
 
 export default function AromaAnalysis({
   reviews,
-  totalReviews,
+  totalReviews = 0,
 }: AromaAnalysisProps) {
   const topAromas = analyzeAromaData(reviews);
   const reviewCount = totalReviews || reviews.length;
@@ -25,7 +25,9 @@ export default function AromaAnalysis({
     <div className='w-full'>
       <div className='mb-6 flex items-center justify-between'>
         <h3 className='text-xl font-bold text-gray-900'>어떤 향이 있나요?</h3>
-        <span className='text-sm text-gray-500'>({reviewCount}개 리뷰)</span>
+        <span className='text-sm text-gray-500'>
+          ({reviewCount ?? 0}개 리뷰)
+        </span>
       </div>
 
       {topAromas.length > 0 ? (
