@@ -151,6 +151,7 @@ export default function WineModal({
             <div>
               <Button
                 className='w-[27rem] md:w-[24rem] xl:w-[35rem]'
+                disabled={isLoading}
                 variant='primary'
                 onClick={() => {
                   handleSubmit();
