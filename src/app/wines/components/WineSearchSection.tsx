@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
 
@@ -18,30 +19,44 @@ export default function WineSearchSection() {
     searchQuery: '',
   });
 
-  const [wineList, setWineList] = useState();
-
-  useEffect(() => {
-    const fetchWine = async () => {
-      try {
-        const params = {
-          limit: 10,
-          name: filterState.searchQuery,
-          rating: filterState.selectedRating,
-          type: filterState.selectedWineTypes.pop() || 'RED', // 첫 번째 타입 또는 빈 문자열
-          minPrice: filterState.selectedMinPrice,
-          maxPrice: filterState.selectedMaxPrice,
-        };
-
-        const response = await privateInstance.get('/wines', { params });
-        console.log(response.data.list);
-        setWineList(response.data.list);
-      } catch (error) {
-        console.error('와인 데이터 조회 실패:', error);
-      }
+  const fetchWines = async ({ pageParam, filters }) => {
+    const params = {
+      limit: 5,
+      cursor: pageParam || 0,
+      name: filters.searchQuery,
+      rating: filters.selectedRating,
+      type: filters.selectedWineTypes[0] || 'RED',
+      minPrice: filters.selectedMinPrice,
+      maxPrice: filters.selectedMaxPrice,
     };
 
-    fetchWine();
-  }, [filterState]);
+    const response = await privateInstance.get('/wines', { params });
+    return {
+      list: response.data.list || [],
+      nextCursor: response.data.nextCursor, // API에서 반환하는 다음 cursor
+      hasMore: response.data.hasMore, // 더 많은 데이터가 있는지 여부
+    };
+  };
+
+  const {
+    data: wineList,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['wines', filterState], // filterState가 변경되면 자동으로 새로운 쿼리 실행
+    queryFn: ({ pageParam = 0 }) =>
+      fetchWines({ pageParam, filters: filterState }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      // nextCursor가 0이거나 현재 페이지의 데이터가 없으면 더 이상 페이지 없음
+      if (lastPage.nextCursor === 0 || !lastPage.list?.length) {
+        return undefined;
+      }
+      return lastPage.nextCursor;
+    },
+    staleTime: 30 * 1000, // 30초간 캐시 유지
+  });
 
   return (
     <>
@@ -53,7 +68,12 @@ export default function WineSearchSection() {
         filterState={filterState}
         onFilterChange={setFilterState}
       />
-      <WineListContainer data={wineList} />
+      <WineListContainer
+        data={wineList}
+        hasNextPage={hasNextPage}
+        isLoadingMore={isFetchingNextPage}
+        onLoadMore={fetchNextPage}
+      />
     </>
   );
 }
