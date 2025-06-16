@@ -1,6 +1,6 @@
 import ProfileSection from './components/ProfileSection/ProfileSection';
 
-export default async function MypageLayout({
+export default function MypageLayout({
   children,
 }: {
   children: React.ReactNode;
