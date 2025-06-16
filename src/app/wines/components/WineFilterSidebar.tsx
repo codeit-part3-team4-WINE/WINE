@@ -82,7 +82,7 @@ function MobileFilterButton({ filterState, onFilterChange }) {
                   selectedRating: 0,
                   selectedWineTypes: [],
                   selectedMinPrice: 0,
-                  selectedMaxPrice: 10000, // temp
+                  selectedMaxPrice: 100000, // temp
                   searchQuery: filterState.searchQuery, // 검색어는 유지
                 };
                 onFilterChange(resetState);
