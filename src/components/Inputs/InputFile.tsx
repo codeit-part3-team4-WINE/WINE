@@ -12,7 +12,7 @@ type NativeInputProps = Omit<
 interface InputFileProps extends NativeInputProps {
   label?: string;
   children: React.ReactNode;
-  onChange?: (fileUrl: string) => void;
+  onChange?: (file: File) => void;
   accept?: string;
 }
 
@@ -22,7 +22,7 @@ interface InputFileProps extends NativeInputProps {
  * 커스텀 트리거 요소를 클릭하여 파일을 선택하고,
  * 선택된 파일의 URL을 상위 컴포넌트로 전달합니다.
  *
- *  @param {string} [label] - input의 라벨 텍스트. `id`, `name`에도 함께 사용됨
+ * @param {string} [label] - input의 라벨 텍스트. `id`, `name`에도 함께 사용됨
  * @param {React.ReactNode} children - 클릭 가능한 커스텀 트리거 요소
  * @param {(fileUrl: string | null) => void} [onChange] - 파일 선택 시 호출되는 함수 URL 또는 null 반환
  * @param {string} [accept] - 업로드 가능한 파일의 MIME 타입 (기본값: "image/*")
@@ -48,10 +48,10 @@ export default function InputFile({
     inputRef.current?.click();
   };
 
+  // 파일 객체만 상위로 전달하고, 미리보기 및 업로드 처리는 상위에서 직접 하도록 책임 분리
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
-    const url = file ? URL.createObjectURL(file) : '';
-    onChange?.(url);
+    const file = e.target.files?.[0];
+    if (file) onChange?.(file);
   };
 
   return (
