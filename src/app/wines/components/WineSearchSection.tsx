@@ -4,6 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
+import useDebounce from '@/hooks/useDebounce';
 
 import WineFilterSidebar from './WineFilterSidebar';
 import WineListContainer from './WineListContainer';
@@ -18,6 +19,7 @@ export default function WineSearchSection() {
     selectedMaxPrice: priceMaxRange,
     searchQuery: '',
   });
+  const debounceFilterValue = useDebounce<typeof filterState>(filterState, 300);
 
   const fetchWines = async ({ pageParam, filters }) => {
     const params = {
@@ -45,7 +47,7 @@ export default function WineSearchSection() {
     isFetchingNextPage,
     isLoading,
   } = useInfiniteQuery({
-    queryKey: ['wines', filterState], // filterState가 변경되면 자동으로 새로운 쿼리 실행
+    queryKey: ['wines', debounceFilterValue], // filterState가 변경되면 자동으로 새로운 쿼리 실행
     queryFn: ({ pageParam = 0 }) =>
       fetchWines({ pageParam, filters: filterState }),
     initialPageParam: 0,
