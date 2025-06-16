@@ -40,7 +40,7 @@ export const createPrivateServerInstance = async (): Promise<AxiosInstance> => {
 
       //쿠키를 직접헤더에 넣음
       const res = await axios.post(
-        `${process.env.SITE_URL}/api/auth/refresh`,
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/refresh`,
         {},
         {
           headers: {
@@ -63,7 +63,7 @@ export const createPrivateServerInstance = async (): Promise<AxiosInstance> => {
   }
 
   const instance = axios.create({
-    baseURL: process.env.API_SERVER_URL,
+    baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL,
     timeout: API_TIMEOUT,
     headers: {
       ...API_HEADERS.JSON,
