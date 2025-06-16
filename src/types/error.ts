@@ -4,3 +4,6 @@ export interface ErrorFallbackProps {
   title?: string;
   description?: string;
 }
+export type ServerErrorResponse = {
+  error?: string;
+};
