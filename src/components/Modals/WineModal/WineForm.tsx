@@ -1,23 +1,25 @@
 'use client';
 
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
+import { privateInstance } from '@/apis/privateInstance';
 import FileUpload from '@/app/assets/svgs/wine-modal-file-upload.svg';
 import InputFile from '@/components/Inputs/InputFile';
 
 import InputPair from '../../Inputs/InputPair';
 import { SelectBox } from '../../SelectBox';
 
-type WineFormData = {
+export type WineFormData = {
+  id?: number;
   name: string;
   region: string;
-  image: string | StaticImageData;
+  image: string | File;
   price: number;
   type: string;
 };
 
-const OPTIONS = ['Red', 'White', 'Sparkling'];
+const OPTIONS = ['RED', 'WHITE', 'SPARKLING'];
 const INPUT_CLASSNAME = 'w-full border border-gray-300 rounded-[1.6rem]';
 const DEFAULT_DATA: WineFormData = {
   name: '',
@@ -27,7 +29,22 @@ const DEFAULT_DATA: WineFormData = {
   type: '',
 };
 
-export default function WineForm({ wineData }: { wineData?: WineFormData }) {
+/**
+ * WineForm 컴포넌트
+ *
+ * 와인 정보를 입력받는 폼을 렌더링하며, 등록/수정 모두 지원합니다.
+ * 입력값 변경 시 상위 컴포넌트에 전달하며, 이미지 업로드 처리도 포함됩니다.
+ *
+ * @param {WineFormData} [wineData] - 수정 시 전달받는 초기값
+ * @param {(data: WineFormData) => void} [onChange] - 입력 변경 시 호출되는 콜백
+ */
+export default function WineForm({
+  wineData,
+  onChange,
+}: {
+  wineData?: WineFormData;
+  onChange?: (data: WineFormData) => void;
+}) {
   const isEdit = !!wineData;
   const [formData, setFormData] = useState<WineFormData>(
     wineData ?? DEFAULT_DATA,
@@ -38,7 +55,15 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
     region: false,
   });
 
-  // 받아오는 데이터가 변경됨에 따라 formData를 업데이트
+  // 이미지 미리보기를 위한 src 설정
+  const imageSrc =
+    typeof formData.image === 'string'
+      ? formData.image
+      : formData.image instanceof File
+        ? URL.createObjectURL(formData.image)
+        : '';
+
+  // wineData 변경 시 formData 초기화
   useEffect(() => {
     if (wineData) {
       setFormData(wineData);
@@ -52,25 +77,34 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
     });
   }, [wineData]);
 
-  // 입력값이 변경될 때 해당 key에 맞는 formData 상태를 업데이트하는 함수
+  // formData 변경 시 상위 컴포넌트에 전달
+  useEffect(() => {
+    onChange?.(formData);
+  }, [formData, onChange]);
+
   const handleChange =
     (key: keyof typeof formData) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData((prev) => ({ ...prev, [key]: e.target.value }));
+      const value = key === 'price' ? Number(e.target.value) : e.target.value;
+      setFormData((prev) => ({ ...prev, [key]: value }));
       setHasInputChanged((prev) => ({ ...prev, [key]: true }));
     };
 
-  // 숫자 입력 input에서 숫자만 허용하도록 하는 함수
   const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
-    target.value = target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
+    target.value = target.value.replace(/[^0-9]/g, '');
+
+    const numericValue = Number(target.value);
+
+    // 100만원 초과 시 경고 및 초기화
+    if (numericValue > 1000000) {
+      alert('100만원 이하만 입력 가능합니다.');
+      target.value = '';
+    }
   };
 
   return (
-    <form
-      className='flex flex-col gap-[2rem]'
-      id={`wine-${isEdit ? 'change' : 'add'}-form`}
-    >
+    <form className='flex flex-col gap-[2rem]'>
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='와인 이름'
@@ -83,9 +117,10 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
         inputClassName={INPUT_CLASSNAME}
         label='가격'
         placeholder={isEdit ? String(wineData.price) : '가격 입력'}
-        step='10000'
-        type='number'
-        value={!hasInputChanged.price ? '' : formData.price}
+        type='text'
+        value={
+          !hasInputChanged.price ? '' : formData.price.toLocaleString('ko-KR')
+        }
         onChange={handleChange('price')}
         onInput={handleNumberInput}
       />
@@ -120,9 +155,25 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
       </div>
       <InputFile
         label='와인 사진'
-        onChange={(value: string) =>
-          setFormData((prev) => ({ ...prev, image: value }))
-        }
+        onChange={async (file: File) => {
+          const form = new FormData();
+          form.append('file', file);
+
+          try {
+            const res = await privateInstance.post('/images/upload', form, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+
+            const { url } = res.data;
+
+            setFormData((prev) => ({ ...prev, image: url }));
+          } catch (err) {
+            console.error('이미지 업로드 실패:', err);
+            alert('이미지 업로드에 실패했습니다.');
+          }
+        }}
       >
         <div className='relative h-[14rem] w-[14rem]'>
           {formData.image !== '' ? (
@@ -133,7 +184,7 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
               fill
               alt={formData.name}
               className='rounded-[1.6rem] border border-gray-300 object-contain'
-              src={formData.image}
+              src={imageSrc || FileUpload}
             />
           ) : (
             <Image fill alt='사진을 업로드 해주세요' src={FileUpload} />
