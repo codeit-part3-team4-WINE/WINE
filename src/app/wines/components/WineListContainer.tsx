@@ -1,8 +1,26 @@
 import ExclamationMark from '@/app/assets/icons/exclamation-mark';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
+import { Wine } from '../types';
 import SkeletonWineListCard from './SkeletonWineListCard';
 import WineListCard from './WineListCard';
+
+interface WinePage {
+  list: Wine[];
+}
+
+interface InfiniteQueryData {
+  pages: WinePage[];
+  pageParams: unknown[];
+}
+
+interface WineListContainerProps {
+  data: InfiniteQueryData | undefined;
+  onLoadMore: () => void;
+  hasNextPage: boolean;
+  isLoadingMore: boolean;
+  isLoading: boolean;
+}
 
 export default function WineListContainer({
   data,
@@ -10,17 +28,17 @@ export default function WineListContainer({
   hasNextPage,
   isLoadingMore,
   isLoading,
-}) {
+}: WineListContainerProps) {
   const observerRef = useIntersectionObserver(
     onLoadMore,
     isLoadingMore,
     !hasNextPage,
   );
-  console.log(data);
 
   const isEmpty =
     !isLoading &&
     !isLoadingMore &&
+    data !== undefined &&
     data?.pages?.length > 0 &&
     data.pages[0]?.list?.length === 0;
 

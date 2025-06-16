@@ -15,6 +15,8 @@ import {
   ModalTrigger,
 } from '@/components/Modal';
 
+import { DEFAULT_MAX_PRICE } from '../constants';
+import { FilterProps, FilterState } from '../types';
 import Filter from './Filter';
 
 /**
@@ -22,7 +24,11 @@ import Filter from './Filter';
  *
  * @description 데스크탑에서 보여지는 검색 조건 필터링 패널
  */
-function DesktopFilterPanel({ priceMaxRange, filterState, onFilterChange }) {
+function DesktopFilterPanel({
+  priceMaxRange,
+  filterState,
+  onFilterChange,
+}: FilterProps) {
   return (
     <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
       <Filter
@@ -49,7 +55,11 @@ function DesktopFilterPanel({ priceMaxRange, filterState, onFilterChange }) {
  *
  * @description 모바일과 태블릿에서 보여지는 검색 조건 필터링 버튼
  */
-function MobileFilterButton({ priceMaxRange, filterState, onFilterChange }) {
+function MobileFilterButton({
+  priceMaxRange,
+  filterState,
+  onFilterChange,
+}: FilterProps) {
   const [tempFilterState, setTempFilterState] = useState(filterState); // 모바일, 태블릿용 임시 filterState
 
   return (
@@ -83,11 +93,11 @@ function MobileFilterButton({ priceMaxRange, filterState, onFilterChange }) {
               size='sm'
               variant='secondary'
               onClick={() => {
-                const resetState = {
+                const resetState: FilterState = {
                   selectedRating: 0,
-                  selectedWineTypes: [],
+                  selectedWineType: '',
                   selectedMinPrice: 0,
-                  selectedMaxPrice: priceMaxRange, // temp
+                  selectedMaxPrice: priceMaxRange ?? DEFAULT_MAX_PRICE,
                   searchQuery: filterState.searchQuery, // 검색어는 유지
                 };
                 onFilterChange(resetState);
@@ -119,7 +129,7 @@ export default function WineFilterSidebar({
   priceMaxRange,
   filterState,
   onFilterChange,
-}) {
+}: FilterProps) {
   return (
     <section className='relative col-start-1 col-end-2 row-start-2 row-end-3 xl:col-start-1 xl:col-end-2 xl:row-start-2 xl:row-end-4 xl:w-[25rem]'>
       <DesktopFilterPanel
