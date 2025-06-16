@@ -18,7 +18,7 @@ export default function WineModal({
 }) {
   return (
     <Modal externalIsOpen={isOpen} onExternalChange={setIsOpen}>
-      <ModalContent>
+      <ModalContent className='xl:max-w-[50rem]'>
         <ModalHeader>
           <ModalTitle>와인 등록</ModalTitle>
         </ModalHeader>
@@ -27,16 +27,30 @@ export default function WineModal({
         </ModalBody>
         <ModalFooter>
           <ModalClose />
-          <ModalClose asChild>
-            <Button variant='secondary' onClick={() => {}}>
-              취소
-            </Button>
-          </ModalClose>
-          <ModalClose asChild>
-            <Button variant='primary' onClick={() => {}}>
-              등록하기
-            </Button>
-          </ModalClose>
+          <div className='flex w-full justify-between'>
+            <div className='w-[3rem]'>
+              <ModalClose asChild>
+                <Button
+                  className='w-[10.8rem] md:w-[9rem] xl:w-[10rem]'
+                  variant='secondary'
+                  onClick={() => {}}
+                >
+                  취소
+                </Button>
+              </ModalClose>
+            </div>
+            <div>
+              <ModalClose asChild>
+                <Button
+                  className='w-[27rem] md:w-[24rem] xl:w-[35rem]'
+                  variant='primary'
+                  onClick={() => {}}
+                >
+                  등록하기
+                </Button>
+              </ModalClose>
+            </div>
+          </div>
         </ModalFooter>
       </ModalContent>
     </Modal>
