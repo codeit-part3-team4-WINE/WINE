@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { privateInstance } from '@/apis/privateInstance';
 import dummyWineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
+import useUserStore from '@/stores/Auth-store/authStore';
 
 import Nothing from './components/Nothing';
 import ReviewCard from './components/ReviewCard';
@@ -15,6 +16,8 @@ import { WineInfoType } from './types';
 export default function WinePage() {
   const [wineInfo, setWineInfo] = useState<WineInfoType | null>(null);
   const { wineId } = useParams();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const userInfo = useUserStore((state) => state.user);
 
   useEffect(() => {
     const fetchWine = async () => {
@@ -22,15 +25,20 @@ export default function WinePage() {
       setWineInfo(response.data);
     };
     fetchWine();
+    if (userInfo?.id === wineInfo?.userId) {
+      setIsLoggedIn(true);
+    }
   }, [wineId]);
 
   const totalReviews = wineInfo?.reviews.length || 0;
 
   console.log(wineInfo);
+
   return (
     <div className='mt-10 flex w-full flex-col items-center'>
       <WineCard
         image={wineInfo?.image || dummyWineImage}
+        isDropdown={isLoggedIn}
         name={wineInfo?.name || 'Sentinel Cabernet Sauvignon 2016'}
         price={wineInfo?.price || 10000}
         region={wineInfo?.region || 'Western Cape, South Africa'}

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
 import ChevronArrowIcon from '@/app/assets/icons/chevron-arrow';
@@ -11,12 +11,15 @@ import InputRange from '@/components/InputRange';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
 import { formatToTimeAgo } from '@/libs/formmatToTimeago';
+import useUserStore from '@/stores/Auth-store/authStore';
 
 import { ReviewType } from '../types';
 
 export default function ReviewCard({ review }: { review: ReviewType }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isLiked, setIsLiked] = useState(review.isLiked);
+  const userInfo = useUserStore((state) => state.user);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const {
     id,
@@ -34,8 +37,6 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
     setIsOpen(!isOpen);
   };
 
-  console.log(review);
-
   const [values, setValues] = useState<{
     lightBold: number;
     smoothTannic: number;
@@ -47,6 +48,12 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
     drySweet,
     softAcidic,
   });
+
+  useEffect(() => {
+    if (userInfo?.id === user.id) {
+      setIsLoggedIn(true);
+    }
+  }, [userInfo, user]);
 
   const handleChange = (name: keyof typeof values, value: number) => {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -61,7 +68,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
       }
       setIsLiked(!isLiked);
     } catch (error) {
-      console.error('Like post error:', error); // 토스트로 변경경
+      console.error('Like post error:', error); // 토스트로 변경
     }
   };
 
@@ -78,28 +85,27 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
           </div>
         </div>
         <div className='flex items-center gap-2 pt-2'>
-          <div
-            className='group size-[3.8rem] cursor-pointer'
-            onClick={handleLike}
-          >
+          <div className='group size-[3.8rem]' onClick={handleLike}>
             <HeartIcon
               className={cn(
-                'transition-all group-hover:fill-red-400 group-hover:stroke-red-400 hover:animate-pulse',
+                'cursor-pointer transition-all group-hover:fill-red-400 group-hover:stroke-red-400 hover:animate-pulse',
                 isLiked && 'fill-red-400 stroke-red-400',
               )}
             />
           </div>
-          <div className='size-[3.8rem] cursor-pointer'>
-            <Dropdown>
-              <Dropdown.Trigger>
-                <VerticalMoreIcon />
-              </Dropdown.Trigger>
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={() => {}}>수정하기</Dropdown.Item>
-                <Dropdown.Item onClick={() => {}}>삭제하기</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
+          {isLoggedIn && (
+            <div className='size-[3.8rem]'>
+              <Dropdown>
+                <Dropdown.Trigger>
+                  <VerticalMoreIcon className='cursor-pointer' />
+                </Dropdown.Trigger>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => {}}>수정하기</Dropdown.Item>
+                  <Dropdown.Item onClick={() => {}}>삭제하기</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          )}
         </div>
       </div>
       <div className='flex items-center justify-between gap-2'>
