@@ -16,7 +16,7 @@ import { WineInfoType } from './types';
 export default function WinePage() {
   const [wineInfo, setWineInfo] = useState<WineInfoType | null>(null);
   const { wineId } = useParams();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
   const userInfo = useUserStore((state) => state.user);
 
   useEffect(() => {
@@ -26,9 +26,9 @@ export default function WinePage() {
     };
     fetchWine();
     if (userInfo?.id && wineInfo?.userId && userInfo.id === wineInfo.userId) {
-      setIsLoggedIn(true);
+      setIsOwner(true);
     } else {
-      setIsLoggedIn(false);
+      setIsOwner(false);
     }
   }, [wineId, userInfo?.id, wineInfo?.userId]);
 
@@ -38,7 +38,7 @@ export default function WinePage() {
     <div className='mt-10 flex w-full flex-col items-center'>
       <WineCard
         image={wineInfo?.image || dummyWineImage}
-        isDropdown={isLoggedIn}
+        isDropdown={isOwner}
         name={wineInfo?.name || 'Sentinel Cabernet Sauvignon 2016'}
         price={wineInfo?.price || 10000}
         region={wineInfo?.region || 'Western Cape, South Africa'}

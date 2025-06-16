@@ -19,7 +19,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isLiked, setIsLiked] = useState(review.isLiked);
   const userInfo = useUserStore((state) => state.user);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
 
   const {
     id,
@@ -51,7 +51,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
 
   useEffect(() => {
     if (userInfo?.id === user.id) {
-      setIsLoggedIn(true);
+      setIsOwner(true);
     }
   }, [userInfo?.id, user?.id]);
 
@@ -93,7 +93,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
               )}
             />
           </div>
-          {isLoggedIn && (
+          {isOwner && (
             <div className='size-[3.8rem]'>
               <Dropdown>
                 <Dropdown.Trigger>
