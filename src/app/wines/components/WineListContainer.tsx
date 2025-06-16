@@ -1,5 +1,7 @@
+import ExclamationMark from '@/app/assets/icons/exclamation-mark';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
+import SkeletonWineListCard from './SkeletonWineListCard';
 import WineListCard from './WineListCard';
 
 export default function WineListContainer({
@@ -7,12 +9,44 @@ export default function WineListContainer({
   onLoadMore,
   hasNextPage,
   isLoadingMore,
+  isLoading,
 }) {
   const observerRef = useIntersectionObserver(
     onLoadMore,
     isLoadingMore,
     !hasNextPage,
   );
+  console.log(data);
+
+  const isEmpty =
+    !isLoading &&
+    !isLoadingMore &&
+    data?.pages?.length > 0 &&
+    data.pages[0]?.list?.length === 0;
+
+  if (isLoading) {
+    return (
+      <section className='col-start-1 col-end-4 row-start-3 row-end-5 flex flex-col gap-6 xl:col-start-2 xl:col-end-4 xl:row-start-3 xl:row-end-5'>
+        <SkeletonWineListCard />
+        <SkeletonWineListCard />
+        <SkeletonWineListCard />
+      </section>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <section className='col-start-1 col-end-4 row-start-3 row-end-5 flex flex-col items-center justify-center gap-4 xl:col-start-2 xl:col-end-4 xl:row-start-3 xl:row-end-5'>
+        <ExclamationMark size={80} />
+        <h3 className='content-text mt-4 font-semibold text-gray-600'>
+          검색 결과가 없습니다
+        </h3>
+        <p className='caption-text text-gray-500'>
+          다른 검색어나 필터 조건을 시도해보세요
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section className='col-start-1 col-end-4 row-start-3 row-end-5 flex flex-col gap-6 xl:col-start-2 xl:col-end-4 xl:row-start-3 xl:row-end-5'>
@@ -37,7 +71,7 @@ export default function WineListContainer({
       {/* 다음 데이터 요청을 위한 observer 감지 영역 */}
       <div ref={observerRef} className='h-6 w-full' />
 
-      {isLoadingMore && <div>로딩 중...</div>}
+      {isLoadingMore && <SkeletonWineListCard />}
     </section>
   );
 }
