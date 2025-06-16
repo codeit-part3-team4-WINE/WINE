@@ -14,6 +14,7 @@ import {
   ModalTitle,
   ModalTrigger,
 } from '@/components/Modal';
+import WineModal from '@/components/Modals/WineModal/WineModal';
 
 import Filter from './Filter';
 
@@ -23,20 +24,26 @@ import Filter from './Filter';
  * @description 데스크탑에서 보여지는 검색 조건 필터링 패널
  */
 function DesktopFilterPanel({ filterState, onFilterChange }) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
-      <Filter filterState={filterState} onFilterChange={onFilterChange} />
+    <>
+      <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
+        <Filter filterState={filterState} onFilterChange={onFilterChange} />
 
-      <Button
-        className='w-full'
-        round='rounded'
-        size='sm'
-        variant='primary'
-        onClick={() => {}}
-      >
-        와인 등록하기
-      </Button>
-    </div>
+        <Button
+          className='w-full'
+          round='rounded'
+          size='sm'
+          variant='primary'
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
+          와인 등록하기
+        </Button>
+      </div>
+      <WineModal isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
   );
 }
 
