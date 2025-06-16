@@ -18,7 +18,6 @@
       setUser(null);
     }
   };
-
  * // POST 요청
  * const res = await privateInstance.post('/api/wine', { wine: 'hihi' });
  */
