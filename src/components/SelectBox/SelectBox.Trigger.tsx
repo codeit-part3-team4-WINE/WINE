@@ -31,7 +31,7 @@ export default function Trigger({ triggerClassName, children }: TriggerProps) {
       aria-expanded={isOpen}
       aria-haspopup='listbox'
       className={cn(
-        'flex h-auto min-h-[4.2rem] min-w-[32.7rem] cursor-pointer items-center justify-between rounded-[1.6rem] border border-gray-300 px-[2rem] text-lg md:min-h-[4.8rem] md:w-[41.2rem]',
+        'flex h-auto min-h-[4.2rem] w-full cursor-pointer items-center justify-between rounded-[1.6rem] border border-gray-300 px-[2rem] text-lg md:min-h-[4.8rem]',
         hasChanged ? 'text-gray-800' : 'text-gray-500',
         triggerClassName,
       )}

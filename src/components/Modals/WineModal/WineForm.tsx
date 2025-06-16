@@ -97,23 +97,27 @@ export default function WineForm({ wineData }: { wineData?: WineFormData }) {
         value={!hasInputChanged.region ? '' : formData.region}
         onChange={handleChange('region')}
       />
-      <SelectBox
-        label='타입'
-        options={OPTIONS}
-        onChange={(value) => setFormData((prev) => ({ ...prev, type: value }))}
-        {...(isEdit && { value: wineData.type })}
-      >
-        <SelectBox.Trigger triggerClassName='w-full' />
-        <SelectBox.Options>
-          {OPTIONS.map((opt) => (
-            <SelectBox.Option key={opt} value={opt}>
-              <div className='hover:bg-primary-10 hover:text-primary-100 mx-[0.6rem] my-2 flex h-[3.6rem] w-[31.5] items-center rounded-[1.2rem] md:h-[4rem] md:w-[38rem]'>
-                <span className='ml-[1.6em]'>{opt}</span>
-              </div>
-            </SelectBox.Option>
-          ))}
-        </SelectBox.Options>
-      </SelectBox>
+      <div className='relative w-full'>
+        <SelectBox
+          label='타입'
+          options={OPTIONS}
+          onChange={(value) =>
+            setFormData((prev) => ({ ...prev, type: value }))
+          }
+          {...(isEdit && { value: wineData.type })}
+        >
+          <SelectBox.Trigger triggerClassName='w-full' />
+          <SelectBox.Options>
+            {OPTIONS.map((opt) => (
+              <SelectBox.Option key={opt} value={opt}>
+                <div className='hover:bg-primary-10 hover:text-primary-100 mx-[0.6rem] my-2 flex h-[3.6rem] w-full items-center rounded-[1.2rem] px-2 py-2 md:h-[4rem]'>
+                  <span className='ml-[1.6em]'>{opt}</span>
+                </div>
+              </SelectBox.Option>
+            ))}
+          </SelectBox.Options>
+        </SelectBox>
+      </div>
       <InputFile
         label='와인 사진'
         onChange={(value: string) =>
