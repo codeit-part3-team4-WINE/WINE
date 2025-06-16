@@ -3,9 +3,10 @@
 import { useState } from 'react';
 
 import RadioGroup from '@/app/wines/components/Radio';
+import Button from '@/components/Button';
 
 export default function UiRadio() {
-  const [selected, setSelected] = useState<number | string | null>(null);
+  const [selected, setSelected] = useState<number | string>(1);
 
   return (
     <div className='p-8'>
@@ -52,6 +53,7 @@ export default function UiRadio() {
 
       <RadioGroup
         radioGroupClassName='gap-3'
+        selectedValue={selected}
         title='Rating'
         titleClassName='mb-4 text-[1.8rem]'
         onSelect={(value) => setSelected(value)}
@@ -60,9 +62,11 @@ export default function UiRadio() {
         <RadioGroup.Radio value={2}>4.5 - 5.0</RadioGroup.Radio>
         <RadioGroup.Radio value={3}>4.0 - 4.5</RadioGroup.Radio>
         <RadioGroup.Radio value={4}>3.5 - 4.0</RadioGroup.Radio>
-        <RadioGroup.Radio value={4}>3.0 - 3.5</RadioGroup.Radio>
+        <RadioGroup.Radio value={5}>3.0 - 3.5</RadioGroup.Radio>
       </RadioGroup>
       <p className='content-text mt-6'>선택한 값: {selected}</p>
+
+      <Button onClick={() => setSelected(0)}>리셋</Button>
     </div>
   );
 }
