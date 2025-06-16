@@ -13,7 +13,7 @@ export default function WineSearchSection() {
   const priceMaxRange = 1000000;
   const [filterState, setFilterState] = useState({
     selectedRating: 0, // 4.0, 4.5 이런식으로 호출
-    selectedWineTypes: [],
+    selectedWineTypes: '',
     selectedMinPrice: 0,
     selectedMaxPrice: priceMaxRange,
     searchQuery: '',
@@ -25,7 +25,7 @@ export default function WineSearchSection() {
       cursor: pageParam || 0,
       name: filters.searchQuery || null,
       rating: filters.selectedRating || null,
-      type: filters.selectedWineTypes[0] || null,
+      type: filters.selectedWineTypes || null,
       minPrice: filters.selectedMinPrice || null,
       maxPrice: filters.selectedMaxPrice || null,
     };
