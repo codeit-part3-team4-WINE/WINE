@@ -110,7 +110,6 @@ export default function WineModal({
       setIsOpen(false);
 
       // 수정/등록 후 페이지 새로고침
-      router.push(wineData ? '/myprofile/wines' : '/wines');
       router.refresh();
     } catch (err) {
       console.error('Wine 등록/수정 오류:', err);
