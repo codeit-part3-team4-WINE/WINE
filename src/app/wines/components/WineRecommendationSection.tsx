@@ -58,7 +58,13 @@ async function RecommendedWineList() {
     <div className='rounded-3xl bg-gray-100 p-8'>
       <h2 className='sub-title-text mb-4'>이번 달 추천 와인</h2>
 
-      <div className='outer-wrapper flex overflow-hidden'>
+      <div className='outer-wrapper relative flex overflow-hidden'>
+        {/* 왼쪽 그라데이션 */}
+        <div className='pointer-events-none absolute top-0 left-0 z-5 h-full w-24 bg-gradient-to-r from-gray-100 to-transparent' />
+
+        {/* 오른쪽 그라데이션 */}
+        <div className='pointer-events-none absolute top-0 right-0 z-5 h-full w-24 bg-gradient-to-l from-gray-100 to-transparent' />
+
         <div className='rolling-list-original'>
           <ul className='flex'>
             {monthlyRecommendedWines.map((item, index) => (
