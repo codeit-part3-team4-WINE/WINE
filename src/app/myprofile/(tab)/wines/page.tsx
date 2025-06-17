@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 
 import WineCard from '../../components/Card/WineCard';
@@ -41,14 +43,16 @@ export default async function Wines() {
       <Tab totalCount={data.totalCount} />
       <div className='flex flex-col gap-10'>
         {wines.map((wine: Wine) => (
-          <WineCard
-            key={wine.id}
-            className='cursor-pointer'
-            image={wine.image}
-            name={wine.name}
-            price={wine.price}
-            region={wine.region}
-          />
+          <Link key={wine.id} href={`/wines/${wine.id}`}>
+            <WineCard
+              key={wine.id}
+              className='cursor-pointer'
+              image={wine.image}
+              name={wine.name}
+              price={wine.price}
+              region={wine.region}
+            />
+          </Link>
         ))}
       </div>
       <LoadMoreButton initialCursor={data.nextCursor} type='wine' />
