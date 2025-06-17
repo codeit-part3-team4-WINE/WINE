@@ -21,7 +21,7 @@ export default async function ProfileSection() {
   return (
     <section
       className={cn(
-        'mt-[2rem] flex shrink-0 items-center justify-between',
+        'mt-[2rem] flex shrink-0 items-center justify-between bg-white',
         'xl:mt-[4rem] xl:h-[40rem] xl:w-[28rem] xl:flex-col xl:justify-around xl:rounded-[1.6rem] xl:border xl:border-gray-300',
       )}
     >
