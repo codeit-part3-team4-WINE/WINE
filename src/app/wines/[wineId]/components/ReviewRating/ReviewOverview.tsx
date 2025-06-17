@@ -1,4 +1,3 @@
-import { REVIEW_RANGES } from '../../dummy';
 import ReviewRangeGroup from './ReviewRangeGroup';
 import ReviewRating from './ReviewRating';
 import ReviewRatingButton from './ReviewRatingButton';
@@ -6,11 +5,11 @@ import ReviewRatingButton from './ReviewRatingButton';
 export default function ReviewOverview({
   rating = 0,
   reviewNumber = 0,
-  data = REVIEW_RANGES,
+  data = {},
 }: {
   rating: number;
   reviewNumber: number;
-  data: { label: string; value: number }[];
+  data: Record<string, number>;
 }) {
   return (
     <div className='flex flex-col gap-5 p-5 md:grid md:grid-cols-2 md:p-20 xl:flex xl:flex-col xl:justify-between'>

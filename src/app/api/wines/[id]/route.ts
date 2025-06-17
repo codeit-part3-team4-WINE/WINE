@@ -11,6 +11,7 @@ export const GET = async (
   const { id } = await params;
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
+  console.log(`api route wine 쿠키 : ${accessToken} `);
 
   try {
     const response = await axios.get(
@@ -26,7 +27,8 @@ export const GET = async (
     return NextResponse.json(data);
   } catch (err) {
     const error = err as AxiosError<ServerErrorResponse>;
-    const message = error.response?.data?.error || '유저 정보 조회 실패';
+
+    const message = error.response?.data?.error || '와인 상세 데이터 조회실패';
     const status = error.response?.status || 500;
 
     return NextResponse.json({ error: message }, { status });
