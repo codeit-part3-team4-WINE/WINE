@@ -127,7 +127,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
       <div
         className={cn(
           'space-y-10 overflow-hidden transition-all duration-300 ease-in-out',
-          isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0',
+          isOpen ? 'max-h-[50rem] opacity-100' : 'max-h-0 opacity-0',
         )}
       >
         <div className='text-lg'>

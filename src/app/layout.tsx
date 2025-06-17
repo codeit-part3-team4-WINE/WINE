@@ -15,7 +15,7 @@ export default function RootLayout({
         <header className='mx-auto w-full max-w-[350rem] px-[5vw] md:px-[10vw] xl:px-[15vw]'>
           <Header />
         </header>
-        <main className='mx-auto my-10 h-screen w-full max-w-[350rem] px-[5vw] md:px-[10vw] xl:px-[15vw]'>
+        <main className='mx-auto my-10 min-h-screen w-full max-w-[350rem] px-[5vw] md:px-[10vw] xl:px-[15vw]'>
           <QueryProvider>{children}</QueryProvider>
         </main>
         <footer className='bottom-0 w-screen'>

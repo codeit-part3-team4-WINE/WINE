@@ -1,6 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+
+import { ServerErrorResponse } from '@/types/error';
 
 export const GET = async (
   request: NextRequest,
@@ -22,11 +24,11 @@ export const GET = async (
     const data = response.data;
 
     return NextResponse.json(data);
-  } catch (error) {
-    console.error('Wine fetch error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch wine' },
-      { status: 500 },
-    );
+  } catch (err) {
+    const error = err as AxiosError<ServerErrorResponse>;
+    const message = error.response?.data?.error || '유저 정보 조회 실패';
+    const status = error.response?.status || 500;
+
+    return NextResponse.json({ error: message }, { status });
   }
 };
