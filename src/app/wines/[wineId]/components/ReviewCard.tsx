@@ -14,6 +14,7 @@ import { ReviewType } from '../types';
 
 export default function ReviewCard({ review }: { review: ReviewType }) {
   const [isOpen, setIsOpen] = useState(true);
+
   const {
     rating,
     lightBold,
@@ -28,6 +29,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+
   const [values, setValues] = useState<{
     lightBold: number;
     smoothTannic: number;
@@ -48,7 +50,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
       <div className='flex items-start justify-between'>
         <div className='flex gap-5'>
           <ProfileImg size='md' />
-          <div className='flex flex-col items-center justify-center'>
+          <div className='flex flex-col justify-center'>
             <p className='text-2lg font-bold'>{user.nickname}</p>
             <p className='text-lg text-gray-500'>
               {formatToTimeAgo(createdAt)}
