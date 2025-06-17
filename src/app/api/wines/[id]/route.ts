@@ -2,9 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
-type ServerErrorResponse = {
-  error?: string;
-};
+import { ServerErrorResponse } from '@/types/error';
 
 export const GET = async (
   request: NextRequest,
@@ -29,6 +27,7 @@ export const GET = async (
     return NextResponse.json(data);
   } catch (err) {
     const error = err as AxiosError<ServerErrorResponse>;
+
     const message = error.response?.data?.error || '와인 상세 데이터 조회실패';
     const status = error.response?.status || 500;
 

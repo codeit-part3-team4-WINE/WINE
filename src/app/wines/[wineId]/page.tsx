@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { privateInstance } from '@/apis/privateInstance';
 import dummyWineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
+import useUserStore from '@/stores/Auth-store/authStore';
 
 import AromaAnalysis from './components/AromaAnalysis/AromaAnalysis';
 import FlavorAnalysis from './components/flavorAnalysis/FlavorAnalysis';
@@ -16,6 +17,8 @@ import { ReviewType, WineInfoType } from './types';
 export default function WinePage() {
   const [wineInfo, setWineInfo] = useState<WineInfoType | null>(null);
   const { wineId } = useParams();
+  const [isOwner, setIsOwner] = useState(false);
+  const userInfo = useUserStore((state) => state.user);
 
   useEffect(() => {
     const fetchWine = async () => {
@@ -23,7 +26,12 @@ export default function WinePage() {
       setWineInfo(response.data);
     };
     fetchWine();
-  }, [wineId]);
+    if (userInfo?.id && wineInfo?.userId && userInfo.id === wineInfo.userId) {
+      setIsOwner(true);
+    } else {
+      setIsOwner(false);
+    }
+  }, [wineId, userInfo?.id, wineInfo?.userId]);
 
   const totalReviews = wineInfo?.reviews.length || 0;
 
@@ -31,6 +39,7 @@ export default function WinePage() {
     <div className='mt-10 flex w-full flex-col items-center'>
       <WineCard
         image={wineInfo?.image || dummyWineImage}
+        isDropdown={isOwner}
         name={wineInfo?.name || 'Sentinel Cabernet Sauvignon 2016'}
         price={wineInfo?.price || 10000}
         region={wineInfo?.region || 'Western Cape, South Africa'}
