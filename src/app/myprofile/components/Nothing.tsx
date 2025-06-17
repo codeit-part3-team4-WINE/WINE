@@ -28,10 +28,15 @@ export default function Nothing({ type }: NothingProps) {
   const { text, button } = messages[type];
 
   return (
-    <div className='flex flex-col items-center justify-center gap-4'>
-      <ExclamationMark />
-      <p className='text-sm text-gray-500'>{text}</p>
-      <Button onClick={() => router.push('/wines')}>{button}</Button>
+    <div className='mt-10 flex flex-col items-center justify-center gap-4'>
+      <ExclamationMark className='h-[6rem] w-[6rem] md:h-[8rem] md:w-[8rem]' />
+      <p className='text-[1.3rem] text-gray-500 md:text-[1.5rem]'>{text}</p>
+      <Button
+        className='h-[3.3rem] w-[13rem] md:h-[4rem] md:w-[15rem]'
+        onClick={() => router.push('/wines')}
+      >
+        {button}
+      </Button>
     </div>
   );
 }
