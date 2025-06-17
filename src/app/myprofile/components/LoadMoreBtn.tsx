@@ -50,7 +50,7 @@ export default function LoadMoreButton({ type, initialCursor }: Props) {
     if (!cursor) return;
     setLoading(true);
 
-    const endpoint = type === 'wine' ? '/users/wines' : '/users/reviews';
+    const endpoint = type === 'wine' ? '/users/me/wines' : '/users/me/reviews';
     const { data } = await privateInstance.get(endpoint, {
       params: { limit: 5, cursor },
     });
