@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import DualRangeSlider from '@/app/wines/components/DualRangeSlider';
+import Button from '@/components/Button';
 
 export default function UiDualRangeSlider() {
   const max = 10000;
@@ -21,6 +22,8 @@ export default function UiDualRangeSlider() {
         <DualRangeSlider
           endValue={max}
           gap={100}
+          maxValue={maxPrice}
+          minValue={minPrice}
           startValue={0}
           onMaxValueChange={(value) => setMaxPrice(value)}
           onMinValueChange={(value) => setMinPrice(value)}
@@ -30,6 +33,15 @@ export default function UiDualRangeSlider() {
       <p className='content-text mt-10'>
         {minPrice.toLocaleString()}원 ~ {maxPrice.toLocaleString()}원
       </p>
+
+      <Button
+        onClick={() => {
+          setMinPrice(0);
+          setMaxPrice(max);
+        }}
+      >
+        reset
+      </Button>
     </div>
   );
 }

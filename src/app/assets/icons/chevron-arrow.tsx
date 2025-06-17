@@ -19,6 +19,7 @@ export default function ChevronArrowIcon({
   size = 24,
   color = '#CFDBEA',
   direction = 'bottom',
+  className,
 }: DirectionIconProps) {
   const rotation = {
     right: '-90',
@@ -29,6 +30,7 @@ export default function ChevronArrowIcon({
 
   return (
     <svg
+      className={className}
       fill='none'
       height={size}
       style={{ transform: `rotate(${rotation}deg)` }}
