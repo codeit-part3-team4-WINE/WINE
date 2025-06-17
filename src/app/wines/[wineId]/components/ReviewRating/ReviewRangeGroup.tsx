@@ -5,7 +5,6 @@ export default function ReviewRangeGroup({
 }: {
   data: Record<string, number>;
 }) {
-  console.log('data', data);
   return (
     <div className='flex w-full flex-col gap-6'>
       {Object.entries(data).map(([key, value]) => (
