@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import { cn } from '@/libs/cn';
 
 import DualRangeSlider from './DualRangeSlider';
@@ -9,11 +7,12 @@ import DualRangeSlider from './DualRangeSlider';
 interface PriceRangeSliderProps {
   title?: string;
   titleClassName?: string;
-  maxValue: number;
-  minValue: number;
+  maxRange: number;
+  currentMinPrice: number;
+  currentMaxPrice: number;
   gap?: number;
-  onMinValueChange: (value: number) => void;
-  onMaxValueChange: (value: number) => void;
+  onMinPriceChange: (value: number) => void;
+  onMaxPriceChange: (value: number) => void;
 }
 
 /**
@@ -41,41 +40,31 @@ interface PriceRangeSliderProps {
 export default function PriceRangeSlider({
   title,
   titleClassName,
-  maxValue,
-  minValue = 0,
+  maxRange,
+  currentMinPrice,
+  currentMaxPrice,
   gap = 100,
-  onMinValueChange,
-  onMaxValueChange,
+  onMinPriceChange,
+  onMaxPriceChange,
 }: PriceRangeSliderProps) {
-  const [minPrice, setMinPrice] = useState(minValue);
-  const [maxPrice, setMaxPrice] = useState(maxValue);
-
-  const handleMinValueChange = (value: number) => {
-    setMinPrice(value);
-    onMinValueChange?.(value);
-  };
-
-  const handleMaxValueChange = (value: number) => {
-    setMaxPrice(value);
-    onMaxValueChange?.(value);
-  };
-
   return (
     <div className='w-full'>
       <h1 className={cn('sub-title-text mb-3', titleClassName)}>{title}</h1>
       <p className='content-text text-primary-100 mb-8'>
         <span className='sub-content-text mr-1 text-gray-400'>₩</span>
-        {minPrice.toLocaleString('ko-KR')}
+        {currentMinPrice.toLocaleString('ko-KR')}
         <span className='mx-2 text-gray-400'>~</span>
         <span className='sub-content-text mr-1 text-gray-400'>₩</span>
-        {maxPrice.toLocaleString('ko-KR')}
+        {currentMaxPrice.toLocaleString('ko-KR')}
       </p>
       <DualRangeSlider
-        endValue={maxValue}
+        endValue={maxRange}
         gap={gap}
-        startValue={minValue}
-        onMaxValueChange={handleMaxValueChange}
-        onMinValueChange={handleMinValueChange}
+        maxValue={currentMaxPrice}
+        minValue={currentMinPrice}
+        startValue={0}
+        onMaxValueChange={onMaxPriceChange}
+        onMinValueChange={onMinPriceChange}
       />
     </div>
   );

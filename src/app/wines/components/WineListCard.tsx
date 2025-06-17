@@ -10,6 +10,7 @@ interface WineListItemProps {
   country: string;
   image: string | StaticImageData;
   rating: number;
+  price: number;
   reviewCount: number;
   recentReview?: string;
 }
@@ -53,6 +54,7 @@ export default function WineListCard({
   name,
   country,
   image,
+  price,
   rating,
   reviewCount,
   recentReview,
@@ -64,12 +66,12 @@ export default function WineListCard({
     >
       <div className='relative flex flex-col gap-10 rounded-t-3xl border-1 border-gray-300 bg-white px-8 pt-10 sm:flex-row sm:justify-between'>
         <WineInfo
-          price={64990}
+          price={price}
           priceClassName='text-[1.2rem] sm:text-[1.4rem]'
           wineCountry={country}
           wineCountryClassName='max-sm:text-[1.2rem] line-clamp-1 max-sm:mb-3'
           wineImage={image}
-          wineImageClassName='h-[22rem]  w-[10rem] sm:w-[12rem]'
+          wineImageClassName='h-[22rem] w-[10rem] sm:w-[12rem]'
           wineName={name}
           wineNameClassName='text-[2rem] mb-2 sm:text-[2.7rem] md:text-[3rem] font-medium line-clamp-2 sm:line-clamp-2'
         />

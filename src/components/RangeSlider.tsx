@@ -19,6 +19,7 @@ export function RangeSlider({
   label,
   containerClassName,
   id,
+  value,
   name,
   ...props
 }: RangeSliderProps) {
@@ -34,6 +35,7 @@ export function RangeSlider({
         id={id}
         name={name}
         type='range'
+        value={value}
         {...props}
       />
     </div>

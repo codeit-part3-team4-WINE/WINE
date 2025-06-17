@@ -1,4 +1,5 @@
-import { AromaCount, AromaType, Review } from './types';
+import { ReviewType } from '../../types';
+import { AromaCount, AromaType } from './types';
 
 // 향 이름 매핑
 export const AROMA_LABELS: Record<AromaType, string> = {
@@ -28,7 +29,7 @@ export const AROMA_LABELS: Record<AromaType, string> = {
 /**
  * 리뷰 배열에서 향 데이터를 분석하여 가장 많이 언급된 상위 3개 향을 반환
  */
-export function analyzeAromaData(reviews: Review[]): AromaCount[] {
+export function analyzeAromaData(reviews: ReviewType[]): AromaCount[] {
   // 모든 향을 수집
   const allAromas = reviews.flatMap((review) => review.aroma);
 

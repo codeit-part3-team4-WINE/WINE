@@ -49,10 +49,10 @@ import { cn } from '@/libs/cn';
  */
 
 type Option = {
-  body: number;
-  tannin: number;
-  sweetness: number;
-  acidity: number;
+  lightBold: number;
+  smoothTannic: number;
+  drySweet: number;
+  softAcidic: number;
 };
 
 interface InputRangeProps {
@@ -66,6 +66,7 @@ export default function InputRange({
   className = '',
   values,
   onChange,
+  disabled,
 
   ...props
 }: InputRangeProps) {
@@ -83,7 +84,7 @@ export default function InputRange({
             disabled={disabled}
             id={item.name}
             label={item.label}
-            max={10}
+            max={5}
             min={0}
             name={item.name}
             step={1}
