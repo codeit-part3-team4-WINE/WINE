@@ -19,6 +19,9 @@ import {
 import { UserProfile } from '../../action/user-action';
 import ProfileChangeForm from './ProfileChangeForm';
 
+const DEFAULT_IMAGE_URL =
+  'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Wine/user/1256/1750160791489/1750160791476.svg';
+
 /**
  * 사용자 프로필 변경 모달
  *
@@ -65,6 +68,9 @@ export default function ProfileChangeModal({
   // 프로필 변경 처리 로딩 상태
   const [loading, setLoading] = useState(false);
 
+  // 사용자 이미지가 DEFAULT_IMAGE인 경우 삭제 버튼을 렌더링 하지 않기 위한 변수
+  const isDeletable = originalImageUrl !== DEFAULT_IMAGE_URL;
+
   /** 사용자 정보 변경 시 원본 상태 초기화 */
   useEffect(() => {
     setOriginalNickname(user.nickname);
@@ -109,37 +115,13 @@ export default function ProfileChangeModal({
    * - 기본 이미지로 변경
    * - 삭제 버튼 클릭시 DEFAULT_PROFILE_IMG를 API로 보내 매번 새로운 URL을 받아옴
    */
-  const handleDeleteImage = async () => {
-    try {
-      // 기본 이미지 fetch → blob
-      const res = await fetch(DEFAULT_PROFILE_IMG);
-      const blob = await res.blob();
+  const handleDeleteImage = () => {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setPreviewUrl(null);
 
-      // blob → File 객체 생성 (매번 유니크 이름 부여해 서버 중복 방지)
-      const uniqueName = `default-${Date.now()}.svg`;
-      const file = new File([blob], uniqueName, { type: 'image/svg+xml' });
-
-      // 서버 업로드 요청
-      const form = new FormData();
-      form.append('file', file);
-
-      const uploadRes = await privateInstance.post('/images/upload', form, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 20000,
-      });
-
-      const { url } = uploadRes.data;
-
-      // state 업데이트 → 해당 URL이 프로필 삭제 PATCH에 사용
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
-      setPreviewUrl(null);
-      setImageUrl(url); // 서버 전송용
-      setDisplayUrl(DEFAULT_PROFILE_IMG); // 미리보기용
-      setImgState('default');
-    } catch (err) {
-      console.error('기본 이미지 업로드 실패:', err);
-      alert('기본 이미지 설정에 실패했습니다.');
-    }
+    setImageUrl(DEFAULT_IMAGE_URL); // 서버 전송용 실제 URL
+    setDisplayUrl(DEFAULT_PROFILE_IMG); // 미리보기용
+    setImgState('default');
   };
 
   /**
@@ -227,6 +209,7 @@ export default function ProfileChangeModal({
           <ProfileChangeForm
             imageSrc={previewUrl ?? displayUrl}
             imgState={imgState}
+            isDeletable={isDeletable}
             nickname={nickname}
             originalNickname={originalNickname}
             onDeleteImage={handleDeleteImage}

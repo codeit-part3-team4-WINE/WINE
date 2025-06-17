@@ -14,6 +14,7 @@ interface ProfileChangeFormProps {
   onImageChange: (file: File) => void;
   onDeleteImage: () => void;
   onResetImage: () => void;
+  isDeletable: boolean;
 }
 
 export default function ProfileChangeForm({
@@ -21,6 +22,7 @@ export default function ProfileChangeForm({
   nickname,
   imageSrc,
   imgState,
+  isDeletable,
   onNicknameChange,
   onImageChange,
   onDeleteImage,
@@ -41,16 +43,18 @@ export default function ProfileChangeForm({
           {imgState === 'preview' ? '미리보기 이미지' : '프로필 사진 변경'}
         </span>
         <div className='flex gap-[0.3rem]'>
-          <Button
-            className='text-[1.4rem]'
-            size='xs'
-            variant='ghost'
-            onClick={() => {
-              onDeleteImage();
-            }}
-          >
-            프로필 사진 삭제
-          </Button>
+          {isDeletable && (
+            <Button
+              className='text-[1.4rem]'
+              size='xs'
+              variant='ghost'
+              onClick={() => {
+                onDeleteImage();
+              }}
+            >
+              프로필 사진 삭제
+            </Button>
+          )}
 
           {imgState !== 'original' && (
             <Button
