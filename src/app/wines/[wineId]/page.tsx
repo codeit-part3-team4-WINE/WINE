@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { privateInstance } from '@/apis/privateInstance';
 import dummyWineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
+import { ApiErrorClass } from '@/libs/errors/apis/ApiError';
+import { ApiErrorResponse } from '@/types/apiErrorResponse';
 
 import Nothing from './components/Nothing';
 import ReviewCard from './components/ReviewCard';
@@ -16,16 +18,39 @@ export default function WinePage() {
   const [wineInfo, setWineInfo] = useState<WineInfoType | null>(null);
   const { wineId } = useParams();
 
+  const [wineError, setWineError] = useState<{
+    message: string;
+    status?: number;
+  } | null>(null);
+
   useEffect(() => {
     const fetchWine = async () => {
-      const response = await privateInstance.get(`/wines/${wineId}`);
-      setWineInfo(response.data);
+      try {
+        const response = await privateInstance.get(`/wines/${wineId}`);
+        setWineInfo(response.data);
+      } catch (error: unknown) {
+        const status = (error as ApiErrorResponse)?.response?.status;
+
+        const wineMessageMap = {
+          404: '해당 와인을 찾을 수 없습니다.',
+          401: '로그인이 필요합니다.',
+          500: '서버 오류가 발생했습니다.',
+        };
+        setWineError(
+          new ApiErrorClass(
+            status,
+            wineMessageMap,
+            '와인 정보를 불러오지 못했습니다.',
+          ),
+        );
+      }
     };
     fetchWine();
   }, [wineId]);
 
-  const totalReviews = wineInfo?.reviews.length || 0;
+  if (wineError) throw wineError;
 
+  const totalReviews = wineInfo?.reviews.length || 0;
   console.log(wineInfo);
   return (
     <div className='mt-10 flex w-full flex-col items-center'>

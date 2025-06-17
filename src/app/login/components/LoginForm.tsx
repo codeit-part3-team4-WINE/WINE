@@ -87,7 +87,7 @@ export default function LoginForm() {
         )}
 
         <form action={formAction} className='mt-8 space-y-6 pb-[6rem]'>
-          <div className='space-y-4 px-8'>
+          <div className='space-y-6 px-8'>
             <div>
               <InputPair
                 required
