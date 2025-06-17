@@ -23,4 +23,5 @@ export interface Wine {
   recentReview?: {
     content: string;
   } | null;
+  userId?: number;
 }

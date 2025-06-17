@@ -44,14 +44,14 @@ export default function RecommendedWineItem({
 }: RecommendedWineItemProps) {
   return (
     <Link
-      className='inset-shadow-md flex h-[15rem] min-w-[24rem] cursor-pointer items-center justify-between gap-4 rounded-2xl bg-white px-5 md:h-[18rem] md:w-[26rem]'
+      className='inset-shadow-md flex h-[15rem] min-w-[24rem] cursor-pointer items-center justify-between gap-4 overflow-y-hidden rounded-2xl bg-white px-5 md:h-[18rem] md:w-[26rem]'
       href={`/wines/${id}`}
     >
       {imageSrc ? (
-        <div className='flex h-full w-full max-w-[8rem] min-w-[10rem] items-center justify-center pt-5 md:max-w-[10rem] md:min-w-[8rem]'>
+        <div className='flex h-[17rem] w-full max-w-[8rem] min-w-[10rem] items-center justify-center pt-5 md:h-[19rem] md:max-w-[10rem] md:min-w-[8rem]'>
           <Image
             alt='wine'
-            className='pointer-events-none max-h-full max-w-full object-contain select-none'
+            className='pointer-events-none relative bottom-[-1rem] h-full max-w-full object-cover select-none md:bottom-[-1.2rem]'
             height={600}
             src={imageSrc}
             width={600}
