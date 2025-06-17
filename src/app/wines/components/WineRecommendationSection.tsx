@@ -70,7 +70,7 @@ async function RecommendedWineList() {
             {monthlyRecommendedWines.map((item, index) => (
               <li
                 key={`${item.id}-${index}`}
-                className='mx-[0.75rem] w-[22rem] flex-shrink-0 md:w-[26rem]' // mx-3 = 0.75rem = gap-6의 절반
+                className='mx-[0.75rem] w-[22rem] flex-shrink-0 md:w-[26rem]'
               >
                 <RecommendedWineItem
                   id={item.id}
