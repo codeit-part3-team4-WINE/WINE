@@ -56,7 +56,10 @@ export default function ProfileImg({
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    if (src) setImgSrc(src);
+    if (src) {
+      setImgSrc(src);
+      setIsError(false);
+    }
   }, [src]);
 
   const handleError = () => {
@@ -66,8 +69,11 @@ export default function ProfileImg({
     }
   };
 
+  const key =
+    typeof imgSrc === 'string' ? imgSrc : imgSrc?.src || 'default-key';
+
   return (
-    <div className='group relative flex shrink-0'>
+    <div key={key} className='group relative flex shrink-0'>
       <div
         className={cn(
           sizeClass,

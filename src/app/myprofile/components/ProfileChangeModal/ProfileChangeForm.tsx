@@ -6,6 +6,7 @@ import InputPair from '@/components/Inputs/InputPair';
 import ProfileImg from '@/components/ProfileImg';
 
 interface ProfileChangeFormProps {
+  originalNickname: string;
   nickname: string;
   imageSrc: string;
   imgState: 'original' | 'default' | 'preview';
@@ -16,6 +17,7 @@ interface ProfileChangeFormProps {
 }
 
 export default function ProfileChangeForm({
+  originalNickname,
   nickname,
   imageSrc,
   imgState,
@@ -69,7 +71,7 @@ export default function ProfileChangeForm({
         <InputPair
           inputClassName='w-full'
           label='닉네임'
-          placeholder={nickname}
+          placeholder={originalNickname}
           value={nickname}
           onChange={(e) => onNicknameChange(e.target.value)}
         />
