@@ -1,6 +1,14 @@
-import { createPrivateServerInstance } from '@/apis/privateServerInstance';
+'use client';
+
+import { useEffect, useState } from 'react';
+
+import { privateInstance } from '@/apis/privateInstance';
 
 import FavoriteContent from './components/FavoriteContent';
+
+interface Wine {
+  id: number;
+}
 
 interface Review {
   id: number;
@@ -21,32 +29,46 @@ interface Review {
   isLiked: boolean;
 }
 
-export default async function Favorite() {
-  const axios = await createPrivateServerInstance();
+export default function Favorite() {
+  const [likedReviews, setLikedReviews] = useState<Review[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // 1차 요청으로 totalCount 파악
-  const { data: page1 } = await axios.get('/wines', {
-    params: { limit: 1 },
-  });
-  const totalCount = page1.totalCount;
+  useEffect(() => {
+    const fetchLikedReviews = async () => {
+      try {
+        const { data: page1 } = await privateInstance.get('/wines', {
+          params: { limit: 1 },
+        });
+        const totalCount = page1.totalCount;
 
-  // 2차 요청으로 전체 와인 받아오기
-  const { data } = await axios.get('/wines', {
-    params: { limit: totalCount },
-  });
-  const wines = data.list;
+        const { data } = await privateInstance.get('/wines', {
+          params: { limit: totalCount },
+        });
+        const wines: Wine[] = data.list;
 
-  // 각 와인 id로 상세 호출하여 liked 리뷰만 수집
-  const likedReviews: Review[] = [];
+        const allLikedReviews: Review[] = [];
 
-  for (const wine of wines) {
-    const { data: wineDetail } = await axios.get(`/wines/${wine.id}`);
+        for (const wine of wines) {
+          const { data: wineDetail } = await privateInstance.get(
+            `/wines/${wine.id}`,
+          );
+          const wineLikedReviews: Review[] =
+            wineDetail.reviews?.filter((review: Review) => review.isLiked) ??
+            [];
 
-    const wineLikedReviews: Review[] =
-      wineDetail.reviews?.filter((review: Review) => review.isLiked) ?? [];
+          allLikedReviews.push(...wineLikedReviews);
+        }
 
-    likedReviews.push(...wineLikedReviews);
-  }
+        setLikedReviews(allLikedReviews);
+      } catch (error) {
+        console.error('리뷰 불러오기 실패:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  return <FavoriteContent likedReviews={likedReviews} />;
+    fetchLikedReviews();
+  }, []);
+
+  return <FavoriteContent isLoading={isLoading} likedReviews={likedReviews} />;
 }
