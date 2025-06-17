@@ -1,37 +1,49 @@
 'use client';
 
-import MultiSelect from '@/components/MultiSelect';
-
+import { DEFAULT_MAX_PRICE, RATING_OPTIONS, WINE_TYPES } from '../constants';
+import { FilterProps } from '../types';
 import PriceRangeSlider from './PriceRangeSlider';
 import RadioGroup from './Radio';
+import ToggleRadioGroup from './ToggleRadio';
 
-export default function Filter({ filterState, onFilterChange }) {
-  const maxRange = 10000; // api 연결 이후 등록된 와인의 최대 가격으로 변경할 예정입니다.
+export default function Filter({
+  priceMaxRange,
+  filterState,
+  onFilterChange,
+}: FilterProps) {
+  const maxRange = priceMaxRange;
 
   return (
-    <div className='my-10 flex flex-col gap-12'>
+    <div className='my-10 flex flex-col gap-12 xl:gap-24'>
       <div>
-        <MultiSelect
-          selectedValues={filterState.selectedWineTypes}
+        <ToggleRadioGroup
+          radioGroupClassName='gap-3'
+          selectedValue={filterState.selectedWineType}
           title='WINE TYPES'
-          titleClassName='mb-6 text-[1.8rem]'
-          onSelectionChange={(types) =>
-            onFilterChange({ ...filterState, selectedWineTypes: types })
+          titleClassName='mb-4 text-[1.8rem]'
+          onSelect={(type) =>
+            onFilterChange({ ...filterState, selectedWineType: type })
           }
         >
-          <MultiSelect.Option value='red'>Red</MultiSelect.Option>
-          <MultiSelect.Option value='white'>White</MultiSelect.Option>
-          <MultiSelect.Option value='sparkling'>Sparkling</MultiSelect.Option>
-        </MultiSelect>
+          <ToggleRadioGroup.Radio value={WINE_TYPES.RED}>
+            {WINE_TYPES.RED}
+          </ToggleRadioGroup.Radio>
+          <ToggleRadioGroup.Radio value={WINE_TYPES.WHITE}>
+            {WINE_TYPES.WHITE}
+          </ToggleRadioGroup.Radio>
+          <ToggleRadioGroup.Radio value={WINE_TYPES.SPARKLING}>
+            {WINE_TYPES.SPARKLING}
+          </ToggleRadioGroup.Radio>
+        </ToggleRadioGroup>
       </div>
 
-      <hr className='text-gray-100' />
+      <hr className='text-gray-100 xl:hidden' />
 
       <div>
         <PriceRangeSlider
           currentMaxPrice={filterState.selectedMaxPrice}
           currentMinPrice={filterState.selectedMinPrice}
-          maxRange={maxRange}
+          maxRange={maxRange ?? DEFAULT_MAX_PRICE}
           title='PRICE'
           onMaxPriceChange={(value) =>
             onFilterChange({ ...filterState, selectedMaxPrice: value })
@@ -42,7 +54,7 @@ export default function Filter({ filterState, onFilterChange }) {
         />
       </div>
 
-      <hr className='text-gray-100' />
+      <hr className='text-gray-100 xl:hidden' />
 
       <div>
         <RadioGroup
@@ -53,11 +65,11 @@ export default function Filter({ filterState, onFilterChange }) {
             onFilterChange({ ...filterState, selectedRating: value });
           }}
         >
-          <RadioGroup.Radio value={0}>전체</RadioGroup.Radio>
-          <RadioGroup.Radio value={1}>4.5 - 5.0</RadioGroup.Radio>
-          <RadioGroup.Radio value={2}>4.0 - 4.5</RadioGroup.Radio>
-          <RadioGroup.Radio value={3}>3.5 - 4.0</RadioGroup.Radio>
-          <RadioGroup.Radio value={4}>3.0 - 3.5</RadioGroup.Radio>
+          {RATING_OPTIONS.map((option) => (
+            <RadioGroup.Radio key={option.value} value={option.value}>
+              {option.label}
+            </RadioGroup.Radio>
+          ))}
         </RadioGroup>
       </div>
     </div>
