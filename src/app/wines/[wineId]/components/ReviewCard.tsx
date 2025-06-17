@@ -10,8 +10,8 @@ import Dropdown from '@/components/Dropdown';
 import InputRange from '@/components/InputRange';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
-import { formatToTimeAgo } from '@/libs/formmatToTimeago';
 import useUserStore from '@/stores/Auth-store/authStore';
+import { getTimeAgo } from '@/utils/getTimeAgo';
 
 import { ReviewType } from '../types';
 import { AromaType } from './AromaAnalysis/types';
@@ -82,9 +82,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
           <ProfileImg className='size-[4.2rem]' size='md' />
           <div className='flex flex-col justify-center'>
             <p className='text-lg font-bold'>{user.nickname}</p>
-            <p className='text-md text-gray-500'>
-              {formatToTimeAgo(createdAt)}
-            </p>
+            <p className='text-md text-gray-500'>{getTimeAgo(createdAt)}</p>
           </div>
         </div>
         <div className='flex items-center gap-2 pt-2'>
