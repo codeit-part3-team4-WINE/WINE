@@ -1,6 +1,5 @@
 'use client';
 
-import { StaticImageData } from 'next/image';
 import { useRef } from 'react';
 
 import Input from './Input';
@@ -13,7 +12,7 @@ type NativeInputProps = Omit<
 interface InputFileProps extends NativeInputProps {
   label?: string;
   children: React.ReactNode;
-  onChange?: React.Dispatch<React.SetStateAction<string | StaticImageData>>;
+  onChange?: (file: File) => void;
   accept?: string;
 }
 
@@ -50,9 +49,8 @@ export default function InputFile({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
-    const url = file ? URL.createObjectURL(file) : '';
-    onChange?.(url);
+    const file = e.target.files?.[0];
+    if (file) onChange?.(file);
   };
 
   return (
