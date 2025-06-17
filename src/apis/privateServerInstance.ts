@@ -22,54 +22,88 @@ import { cookies } from 'next/headers';
 
 import { API_HEADERS, API_TIMEOUT } from '@/constants/apiConstants';
 
+const getCookieHeader = async () => {
+  const cookieStore = await cookies();
+  return cookieStore
+    .getAll()
+    .map((token) => `${token.name}=${token.value}`)
+    .join('; ');
+};
+
+const refreshAccessToken = async (): Promise<string | null> => {
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/refresh`,
+      {},
+      {
+        headers: {
+          Cookie: await getCookieHeader(),
+        },
+      },
+    );
+    console.log(`서버인스턴스 토큰 재발급 성공 ${res.data.accessToken}`);
+    return res.data.accessToken;
+  } catch (e) {
+    console.error('토큰 재발급 실패', e);
+    return null;
+  }
+};
+
 export const createPrivateServerInstance = async (): Promise<AxiosInstance> => {
   const cookieStore = await cookies();
-
-  let accessToken = cookieStore.get('accessToken')?.value;
+  const accessToken = cookieStore.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
 
-  console.log('accessToken:', accessToken, 'refreshToken:', refreshToken);
-
-  //리프레시토큰만 존재하는경우 액세스토큰 재발급
-  if (!accessToken && refreshToken) {
-    try {
-      const cookieHeader = cookieStore
-        .getAll()
-        .map((token) => `${token.name}=${token.value}`)
-        .join('; ');
-
-      //쿠키를 직접헤더에 넣음
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/refresh`,
-        {},
-        {
-          headers: {
-            Cookie: cookieHeader,
-          },
-        },
-      );
-
-      accessToken = res.data.accessToken;
-
-      console.log(accessToken);
-
-      if (!accessToken) {
-        throw new Error('새 액세스 토큰 받기 실패');
-      }
-    } catch (e) {
-      console.error('토큰 리프레시 실패', e);
-      throw new Error('토큰 리프레시 실패');
-    }
-  }
+  const cookieHeader = [
+    accessToken ? `accessToken=${accessToken}` : null,
+    refreshToken ? `refreshToken=${refreshToken}` : null,
+  ]
+    .filter(Boolean)
+    .join('; ');
 
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL,
+    baseURL: `${process.env.NEXT_PUBLIC_SITE_URL}/api`,
     timeout: API_TIMEOUT,
     headers: {
       ...API_HEADERS.JSON,
-      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+      ...(cookieHeader && { Cookie: cookieHeader }),
     },
   });
+
+  // 401 에러일시 토큰 재발급 받고 재요청 처리
+  instance.interceptors.response.use(
+    (res) => res,
+    async (error) => {
+      const originalRequest = error.config;
+
+      if (
+        error.response?.status === 401 &&
+        !originalRequest._retry &&
+        refreshToken
+      ) {
+        originalRequest._retry = true;
+
+        const newAccessToken = await refreshAccessToken();
+        console.log('새 accessToken:', newAccessToken);
+
+        if (newAccessToken) {
+          const cookieHeader = [
+            `accessToken=${newAccessToken}`,
+            refreshToken ? `refreshToken=${refreshToken}` : null,
+          ]
+            .filter(Boolean)
+            .join('; ');
+
+          originalRequest.headers.Cookie = cookieHeader;
+          console.log('재요청 Cookie 헤더:', originalRequest.headers.Cookie);
+
+          return instance(originalRequest);
+        }
+      }
+
+      return Promise.reject(error);
+    },
+  );
 
   return instance;
 };

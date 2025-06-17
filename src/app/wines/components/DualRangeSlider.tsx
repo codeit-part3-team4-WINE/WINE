@@ -1,11 +1,13 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 interface DualRangeSliderProps {
   startValue?: number;
   endValue?: number;
   gap?: number;
+  minValue?: number;
+  maxValue?: number;
   onMinValueChange: (value: number) => void;
   onMaxValueChange: (value: number) => void;
 }
@@ -39,6 +41,8 @@ export default function DualRangeSlider({
   startValue = 0,
   endValue = 100,
   gap = 1,
+  minValue = 0,
+  maxValue = 100,
   onMinValueChange,
   onMaxValueChange,
 }: DualRangeSliderProps) {
@@ -47,6 +51,12 @@ export default function DualRangeSlider({
   const [rangeMinPercent, setRangeMinPercent] = useState(0);
   const [rangeMaxPercent, setRangeMaxPercent] = useState(0);
   const disabledGap = gap * 5;
+
+  // UI 업데이트
+  useEffect(() => {
+    setRangeMinPercent((minValue / endValue) * 100);
+    setRangeMaxPercent(100 - (maxValue / endValue) * 100);
+  }, [minValue, maxValue, endValue]);
 
   /** 최소값 슬라이더 변경 핸들러 */
   const rangeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -86,12 +96,6 @@ export default function DualRangeSlider({
     }
   };
 
-  /** 슬라이더 UI 업데이트 핸들러 */
-  const dualRangeUiHandler = () => {
-    setRangeMinPercent((rangeMinValue / endValue) * 100);
-    setRangeMaxPercent(100 - (rangeMaxValue / endValue) * 100);
-  };
-
   return (
     <>
       <div className='relative h-[0.7rem] w-full rounded-2xl bg-gray-100 md:h-[0.9rem]'>
@@ -111,11 +115,8 @@ export default function DualRangeSlider({
           min={startValue}
           step={gap}
           type='range'
-          value={rangeMinValue}
-          onChange={(e) => {
-            rangeMinValueHandler(e);
-            dualRangeUiHandler();
-          }}
+          value={minValue}
+          onChange={rangeMinValueHandler}
         />
         <input
           className='range-slider'
@@ -123,11 +124,8 @@ export default function DualRangeSlider({
           min={startValue + gap}
           step={gap}
           type='range'
-          value={rangeMaxValue}
-          onChange={(e) => {
-            rangeMaxValueHandler(e);
-            dualRangeUiHandler();
-          }}
+          value={maxValue}
+          onChange={rangeMaxValueHandler}
         />
       </div>
     </>
