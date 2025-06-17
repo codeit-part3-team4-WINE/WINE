@@ -16,7 +16,7 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json(response.data);
   } catch (err) {
     const error = err as AxiosError<ServerErrorResponse>;
-    const message = error.response?.data?.error || '유저 정보 조회 실패';
+    const message = error.response?.data?.error || '와인 목록 조회 실패';
     const status = error.response?.status || 500;
 
     return NextResponse.json({ error: message }, { status });
