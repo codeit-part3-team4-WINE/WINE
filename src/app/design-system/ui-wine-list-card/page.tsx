@@ -13,6 +13,7 @@ export default function UiWineListCard() {
           id={1}
           image={dummyWineImage}
           name='Sentinel Carbernet Sauvignon 2016'
+          price={1000}
           rating={4.8}
           recentReview='Cherry, cocoa, vanilla and clove - beautiful red fruit driven Amarone.
           Low acidity and medium tannins. Nice long velvety finish.'
@@ -24,6 +25,7 @@ export default function UiWineListCard() {
           id={2}
           image={dummyWineImage}
           name='Palazzo della Torre 2017 Palazzo della Torre 2017 Palazzo della Torre 2017 Palazzo della Torre 2017'
+          price={1000}
           rating={4.8}
           recentReview='Cherry, cocoa, vanilla and clove - beautiful red fruit driven Amarone.
           Low acidity and medium tannins. Nice long velvety finish. Cherry, cocoa, vanilla and clove - beautiful red fruit driven Amarone.
