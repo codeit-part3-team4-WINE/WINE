@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { privateInstance } from '@/apis/privateInstance';
 import dummyWineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
+import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
 
 import AromaAnalysis from './components/AromaAnalysis/AromaAnalysis';
@@ -45,7 +46,7 @@ export default function WinePage() {
         region={wineInfo?.region || 'Western Cape, South Africa'}
       />
 
-      <div className='mt-10 grid w-full grid-cols-2 gap-10'>
+      <div className='my-15 grid w-full grid-cols-1 gap-10 xl:grid-cols-2 xl:gap-20'>
         <div className='col-span-1 w-full'>
           <FlavorAnalysis data={wineInfo?.reviews as ReviewType[]} />
         </div>
@@ -55,8 +56,20 @@ export default function WinePage() {
       </div>
 
       <div className='flex w-full flex-col gap-10 xl:grid xl:grid-cols-6'>
-        <div className='order-2 col-span-1 w-full xl:order-1 xl:col-span-4'>
-          <h3 className='mt-10 mb-10 text-xl font-bold'>리뷰 목록</h3>
+        <div
+          className={cn(
+            'order-2 col-span-1 w-full xl:order-1',
+            wineInfo?.reviews && wineInfo?.reviews.length > 0
+              ? 'xl:col-span-4'
+              : 'xl:col-span-6',
+          )}
+        >
+          <div className='flex items-center justify-between'>
+            <h3 className='mt-10 mb-10 text-xl font-bold'>리뷰 목록</h3>
+            <span className='text-sm text-gray-500'>
+              {wineInfo?.reviews.length}개 리뷰
+            </span>
+          </div>
           {wineInfo?.reviews && wineInfo?.reviews.length > 0 ? (
             <div className='flex flex-col gap-5'>
               {wineInfo?.reviews.map((review) => (
@@ -69,15 +82,15 @@ export default function WinePage() {
             </div>
           )}
         </div>
-        {wineInfo?.reviews && wineInfo?.reviews.length > 0 && (
-          <div className='order-1 col-span-1 xl:order-2 xl:col-span-2'>
+        {wineInfo?.reviews && wineInfo?.reviews.length > 0 ? (
+          <div className='col-span1 order-1 xl:order-2 xl:col-span-2'>
             <ReviewOverview
               data={wineInfo.avgRatings}
               rating={wineInfo.avgRating || 0}
               reviewNumber={totalReviews}
             />
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

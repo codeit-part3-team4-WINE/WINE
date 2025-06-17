@@ -5,13 +5,15 @@ export default function ReviewRangeGroup({
 }: {
   data: Record<string, number>;
 }) {
+  console.log('data', data);
   return (
     <div className='flex w-full flex-col gap-6'>
-      {[5, 4, 3, 2, 1].map((score) => (
+      {Object.entries(data).map(([key, value]) => (
         <ReviewRange
-          key={score}
-          label={`${score}점`}
-          value={data[score] || 0}
+          key={key}
+          label={`${key}점`}
+          span={value}
+          value={value || 0}
         />
       ))}
     </div>
