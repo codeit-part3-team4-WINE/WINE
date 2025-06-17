@@ -52,10 +52,11 @@ export default function ProfileChangeModal({
     typeof user.image === 'string' ? user.image : '',
   );
 
-  // 미리보기로 띄울 Blob URL (revoke 관리 필요)
+  // 방금 업로드한 이미지를 미리보기로 띄울 Blob URL
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   // 화면에 표시될 이미지 URL → preview가 있을경우 그걸 없을 경우 서버에서 받은 이미지를 보여줌
+  // 기존 이미지로 되돌리기, 프로필 이미지 삭제하기의 미리보기 변수로 사용됨
   const [displayUrl, setDisplayUrl] = useState<string>(
     typeof user.image === 'string' ? user.image : '',
   );
