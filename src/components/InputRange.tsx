@@ -67,6 +67,7 @@ export default function InputRange({
   values,
   onChange,
   disabled,
+
   ...props
 }: InputRangeProps) {
   return (
@@ -83,7 +84,7 @@ export default function InputRange({
             disabled={disabled}
             id={item.name}
             label={item.label}
-            max={10}
+            max={5}
             min={0}
             name={item.name}
             step={1}

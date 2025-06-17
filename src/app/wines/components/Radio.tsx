@@ -16,6 +16,7 @@ interface RadioContextType {
   title?: string;
   titleClassName?: string;
   radioGroupClassName?: string;
+  selectedValue?: string | number;
   onSelect: (value: string | number) => void;
   children?: React.ReactNode;
 }
@@ -71,11 +72,14 @@ export default function RadioGroup({
   title,
   titleClassName,
   radioGroupClassName,
+  selectedValue,
   onSelect,
   children,
 }: RadioContextType) {
   return (
-    <RadioContext.Provider value={{ title, onSelect, titleClassName }}>
+    <RadioContext.Provider
+      value={{ title, selectedValue, onSelect, titleClassName }}
+    >
       {title && <RadioGroup.Title />}
       <div className={cn('flex flex-col gap-2', radioGroupClassName)}>
         {children}
@@ -109,25 +113,39 @@ RadioGroup.Title = function Title() {
  * <RadioGroup.Radio value={1}>전체</RadioGroup.Radio>
  */
 RadioGroup.Radio = function Radio({ value, children, ...props }: RadioProps) {
-  const { onSelect } = useRadioContext();
+  const { selectedValue, onSelect } = useRadioContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const value = Number(event.target.value);
     onSelect?.(value);
   };
 
   return (
     <label className='content-text flex w-fit cursor-pointer items-center gap-4'>
       <input
-        className='peer hidden'
+        checked={selectedValue === value}
+        className='sr-only'
         name='radioGroup'
         type='radio'
         value={value}
         onChange={handleChange}
         {...props}
       />
-      <div className='peer-checked:after:bg-primary-100 relative size-6 rounded-md border border-gray-300 bg-gray-50 peer-checked:after:absolute peer-checked:after:inset-[0.25rem] peer-checked:after:rounded peer-checked:after:content-[""]' />
-      <span className='peer-checked:text-primary-100 text-gray-700'>
+
+      <div
+        className={cn(
+          'relative size-6 rounded-md border border-gray-300 bg-gray-50',
+          selectedValue === value &&
+            'after:bg-primary-100 after:absolute after:inset-[0.25rem] after:rounded after:content-[""]',
+        )}
+      />
+
+      <span
+        className={cn(
+          'text-gray-700',
+          selectedValue === value && 'text-primary-100',
+        )}
+      >
         {children}
       </span>
     </label>

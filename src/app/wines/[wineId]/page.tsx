@@ -5,16 +5,20 @@ import { useEffect, useState } from 'react';
 import { privateInstance } from '@/apis/privateInstance';
 import dummyWineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
+import useUserStore from '@/stores/Auth-store/authStore';
 
+import AromaAnalysis from './components/AromaAnalysis/AromaAnalysis';
+import FlavorAnalysis from './components/flavorAnalysis/FlavorAnalysis';
 import Nothing from './components/Nothing';
 import ReviewCard from './components/ReviewCard';
 import ReviewOverview from './components/ReviewRating/ReviewOverview';
-import { REVIEW_RANGES } from './dummy';
-import { WineInfoType } from './types';
+import { ReviewType, WineInfoType } from './types';
 
 export default function WinePage() {
   const [wineInfo, setWineInfo] = useState<WineInfoType | null>(null);
   const { wineId } = useParams();
+  const [isOwner, setIsOwner] = useState(false);
+  const userInfo = useUserStore((state) => state.user);
 
   useEffect(() => {
     const fetchWine = async () => {
@@ -22,19 +26,33 @@ export default function WinePage() {
       setWineInfo(response.data);
     };
     fetchWine();
-  }, [wineId]);
+    if (userInfo?.id && wineInfo?.userId && userInfo.id === wineInfo.userId) {
+      setIsOwner(true);
+    } else {
+      setIsOwner(false);
+    }
+  }, [wineId, userInfo?.id, wineInfo?.userId]);
 
   const totalReviews = wineInfo?.reviews.length || 0;
 
-  console.log(wineInfo);
   return (
     <div className='mt-10 flex w-full flex-col items-center'>
       <WineCard
         image={wineInfo?.image || dummyWineImage}
+        isDropdown={isOwner}
         name={wineInfo?.name || 'Sentinel Cabernet Sauvignon 2016'}
         price={wineInfo?.price || 10000}
         region={wineInfo?.region || 'Western Cape, South Africa'}
       />
+
+      <div className='mt-10 grid w-full grid-cols-2 gap-10'>
+        <div className='col-span-1 w-full'>
+          <FlavorAnalysis data={wineInfo?.reviews as ReviewType[]} />
+        </div>
+        <div className='col-span-1 w-full'>
+          <AromaAnalysis reviews={wineInfo?.reviews || []} />
+        </div>
+      </div>
 
       <div className='flex w-full flex-col gap-10 xl:grid xl:grid-cols-6'>
         <div className='order-2 col-span-1 w-full xl:order-1 xl:col-span-4'>
@@ -54,8 +72,8 @@ export default function WinePage() {
         {wineInfo?.reviews && wineInfo?.reviews.length > 0 && (
           <div className='order-1 col-span-1 xl:order-2 xl:col-span-2'>
             <ReviewOverview
-              data={REVIEW_RANGES}
-              rating={4.8}
+              data={wineInfo.avgRatings}
+              rating={wineInfo.avgRating || 0}
               reviewNumber={totalReviews}
             />
           </div>

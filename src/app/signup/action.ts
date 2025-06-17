@@ -32,6 +32,8 @@ export async function SignUp(
   const password = formData.get('password');
   const passwordConfirmation = formData.get('passwordConfirmation');
 
+  console.log(email, nickname, password, passwordConfirmation);
+
   // 회원가입 요청
   try {
     const res = await axios.post(
@@ -72,6 +74,8 @@ export async function SignUp(
     if (axios.isAxiosError(err)) {
       const axiosError = err as AxiosError<ServerErrorResponse>;
       const serverMsg = axiosError.response?.data?.message;
+
+      console.log(serverMsg, axiosError.response?.status);
 
       // 서버에서 반환된 에러 메세지에 따라 커스텀에러 처리
       switch (serverMsg) {
