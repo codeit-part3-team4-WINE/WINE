@@ -14,6 +14,7 @@ import {
   ModalTitle,
   ModalTrigger,
 } from '@/components/Modal';
+import useUserStore from '@/stores/Auth-store/authStore';
 
 import { DEFAULT_MAX_PRICE } from '../constants';
 import { FilterProps, FilterState } from '../types';
@@ -29,6 +30,8 @@ function DesktopFilterPanel({
   filterState,
   onFilterChange,
 }: FilterProps) {
+  const user = useUserStore((state) => state.user);
+
   return (
     <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
       <Filter
@@ -37,15 +40,17 @@ function DesktopFilterPanel({
         onFilterChange={onFilterChange}
       />
 
-      <Button
-        className='w-full'
-        round='rounded'
-        size='sm'
-        variant='primary'
-        onClick={() => {}}
-      >
-        와인 등록하기
-      </Button>
+      {user?.id && (
+        <Button
+          className='w-full'
+          round='rounded'
+          size='sm'
+          variant='primary'
+          onClick={() => {}}
+        >
+          와인 등록하기
+        </Button>
+      )}
     </div>
   );
 }
