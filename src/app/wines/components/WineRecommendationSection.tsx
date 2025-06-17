@@ -58,16 +58,41 @@ async function RecommendedWineList() {
     <div className='rounded-3xl bg-gray-100 p-8'>
       <h2 className='sub-title-text mb-4'>이번 달 추천 와인</h2>
 
-      <div className='flex gap-6 overflow-y-scroll'>
-        {monthlyRecommendedWines.map((item) => (
-          <RecommendedWineItem
-            key={item.id}
-            id={item.id}
-            imageSrc={item.image}
-            name={item.name}
-            rating={item.avgRating}
-          />
-        ))}
+      <div className='outer-wrapper flex overflow-hidden'>
+        <div className='rolling-list-original'>
+          <ul className='flex'>
+            {monthlyRecommendedWines.map((item, index) => (
+              <li
+                key={`${item.id}-${index}`}
+                className='mx-[0.75rem] w-[22rem] flex-shrink-0 md:w-[26rem]' // mx-3 = 0.75rem = gap-6의 절반
+              >
+                <RecommendedWineItem
+                  id={item.id}
+                  imageSrc={item.image}
+                  name={item.name}
+                  rating={item.avgRating}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className='rolling-list-clone'>
+          <ul className='flex'>
+            {monthlyRecommendedWines.map((item, index) => (
+              <li
+                key={`clone-${item.id}-${index}`}
+                className='mx-[0.75rem] w-[22rem] flex-shrink-0 md:w-[26rem]'
+              >
+                <RecommendedWineItem
+                  id={item.id}
+                  imageSrc={item.image}
+                  name={item.name}
+                  rating={item.avgRating}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
