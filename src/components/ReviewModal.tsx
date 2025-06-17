@@ -144,74 +144,81 @@ export default function ReviewModal({
   };
 
   return (
-    <div className='mx-auto w-3xl'>
-      <div className='flex justify-between text-xl'>
-        <h2>{reviewId ? '리뷰 수정' : '리뷰 등록'}</h2>
-        <div className='cursor-pointer' onClick={onClose}>
-          <CloseIcon size='30' />
-        </div>
-      </div>
-
-      <div className='mt-10 flex items-center gap-4'>
-        <WineIcon size='50' />
-        <div className='flex flex-col text-2xl'>
-          <h2>와인 ID: {wineId}</h2>
-          <StarRating size={28} value={rating} onChange={setRating} />
-        </div>
-      </div>
-
-      <div className='mt-5'>
-        <InputTextArea
-          placeholder='후기를 작성해 주세요'
-          size='lg'
-          value={reviewText}
-          onChange={(e) => setReviewText(e.target.value)}
-        />
-      </div>
-
-      <div className='text-2lg mt-10 flex flex-col gap-5'>
-        <h2>와인의 맛은 어땠나요?</h2>
-        <InputRange values={values} onChange={handleChange} />
-      </div>
-
-      <div className='text-2lg mt-10 flex flex-col gap-5'>
-        <h2>기억에 남는 향이 있나요?</h2>
-        <MultiSelect
-          selectedValues={selected}
-          title=''
-          onSelectionChange={(value) => setSelected(value as string[])}
-        >
-          <div className='flex flex-wrap gap-3'>
-            {Object.keys(AROMA_MAP).map((aroma) => (
-              <MultiSelect.Option key={aroma} value={aroma}>
-                {aroma}
-              </MultiSelect.Option>
-            ))}
+    <div
+      className='fixed inset-0 z-[999] flex items-center justify-center bg-black/50'
+      onClick={onClose}
+    >
+      <div
+        className='w-full max-w-[480px] rounded-xl bg-white p-6'
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className='flex justify-between text-xl'>
+          <h2>{reviewId ? '리뷰 수정' : '리뷰 등록'}</h2>
+          <div className='cursor-pointer' onClick={onClose}>
+            <CloseIcon size='30' />
           </div>
-        </MultiSelect>
-      </div>
+        </div>
 
-      <div className='mt-8 flex w-full justify-center'>
-        <Button
-          className='w-full max-w-[480px]'
-          disabled={isPending}
-          size='lg'
-          variant='primary'
-          onClick={handleSubmit}
-        >
-          {isPending
-            ? reviewId
-              ? '수정 중...'
-              : '등록 중...'
-            : reviewId
-              ? '리뷰 수정하기'
-              : '리뷰 남기기'}
-        </Button>
-      </div>
+        <div className='mt-6 flex items-center gap-4'>
+          <WineIcon size='40' />
+          <div className='flex flex-col text-xl'>
+            <h2>와인 ID: {wineId}</h2>
+            <StarRating size={24} value={rating} onChange={setRating} />
+          </div>
+        </div>
 
-      {errorMessage && (
-        <p className='mt-4 text-sm text-red-500'>{errorMessage}</p>
-      )}
+        <div className='mt-4'>
+          <InputTextArea
+            placeholder='후기를 작성해 주세요'
+            size='lg'
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+          />
+        </div>
+
+        <div className='mt-6 flex flex-col gap-4 text-lg'>
+          <h2>와인의 맛은 어땠나요?</h2>
+          <InputRange values={values} onChange={handleChange} />
+        </div>
+
+        <div className='mt-6 flex flex-col gap-4 text-lg'>
+          <h2>기억에 남는 향이 있나요?</h2>
+          <MultiSelect
+            selectedValues={selected}
+            title=''
+            onSelectionChange={(value) => setSelected(value as string[])}
+          >
+            <div className='flex flex-wrap gap-3'>
+              {Object.keys(AROMA_MAP).map((aroma) => (
+                <MultiSelect.Option key={aroma} value={aroma}>
+                  {aroma}
+                </MultiSelect.Option>
+              ))}
+            </div>
+          </MultiSelect>
+        </div>
+
+        <div className='mt-6'>
+          <Button
+            className='w-full'
+            disabled={isPending}
+            size='lg'
+            variant='primary'
+            onClick={handleSubmit}
+          >
+            {isPending
+              ? reviewId
+                ? '수정 중...'
+                : '등록 중...'
+              : reviewId
+                ? '리뷰 수정하기'
+                : '리뷰 남기기'}
+          </Button>
+          {errorMessage && (
+            <p className='mt-3 text-sm text-red-500'>{errorMessage}</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
