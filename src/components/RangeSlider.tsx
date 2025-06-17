@@ -7,7 +7,7 @@ import { cn } from '@/libs/cn';
 const BASIC_CLASSNAME =
   'h-2.5 w-full cursor-pointer appearance-none rounded-md bg-gray-100 accent-blue-500 ' +
   '[&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none ' +
-  '[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-600';
+  '[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary-100';
 
 interface RangeSliderProps extends Omit<React.ComponentProps<'input'>, 'type'> {
   label?: string;
@@ -19,6 +19,7 @@ export function RangeSlider({
   label,
   containerClassName,
   id,
+  value,
   name,
   ...props
 }: RangeSliderProps) {
@@ -34,6 +35,7 @@ export function RangeSlider({
         id={id}
         name={name}
         type='range'
+        value={value}
         {...props}
       />
     </div>

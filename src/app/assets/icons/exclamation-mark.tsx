@@ -1,10 +1,16 @@
-export default function ExclamationMark() {
+import type { BaseIconProps } from '@/types/icon';
+
+export default function ExclamationMark({
+  size = 130,
+  className,
+}: BaseIconProps) {
   return (
     <svg
+      className={className}
       fill='none'
-      height='136'
+      height={size}
       viewBox='0 0 136 136'
-      width='136'
+      width={size}
       xmlns='http://www.w3.org/2000/svg'
     >
       <rect fill='#F2F4F8' height='136' rx='68' width='136' />

@@ -5,8 +5,10 @@ export interface SelectBoxContextType {
   selected: string;
   toggle: () => void;
   close: () => void;
-  setSelected: (value: string) => void; // eslint-disable-line no-unused-vars
-  onChange: (value: string) => void; // eslint-disable-line no-unused-vars
+  setSelected: (value: string) => void;
+  onChange: (value: string) => void;
+  hasChanged: boolean;
+  setHasChanged: (value: boolean) => void;
 }
 
 export const SelectBoxContext = createContext<SelectBoxContextType | null>(

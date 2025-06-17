@@ -5,7 +5,7 @@ export async function POST() {
 
   response.cookies.set('accessToken', '', {
     path: '/',
-    httpOnly: false,
+    httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     maxAge: 0,

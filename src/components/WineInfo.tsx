@@ -100,7 +100,7 @@ export default function WineInfo({
           <Image
             fill
             alt='wine Image'
-            className='object-contain'
+            className='object-cover'
             src={wineImage}
           />
         </div>

@@ -57,7 +57,7 @@ export default function InputFile({
     <div className='inline-block'>
       {label && (
         <label
-          className='mb-1 block text-sm font-medium text-gray-700'
+          className='mb-1 block text-lg font-medium text-gray-700'
           htmlFor={label}
         >
           {label}
