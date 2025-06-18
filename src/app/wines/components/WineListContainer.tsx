@@ -56,10 +56,10 @@ export default function WineListContainer({
     return (
       <section className='col-start-1 col-end-4 row-start-3 row-end-5 flex flex-col items-center justify-center gap-4 xl:col-start-2 xl:col-end-4 xl:row-start-3 xl:row-end-5'>
         <ExclamationMark size={80} />
-        <h3 className='content-text mt-4 font-semibold text-gray-600'>
-          검색 결과가 없습니다
+        <h3 className='sub-title-text mt-5 font-semibold text-gray-600'>
+          앗, 검색 결과가 없습니다
         </h3>
-        <p className='caption-text text-gray-500'>
+        <p className='content-text text-gray-500'>
           다른 검색어나 필터 조건을 시도해보세요
         </p>
       </section>

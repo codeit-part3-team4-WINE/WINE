@@ -67,6 +67,7 @@ export default function InputRange({
   values,
   onChange,
   disabled,
+
   ...props
 }: InputRangeProps) {
   return (
@@ -97,8 +98,8 @@ export default function InputRange({
             {item.rightText}
           </span>
           {/* 현재 값 표시 */}
-          <span className='ml-2 w-fit text-center text-xs font-semibold text-gray-400'>
-            {values[item.name as keyof Option]}점
+          <span className='ml-2 max-w-fit text-center text-[1rem] font-semibold text-gray-400 md:text-xs'>
+            {values[item.name as keyof Option].toFixed(1)}점
           </span>
         </div>
       ))}
