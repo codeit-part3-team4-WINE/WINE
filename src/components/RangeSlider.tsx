@@ -12,6 +12,7 @@ const BASIC_CLASSNAME =
 interface RangeSliderProps extends Omit<React.ComponentProps<'input'>, 'type'> {
   label?: string;
   containerClassName?: string;
+  disabled?: boolean;
 }
 
 export function RangeSlider({
@@ -21,6 +22,7 @@ export function RangeSlider({
   id,
   value,
   name,
+  disabled,
   ...props
 }: RangeSliderProps) {
   return (
@@ -31,7 +33,11 @@ export function RangeSlider({
         </label>
       )}
       <input
-        className={cn(BASIC_CLASSNAME, className)}
+        className={cn(
+          BASIC_CLASSNAME,
+          className,
+          disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+        )}
         id={id}
         name={name}
         type='range'

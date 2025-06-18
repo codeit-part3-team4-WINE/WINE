@@ -1,10 +1,12 @@
 'use client';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
 import dummyWineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
+import LoadingAnimation from '@/components/LoadingAnimation';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
 
@@ -13,26 +15,67 @@ import FlavorAnalysis from './components/flavorAnalysis/FlavorAnalysis';
 import Nothing from './components/Nothing';
 import ReviewCard from './components/ReviewCard';
 import ReviewOverview from './components/ReviewRating/ReviewOverview';
-import { ReviewType, WineInfoType } from './types';
+import { ReviewType } from './types';
 
 export default function WinePage() {
-  const [wineInfo, setWineInfo] = useState<WineInfoType | null>(null);
   const { wineId } = useParams();
   const [isOwner, setIsOwner] = useState(false);
   const userInfo = useUserStore((state) => state.user);
+  const loaderRef = useRef(null);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['wine', wineId],
+      queryFn: ({ pageParam = 1 }) => {
+        return privateInstance.get(
+          `/wines/${wineId}?page=${pageParam}&limit=5`,
+        );
+      },
+      getNextPageParam: (lastPage) => lastPage.data.nextPage,
+      initialPageParam: 1,
+    });
 
   useEffect(() => {
-    const fetchWine = async () => {
-      const response = await privateInstance.get(`/wines/${wineId}`);
-      setWineInfo(response.data);
-    };
-    fetchWine();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  const wineInfo = data?.pages[0]?.data;
+  const allReviews = data?.pages.flatMap((page) => page.data.reviews) || [];
+
+  useEffect(() => {
     if (userInfo?.id && wineInfo?.userId && userInfo.id === wineInfo.userId) {
       setIsOwner(true);
     } else {
       setIsOwner(false);
     }
   }, [wineId, userInfo?.id, wineInfo?.userId]);
+
+  if (status === 'pending')
+    return (
+      <div className='flex h-screen items-center justify-center'>
+        <LoadingAnimation />
+      </div>
+    );
+  if (status === 'error') {
+    return (
+      <div className='flex h-screen items-center justify-center'>
+        <p>Error fetching wine data</p>
+      </div>
+    );
+  }
 
   const totalReviews = wineInfo?.reviews.length || 0;
 
@@ -59,22 +102,26 @@ export default function WinePage() {
         <div
           className={cn(
             'order-2 col-span-1 w-full xl:order-1',
-            wineInfo?.reviews && wineInfo?.reviews.length > 0
-              ? 'xl:col-span-4'
-              : 'xl:col-span-6',
+            allReviews.length > 0 ? 'xl:col-span-4' : 'xl:col-span-6',
           )}
         >
           <div className='flex items-center justify-between'>
             <h3 className='mt-10 mb-10 text-xl font-bold'>리뷰 목록</h3>
             <span className='text-sm text-gray-500'>
-              {wineInfo?.reviews.length}개 리뷰
+              {allReviews.length || 0}개 리뷰
             </span>
           </div>
-          {wineInfo?.reviews && wineInfo?.reviews.length > 0 ? (
+          {allReviews.length > 0 ? (
             <div className='flex flex-col gap-5'>
-              {wineInfo?.reviews.map((review) => (
+              {allReviews.map((review) => (
                 <ReviewCard key={review.id} review={review} />
               ))}
+
+              {hasNextPage && (
+                <div ref={loaderRef} className='h-10'>
+                  <LoadingAnimation />
+                </div>
+              )}
             </div>
           ) : (
             <div className='mt-10'>
@@ -82,7 +129,7 @@ export default function WinePage() {
             </div>
           )}
         </div>
-        {wineInfo?.reviews && wineInfo?.reviews.length > 0 ? (
+        {allReviews.length > 0 ? (
           <div className='col-span1 order-1 xl:order-2 xl:col-span-2'>
             <ReviewOverview
               data={wineInfo.avgRatings}
