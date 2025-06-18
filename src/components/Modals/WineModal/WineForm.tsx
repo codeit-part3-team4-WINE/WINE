@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
+import TriangleArrowIcon from '@/app/assets/icons/triangle-arrow';
 import FileUpload from '@/app/assets/svgs/wine-modal-file-upload.svg';
 import InputFile from '@/components/Inputs/InputFile';
 import { cn } from '@/libs/cn';
@@ -21,13 +22,19 @@ export type WineFormData = {
 };
 
 const OPTIONS = ['RED', 'WHITE', 'SPARKLING'];
-const INPUT_CLASSNAME = 'w-full border border-gray-300 rounded-[1.6rem]';
+const OPTION_LABELS: Record<string, string> = {
+  RED: '레드와인',
+  WHITE: '화이트와인',
+  SPARKLING: '스파클링와인',
+};
+const INPUT_CLASSNAME =
+  'w-full border border-gray-300 rounded-[1.6rem], focus:border-2 focus:border-gray-500';
 const DEFAULT_DATA: WineFormData = {
   name: '',
   region: '',
   image: '',
   price: 0,
-  type: '',
+  type: 'RED',
 };
 
 /**
@@ -50,11 +57,7 @@ export default function WineForm({
   const [formData, setFormData] = useState<WineFormData>(
     wineData ?? DEFAULT_DATA,
   );
-  const [hasInputChanged, setHasInputChanged] = useState({
-    name: false,
-    price: false,
-    region: false,
-  });
+
   const [priceError, setPriceError] = useState('');
 
   // 이미지 미리보기를 위한 src 설정
@@ -72,11 +75,6 @@ export default function WineForm({
     } else {
       setFormData(DEFAULT_DATA);
     }
-    setHasInputChanged({
-      name: false,
-      price: false,
-      region: false,
-    });
   }, [wineData]);
 
   // formData 변경 시 상위 컴포넌트에 전달
@@ -89,7 +87,6 @@ export default function WineForm({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = key === 'price' ? Number(e.target.value) : e.target.value;
       setFormData((prev) => ({ ...prev, [key]: value }));
-      setHasInputChanged((prev) => ({ ...prev, [key]: true }));
     };
 
   const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,19 +111,22 @@ export default function WineForm({
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='와인 이름'
-        placeholder={isEdit ? wineData.name : '와인 이름 입력'}
+        placeholder={isEdit ? wineData.name : '페이덜트 고잉 포 브로크'}
         type='text'
-        value={!hasInputChanged.name ? '' : formData.name}
+        value={formData.name}
         onChange={handleChange('name')}
       />
       <div>
         <InputPair
-          inputClassName={cn(INPUT_CLASSNAME, priceError && 'border-red-500')}
+          inputClassName={cn(
+            INPUT_CLASSNAME,
+            priceError && 'border-red-500 focus:border-2 focus:border-red-500',
+          )}
           label='가격'
-          placeholder={isEdit ? String(wineData.price) : '가격 입력'}
+          placeholder={isEdit ? String(wineData.price) : '64,900'}
           type='text'
           value={
-            !hasInputChanged.price ? '' : formData.price.toLocaleString('ko-KR')
+            formData.price === 0 ? '' : formData.price.toLocaleString('ko-KR')
           }
           onChange={handleChange('price')}
           onInput={handleNumberInput}
@@ -138,9 +138,11 @@ export default function WineForm({
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='원산지'
-        placeholder={isEdit ? wineData.region : '원산지 입력'}
+        placeholder={
+          isEdit ? wineData.region : 'Sonoma County, California, USA'
+        }
         type='text'
-        value={!hasInputChanged.region ? '' : formData.region}
+        value={formData.region}
         onChange={handleChange('region')}
       />
       <div className='relative w-full'>
@@ -152,12 +154,17 @@ export default function WineForm({
           }
           {...(isEdit && { value: wineData.type })}
         >
-          <SelectBox.Trigger triggerClassName='w-full' />
+          <SelectBox.Trigger triggerClassName='w-full focus:border-2 focus:border-gray-500'>
+            <>
+              {OPTION_LABELS[formData.type] || ''}
+              <TriangleArrowIcon />
+            </>
+          </SelectBox.Trigger>
           <SelectBox.Options>
             {OPTIONS.map((opt) => (
               <SelectBox.Option key={opt} value={opt}>
                 <div className='hover:bg-primary-10 hover:text-primary-100 mx-[0.6rem] my-2 flex h-[3.6rem] w-full items-center rounded-[1.2rem] px-2 py-2 md:h-[4rem]'>
-                  <span className='ml-[1.6em]'>{opt}</span>
+                  <span className='ml-[1.6em]'>{OPTION_LABELS[opt]}</span>
                 </div>
               </SelectBox.Option>
             ))}
