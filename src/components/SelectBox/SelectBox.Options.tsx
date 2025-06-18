@@ -33,7 +33,7 @@ export default function Options({ children, optionsClassName }: OptionsProps) {
   return (
     <ul
       className={cn(
-        'scrollbar-thin absolute z-10 mt-2 max-h-[30rem] w-[32.7rem] overflow-x-hidden overflow-y-auto rounded-[1.6rem] border border-gray-300 bg-white md:w-[41.2rem]',
+        'scrollbar-thin absolute z-10 mt-2 max-h-[30rem] w-full overflow-x-hidden overflow-y-auto rounded-[1.6rem] border border-gray-300 bg-white',
         optionsClassName,
       )}
     >

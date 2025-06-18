@@ -1,10 +1,14 @@
 'use client';
 
+import { useState } from 'react';
+
 import Button from '@/components/Button';
+import WineModal from '@/components/Modals/WineModal/WineModal';
 import useUserStore from '@/stores/Auth-store/authStore';
 
 export default function ReviewActionButton() {
   const user = useUserStore((state) => state.user);
+  const [isOpen, setIsOpen] = useState(false);
 
   // 로그인된 유저만 버튼이 보이도록 수정
   return (
@@ -14,10 +18,13 @@ export default function ReviewActionButton() {
           className='h-[5rem] w-[90vw] md:h-full md:w-full'
           round='rounded'
           variant='primary'
-          onClick={() => {}}
+          onClick={() => {
+            setIsOpen(true);
+          }}
         >
           와인 등록하기
         </Button>
+        <WineModal isOpen={isOpen} setIsOpen={setIsOpen} />
       </section>
     )
   );

@@ -16,6 +16,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      form-data:
+        specifier: ^4.0.3
+        version: 4.0.3
       framer-motion:
         specifier: ^12.12.2
         version: 12.16.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -2104,10 +2107,10 @@ packages:
       }
     engines: { node: '>= 0.4' }
 
-  form-data@4.0.2:
+  form-data@4.0.3:
     resolution:
       {
-        integrity: sha512-hGfm/slu0ZabnNt4oaRZ6uREyfCj6P4fT/n6A1rGV+Z0VdGXjfOhVUpkn6qVQONHGIFwmveGXyDs75+nr6FM8w==,
+        integrity: sha512-qsITQPfmvMOSAdeyZ+12I1c+CKSstAFAwu+97zrnWAbIr5u8wfsExUzCesVLC8NgHuRUqNN4Zy6UPWUTRGslcA==,
       }
     engines: { node: '>= 6' }
 
@@ -4785,7 +4788,7 @@ snapshots:
   axios@1.9.0:
     dependencies:
       follow-redirects: 1.15.9
-      form-data: 4.0.2
+      form-data: 4.0.3
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
@@ -5395,11 +5398,12 @@ snapshots:
     dependencies:
       is-callable: 1.2.7
 
-  form-data@4.0.2:
+  form-data@4.0.3:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       es-set-tostringtag: 2.1.0
+      hasown: 2.0.2
       mime-types: 2.1.35
 
   framer-motion@12.16.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):

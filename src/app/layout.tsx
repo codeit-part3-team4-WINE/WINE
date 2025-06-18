@@ -13,9 +13,7 @@ export default function RootLayout({
     <html lang='ko'>
       <body>
         <DynamicLayout>
-
           <main className='mx-auto my-10 min-h-screen w-full max-w-[350rem] px-[5vw] md:px-[10vw] xl:px-[15vw]'>
-
             <QueryProvider>{children}</QueryProvider>
           </main>
         </DynamicLayout>
