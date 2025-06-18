@@ -14,6 +14,7 @@ interface Wine {
   price: number;
   region: string;
   rating: number;
+  type: string;
 }
 
 export default async function Wines() {
@@ -44,14 +45,7 @@ export default async function Wines() {
       <div className='flex flex-col gap-10'>
         {wines.map((wine: Wine) => (
           <Link key={wine.id} href={`/wines/${wine.id}`}>
-            <WineCard
-              key={wine.id}
-              className='cursor-pointer'
-              image={wine.image}
-              name={wine.name}
-              price={wine.price}
-              region={wine.region}
-            />
+            <WineCard key={wine.id} className='cursor-pointer' wine={wine} />
           </Link>
         ))}
       </div>

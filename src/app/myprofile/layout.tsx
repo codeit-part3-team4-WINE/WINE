@@ -1,4 +1,4 @@
-import ProfileSection from './components/ProfileSection/ProfileSection';
+import ProfileSection from './components/ProfileSection';
 
 export default function MypageLayout({
   children,

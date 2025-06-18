@@ -4,7 +4,7 @@ import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
 
-import { ChangeBtn } from './ChangeBtn';
+import ProfileChangeModal from './ProfileChangeModal/ProfileChangeModal';
 
 /**
  * 프로필 섹션 컴포넌트
@@ -31,7 +31,7 @@ export default async function ProfileSection() {
           {user.nickname}
         </span>
       </div>
-      <ChangeBtn />
+      <ProfileChangeModal user={user} />
     </section>
   );
 }

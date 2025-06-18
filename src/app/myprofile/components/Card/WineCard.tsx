@@ -41,7 +41,12 @@ export default function WineCard({
       )}
     >
       <div className='absolute bottom-0 left-[2.5rem] h-[18rem] w-[5.3rem] md:-top-17 md:left-[3.5rem] md:h-[27rem] md:w-[8rem]'>
-        <Image fill alt={wine.name} className='object-cover' src={wine.image} />
+        <Image
+          fill
+          alt='와인 이미지'
+          className='object-cover'
+          src={wine.image}
+        />
       </div>
       <div className='ml-[8rem] flex h-full w-[19rem] flex-col justify-center gap-y-2 md:ml-[14rem] md:w-[30rem] md:gap-y-5'>
         <h1 className='text-[2rem] font-bold text-gray-800 md:text-[3rem]'>
