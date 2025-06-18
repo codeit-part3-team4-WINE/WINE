@@ -8,7 +8,7 @@ import CardDropdown from './CardDropdown';
 interface WineCardProps {
   name: string;
   region: string;
-  image: string | StaticImageData;
+  image: string | StaticImageData | null;
   price: number;
   className?: string;
   isDropdown?: boolean;
@@ -40,7 +40,13 @@ export default function WineCard({
       )}
     >
       <div className='absolute bottom-0 left-[2.5rem] h-[18rem] w-[5.3rem] md:-top-17 md:left-[3.5rem] md:h-[27rem] md:w-[8rem]'>
-        <Image fill alt={name} className='object-cover' src={image} />
+        {image ? (
+          <Image fill alt={name} className='object-cover' src={image} />
+        ) : (
+          <div className='flex h-full w-full items-center justify-center bg-gray-200'>
+            <span className='text-gray-400'>No Image</span>
+          </div>
+        )}
       </div>
       <div className='ml-[8rem] flex h-full w-[19rem] flex-col justify-center gap-y-2 md:ml-[14rem] md:w-[30rem] md:gap-y-5'>
         <h1 className='text-[2rem] font-bold text-gray-800 md:text-[3rem]'>

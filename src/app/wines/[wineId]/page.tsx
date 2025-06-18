@@ -37,7 +37,7 @@ export default function WinePage() {
   return (
     <div className='mt-10 flex w-full flex-col items-center'>
       <WineCard
-        image={wineInfo?.image || ''}
+        image={wineInfo?.image || null}
         isDropdown={isOwner}
         name={wineInfo?.name || ''}
         price={wineInfo?.price || 0}
