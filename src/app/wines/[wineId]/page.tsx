@@ -89,7 +89,7 @@ export default function WinePage() {
         region={wineInfo?.region || 'Western Cape, South Africa'}
       />
 
-      <div className='my-15 grid w-full grid-cols-1 gap-10 xl:grid-cols-2 xl:gap-20'>
+      <div className='mt-24 mb-15 grid w-full grid-cols-1 gap-10 xl:grid-cols-2 xl:gap-20'>
         <div className='col-span-1 w-full'>
           <FlavorAnalysis data={wineInfo?.reviews as ReviewType[]} />
         </div>
