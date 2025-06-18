@@ -160,7 +160,7 @@ export default function ProfileChangeModal({
 
     try {
       setLoading(true);
-      const result = await UserProfile(null, payload);
+      const result = await UserProfile(payload);
       setLoading(false);
 
       if (result?.success) {

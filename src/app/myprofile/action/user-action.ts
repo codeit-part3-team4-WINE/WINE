@@ -7,13 +7,10 @@ type UserProfileResult = {
   message?: string;
 };
 
-export async function UserProfile(
-  _,
-  data: {
-    nickname?: string;
-    image?: string;
-  },
-): Promise<UserProfileResult> {
+export async function UserProfile(data: {
+  nickname?: string;
+  image?: string;
+}): Promise<UserProfileResult> {
   const axios = await createPrivateServerInstance();
 
   try {
