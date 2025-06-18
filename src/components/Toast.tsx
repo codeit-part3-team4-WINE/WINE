@@ -44,13 +44,13 @@ const toastStyleMap = {
     bg: 'bg-green-600',
     text: 'text-white',
     bar: 'bg-white/70',
-    icon: '✅',
+    icon: '',
   },
   error: {
     bg: 'bg-red-400',
     text: 'text-white',
     bar: 'bg-yellow-300',
-    icon: '❌',
+    icon: '',
   },
   message: {
     bg: 'bg-white',
@@ -89,7 +89,7 @@ export default function Toast({ children }: { children?: ReactNode }) {
           return (
             <div
               key={toast.id}
-              className={`relative flex w-80 items-start gap-2 overflow-hidden rounded-md px-4 py-6 text-sm shadow-md ${hasCustomClass ? '' : `${styles.bg} ${styles.text}`} `}
+              className={`relative flex w-80 items-start gap-2 overflow-hidden rounded-md px-4 py-6 text-sm shadow-md ${hasCustomClass ? toast.content.props?.className : `${styles.bg} ${styles.text}`} `}
             >
               <span className='pt-[2px]'>{styles.icon}</span>
 
