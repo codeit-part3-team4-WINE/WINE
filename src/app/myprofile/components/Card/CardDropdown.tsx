@@ -13,7 +13,7 @@ interface Wine {
   type: string;
 }
 
-export default function CardDropdown({ wine }: { wine: Wine }) {
+export default function CardDropdown({ wine }: { wine?: Wine }) {
   const [wineIsOpen, setWineIsOpen] = useState(false);
   const handleDelete = () => console.log('삭제');
   return (
