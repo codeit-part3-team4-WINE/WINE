@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useActionState } from 'react';
 
@@ -164,7 +165,7 @@ export default function SignUpForm() {
             </div>
 
             {isPending ? (
-              <div className='mt-7 flex items-center justify-center'>
+              <div className='mt-[4rem] flex items-center justify-center'>
                 <Button
                   loading
                   className='w-full'
@@ -176,7 +177,7 @@ export default function SignUpForm() {
                 </Button>
               </div>
             ) : (
-              <div className='mt-10 flex items-center justify-center'>
+              <div className='mt-[4rem] flex items-center justify-center'>
                 <Button
                   className='w-full'
                   disabled={isDisabled}

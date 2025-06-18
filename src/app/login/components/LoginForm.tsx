@@ -69,7 +69,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className='flex min-h-screen items-center justify-center px-4 py-12'>
+    <div className='flex min-h-screen items-center justify-center bg-white px-4 py-12'>
       <div className='w-full max-w-3xl space-y-8 rounded-xl bg-white p-6 shadow-2xl inset-shadow-sm inset-shadow-gray-200 sm:p-8'>
         <div className='py-8 text-center'>
           <Link aria-label='홈으로 이동' href='/'>
@@ -123,7 +123,7 @@ export default function LoginForm() {
             </div>
 
             {isPending ? (
-              <div className='mt-7 flex items-center justify-center'>
+              <div className='mt-[4rem] flex items-center justify-center'>
                 <Button
                   loading
                   className='w-full'
@@ -135,7 +135,7 @@ export default function LoginForm() {
                 </Button>
               </div>
             ) : (
-              <div className='mt-7 flex items-center justify-center'>
+              <div className='mt-[4rem] flex items-center justify-center'>
                 <Button
                   className='w-full'
                   disabled={isDisabled}
@@ -148,7 +148,7 @@ export default function LoginForm() {
               </div>
             )}
 
-            <div className='mt-5 flex items-center justify-center'>
+            <div className='mt-[2rem] flex items-center justify-center'>
               <Button
                 className='w-full bg-yellow-300'
                 round='rounded'
