@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { privateInstance } from '@/apis/privateInstance';
 import FileUpload from '@/app/assets/svgs/wine-modal-file-upload.svg';
 import InputFile from '@/components/Inputs/InputFile';
+import { cn } from '@/libs/cn';
 
 import InputPair from '../../Inputs/InputPair';
 import { SelectBox } from '../../SelectBox';
@@ -54,6 +55,7 @@ export default function WineForm({
     price: false,
     region: false,
   });
+  const [priceError, setPriceError] = useState('');
 
   // 이미지 미리보기를 위한 src 설정
   const imageSrc =
@@ -96,10 +98,14 @@ export default function WineForm({
 
     const numericValue = Number(target.value);
 
-    // 100만원 초과 시 경고 및 초기화
+    // 100만원 이상 입력시 에러
     if (numericValue > 1000000) {
-      alert('100만원 이하만 입력 가능합니다.');
-      target.value = '';
+      setPriceError('100만원 이하만 입력 가능합니다.');
+      target.value = '1000000';
+      setFormData((prev) => ({ ...prev, price: 1000000 }));
+    } else {
+      setPriceError('');
+      setFormData((prev) => ({ ...prev, price: numericValue }));
     }
   };
 
@@ -113,17 +119,22 @@ export default function WineForm({
         value={!hasInputChanged.name ? '' : formData.name}
         onChange={handleChange('name')}
       />
-      <InputPair
-        inputClassName={INPUT_CLASSNAME}
-        label='가격'
-        placeholder={isEdit ? String(wineData.price) : '가격 입력'}
-        type='text'
-        value={
-          !hasInputChanged.price ? '' : formData.price.toLocaleString('ko-KR')
-        }
-        onChange={handleChange('price')}
-        onInput={handleNumberInput}
-      />
+      <div>
+        <InputPair
+          inputClassName={cn(INPUT_CLASSNAME, priceError && 'border-red-500')}
+          label='가격'
+          placeholder={isEdit ? String(wineData.price) : '가격 입력'}
+          type='text'
+          value={
+            !hasInputChanged.price ? '' : formData.price.toLocaleString('ko-KR')
+          }
+          onChange={handleChange('price')}
+          onInput={handleNumberInput}
+        />
+        {priceError && (
+          <p className='mt-1 ml-2 text-sm text-red-500'>{priceError}</p>
+        )}
+      </div>
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='원산지'
