@@ -70,11 +70,15 @@ export default function WinePage() {
   return (
     <div className='mt-10 flex w-full flex-col items-center'>
       <WineCard
-        image={wineInfo?.image || null}
         isDropdown={isOwner}
-        name={wineInfo?.name || ''}
-        price={wineInfo?.price || 0}
-        region={wineInfo?.region || ''}
+        wine={{
+          id: wineInfo?.id || 0,
+          name: wineInfo?.name || '',
+          region: wineInfo?.region || '',
+          image: wineInfo?.image || '',
+          price: wineInfo?.price || 0,
+          type: wineInfo?.type || '',
+        }}
       />
 
       <div className='mt-24 mb-15 grid w-full grid-cols-1 gap-10 xl:grid-cols-2 xl:gap-20'>
