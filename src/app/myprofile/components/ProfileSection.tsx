@@ -9,9 +9,6 @@ import ProfileChangeModal from './ProfileChangeModal/ProfileChangeModal';
 /**
  * 프로필 섹션 컴포넌트
  *
- * @param {string} props.nickname - 사용자 닉네임
- * @param {string | StaticImageData} props.image - 프로필 이미지 URL 또는 StaticImageData
- *
  * @example
  * ```tsx
  * <ProfileSection />
@@ -20,10 +17,11 @@ import ProfileChangeModal from './ProfileChangeModal/ProfileChangeModal';
 export default async function ProfileSection() {
   const axios = await createPrivateServerInstance();
   const { data: user } = await axios.get('/users/me');
+
   return (
     <section
       className={cn(
-        'mt-[2rem] flex shrink-0 items-center justify-between',
+        'mt-[2rem] flex shrink-0 items-center justify-between bg-white',
         'xl:mt-[4rem] xl:h-[40rem] xl:w-[28rem] xl:flex-col xl:justify-around xl:rounded-[1.6rem] xl:border xl:border-gray-300',
       )}
     >

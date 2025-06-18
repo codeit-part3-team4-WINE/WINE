@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import FormData from 'form-data';
+import FormData from 'form-data'; // node 전용 form-data
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { Readable } from 'stream';

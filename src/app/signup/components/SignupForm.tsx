@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useActionState } from 'react';
 
@@ -163,32 +164,19 @@ export default function SignUpForm() {
               />
             </div>
 
-            {isPending ? (
-              <div className='mt-7 flex items-center justify-center'>
-                <Button
-                  loading
-                  className='w-full'
-                  size='lg'
-                  type='submit'
-                  onClick={() => {}}
-                >
-                  회원가입중
-                </Button>
-              </div>
-            ) : (
-              <div className='mt-10 flex items-center justify-center'>
-                <Button
-                  className='w-full'
-                  disabled={isDisabled}
-                  size='lg'
-                  type='submit'
-                  onClick={() => {}}
-                >
-                  회원가입
-                </Button>
-              </div>
-            )}
-
+            <div className='mt-[4rem] flex items-center justify-center'>
+              <Button
+                className='w-full'
+                disabled={isDisabled}
+                loading={isPending}
+                size='lg'
+                type='submit'
+                variant='primary'
+                onClick={() => {}}
+              >
+                회원가입
+              </Button>
+            </div>
             <div className='mt-[4rem] flex items-center justify-center'>
               <div className='h-px flex-grow bg-gray-500' />
               <span className='text-md mx-4 flex-shrink text-gray-600'>

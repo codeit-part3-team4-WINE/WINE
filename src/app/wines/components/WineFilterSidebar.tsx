@@ -14,6 +14,7 @@ import {
   ModalTitle,
   ModalTrigger,
 } from '@/components/Modal';
+import WineModal from '@/components/Modals/WineModal/WineModal';
 import useUserStore from '@/stores/Auth-store/authStore';
 
 import { DEFAULT_MAX_PRICE } from '../constants';
@@ -31,9 +32,10 @@ function DesktopFilterPanel({
   onFilterChange,
 }: FilterProps) {
   const user = useUserStore((state) => state.user);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
+    <div className='sticky top-30 mt-30 flex h-fit w-full flex-col gap-16 max-xl:hidden'>
       <Filter
         filterState={filterState}
         priceMaxRange={priceMaxRange}
@@ -41,15 +43,20 @@ function DesktopFilterPanel({
       />
 
       {user?.id && (
-        <Button
-          className='w-full'
-          round='rounded'
-          size='sm'
-          variant='primary'
-          onClick={() => {}}
-        >
-          와인 등록하기
-        </Button>
+        <>
+          <Button
+            className='w-full'
+            round='rounded'
+            size='sm'
+            variant='primary'
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            와인 등록하기
+          </Button>
+          <WineModal isOpen={isOpen} setIsOpen={setIsOpen} />
+        </>
       )}
     </div>
   );

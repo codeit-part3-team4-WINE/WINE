@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 
 import PriceBadge from '@/components/Badge/PriceBadge';
 import { cn } from '@/libs/cn';
@@ -6,10 +6,14 @@ import { cn } from '@/libs/cn';
 import CardDropdown from './CardDropdown';
 
 interface WineCardProps {
-  name: string;
-  region: string;
-  image: string | StaticImageData;
-  price: number;
+  wine: {
+    id: number;
+    name: string;
+    region: string;
+    image: string;
+    price: number;
+    type: string;
+  };
   className?: string;
   isDropdown?: boolean;
 }
@@ -25,35 +29,39 @@ interface WineCardProps {
  * @param {boolean} [props.isDropdown=true] - 드롭다운 메뉴 표시 여부
  */
 export default function WineCard({
-  name,
-  region,
-  image,
-  price,
+  wine,
   className,
   isDropdown = true,
 }: WineCardProps) {
   return (
     <article
       className={cn(
-        'relative flex h-[16rem] w-full rounded-[1.2rem] border border-gray-300 px-[2rem] py-[2rem] md:mt-20 md:h-[22.8rem]',
+        'relative flex h-[16rem] w-full rounded-[1.2rem] border border-gray-300 bg-white px-[2rem] py-[2rem] md:mt-20 md:h-[22.8rem]',
         className,
       )}
     >
       <div className='absolute bottom-0 left-[2.5rem] h-[18rem] w-[5.3rem] md:-top-17 md:left-[3.5rem] md:h-[27rem] md:w-[8rem]'>
-        <Image fill alt={name} className='object-cover' src={image} />
+        <Image
+          fill
+          alt='와인 이미지'
+          className='object-cover'
+          src={wine.image}
+        />
       </div>
       <div className='ml-[8rem] flex h-full w-[19rem] flex-col justify-center gap-y-2 md:ml-[14rem] md:w-[30rem] md:gap-y-5'>
         <h1 className='text-[2rem] font-bold text-gray-800 md:text-[3rem]'>
-          {name}
+          {wine.name}
         </h1>
-        <h2 className='text-[1.3rem] text-gray-500 md:text-lg'>{region}</h2>
+        <h2 className='text-[1.3rem] text-gray-500 md:text-lg'>
+          {wine.region}
+        </h2>
         <div className='mt-2'>
-          <PriceBadge price={price} />
+          <PriceBadge price={wine.price} />
         </div>
       </div>
       {isDropdown && (
         <div className='absolute top-12 right-5 md:top-15 md:right-10 xl:right-15'>
-          <CardDropdown />
+          <CardDropdown wine={wine} />
         </div>
       )}
     </article>

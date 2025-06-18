@@ -17,23 +17,21 @@ export default function Filter({
     <div className='my-10 flex flex-col gap-12 xl:gap-24'>
       <div>
         <ToggleRadioGroup
-          radioGroupClassName='gap-3'
+          radioGroupClassName='gap-3 flex-wrap'
           selectedValue={filterState.selectedWineType}
-          title='WINE TYPES'
+          title='종류'
           titleClassName='mb-4 text-[1.8rem]'
           onSelect={(type) =>
             onFilterChange({ ...filterState, selectedWineType: type })
           }
         >
-          <ToggleRadioGroup.Radio value={WINE_TYPES.RED}>
-            {WINE_TYPES.RED}
-          </ToggleRadioGroup.Radio>
-          <ToggleRadioGroup.Radio value={WINE_TYPES.WHITE}>
-            {WINE_TYPES.WHITE}
-          </ToggleRadioGroup.Radio>
-          <ToggleRadioGroup.Radio value={WINE_TYPES.SPARKLING}>
-            {WINE_TYPES.SPARKLING}
-          </ToggleRadioGroup.Radio>
+          {(Object.keys(WINE_TYPES) as Array<keyof typeof WINE_TYPES>).map(
+            (key) => (
+              <ToggleRadioGroup.Radio key={key} value={key}>
+                {WINE_TYPES[key]}
+              </ToggleRadioGroup.Radio>
+            ),
+          )}
         </ToggleRadioGroup>
       </div>
 
@@ -44,12 +42,19 @@ export default function Filter({
           currentMaxPrice={filterState.selectedMaxPrice}
           currentMinPrice={filterState.selectedMinPrice}
           maxRange={maxRange ?? DEFAULT_MAX_PRICE}
-          title='PRICE'
+          title='가격'
+          titleClassName='text-[1.8rem]'
           onMaxPriceChange={(value) =>
-            onFilterChange({ ...filterState, selectedMaxPrice: value })
+            onFilterChange((prev) => ({
+              ...prev,
+              selectedMaxPrice: value,
+            }))
           }
           onMinPriceChange={(value) =>
-            onFilterChange({ ...filterState, selectedMinPrice: value })
+            onFilterChange((prev) => ({
+              ...prev,
+              selectedMinPrice: value,
+            }))
           }
         />
       </div>
@@ -59,7 +64,7 @@ export default function Filter({
       <div>
         <RadioGroup
           selectedValue={filterState.selectedRating}
-          title='RATING'
+          title='별점'
           titleClassName='mb-4 text-[1.8rem]'
           onSelect={(value) => {
             onFilterChange({ ...filterState, selectedRating: value });

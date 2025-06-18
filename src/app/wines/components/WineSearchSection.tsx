@@ -1,7 +1,7 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
 import useDebounce from '@/hooks/useDebounce';
@@ -34,6 +34,15 @@ export default function WineSearchSection() {
   });
   const debounceFilterValue = useDebounce<FilterState>(filterState, 300);
 
+  // 검색 필터링 조건이 바뀌었을때, 부드럽게 페이지 최상단으로 스크롤 이동
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [debounceFilterValue]);
+
   const fetchWines = async ({
     pageParam,
     filters,
@@ -49,6 +58,7 @@ export default function WineSearchSection() {
     };
 
     const response = await privateInstance.get('/wines', { params });
+
     return {
       list: response.data.list || [],
       nextCursor: response.data.nextCursor, // API에서 반환하는 다음 cursor
