@@ -18,6 +18,7 @@ interface Wine {
   price: number;
   region: string;
   rating: number;
+  type: string;
 }
 
 interface Review {
@@ -63,16 +64,7 @@ export default function LoadMoreButton({ type, initialCursor }: Props) {
   const renderItem = (item: Wine | Review) => {
     if (type === 'wine') {
       const wine = item as Wine;
-      return (
-        <WineCard
-          key={wine.id}
-          className='cursor-pointer'
-          image={wine.image}
-          name={wine.name}
-          price={wine.price}
-          region={wine.region}
-        />
-      );
+      return <WineCard key={wine.id} className='cursor-pointer' wine={wine} />;
     } else {
       const review = item as Review;
       return (
