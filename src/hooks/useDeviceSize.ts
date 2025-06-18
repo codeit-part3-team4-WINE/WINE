@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 
 const useMediaQuery = (query: string): boolean => {
-  const [matches, setMatches] = useState(
-    () => window.matchMedia(query).matches,
-  );
+  const [matches, setMatches] = useState(false);
 
   useEffect(() => {
+    // 브라우저 환경에서만 실행
+    if (typeof window === 'undefined') return;
+
     const media = window.matchMedia(query);
     const updateMatch = () => setMatches(media.matches);
+
     updateMatch();
 
     media.addEventListener('change', updateMatch);

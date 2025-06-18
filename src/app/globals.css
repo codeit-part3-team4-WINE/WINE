@@ -125,4 +125,41 @@
     pointer-events: auto;
     cursor: pointer;
   }
+
+  .rolling-list-original {
+    animation: rollingleft1 25s linear infinite;
+  }
+
+  .rolling-list-clone {
+    animation: rollingleft2 25s linear infinite;
+  }
+
+  .outer-wrapper:hover .rolling-list-original,
+  .outer-wrapper:hover .rolling-list-clone {
+    animation-play-state: paused;
+  }
+
+  @keyframes rollingleft1 {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-100%);
+    }
+    50.01% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes rollingleft2 {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-200%);
+    }
+  }
 }
