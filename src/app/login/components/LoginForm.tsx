@@ -122,31 +122,19 @@ export default function LoginForm() {
               />
             </div>
 
-            {isPending ? (
-              <div className='mt-[4rem] flex items-center justify-center'>
-                <Button
-                  loading
-                  className='w-full'
-                  size='lg'
-                  type='submit'
-                  onClick={() => {}}
-                >
-                  로그인중
-                </Button>
-              </div>
-            ) : (
-              <div className='mt-[4rem] flex items-center justify-center'>
-                <Button
-                  className='w-full'
-                  disabled={isDisabled}
-                  size='lg'
-                  type='submit'
-                  onClick={() => {}}
-                >
-                  로그인
-                </Button>
-              </div>
-            )}
+            <div className='mt-[4rem] flex items-center justify-center'>
+              <Button
+                className='w-full'
+                disabled={isDisabled}
+                loading={isPending}
+                size='lg'
+                type='submit'
+                variant='primary'
+                onClick={() => {}}
+              >
+                로그인
+              </Button>
+            </div>
 
             <div className='mt-[2rem] flex items-center justify-center'>
               <Button
