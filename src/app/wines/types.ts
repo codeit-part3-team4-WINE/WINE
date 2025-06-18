@@ -9,7 +9,9 @@ export interface FilterState {
 export interface FilterProps {
   priceMaxRange?: number;
   filterState: FilterState;
-  onFilterChange: (newFilterState: FilterState) => void;
+  onFilterChange: (
+    updater: FilterState | ((prev: FilterState) => FilterState),
+  ) => void;
 }
 
 export interface Wine {
