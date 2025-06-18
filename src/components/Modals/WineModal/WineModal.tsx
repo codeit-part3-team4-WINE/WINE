@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -45,6 +46,7 @@ export default function WineModal({
   wineData?: WineFormData;
 }) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const user = useUserStore((state) => state.user);
 
   // 폼 입력 상태: 초기값은 수정 모드면 wineData, 등록 모드면 빈 값
@@ -96,7 +98,7 @@ export default function WineModal({
       };
 
       await WineData(payload);
-
+      await queryClient.invalidateQueries({ queryKey: ['wines'] }); // 와인 목록 페이지에서 와인이 등록되었을 때 바로 반영되도록 하기 위해
       alert(
         wineData
           ? '와인이 성공적으로 수정되었습니다.'
