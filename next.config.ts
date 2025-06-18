@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
         ? `https://${process.env.VERCEL_URL}`
         : process.env.NEXT_PUBLIC_SITE_URL,
   },
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? { exclude: ['error', 'warn'] }
+        : false,
+  },
   images: {
     remotePatterns: [
       {
