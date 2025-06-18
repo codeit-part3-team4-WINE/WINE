@@ -17,6 +17,7 @@ export default function RootLayout({
             <QueryProvider>{children}</QueryProvider>
           </main>
         </DynamicLayout>
+
         <div id='modal-root' />
       </body>
     </html>

@@ -12,7 +12,7 @@ import ProfileImg from './ProfileImg';
 
 export default function Header() {
   const router = useRouter();
-  const user = useUserStore((state) => state.user);
+  const { user, hasHydrated } = useUserStore();
 
   const logout = useLogout();
   const setUser = useUserStore((state) => state.setUser);
@@ -27,6 +27,16 @@ export default function Header() {
     }
   };
 
+  //플리커링 방지를 위해 하이드레이션이 완료되기 전에는 이부분을 렌더링
+  if (!hasHydrated) {
+    return (
+      <header className='mt-7 h-[5rem] animate-pulse rounded-2xl bg-[#101318] text-white md:h-[7rem]'>
+        <div className='flex h-full items-center justify-between px-[4rem] md:px-[8rem]'>
+          <div className='flex space-x-6' />
+        </div>
+      </header>
+    );
+  }
   return (
     <div>
       <header className='mt-7 h-[5rem] rounded-2xl bg-[#101318] text-white md:h-[7rem]'>
