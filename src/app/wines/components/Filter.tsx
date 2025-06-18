@@ -46,10 +46,16 @@ export default function Filter({
           maxRange={maxRange ?? DEFAULT_MAX_PRICE}
           title='PRICE'
           onMaxPriceChange={(value) =>
-            onFilterChange({ ...filterState, selectedMaxPrice: value })
+            onFilterChange((prev) => ({
+              ...prev,
+              selectedMaxPrice: value,
+            }))
           }
           onMinPriceChange={(value) =>
-            onFilterChange({ ...filterState, selectedMinPrice: value })
+            onFilterChange((prev) => ({
+              ...prev,
+              selectedMinPrice: value,
+            }))
           }
         />
       </div>

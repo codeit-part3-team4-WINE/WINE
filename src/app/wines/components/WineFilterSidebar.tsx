@@ -33,7 +33,7 @@ function DesktopFilterPanel({
   const user = useUserStore((state) => state.user);
 
   return (
-    <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
+    <div className='sticky top-30 mt-30 flex h-fit w-full flex-col gap-16 max-xl:hidden'>
       <Filter
         filterState={filterState}
         priceMaxRange={priceMaxRange}
