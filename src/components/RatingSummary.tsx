@@ -34,7 +34,7 @@ const SIZE_VARIANTS = {
  * @returns 마지막 별의 채워지는 비율 (0~100)
  */
 const getFillPercent = (rating: number) => {
-  return rating % 1 === 0 ? 100 : (rating % 1) * 100;
+  return rating % 1 === 0 ? 0 : (rating % 1) * 100;
 };
 
 /**
@@ -124,6 +124,7 @@ function Stars({
           filled
           color={color}
           fillPercent={getFillPercent(rating)}
+          // fillPercent={0}
           size={iconSize}
         />
       </div>
