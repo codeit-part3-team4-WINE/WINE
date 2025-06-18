@@ -3,7 +3,6 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
-import dummyWineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
 import useUserStore from '@/stores/Auth-store/authStore';
 
@@ -38,11 +37,11 @@ export default function WinePage() {
   return (
     <div className='mt-10 flex w-full flex-col items-center'>
       <WineCard
-        image={wineInfo?.image || dummyWineImage}
+        image={wineInfo?.image || ''}
         isDropdown={isOwner}
-        name={wineInfo?.name || 'Sentinel Cabernet Sauvignon 2016'}
-        price={wineInfo?.price || 10000}
-        region={wineInfo?.region || 'Western Cape, South Africa'}
+        name={wineInfo?.name || ''}
+        price={wineInfo?.price || 0}
+        region={wineInfo?.region || ''}
       />
 
       <div className='mt-10 grid w-full grid-cols-2 gap-10'>
