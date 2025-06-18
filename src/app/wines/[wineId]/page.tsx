@@ -1,12 +1,12 @@
 'use client';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
-import dummyWineImage from '@/app/assets/images/dummy_wine_image.png';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
 import LoadingAnimation from '@/components/LoadingAnimation';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
 
@@ -21,7 +21,6 @@ export default function WinePage() {
   const { wineId } = useParams();
   const [isOwner, setIsOwner] = useState(false);
   const userInfo = useUserStore((state) => state.user);
-  const loaderRef = useRef(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
@@ -35,22 +34,11 @@ export default function WinePage() {
       initialPageParam: 1,
     });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+  const observerRef = useIntersectionObserver(
+    fetchNextPage,
+    isFetchingNextPage,
+    !hasNextPage,
+  );
 
   const wineInfo = data?.pages[0]?.data;
   const allReviews = data?.pages.flatMap((page) => page.data.reviews) || [];
@@ -82,11 +70,11 @@ export default function WinePage() {
   return (
     <div className='mt-10 flex w-full flex-col items-center'>
       <WineCard
-        image={wineInfo?.image || dummyWineImage}
+        image={wineInfo?.image || null}
         isDropdown={isOwner}
-        name={wineInfo?.name || 'Sentinel Cabernet Sauvignon 2016'}
-        price={wineInfo?.price || 10000}
-        region={wineInfo?.region || 'Western Cape, South Africa'}
+        name={wineInfo?.name || ''}
+        price={wineInfo?.price || 0}
+        region={wineInfo?.region || ''}
       />
 
       <div className='mt-24 mb-15 grid w-full grid-cols-1 gap-10 xl:grid-cols-2 xl:gap-20'>
@@ -118,7 +106,7 @@ export default function WinePage() {
               ))}
 
               {hasNextPage && (
-                <div ref={loaderRef} className='h-10'>
+                <div ref={observerRef} className='h-10'>
                   <LoadingAnimation />
                 </div>
               )}
