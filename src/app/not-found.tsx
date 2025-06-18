@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import Button from '@/components/Button';
 import WaveAnimation from '@/components/WaveAnimation';
 
@@ -12,13 +14,14 @@ export default function NotFoundPage() {
 
       <div className='z-10 w-full max-w-xl items-center justify-center space-y-6'>
         <div className='mb-2 flex w-full items-center justify-center'>
-          <img
+          <Image
+            priority
             alt='와인 이미지'
             className='mx-auto aspect-square w-[100vw] max-w-md object-contain md:max-w-xl'
-            src={
-              typeof wineImage === 'string' ? wineImage : (wineImage.src ?? '')
-            }
+            height={400}
+            src={wineImage}
             style={{ minWidth: 120, maxWidth: 400 }}
+            width={400}
           />
         </div>
         <div className='space-y-6'>
