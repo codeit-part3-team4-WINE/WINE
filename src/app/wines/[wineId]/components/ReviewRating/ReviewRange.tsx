@@ -1,9 +1,11 @@
 export default function ReviewRange({
   label,
   value,
+  span,
 }: {
   label: string;
   value: number;
+  span: number;
 }) {
   // 0~5 범위를 0~100% 비율로 변환
   const percentage = (value / 5) * 100;
@@ -12,6 +14,7 @@ export default function ReviewRange({
     <div className='flex h-fit w-full items-center gap-3'>
       <label className='text-sm leading-none whitespace-nowrap text-gray-500'>
         {label}
+        <p className='text-[1rem] text-gray-500'>{`(${span}개)`}</p>
       </label>
       <div className='relative h-3 w-full overflow-hidden rounded-lg bg-gray-200'>
         <div

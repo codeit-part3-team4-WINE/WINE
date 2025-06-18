@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from 'next/image';
 import { useEffect, useState } from 'react';
 
-import defaultImg from '@/app/assets/svgs/profile-default.svg';
+import DEFAULT_PROFILE_IMG from '@/app/assets/svgs/profile-default.svg';
 import selectedOverlayImg from '@/app/assets/svgs/profile-select-overlay.svg';
 import { cn } from '@/libs/cn';
 
@@ -51,23 +51,29 @@ export default function ProfileImg({
 }: ProfileImgProps) {
   const sizeClass = IMG_SIZE[size];
   const [imgSrc, setImgSrc] = useState<string | StaticImageData>(
-    src || defaultImg,
+    src || DEFAULT_PROFILE_IMG,
   );
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    if (src) setImgSrc(src);
+    if (src) {
+      setImgSrc(src);
+      setIsError(false);
+    }
   }, [src]);
 
   const handleError = () => {
     if (!isError) {
       setIsError(true);
-      setImgSrc(defaultImg);
+      setImgSrc(DEFAULT_PROFILE_IMG);
     }
   };
 
+  const key =
+    typeof imgSrc === 'string' ? imgSrc : imgSrc?.src || 'default-key';
+
   return (
-    <div className='group relative flex shrink-0'>
+    <div key={key} className='group relative flex shrink-0'>
       <div
         className={cn(
           sizeClass,

@@ -1,9 +1,9 @@
 export const DEFAULT_MAX_PRICE = 1000000;
 
 export const WINE_TYPES = {
-  RED: 'RED',
-  WHITE: 'WHITE',
-  SPARKLING: 'SPARKLING',
+  RED: '레드 와인',
+  WHITE: '화이트 와인',
+  SPARKLING: '스파클링 와인',
 } as const;
 
 export const RATING_OPTIONS = [
