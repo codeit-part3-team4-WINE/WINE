@@ -1,8 +1,8 @@
-import { Review } from '../AromaAnalysis/types';
+import { ReviewType } from '../../types';
 
 // 4가지 특성의 평균을 계산하는 함수
-export const calculateWineCharacteristics = (reviews: Review[]) => {
-  if (reviews.length === 0) {
+export const calculateWineCharacteristics = (reviews: ReviewType[]) => {
+  if (!reviews || reviews.length === 0) {
     return {
       lightBold: 0,
       smoothTannic: 0,
