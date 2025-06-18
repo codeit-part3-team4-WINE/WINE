@@ -24,14 +24,15 @@ interface TriggerProps {
  * <CommonSelectBox.Trigger />
  */
 export default function Trigger({ triggerClassName, children }: TriggerProps) {
-  const { selected, toggle, isOpen } = useSelectedBoxContext();
+  const { selected, toggle, isOpen, hasChanged } = useSelectedBoxContext();
 
   return (
     <button
       aria-expanded={isOpen}
       aria-haspopup='listbox'
       className={cn(
-        'flex h-auto min-h-[4.2rem] min-w-[32.7rem] cursor-pointer items-center justify-between rounded-[1.6rem] border border-gray-300 px-[2rem] text-lg text-gray-500 md:min-h-[4.8rem] md:w-[41.2rem]',
+        'flex h-auto min-h-[4.2rem] w-full cursor-pointer items-center justify-between rounded-[1.6rem] border border-gray-300 px-[2rem] text-lg md:min-h-[4.8rem]',
+        hasChanged ? 'text-gray-800' : 'text-gray-500',
         triggerClassName,
       )}
       type='button'

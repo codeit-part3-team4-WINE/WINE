@@ -10,7 +10,7 @@ type ServerErrorResponse = {
 export async function GET() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
-
+  console.log(`route 토큰 : ${accessToken}`);
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me`,
@@ -24,6 +24,34 @@ export async function GET() {
   } catch (err) {
     const error = err as AxiosError<ServerErrorResponse>;
     const message = error.response?.data?.error || '유저 정보 조회 실패';
+    const status = error.response?.status || 500;
+
+    return NextResponse.json({ error: message }, { status });
+  }
+}
+
+export async function PATCH(req: Request) {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
+
+  try {
+    const body = await req.json();
+    console.log('PATCH 요청 body:', body);
+
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me`,
+      body,
+      {
+        headers: {
+          Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+        },
+      },
+    );
+
+    return NextResponse.json(response.data);
+  } catch (err) {
+    const error = err as AxiosError<ServerErrorResponse>;
+    const message = error.response?.data?.error || '유저 정보 업데이트 실패';
     const status = error.response?.status || 500;
 
     return NextResponse.json({ error: message }, { status });

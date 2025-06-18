@@ -7,6 +7,8 @@ import { useEffect } from 'react';
 
 import useUserStore from '@/stores/Auth-store/authStore';
 
+import KakaoLoading from './components/KakaoLoading';
+
 export default function KakaoCallbackPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -36,5 +38,5 @@ export default function KakaoCallbackPage() {
     }
   }, [searchParams, router]);
 
-  return <div>로그인중...</div>;
+  return <KakaoLoading />;
 }

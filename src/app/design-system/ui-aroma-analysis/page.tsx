@@ -1,6 +1,3 @@
-import AromaAnalysis from '@/app/wines/[wineId]/AromaAnalysis/AromaAnalysis';
-import { DUMMY_REVIEWS } from '@/app/wines/[wineId]/dummy';
-
 export default function AromaAnalysisExample() {
   return (
     <div className='mx-auto max-w-4xl space-y-8 p-6'>
@@ -16,10 +13,10 @@ export default function AromaAnalysisExample() {
 
       {/* AromaAnalysis 컴포넌트 */}
       <div className='rounded-lg border border-gray-200 bg-white p-6'>
-        <AromaAnalysis
-          reviews={DUMMY_REVIEWS}
+        {/* <AromaAnalysis
+          reviews={DUMMY_REVIEWS as ReviewType[]}
           totalReviews={DUMMY_REVIEWS.length}
-        />
+        /> */}
       </div>
 
       {/* 추가 정보 */}
@@ -29,8 +26,7 @@ export default function AromaAnalysisExample() {
         </h2>
         <div className='grid grid-cols-1 gap-4 text-sm text-gray-600 md:grid-cols-3'>
           <div>
-            <span className='font-medium'>총 리뷰 수:</span>{' '}
-            {DUMMY_REVIEWS.length}개
+            <span className='font-medium'>총 리뷰 수:</span> {0}개
           </div>
           <div>
             <span className='font-medium'>분석된 향:</span> 상위 3개

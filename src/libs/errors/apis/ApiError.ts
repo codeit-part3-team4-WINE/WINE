@@ -1,45 +1,38 @@
-//API 공통 에러 클래스 정의
+/**
+ * @example
+ * // 페이지별 메시지 맵 정의
+ * const userMessageMap = {
+ *   404: '해당 유저를 찾을 수 없습니다.',
+ *   401: '로그인이 필요합니다.',
+ *   500: '서버 오류가 발생했습니다.',
+ * };
+ *
+ * // 에러 발생 시 throw
+ * throw new ApiErrorClass(status, userMessageMap, '유저 정보를 불러오지 못했습니다.');
+ *
+ * // error.tsx 등에서 사용 예시
+ * if (error instanceof ApiErrorClass) {
+ *   console.log(error.status); // 상태코드
+ *   console.log(error.message); // 사용자에게 보여줄 메시지
+ * }
+ */
+type StatusMessageMap = { [status: number]: string };
 
-import { CustomError } from '../CustomError';
+//페이지별 api 요청 에러처리용 클래스
+export class ApiErrorClass extends Error {
+  status?: number;
 
-export class InvalidCredentialsError extends CustomError {
-  constructor(message = '이메일 또는 비밀번호가 올바르지 않습니다.') {
-    super(message, 401);
-  }
-}
-
-export class ValidationError extends CustomError {
-  constructor(message = '입력값이 올바르지 않습니다.') {
-    super(message, 422);
-  }
-}
-
-export class NonExistentEmailError extends CustomError {
-  constructor(message = '존재하지 않는 이메일입니다.') {
-    super(message, 404);
-  }
-}
-
-export class PasswordMismatchError extends CustomError {
-  constructor(message = '비밀번호가 일치하지 않습니다.') {
-    super(message, 400);
-  }
-}
-
-export class PasswordValidateError extends CustomError {
-  constructor(message = '비밀번호는 8자 이상이여야합니다.') {
-    super(message, 400);
-  }
-}
-
-export class ResourceNotFoundError extends CustomError {
-  constructor(message = '요청한 자원을 찾을 수 없습니다.') {
-    super(message, 404);
-  }
-}
-
-export class InternalServerError extends CustomError {
-  constructor(message = '서버에 문제가 발생했습니다.') {
-    super(message, 500);
+  constructor(
+    status?: number,
+    messageMap?: StatusMessageMap,
+    defaultMessage?: string,
+  ) {
+    let message = defaultMessage ?? '알 수 없는 오류가 발생했습니다.';
+    if (status && messageMap && messageMap[status]) {
+      message = messageMap[status];
+    }
+    super(message);
+    this.name = 'ApiErrorClass';
+    this.status = status;
   }
 }

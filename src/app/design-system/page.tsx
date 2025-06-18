@@ -19,7 +19,6 @@ export default function DesignSystem() {
           title='Modal Components'
         />
 
-        
         <LinkButton
           description='View all button variations and examples'
           slug='ui-button'
@@ -50,11 +49,6 @@ export default function DesignSystem() {
           description='View all radio variations and examples'
           slug='ui-radio'
           title='Radio Components'
-        />
-        <LinkButton
-          description='View all wine-details components and examples'
-          slug='ui-wine-details'
-          title='Wine Details Components'
         />
 
         <LinkButton

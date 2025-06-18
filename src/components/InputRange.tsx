@@ -49,22 +49,26 @@ import { cn } from '@/libs/cn';
  */
 
 type Option = {
-  body: number;
-  tannin: number;
-  sweetness: number;
-  acidity: number;
+  lightBold: number;
+  smoothTannic: number;
+  drySweet: number;
+  softAcidic: number;
 };
 
 interface InputRangeProps {
   className?: string;
   values: Option;
   onChange?: (name: keyof Option, value: number) => void;
+  disabled?: boolean;
 }
 
 export default function InputRange({
   className = '',
   values,
   onChange,
+  disabled,
+
+  ...props
 }: InputRangeProps) {
   return (
     <div className={cn('mx-auto w-full space-y-4', className)}>
@@ -77,9 +81,10 @@ export default function InputRange({
             {item.leftText}
           </span>
           <RangeSlider
+            disabled={disabled}
             id={item.name}
             label={item.label}
-            max={10}
+            max={5}
             min={0}
             name={item.name}
             step={1}
@@ -87,9 +92,14 @@ export default function InputRange({
             onChange={(e) =>
               onChange?.(item.name as keyof Option, Number(e.target.value))
             }
+            {...props}
           />
           <span className='md:text-md w-[48px] text-right text-xs whitespace-nowrap md:w-[56px]'>
             {item.rightText}
+          </span>
+          {/* 현재 값 표시 */}
+          <span className='ml-2 max-w-fit text-center text-[1rem] font-semibold text-gray-400 md:text-xs'>
+            {values[item.name as keyof Option].toFixed(1)}점
           </span>
         </div>
       ))}

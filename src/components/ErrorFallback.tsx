@@ -1,13 +1,18 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect } from 'react';
 
 import type { ErrorFallbackProps } from '@/types/error';
 
+import wineImage from '../app/assets/images/wine_.gif';
+import Button from './Button';
+import WaveAnimation from './WaveAnimation';
+
 export default function ErrorFallback({
   error,
   reset,
-  title = '에러가 발생했습니다',
+  title = '아이쿠, 문제가 발생했어요! ',
   description,
 }: ErrorFallbackProps) {
   useEffect(() => {
@@ -15,34 +20,44 @@ export default function ErrorFallback({
   }, [error]);
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center px-4 text-center'>
-      <div className='w-full max-w-md space-y-6'>
-        <div className='space-y-2'>
-          <h1 className='text-3xl font-bold text-red-500'>{title}</h1>
-          <p className='text-gray-600'>
+    <div className='fixed inset-0 z-[9999] flex h-screen w-screen flex-col items-center justify-center overflow-hidden bg-gray-300 text-center'>
+      <WaveAnimation />
+
+      <div className='z-10 w-full max-w-xl space-y-6'>
+        <div className='mb-2 flex w-full items-center justify-center'>
+          <Image
+            priority
+            alt='와인 이미지'
+            className='mx-auto aspect-square w-[100vw] max-w-md object-contain md:max-w-xl'
+            height={400}
+            src={wineImage}
+            style={{ minWidth: 120, maxWidth: 400 }}
+            width={400}
+          />
+        </div>
+        <div className='space-y-6'>
+          <h1 className='text-primary-100 text-3xl font-bold'>{title}</h1>
+          <h1 className='text-2xl font-medium text-gray-700'>
             {description || error.message || '알 수 없는 오류가 발생했습니다.'}
-          </p>
-          {process.env.NODE_ENV === 'development' && error.digest && (
-            <p className='mt-2 text-xs text-gray-400'>
-              Error ID: {error.digest}
-            </p>
-          )}
+          </h1>
         </div>
 
-        <div className='space-y-3'>
-          <button
-            className='w-full rounded-lg bg-black px-6 py-3 font-medium text-white transition-colors hover:bg-gray-800 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none'
+        <div className='mt-4 flex w-full items-center justify-center gap-x-6'>
+          <Button
+            className='cursor-pointer rounded-lg bg-gray-800 px-6 py-4 text-xl font-bold text-white transition-colors hover:bg-black focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none'
+            size='md'
             onClick={reset}
           >
             다시 시도하기
-          </button>
+          </Button>
 
-          <button
-            className='w-full rounded-lg border border-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none'
+          <Button
+            className='cursor-pointer rounded-lg bg-gray-700 px-6 py-4 text-xl font-bold text-gray-100 transition-colors hover:bg-gray-600 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none'
+            size='md'
             onClick={() => (window.location.href = '/')}
           >
             홈으로 돌아가기
-          </button>
+          </Button>
         </div>
       </div>
     </div>

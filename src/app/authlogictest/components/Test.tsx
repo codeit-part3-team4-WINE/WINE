@@ -3,8 +3,10 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { privateInstance } from '@/apis/privateInstance'; //클라이언트 요청용 인스턴스(로그인확인이 필요한 요청)
+import { privateInstance } from '@/apis/privateInstance';
 import useLogout from '@/hooks/useLogout';
+import { ApiErrorClass } from '@/libs/errors/apis/ApiError';
+import { ApiErrorResponse } from '@/types/apiErrorResponse';
 
 type User = {
   id: number;
@@ -30,9 +32,9 @@ const UserData = ({ user }: { user: User | null }) => {
 
 export default function Test() {
   const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<ApiErrorClass | null>(null);
 
   const logout = useLogout();
-
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -45,16 +47,31 @@ export default function Test() {
     }
   };
 
+  // 버튼 트리거 요청 에러 처리 예시-------------------------------------
   const getMe = async () => {
     try {
       const response = await privateInstance.get(`/users/me`);
       setUser(response.data);
-    } catch (error) {
-      console.error('유저 정보 가져오기 실패:', error);
+      setError(null);
+    } catch (error: unknown) {
+      const status = (error as ApiErrorResponse)?.response?.status;
+      const userMessageMap = {
+        404: '해당 유저를 찾을 수 없습니다.',
+        401: '로그인이 필요합니다.',
+        500: '서버 오류가 발생했습니다.',
+      };
+      setError(
+        new ApiErrorClass(
+          status,
+          userMessageMap,
+          '유저 정보를 불러오지 못했습니다.',
+        ),
+      );
       setUser(null);
     }
   };
-
+  if (error) throw error;
+  //--------------------------------------------------------------------------------------
   return (
     <div className='mx-auto mt-20 max-w-md rounded-lg bg-white p-6 text-center shadow-md'>
       <div className='flex flex-col gap-4'>
