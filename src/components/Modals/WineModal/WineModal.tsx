@@ -75,12 +75,7 @@ export default function WineModal({
     }
 
     if (wineData) {
-      const isUnchanged =
-        wineData.name === name &&
-        wineData.region === region &&
-        wineData.image === image &&
-        wineData.price === price &&
-        wineData.type === type;
+      const isUnchanged = JSON.stringify(wineData) === JSON.stringify(formData);
 
       if (isUnchanged) {
         alert('변경된 사항이 없습니다.');
@@ -150,7 +145,7 @@ export default function WineModal({
             <div>
               <Button
                 className='w-[27rem] md:w-[24rem] xl:w-[35rem]'
-                disabled={isLoading}
+                loading={isLoading}
                 variant='primary'
                 onClick={() => {
                   handleSubmit();

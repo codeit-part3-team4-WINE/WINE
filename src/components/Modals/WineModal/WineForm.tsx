@@ -22,11 +22,11 @@ export type WineFormData = {
 };
 
 const OPTIONS = ['RED', 'WHITE', 'SPARKLING'];
-const OPTION_LABELS: Record<string, string> = {
+const OPTION_LABELS = {
   RED: '레드와인',
   WHITE: '화이트와인',
   SPARKLING: '스파클링와인',
-};
+} as const;
 const INPUT_CLASSNAME =
   'w-full border border-gray-300 rounded-[1.6rem], focus:border-2 focus:border-gray-500';
 const DEFAULT_DATA: WineFormData = {
@@ -106,6 +106,26 @@ export default function WineForm({
     }
   };
 
+  const handleUploadFile = async (file: File) => {
+    const form = new FormData();
+    form.append('file', file);
+
+    try {
+      const res = await privateInstance.post('/images/upload', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      const { url } = res.data;
+
+      setFormData((prev) => ({ ...prev, image: url }));
+    } catch (err) {
+      console.error('이미지 업로드 실패:', err);
+      alert('이미지 업로드에 실패했습니다.');
+    }
+  };
+
   return (
     <form className='flex flex-col gap-[2rem]'>
       <InputPair
@@ -161,38 +181,19 @@ export default function WineForm({
             </>
           </SelectBox.Trigger>
           <SelectBox.Options>
-            {OPTIONS.map((opt) => (
-              <SelectBox.Option key={opt} value={opt}>
+            {(
+              Object.keys(OPTION_LABELS) as Array<keyof typeof OPTION_LABELS>
+            ).map((key) => (
+              <SelectBox.Option key={key} value={key}>
                 <div className='hover:bg-primary-10 hover:text-primary-100 mx-[0.6rem] my-2 flex h-[3.6rem] w-full items-center rounded-[1.2rem] px-2 py-2 md:h-[4rem]'>
-                  <span className='ml-[1.6em]'>{OPTION_LABELS[opt]}</span>
+                  <span className='ml-[1.6em]'>{OPTION_LABELS[key]}</span>
                 </div>
               </SelectBox.Option>
             ))}
           </SelectBox.Options>
         </SelectBox>
       </div>
-      <InputFile
-        label='와인 사진'
-        onChange={async (file: File) => {
-          const form = new FormData();
-          form.append('file', file);
-
-          try {
-            const res = await privateInstance.post('/images/upload', form, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            });
-
-            const { url } = res.data;
-
-            setFormData((prev) => ({ ...prev, image: url }));
-          } catch (err) {
-            console.error('이미지 업로드 실패:', err);
-            alert('이미지 업로드에 실패했습니다.');
-          }
-        }}
-      >
+      <InputFile label='와인 사진' onChange={handleUploadFile}>
         <div className='relative h-[14rem] w-[14rem]'>
           {formData.image !== '' ? (
             <Image
