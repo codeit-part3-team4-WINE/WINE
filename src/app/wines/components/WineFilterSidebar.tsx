@@ -15,7 +15,10 @@ import {
   ModalTrigger,
 } from '@/components/Modal';
 import WineModal from '@/components/Modals/WineModal/WineModal';
+import useUserStore from '@/stores/Auth-store/authStore';
 
+import { DEFAULT_MAX_PRICE } from '../constants';
+import { FilterProps, FilterState } from '../types';
 import Filter from './Filter';
 
 /**
@@ -23,27 +26,39 @@ import Filter from './Filter';
  *
  * @description 데스크탑에서 보여지는 검색 조건 필터링 패널
  */
-function DesktopFilterPanel({ filterState, onFilterChange }) {
+function DesktopFilterPanel({
+  priceMaxRange,
+  filterState,
+  onFilterChange,
+}: FilterProps) {
+  const user = useUserStore((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <div className='sticky top-30 mt-30 flex h-[30rem] w-full flex-col gap-16 max-xl:hidden'>
-        <Filter filterState={filterState} onFilterChange={onFilterChange} />
 
-        <Button
-          className='w-full'
-          round='rounded'
-          size='sm'
-          variant='primary'
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          와인 등록하기
-        </Button>
-      </div>
-      <WineModal isOpen={isOpen} setIsOpen={setIsOpen} />
-    </>
+  return (
+    <div className='sticky top-30 mt-30 flex h-fit w-full flex-col gap-16 max-xl:hidden'>
+      <Filter
+        filterState={filterState}
+        priceMaxRange={priceMaxRange}
+        onFilterChange={onFilterChange}
+      />
+
+      {user?.id && (
+        <>
+          <Button
+            className='w-full'
+            round='rounded'
+            size='sm'
+            variant='primary'
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            와인 등록하기
+          </Button>
+          <WineModal isOpen={isOpen} setIsOpen={setIsOpen} />
+        </>
+      )}
+    </div>
   );
 }
 
@@ -52,7 +67,11 @@ function DesktopFilterPanel({ filterState, onFilterChange }) {
  *
  * @description 모바일과 태블릿에서 보여지는 검색 조건 필터링 버튼
  */
-function MobileFilterButton({ filterState, onFilterChange }) {
+function MobileFilterButton({
+  priceMaxRange,
+  filterState,
+  onFilterChange,
+}: FilterProps) {
   const [tempFilterState, setTempFilterState] = useState(filterState); // 모바일, 태블릿용 임시 filterState
 
   return (
@@ -75,6 +94,7 @@ function MobileFilterButton({ filterState, onFilterChange }) {
           <ModalBody>
             <Filter
               filterState={tempFilterState}
+              priceMaxRange={priceMaxRange}
               onFilterChange={setTempFilterState}
             />
           </ModalBody>
@@ -85,11 +105,11 @@ function MobileFilterButton({ filterState, onFilterChange }) {
               size='sm'
               variant='secondary'
               onClick={() => {
-                const resetState = {
+                const resetState: FilterState = {
                   selectedRating: 0,
-                  selectedWineTypes: [],
+                  selectedWineType: '',
                   selectedMinPrice: 0,
-                  selectedMaxPrice: 10000, // temp
+                  selectedMaxPrice: priceMaxRange ?? DEFAULT_MAX_PRICE,
                   searchQuery: filterState.searchQuery, // 검색어는 유지
                 };
                 onFilterChange(resetState);
@@ -117,15 +137,21 @@ function MobileFilterButton({ filterState, onFilterChange }) {
   );
 }
 
-export default function WineFilterSidebar({ filterState, onFilterChange }) {
+export default function WineFilterSidebar({
+  priceMaxRange,
+  filterState,
+  onFilterChange,
+}: FilterProps) {
   return (
     <section className='relative col-start-1 col-end-2 row-start-2 row-end-3 xl:col-start-1 xl:col-end-2 xl:row-start-2 xl:row-end-4 xl:w-[25rem]'>
       <DesktopFilterPanel
         filterState={filterState}
+        priceMaxRange={priceMaxRange}
         onFilterChange={onFilterChange}
       />
       <MobileFilterButton
         filterState={filterState}
+        priceMaxRange={priceMaxRange}
         onFilterChange={onFilterChange}
       />
     </section>

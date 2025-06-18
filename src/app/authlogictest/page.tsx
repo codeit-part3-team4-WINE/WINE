@@ -1,13 +1,17 @@
+export const dynamic = 'force-dynamic';
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
+import { ApiErrorClass } from '@/libs/errors/apis/ApiError';
+import { ApiErrorResponse } from '@/types/apiErrorResponse';
 
 import Test from './components/Test';
 
 export default async function AuthLogicTest() {
-  //서버 컴포넌트 인스턴스로 요청(로그인시만 가능한 요청 테스트)
   const instance = await createPrivateServerInstance();
 
   try {
+    console.log('GET /users/me 요청 시작');
     const res = await instance.get('/users/me');
+    console.log('GET /users/me 응답:', res.data);
 
     return (
       <div>
@@ -17,12 +21,18 @@ export default async function AuthLogicTest() {
         <Test />
       </div>
     );
-  } catch (error) {
+
+    // 서버컴포넌트 에러처리예시 ------------------------------------------------------------------
+  } catch (error: unknown) {
     console.error('유저 데이터 불러오기 실패:', error);
-    return (
-      <div>
-        <p>데이터를 불러오는데 실패했습니다.</p>
-      </div>
-    );
+
+    const status = (error as ApiErrorResponse)?.response?.status;
+
+    const userMessageMap = {
+      404: '해당 유저를 찾을 수 없습니다.',
+      401: '로그인이 필요합니다.',
+      500: '서버 오류가 발생했습니다.',
+    };
+    throw new ApiErrorClass(status, userMessageMap, '기본 메시지');
   }
 }

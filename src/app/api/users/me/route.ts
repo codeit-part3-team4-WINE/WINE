@@ -10,7 +10,7 @@ type ServerErrorResponse = {
 export async function GET() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
-
+  console.log(`route 토큰 : ${accessToken}`);
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me`,

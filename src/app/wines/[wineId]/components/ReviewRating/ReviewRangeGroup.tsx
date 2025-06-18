@@ -3,15 +3,16 @@ import ReviewRange from './ReviewRange';
 export default function ReviewRangeGroup({
   data,
 }: {
-  data: { label: string; value: number }[];
+  data: Record<string, number>;
 }) {
   return (
     <div className='flex w-full flex-col gap-6'>
-      {data.map((range) => (
+      {Object.entries(data).map(([key, value]) => (
         <ReviewRange
-          key={range.label}
-          label={range.label}
-          value={range.value}
+          key={key}
+          label={`${key}점`}
+          span={value}
+          value={value || 0}
         />
       ))}
     </div>
