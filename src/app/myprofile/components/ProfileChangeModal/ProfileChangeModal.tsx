@@ -19,7 +19,7 @@ import {
 import { UserProfile } from '../../action/user-action';
 import ProfileChangeForm from './ProfileChangeForm';
 
-const DEFAULT_IMAGE_URL =
+export const DEFAULT_IMAGE_URL =
   'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Wine/user/1256/1750160791489/1750160791476.svg';
 
 /**

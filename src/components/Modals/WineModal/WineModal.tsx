@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { privateInstance } from '@/apis/privateInstance';
 import { WineData } from '@/app/api/action/wine-action';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal/Modal';
@@ -88,10 +89,31 @@ export default function WineModal({
     try {
       setIsLoading(true);
 
+      let imageUrl = formData.image;
+
+      if (formData.image instanceof File) {
+        try {
+          const uploadForm = new FormData();
+          uploadForm.append('file', formData.image);
+
+          const res = await privateInstance.post('/images/upload', uploadForm, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+
+          imageUrl = res.data.url;
+        } catch (uploadErr) {
+          console.error('이미지 업로드 실패:', uploadErr);
+          alert('이미지 업로드에 실패했습니다.');
+          return;
+        }
+      }
+
       const payload = {
         name: formData.name,
         region: formData.region,
-        image: formData.image,
+        image: imageUrl,
         price: Number(formData.price),
         type: formData.type,
         ...(formData.id && { id: formData.id }), // PATCH용 id
@@ -108,8 +130,8 @@ export default function WineModal({
 
       // 수정/등록 후 페이지 새로고침
       router.refresh();
-    } catch (err) {
-      console.error('Wine 등록/수정 오류:', err);
+    } catch (e) {
+      console.error(e);
       alert(
         wineData
           ? '와인 수정 중 오류가 발생했습니다.'

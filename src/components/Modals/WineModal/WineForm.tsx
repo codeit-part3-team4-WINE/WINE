@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-import { privateInstance } from '@/apis/privateInstance';
 import TriangleArrowIcon from '@/app/assets/icons/triangle-arrow';
 import FileUpload from '@/app/assets/svgs/wine-modal-file-upload.svg';
 import InputFile from '@/components/Inputs/InputFile';
@@ -27,8 +26,10 @@ const OPTION_LABELS = {
   WHITE: '화이트와인',
   SPARKLING: '스파클링와인',
 } as const;
+
 const INPUT_CLASSNAME =
   'w-full border border-gray-300 rounded-[1.6rem], focus:border-2 focus:border-gray-500';
+
 const DEFAULT_DATA: WineFormData = {
   name: '',
   region: '',
@@ -36,6 +37,9 @@ const DEFAULT_DATA: WineFormData = {
   price: 0,
   type: 'RED',
 };
+
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
 /**
  * WineForm 컴포넌트
@@ -106,24 +110,39 @@ export default function WineForm({
     }
   };
 
-  const handleUploadFile = async (file: File) => {
-    const form = new FormData();
-    form.append('file', file);
+  // const handleUploadFile = async (file: File) => {
+  //   const form = new FormData();
+  //   form.append('file', file);
 
-    try {
-      const res = await privateInstance.post('/images/upload', form, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+  //   try {
+  //     const res = await privateInstance.post('/images/upload', form, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
 
-      const { url } = res.data;
+  //     const { url } = res.data;
 
-      setFormData((prev) => ({ ...prev, image: url }));
-    } catch (err) {
-      console.error('이미지 업로드 실패:', err);
-      alert('이미지 업로드에 실패했습니다.');
+  //     setFormData((prev) => ({ ...prev, image: url }));
+  //   } catch (err) {
+  //     console.error('이미지 업로드 실패:', err);
+  //     alert('이미지 업로드에 실패했습니다.');
+  //   }
+  // };
+
+  const handleFileChange = (file: File) => {
+    if (file.size > MAX_IMAGE_SIZE) {
+      alert('이미지 용량은 5MB 이하만 업로드 가능합니다.');
+      return;
     }
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      alert('지원하지 않는 파일 형식입니다. (jpg, png, webp만 가능)');
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, image: file }));
+    console.log(file);
   };
 
   return (
@@ -193,7 +212,7 @@ export default function WineForm({
           </SelectBox.Options>
         </SelectBox>
       </div>
-      <InputFile label='와인 사진' onChange={handleUploadFile}>
+      <InputFile label='와인 사진' onChange={handleFileChange}>
         <div className='relative h-[14rem] w-[14rem]'>
           {formData.image !== '' ? (
             <Image

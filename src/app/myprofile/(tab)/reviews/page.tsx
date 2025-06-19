@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
@@ -24,11 +25,16 @@ interface Review {
 }
 
 export default async function Reviews() {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
   const axios = await createPrivateServerInstance();
 
   const { data } = await axios.get('/users/me/reviews', {
     params: {
       limit: 10,
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 
