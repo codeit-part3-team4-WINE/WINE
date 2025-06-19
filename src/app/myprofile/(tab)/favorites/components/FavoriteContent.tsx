@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 import Nothing from '@/app/myprofile/components/Nothing';
@@ -10,6 +11,7 @@ import Button from '@/components/Button';
 import SkeletonFavorite from './SkeletonFavorite';
 
 interface Review {
+  wineId: number;
   id: number;
   rating: number;
   aroma: string[];
@@ -57,7 +59,9 @@ export default function FavoriteContent({
         <>
           <div className='flex flex-col gap-10'>
             {visibleReviews.map((review) => (
-              <ReviewCard key={review.id} review={review} />
+              <Link href={`/wines/${review.wineId}`}>
+                <ReviewCard key={review.id} review={review} />
+              </Link>
             ))}
           </div>
 
