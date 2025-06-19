@@ -7,7 +7,7 @@ import Tab from '@/app/myprofile/components/Tab';
 import ReviewCard from '@/app/wines/[wineId]/components/ReviewCard';
 import Button from '@/components/Button';
 
-import SkeletonFavorite from './SkeletionFavorite';
+import SkeletonFavorite from './SkeletonFavorite';
 
 interface Review {
   id: number;
@@ -40,21 +40,6 @@ export default function FavoriteContent({
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 5);
   };
-
-  // if (isLoading) {
-  //   return <SkeletonFavorite />;
-  // }
-
-  // if (!Array.isArray(likedReviews) || likedReviews.length === 0) {
-  //   return (
-  //     <div>
-  //       <Tab totalCount={0} />
-  //       <div className='mt-[5rem] flex items-center justify-center'>
-  //         <Nothing type='favorite' />
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   const visibleReviews = likedReviews.slice(0, visibleCount);
 
