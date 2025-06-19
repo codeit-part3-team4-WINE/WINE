@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import useDeviceSize from '@/hooks/useDeviceSize';
 import { cn } from '@/libs/cn';
 
 import { useModalContext } from './ModalContext';
@@ -28,8 +27,6 @@ export default function ModalContent({
 }: ModalBaseProps & { variant?: ModalVariant }) {
   const { isOpen, close } = useModalContext();
   const mountedRef = useRef(false);
-  const { isMobile } = useDeviceSize();
-  const shouldAnimate = variant === 'default' && isMobile;
 
   useEffect(() => {
     mountedRef.current = true;
@@ -57,28 +54,6 @@ export default function ModalContent({
     exit: { y: '100%' },
   };
 
-  // 모바일 default 모달 (애니메이션)
-  const animatedContent = (
-    <motion.div
-      animate='visible'
-      className={contentClassNames}
-      exit='exit'
-      initial='hidden'
-      transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
-      variants={mobileVariants}
-      onClick={(e) => e.stopPropagation()}
-    >
-      {children}
-    </motion.div>
-  );
-
-  // animatedContent 외의 모든 모달
-  const staticContent = (
-    <div className={contentClassNames} onClick={(e) => e.stopPropagation()}>
-      {children}
-    </div>
-  );
-
   return isOpen
     ? createPortal(
         <motion.div
@@ -89,7 +64,17 @@ export default function ModalContent({
           transition={{ duration: 0.3 }}
           onClick={close}
         >
-          {shouldAnimate ? animatedContent : staticContent}
+          <motion.div
+            animate='visible'
+            className={contentClassNames}
+            exit='exit'
+            initial='hidden'
+            transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
+            variants={mobileVariants}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {children}
+          </motion.div>
         </motion.div>,
         modalRoot,
       )
