@@ -87,6 +87,26 @@ export default function ProfileChangeModal({
   }, [user.nickname, user.image]);
 
   /**
+   * 프로필 변경 모달 오픈 핸들러
+   *
+   * - 닉네임, 이미지 상태 초기화
+   * - 선택된 파일 초기화
+   * - 미리보기 URL 해제 및 초기화
+   */
+  const handleOpenModal = () => {
+    // 모달 오픈 시 초기 상태 복원
+    setNickname(user.nickname);
+    setSelectedFile(null);
+    const original = typeof user.image === 'string' ? user.image : '';
+    setImageUrl(original);
+    setDisplayUrl(original || DEFAULT_PROFILE_IMG);
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+      setPreviewUrl(null);
+    }
+  };
+
+  /**
    * 프로필 이미지 변경 핸들러
    * - 선택된 이미지를 API로 요청을 보내 URL을 받아옴
    * @param file 선택된 이미지 파일
@@ -118,7 +138,7 @@ export default function ProfileChangeModal({
   /**
    * 프로필 이미지 삭제 핸들러
    * - 기본 이미지로 변경
-   * - 삭제 버튼 클릭시 DEFAULT_PROFILE_IMG를 API로 보내 매번 새로운 URL을 받아옴
+   * - 삭제 버튼 클릭시 미리 받아온 DEFAULT_PROFILE_IMG URL을 요청으로 보냄
    */
   const handleDeleteImage = () => {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -229,17 +249,7 @@ export default function ProfileChangeModal({
           className='h-[4.3rem]'
           size='sm'
           variant='outline'
-          onClick={() => {
-            // 모달 오픈 시 초기 상태 복원
-            setNickname(user.nickname);
-            const original = typeof user.image === 'string' ? user.image : '';
-            setImageUrl(original);
-            setDisplayUrl(original || DEFAULT_PROFILE_IMG);
-            if (previewUrl) {
-              URL.revokeObjectURL(previewUrl);
-              setPreviewUrl(null);
-            }
-          }}
+          onClick={handleOpenModal}
         >
           변경하기
         </Button>
