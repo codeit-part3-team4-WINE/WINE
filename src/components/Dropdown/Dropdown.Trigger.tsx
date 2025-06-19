@@ -30,7 +30,11 @@ export default function DropdownTrigger({ children }: { children: ReactNode }) {
       aria-haspopup='true'
       className='cursor-pointer'
       type='button'
-      onClick={() => setIsOpen((prev) => !prev)}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsOpen((prev) => !prev);
+      }}
     >
       {children}
     </button>
