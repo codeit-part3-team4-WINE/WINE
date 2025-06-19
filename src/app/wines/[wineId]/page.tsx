@@ -15,6 +15,7 @@ import FlavorAnalysis from './components/flavorAnalysis/FlavorAnalysis';
 import Nothing from './components/Nothing';
 import ReviewCard from './components/ReviewCard';
 import ReviewOverview from './components/ReviewRating/ReviewOverview';
+import WinePageSkeleton from './components/SkeletonUi/WinePageSkeleton';
 import { ReviewType } from './types';
 
 export default function WinePage() {
@@ -25,7 +26,9 @@ export default function WinePage() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: ['wine', wineId],
-      queryFn: ({ pageParam = 1 }) => {
+      queryFn: async ({ pageParam = 1 }) => {
+        // 스켈레톤 UI 확인용 지연
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         return privateInstance.get(
           `/wines/${wineId}?page=${pageParam}&limit=5`,
         );
@@ -51,12 +54,7 @@ export default function WinePage() {
     }
   }, [wineId, userInfo?.id, wineInfo?.userId]);
 
-  if (status === 'pending')
-    return (
-      <div className='flex h-screen items-center justify-center'>
-        <LoadingAnimation />
-      </div>
-    );
+  if (status === 'pending') return <WinePageSkeleton />;
   if (status === 'error') {
     return (
       <div className='flex h-screen items-center justify-center'>
