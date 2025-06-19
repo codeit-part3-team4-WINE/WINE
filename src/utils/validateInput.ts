@@ -15,7 +15,8 @@ const validateNickname = (value: string) => {
 
 const validatePassword = (value: string) => {
   if (!value) return '비밀번호는 필수 입력입니다.';
-  if (value.length < 8) return '비밀번호는 최소 8자 최대16자입니다.';
+  if (value.length < 8 && value.length > 16)
+    return '비밀번호는 최소 8자 최대16자입니다.';
   const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
   if (!regex.test(value))
     return '비밀번호는 숫자, 영문, 특수문자가 조합되야합니다.';
