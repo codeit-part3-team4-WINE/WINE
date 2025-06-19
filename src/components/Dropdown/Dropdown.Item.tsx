@@ -36,7 +36,9 @@ export default function DropdownItem({
 }) {
   const { setIsOpen } = useDropdownContext();
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     onClick();
     setIsOpen(false);
   };
