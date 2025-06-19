@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { deleteReview } from '@/actions/review';
+import { privateInstance } from '@/apis/privateInstance'; // 좋아요 기능 요청용
 import ChevronArrowIcon from '@/app/assets/icons/chevron-arrow';
 import HeartIcon from '@/app/assets/icons/heart';
 import VerticalMoreIcon from '@/app/assets/icons/vertical-more';
@@ -33,6 +34,7 @@ export default function ReviewCard({
   const userInfo = useUserStore((state) => state.user);
 
   const {
+    id,
     rating,
     lightBold,
     smoothTannic,
@@ -44,7 +46,6 @@ export default function ReviewCard({
     user,
   } = review;
 
-  // 리뷰 prop이 변경될 때 내부 상태를 동기화
   const [values, setValues] = useState({
     lightBold,
     smoothTannic,
@@ -80,11 +81,24 @@ export default function ReviewCard({
     const confirmed = window.confirm('정말 삭제하시겠습니까?');
     if (!confirmed) return;
 
-    const result = await deleteReview(review.id);
+    const result = await deleteReview(id);
     if (result.success) {
       onDelete?.();
     } else {
       alert(result.message || '리뷰 삭제에 실패했습니다.');
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      if (isLiked) {
+        await privateInstance.delete(`/wines/${id}/like`);
+      } else {
+        await privateInstance.post(`/wines/${id}/like`);
+      }
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.error('Like post error:', error);
     }
   };
 
@@ -106,7 +120,7 @@ export default function ReviewCard({
         </div>
 
         <div className='flex items-center gap-2 pt-2'>
-          <div className='group size-[3.8rem]'>
+          <div className='group size-[3.8rem]' onClick={handleLike}>
             <HeartIcon
               className={cn(
                 'cursor-pointer transition-all group-hover:fill-red-400 group-hover:stroke-red-400 hover:animate-pulse',
