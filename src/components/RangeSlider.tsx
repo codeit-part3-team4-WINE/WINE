@@ -12,6 +12,7 @@ const BASIC_CLASSNAME =
 interface RangeSliderProps extends Omit<React.ComponentProps<'input'>, 'type'> {
   label?: string;
   containerClassName?: string;
+  disabled?: boolean;
 }
 
 export function RangeSlider({
@@ -25,7 +26,7 @@ export function RangeSlider({
   ...props
 }: RangeSliderProps) {
   return (
-    <div className={cn('max-w-[491px] min-w-0 flex-1', containerClassName)}>
+    <div className={cn('w-full min-w-0 flex-1', containerClassName)}>
       {label && (
         <label className='sr-only' htmlFor={id || name}>
           {label}

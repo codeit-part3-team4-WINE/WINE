@@ -33,7 +33,7 @@ export default function Option({
   children,
 }: OptionProps) {
   const optionClasses = cn(
-    ' h-auto w-[32.7rem] cursor-pointer  px-4 py-3 text-lg font-medium text-gray-800 md:w-[41.2rem]',
+    ' h-auto w-full cursor-pointer px-4 py-3 text-lg font-medium text-gray-800',
     optionClassName,
   );
   const { setSelected, onChange, close } = useSelectedBoxContext();

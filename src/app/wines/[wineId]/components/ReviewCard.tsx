@@ -12,10 +12,12 @@ import Dropdown from '@/components/Dropdown';
 import InputRange from '@/components/InputRange';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
-import { formatToTimeAgo } from '@/libs/formmatToTimeago';
 import useUserStore from '@/stores/Auth-store/authStore';
+import { getTimeAgo } from '@/utils/getTimeAgo';
 
 import { ReviewType } from '../types';
+import { AromaType } from './AromaAnalysis/types';
+import { getAromaLabel } from './AromaAnalysis/utils';
 
 interface ReviewCardProps {
   review: ReviewType;
@@ -109,13 +111,11 @@ export default function ReviewCard({
   return (
     <div className='relative flex flex-col gap-5 rounded-2xl border border-gray-300 p-10'>
       <div className='flex items-start justify-between'>
-        <div className='flex gap-5'>
-          <ProfileImg size='md' />
+        <div className='flex items-center gap-5'>
+          <ProfileImg className='size-[4.2rem]' size='md' />
           <div className='flex flex-col justify-center'>
-            <p className='text-2lg font-bold'>{user.nickname}</p>
-            <p className='text-lg text-gray-500'>
-              {formatToTimeAgo(createdAt)}
-            </p>
+            <p className='text-lg font-bold'>{user.nickname}</p>
+            <p className='text-md text-gray-500'>{getTimeAgo(createdAt)}</p>
           </div>
         </div>
 
@@ -153,13 +153,13 @@ export default function ReviewCard({
           {aroma.map((flavor) => (
             <div
               key={flavor}
-              className='flex-shrink-0 rounded-full border border-gray-300 px-5 py-2 text-center text-lg text-gray-900'
+              className='text-md flex-shrink-0 rounded-full border border-gray-300 px-5 py-2 text-center text-gray-900'
             >
-              {flavor}
+              {getAromaLabel(flavor as AromaType)}
             </div>
           ))}
         </div>
-        <StarBadge className='text-2lg flex-shrink-0' rating={rating} />
+        <StarBadge className='flex-shrink-0' rating={rating} />
       </div>
 
       <div
