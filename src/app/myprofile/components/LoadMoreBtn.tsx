@@ -64,7 +64,11 @@ export default function LoadMoreButton({ type, initialCursor }: Props) {
   const renderItem = (item: Wine | Review) => {
     if (type === 'wine') {
       const wine = item as Wine;
-      return <WineCard key={wine.id} className='cursor-pointer' wine={wine} />;
+      return (
+        <Link key={wine.id} href={`/wines/${wine.id}`}>
+          <WineCard key={wine.id} className='cursor-pointer' wine={wine} />
+        </Link>
+      );
     } else {
       const review = item as Review;
       return (
