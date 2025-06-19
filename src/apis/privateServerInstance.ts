@@ -54,19 +54,12 @@ export const createPrivateServerInstance = async (): Promise<AxiosInstance> => {
   const accessToken = cookieStore.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
 
-  const cookieHeader = [
-    accessToken ? `accessToken=${accessToken}` : null,
-    refreshToken ? `refreshToken=${refreshToken}` : null,
-  ]
-    .filter(Boolean)
-    .join('; ');
-
   const instance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_SERVER_URL}`,
     timeout: API_TIMEOUT,
     headers: {
       ...API_HEADERS.JSON,
-      ...(cookieHeader && { Cookie: cookieHeader }),
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
     },
   });
 
@@ -87,15 +80,11 @@ export const createPrivateServerInstance = async (): Promise<AxiosInstance> => {
         console.log('새 accessToken:', newAccessToken);
 
         if (newAccessToken) {
-          const cookieHeader = [
-            `accessToken=${newAccessToken}`,
-            refreshToken ? `refreshToken=${refreshToken}` : null,
-          ]
-            .filter(Boolean)
-            .join('; ');
-
-          originalRequest.headers.Cookie = cookieHeader;
-          console.log('재요청 Cookie 헤더:', originalRequest.headers.Cookie);
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          console.log(
+            '재요청 Authorization 헤더:',
+            originalRequest.headers.Authorization,
+          );
 
           return instance(originalRequest);
         }
