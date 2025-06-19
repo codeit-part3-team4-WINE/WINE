@@ -5,7 +5,6 @@ import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import WineCard from '../../components/Card/WineCard';
 import LoadMoreButton from '../../components/LoadMoreBtn';
 import Nothing from '../../components/Nothing';
-import Tab from '../../components/Tab';
 
 interface Wine {
   id: number;
@@ -31,7 +30,6 @@ export default async function Wines() {
   if (!Array.isArray(wines) || wines.length === 0) {
     return (
       <div>
-        <Tab totalCount={0} />
         <div className='mt-[5rem] flex items-center justify-center'>
           <Nothing type='wine' />
         </div>
@@ -40,8 +38,10 @@ export default async function Wines() {
   }
 
   return (
-    <div className='flex flex-col'>
-      <Tab totalCount={data.totalCount} />
+    <div className='relative flex flex-col'>
+      <span className='text-primary-100 absolute top-[-5.2rem] right-0 shrink-0 text-xs font-medium'>
+        총{data.totalCount}개
+      </span>
       <div className='flex flex-col gap-10'>
         {wines.map((wine: Wine) => (
           <Link key={wine.id} href={`/wines/${wine.id}`}>
