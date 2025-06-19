@@ -15,6 +15,11 @@ import {
   ModalFooter,
   ModalTrigger,
 } from '@/components/Modal';
+import {
+  ALLOWED_IMAGE_TYPES,
+  MAX_IMAGE_SIZE,
+} from '@/constants/fileValidation';
+import useUserStore from '@/stores/Auth-store/authStore';
 
 import { UserProfile } from '../../action/user-action';
 import ProfileChangeForm from './ProfileChangeForm';
@@ -69,6 +74,9 @@ export default function ProfileChangeModal({
   // 프로필 변경 처리 로딩 상태
   const [loading, setLoading] = useState(false);
 
+  // 현재 선택된 새 프로필 이미지 파일 (서버 전송용, 업로드 버튼 클릭 시 사용됨)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   // 사용자 이미지가 DEFAULT_IMAGE인 경우 삭제 버튼을 렌더링 하지 않기 위한 변수
   const isDeletable = originalImageUrl !== DEFAULT_IMAGE_URL;
 
@@ -84,31 +92,27 @@ export default function ProfileChangeModal({
    * @param file 선택된 이미지 파일
    */
   const handleImageChange = async (file: File) => {
-    const form = new FormData();
-    form.append('file', file);
-
-    try {
-      const res = await privateInstance.post('/images/upload', form, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      const { url } = res.data;
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
-      const objectUrl = URL.createObjectURL(file);
-      setPreviewUrl(objectUrl);
-      setImageUrl(url); // 서버 전송용
-      setDisplayUrl(objectUrl); // 미리보기용
-      setImgState('preview');
-    } catch (err) {
-      console.error('이미지 업로드 실패:', err);
-      alert('이미지 업로드에 실패했습니다.');
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
-      setPreviewUrl(null);
-      setImageUrl(typeof user.image === 'string' ? user.image : '');
-      setDisplayUrl(
-        typeof user.image === 'string' ? user.image : DEFAULT_PROFILE_IMG,
-      );
+    // 5MB 제한
+    if (file.size > MAX_IMAGE_SIZE) {
+      alert('5MB 이하 이미지만 업로드 가능합니다.');
+      return;
     }
+
+    // 확장자 제한
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      alert('지원하지 않는 파일 형식입니다. (jpg, png, webp만 가능)');
+      return;
+    }
+
+    // 기존 미리보기 URL revoke
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+
+    // 새 미리보기 URL 생성
+    const objectUrl = URL.createObjectURL(file);
+    setPreviewUrl(objectUrl);
+    setSelectedFile(file);
+    setDisplayUrl(objectUrl);
+    setImgState('preview');
   };
 
   /**
@@ -119,6 +123,7 @@ export default function ProfileChangeModal({
   const handleDeleteImage = () => {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(null);
+    setSelectedFile(null);
 
     setImageUrl(DEFAULT_IMAGE_URL); // 서버 전송용 실제 URL
     setDisplayUrl(DEFAULT_PROFILE_IMG); // 미리보기용
@@ -132,6 +137,8 @@ export default function ProfileChangeModal({
   const handleResetImage = () => {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(null);
+    setSelectedFile(null);
+
     const original = typeof user.image === 'string' ? user.image : '';
     setImageUrl(original);
     setDisplayUrl(original || DEFAULT_PROFILE_IMG);
@@ -146,24 +153,52 @@ export default function ProfileChangeModal({
     const nicknameChanged = nickname.trim() !== originalNickname.trim();
 
     const imageChanged =
+      selectedFile !== null ||
       imageUrl.trim() !==
-      (typeof originalImageUrl === 'string' ? originalImageUrl.trim() : '');
+        (typeof originalImageUrl === 'string' ? originalImageUrl.trim() : '');
 
     if (!nicknameChanged && !imageChanged) {
       alert('변경된 항목이 없습니다.');
       return;
     }
 
-    const payload: { nickname?: string; image?: string } = {};
-    if (nicknameChanged) payload.nickname = nickname;
-    if (imageChanged) payload.image = imageUrl;
+    setLoading(true);
 
     try {
-      setLoading(true);
+      let newImageUrl = imageUrl;
+
+      // 이미지 변경 시 업로드
+      if (selectedFile) {
+        const form = new FormData();
+        form.append('file', selectedFile);
+
+        const res = await privateInstance.post('/images/upload', form, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        newImageUrl = res.data.url;
+      }
+
+      // 변경된 데이터 payload 구성
+      const payload: { nickname?: string; image?: string } = {};
+      if (nicknameChanged) payload.nickname = nickname;
+      if (imageChanged) payload.image = newImageUrl;
+
       const result = await UserProfile(payload);
-      setLoading(false);
 
       if (result?.success) {
+        // 프로필 변경 사항을 user store에 반영
+        const setUser = useUserStore.getState().setUser;
+
+        setUser({
+          ...useUserStore.getState().user!,
+          nickname: nicknameChanged
+            ? nickname
+            : useUserStore.getState().user!.nickname,
+          image: imageChanged
+            ? newImageUrl
+            : useUserStore.getState().user!.image,
+        });
+
         if (nicknameChanged && imageChanged) {
           alert('닉네임과 이미지가 변경되었습니다.');
         } else if (nicknameChanged) {
@@ -171,13 +206,18 @@ export default function ProfileChangeModal({
         } else if (imageChanged) {
           alert('이미지가 변경되었습니다.');
         }
+
         router.refresh();
       } else {
-        alert('프로필 변경에 실패했습니다.');
+        if (result.message === '이미 사용중인 닉네임입니다.') {
+          alert(result.message);
+        } else {
+          alert('프로필 변경에 실패했습니다.');
+        }
       }
     } catch (err) {
       console.error(err);
-      alert('오류가 발생했습니다.');
+    } finally {
       setLoading(false);
     }
   };

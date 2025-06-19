@@ -6,6 +6,10 @@ import { useEffect, useState } from 'react';
 import TriangleArrowIcon from '@/app/assets/icons/triangle-arrow';
 import FileUpload from '@/app/assets/svgs/wine-modal-file-upload.svg';
 import InputFile from '@/components/Inputs/InputFile';
+import {
+  ALLOWED_IMAGE_TYPES,
+  MAX_IMAGE_SIZE,
+} from '@/constants/fileValidation';
 import { cn } from '@/libs/cn';
 
 import InputPair from '../../Inputs/InputPair';
@@ -37,9 +41,6 @@ const DEFAULT_DATA: WineFormData = {
   price: 0,
   type: 'RED',
 };
-
-const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
 /**
  * WineForm 컴포넌트
