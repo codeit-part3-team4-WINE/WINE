@@ -85,6 +85,8 @@ export async function SignUp(
           return { error: new PasswordValidateError().message };
         case '이미 사용중인 이메일입니다.':
           return { error: new DuplicateEmailError().message };
+        case 'Internal Server Error':
+          return { error: new InternalServerError().message };
         default:
           return { error: serverMsg || '회원가입 실패' };
       }
