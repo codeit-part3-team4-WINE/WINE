@@ -45,7 +45,7 @@ export default function ReviewCardSkeleton() {
           {Array.from({ length: 4 }).map((_, index) => (
             <div key={index} className='flex w-full items-center gap-4'>
               {/* 라벨 영역 */}
-              <div className='h-7 w-30 rounded rounded-xl bg-gray-200' />
+              <div className='h-7 w-30 rounded-xl bg-gray-200' />
               <div className='h-5 w-25 rounded bg-gray-200' />
 
               {/* 슬라이더 트랙 */}

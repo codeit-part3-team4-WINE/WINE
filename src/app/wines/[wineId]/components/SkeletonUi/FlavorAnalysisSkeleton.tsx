@@ -12,7 +12,7 @@ export default function FlavorAnalysisSkeleton() {
         {Array.from({ length: 4 }).map((_, index) => (
           <div key={index} className='flex w-full items-center gap-4'>
             {/* 라벨 영역 */}
-            <div className='h-7 w-30 animate-pulse rounded rounded-xl bg-gray-200' />
+            <div className='h-7 w-30 animate-pulse rounded-xl bg-gray-200' />
             <div className='h-5 w-25 animate-pulse rounded bg-gray-200' />
 
             {/* 슬라이더 트랙 */}
