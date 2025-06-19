@@ -13,9 +13,20 @@ interface Wine {
   type: string;
 }
 
-export default function CardDropdown({ wine }: { wine?: Wine }) {
+interface CardDropdownProps {
+  wine?: Wine;
+  onDeleteClick: () => void;
+}
+
+export default function CardDropdown({
+  wine,
+  onDeleteClick,
+}: CardDropdownProps) {
   const [wineIsOpen, setWineIsOpen] = useState(false);
-  const handleDelete = () => console.log('삭제');
+  const handleDelete = () => {
+    console.log('삭제'); // 기존 로그 유지
+    onDeleteClick(); // 부모에서 넘긴 모달 열기 실행
+  };
   return (
     <>
       <Dropdown>

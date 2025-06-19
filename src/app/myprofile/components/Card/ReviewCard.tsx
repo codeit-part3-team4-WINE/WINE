@@ -33,7 +33,7 @@ export default function ReviewCard({
           <StarBadge rating={rating} />
           <span className='text-md text-gray-500'>{agoTime}</span>
         </div>
-        <CardDropdown />
+        <CardDropdown onDeleteClick={() => {}} />
       </div>
       <div className='flex flex-col gap-[1rem]'>
         <div className='text-md text-gray-500 xl:text-lg'>{wine}</div>

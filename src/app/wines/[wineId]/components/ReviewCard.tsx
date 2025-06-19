@@ -176,7 +176,12 @@ export default function ReviewCard({
           <p className='text-gray-900'>{content}</p>
         </div>
         <div>
-          <InputRange disabled values={values} onChange={handleChange} />
+          <InputRange
+            disabled
+            className=''
+            values={values}
+            onChange={handleChange}
+          />
         </div>
       </div>
 

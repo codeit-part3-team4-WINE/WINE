@@ -52,6 +52,7 @@ interface ReviewModalProps {
   onSuccess?: () => void;
   onClose?: () => void;
   initialReview?: Review;
+  isOpen: boolean;
 }
 
 export default function ReviewModal({
@@ -60,6 +61,7 @@ export default function ReviewModal({
   onSuccess,
   onClose,
   initialReview,
+  isOpen,
 }: ReviewModalProps) {
   const [values, setValues] = useState({
     lightBold: 5,
@@ -143,7 +145,7 @@ export default function ReviewModal({
     const result = await submitReview(undefined, formData);
 
     if (result.success) {
-      onSuccess?.(); // 부모에서 fetchWine 실행
+      onSuccess?.();
       onClose?.();
     } else {
       setErrorMessage(result.message || '리뷰 등록 중 오류가 발생했습니다.');
@@ -160,74 +162,82 @@ export default function ReviewModal({
       ? '리뷰 수정하기'
       : '리뷰 남기기';
 
+  if (!isOpen) return null;
+
   return (
     <div
       className='fixed inset-0 z-[999] flex items-center justify-center bg-black/50'
       onClick={onClose}
     >
       <div
-        className='w-full max-w-[480px] rounded-xl bg-white p-6'
+        className='max-w-[375px] overflow-hidden rounded-xl bg-white p-6 transition-all duration-300 md:max-w-[520px]'
         onClick={(e) => e.stopPropagation()}
       >
-        <div className='flex justify-between text-xl'>
-          <h2>{reviewId ? '리뷰 수정' : '리뷰 등록'}</h2>
-          <div className='cursor-pointer' onClick={onClose}>
-            <CloseIcon size='30' />
-          </div>
-        </div>
-
-        <div className='mt-6 flex items-center gap-4'>
-          <WineIcon size='40' />
-          <div className='flex flex-col text-xl'>
-            <h2 className='font-semibold'>{wineName || '와인 이름 없음'}</h2>
-            <StarRating size={24} value={rating} onChange={setRating} />
-          </div>
-        </div>
-
-        <div className='mt-4'>
-          <InputTextArea
-            placeholder='후기를 작성해 주세요'
-            size='lg'
-            value={reviewText}
-            onChange={(e) => setReviewText(e.target.value)}
-          />
-        </div>
-
-        <div className='mt-6 flex flex-col gap-4 text-lg'>
-          <h2>와인의 맛은 어땠나요?</h2>
-          <InputRange values={values} onChange={handleChange} />
-        </div>
-
-        <div className='mt-6 flex flex-col gap-4 text-lg'>
-          <h2>기억에 남는 향이 있나요?</h2>
-          <MultiSelect
-            selectedValues={selected}
-            title=''
-            onSelectionChange={(value) => setSelected(value as string[])}
-          >
-            <div className='flex flex-wrap gap-3'>
-              {Object.keys(AROMA_MAP).map((aroma) => (
-                <MultiSelect.Option key={aroma} value={aroma}>
-                  {aroma}
-                </MultiSelect.Option>
-              ))}
+        <div className='max-w-[480px]'>
+          <div className='flex justify-between text-xl'>
+            <h2>{reviewId ? '리뷰 수정' : '리뷰 등록'}</h2>
+            <div className='cursor-pointer' onClick={onClose}>
+              <CloseIcon size='30' />
             </div>
-          </MultiSelect>
-        </div>
+          </div>
 
-        <div className='mt-6'>
-          <Button
-            className='w-full'
-            disabled={isPending}
-            size='lg'
-            variant='primary'
-            onClick={handleSubmit}
-          >
-            {buttonText}
-          </Button>
-          {errorMessage && (
-            <p className='mt-3 text-sm text-red-500'>{errorMessage}</p>
-          )}
+          <div className='mt-6 flex items-center gap-4'>
+            <WineIcon size='40' />
+            <div className='flex flex-col text-xl'>
+              <h2 className='font-semibold'>{wineName || '와인 이름 없음'}</h2>
+              <StarRating size={24} value={rating} onChange={setRating} />
+            </div>
+          </div>
+
+          <div className='mt-4'>
+            <InputTextArea
+              placeholder='후기를 작성해 주세요'
+              size='lg'
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
+            />
+          </div>
+
+          <div className='mt-6 flex flex-col gap-4 text-lg'>
+            <h2>와인의 맛은 어땠나요?</h2>
+            <InputRange
+              className='max-w-[452px]'
+              values={values}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className='mt-6 flex flex-col gap-4 text-lg'>
+            <h2>기억에 남는 향이 있나요?</h2>
+            <MultiSelect
+              selectedValues={selected}
+              title=''
+              onSelectionChange={(value) => setSelected(value as string[])}
+            >
+              <div className='flex flex-wrap gap-3'>
+                {Object.keys(AROMA_MAP).map((aroma) => (
+                  <MultiSelect.Option key={aroma} value={aroma}>
+                    {aroma}
+                  </MultiSelect.Option>
+                ))}
+              </div>
+            </MultiSelect>
+          </div>
+
+          <div className='mt-6'>
+            <Button
+              className='w-full'
+              disabled={isPending}
+              size='lg'
+              variant='primary'
+              onClick={handleSubmit}
+            >
+              {buttonText}
+            </Button>
+            {errorMessage && (
+              <p className='mt-3 text-sm text-red-500'>{errorMessage}</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -173,6 +173,7 @@ export default function WinePage() {
         {isModalOpen && (
           <ReviewModal
             initialReview={selectedReview || undefined}
+            isOpen={isModalOpen}
             wineId={wineInfo?.id || 0}
             wineName={wineInfo?.name || ''}
             onClose={() => {

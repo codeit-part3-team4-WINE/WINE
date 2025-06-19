@@ -21,9 +21,15 @@ export default function StarRating({
     <div className='flex gap-1'>
       {Array.from({ length: max }, (_, i) => {
         const starValue = i + 1;
-        const isActive =
-          hovered !== null ? hovered >= starValue : value >= starValue;
 
+        const color =
+          hovered !== null
+            ? hovered >= starValue
+              ? 'text-yellow-300 opacity-50'
+              : 'text-gray-300'
+            : value >= starValue
+              ? 'text-yellow-300 opacity-100'
+              : 'text-gray-300';
         return (
           <button
             key={starValue}
@@ -34,9 +40,7 @@ export default function StarRating({
             onMouseEnter={() => setHovered(starValue)}
             onMouseLeave={() => setHovered(null)}
           >
-            <span className={isActive ? 'text-yellow-400' : 'text-gray-300'}>
-              ★
-            </span>
+            <span className={color}>★</span>
           </button>
         );
       })}
