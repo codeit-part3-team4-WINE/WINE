@@ -64,7 +64,7 @@ export default function SignUpForm() {
       console.log('state:', state);
       console.log('user:', state.user);
 
-      router.push('/');
+      router.push('/wines');
     }
     if (state.error) {
       console.log(state.error);
@@ -75,7 +75,7 @@ export default function SignUpForm() {
     <div className='flex min-h-screen items-center justify-center px-4 py-12'>
       <div className='w-full max-w-3xl space-y-8 rounded-xl bg-white p-6 shadow-2xl inset-shadow-sm inset-shadow-gray-200 sm:p-8'>
         <div className='py-8 text-center'>
-          <Link aria-label='홈으로 이동' href='/'>
+          <Link aria-label='홈으로 이동' href='/wines'>
             <WineLogoIcon
               className='mx-auto h-12 w-auto cursor-pointer'
               color='#000000'
