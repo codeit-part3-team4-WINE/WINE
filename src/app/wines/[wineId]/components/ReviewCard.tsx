@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { deleteReview } from '@/actions/review';
@@ -8,8 +9,17 @@ import ChevronArrowIcon from '@/app/assets/icons/chevron-arrow';
 import HeartIcon from '@/app/assets/icons/heart';
 import VerticalMoreIcon from '@/app/assets/icons/vertical-more';
 import StarBadge from '@/components/Badge/StarBadge';
+import Button from '@/components/Button';
 import Dropdown from '@/components/Dropdown';
 import InputRange from '@/components/InputRange';
+import {
+  Modal,
+  ModalClose,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '@/components/Modal';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
@@ -23,17 +33,21 @@ interface ReviewCardProps {
   review: ReviewType;
   onEdit?: (review: ReviewType) => void;
   onDelete?: () => void;
+  wineId: number;
 }
 
 export default function ReviewCard({
   review,
   onEdit,
   onDelete,
+  wineId,
 }: ReviewCardProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [isLiked, setIsLiked] = useState(review.isLiked);
   const [isOwner, setIsOwner] = useState(false);
   const userInfo = useUserStore((state) => state.user);
+  const queryClient = useQueryClient();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const {
     id,
@@ -77,18 +91,6 @@ export default function ReviewCard({
 
   const handleEdit = () => {
     onEdit?.(review);
-  };
-
-  const handleDelete = async () => {
-    const confirmed = window.confirm('정말 삭제하시겠습니까?');
-    if (!confirmed) return;
-
-    const result = await deleteReview(id);
-    if (result.success) {
-      onDelete?.();
-    } else {
-      alert(result.message || '리뷰 삭제에 실패했습니다.');
-    }
   };
 
   const handleLike = async () => {
@@ -137,7 +139,9 @@ export default function ReviewCard({
                 </Dropdown.Trigger>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleEdit}>수정하기</Dropdown.Item>
-                  <Dropdown.Item onClick={handleDelete}>삭제하기</Dropdown.Item>
+                  <Dropdown.Item onClick={() => setIsDeleteModalOpen(true)}>
+                    삭제하기
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -184,6 +188,54 @@ export default function ReviewCard({
           <ChevronArrowIcon direction={isOpen ? 'top' : 'bottom'} />
         </div>
       </div>
+      {isDeleteModalOpen && (
+        <Modal
+          externalIsOpen={isDeleteModalOpen}
+          onExternalChange={setIsDeleteModalOpen}
+        >
+          <ModalContent
+            className='flex w-[35rem] flex-col items-center'
+            variant='confirm'
+          >
+            <ModalHeader>
+              <ModalTitle className='py-8 font-medium'>
+                정말 삭제하시겠습니까?
+              </ModalTitle>
+            </ModalHeader>
+            <ModalFooter>
+              <ModalClose asChild>
+                <Button
+                  className='flex-1'
+                  size='sm'
+                  variant='outline'
+                  onClick={() => setIsDeleteModalOpen(false)}
+                >
+                  취소
+                </Button>
+              </ModalClose>
+              <Button
+                className='flex-1'
+                size='sm'
+                variant='primary'
+                onClick={async () => {
+                  const result = await deleteReview(id);
+                  if (result.success) {
+                    queryClient.invalidateQueries({
+                      queryKey: ['wine', wineId],
+                    });
+                    setIsDeleteModalOpen(false);
+                    onDelete?.();
+                  } else {
+                    alert(result.message || '리뷰 삭제에 실패했습니다.');
+                  }
+                }}
+              >
+                삭제하기
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </div>
   );
 }
