@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 
-export default function Tab({ totalCount }: { totalCount: number }) {
+export default function Tab({ totalCount }: { totalCount?: number }) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -28,9 +28,11 @@ export default function Tab({ totalCount }: { totalCount: number }) {
           </button>
         ))}
       </div>
-      <p className='text-primary-100 shrink-0 text-xs font-medium'>
-        총{totalCount}개
-      </p>
+      {totalCount !== undefined && (
+        <p className='text-primary-100 shrink-0 text-xs font-medium'>
+          총{totalCount}개
+        </p>
+      )}
     </nav>
   );
 }

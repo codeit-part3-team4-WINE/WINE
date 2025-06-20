@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 import Nothing from '@/app/myprofile/components/Nothing';
@@ -7,9 +8,10 @@ import Tab from '@/app/myprofile/components/Tab';
 import ReviewCard from '@/app/wines/[wineId]/components/ReviewCard';
 import Button from '@/components/Button';
 
-import SkeletonFavorite from './SkeletionFavorite';
+import SkeletonFavorite from './SkeletonFavorite';
 
 interface Review {
+  wineId: number;
   id: number;
   rating: number;
   aroma: string[];
@@ -41,21 +43,6 @@ export default function FavoriteContent({
     setVisibleCount((prev) => prev + 5);
   };
 
-  // if (isLoading) {
-  //   return <SkeletonFavorite />;
-  // }
-
-  // if (!Array.isArray(likedReviews) || likedReviews.length === 0) {
-  //   return (
-  //     <div>
-  //       <Tab totalCount={0} />
-  //       <div className='mt-[5rem] flex items-center justify-center'>
-  //         <Nothing type='favorite' />
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   const visibleReviews = likedReviews.slice(0, visibleCount);
 
   return (
@@ -72,7 +59,9 @@ export default function FavoriteContent({
         <>
           <div className='flex flex-col gap-10'>
             {visibleReviews.map((review) => (
-              <ReviewCard key={review.id} review={review} />
+              <Link href={`/wines/${review.wineId}`}>
+                <ReviewCard key={review.id} review={review} />
+              </Link>
             ))}
           </div>
 
