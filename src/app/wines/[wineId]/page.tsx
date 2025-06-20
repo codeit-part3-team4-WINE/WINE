@@ -26,7 +26,7 @@ export default function WinePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
   const [selectedReview, setSelectedReview] = useState<
-    (ReviewType & { reviewText: string }) | null
+    (ReviewType & { reviewText: string; wineId: number }) | null
   >(null);
 
   const {
@@ -66,6 +66,7 @@ export default function WinePage() {
     setSelectedReview({
       ...review,
       reviewText: review.content,
+      wineId: wineInfo?.id ?? 0,
     });
     setIsModalOpen(true);
   };
