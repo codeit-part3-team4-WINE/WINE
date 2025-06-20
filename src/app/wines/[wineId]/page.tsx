@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
-import ReviewModal from '@/components/ReviewModal';
+import ReviewModal from '@/components/Modals/ReviewModal/ReviewModal';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
@@ -170,12 +170,9 @@ export default function WinePage() {
           <ReviewModal
             initialReview={selectedReview || undefined}
             isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
             wineId={wineInfo?.id || 0}
             wineName={wineInfo?.name || ''}
-            onClose={() => {
-              setIsModalOpen(false);
-              setSelectedReview(null);
-            }}
             onSuccess={() => {
               queryClient.invalidateQueries({ queryKey: ['wine', wineId] });
               setIsModalOpen(false);

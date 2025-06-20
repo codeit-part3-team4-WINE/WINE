@@ -3,14 +3,19 @@
 import { useEffect, useState } from 'react';
 
 import { submitReview } from '@/actions/review';
-import CloseIcon from '@/app/assets/icons/close';
 import WineIcon from '@/app/assets/icons/wine';
 import Button from '@/components/Button';
 import InputRange from '@/components/InputRange';
 import InputTextArea from '@/components/InputTextArea';
+import Modal from '@/components/Modal/Modal';
+import ModalBody from '@/components/Modal/ModalBody';
+import ModalClose from '@/components/Modal/ModalClose';
+import ModalContent from '@/components/Modal/ModalContent';
+import ModalFooter from '@/components/Modal/ModalFooter';
+import ModalHeader from '@/components/Modal/ModalHeader';
+import ModalTitle from '@/components/Modal/ModalTitle';
 import MultiSelect from '@/components/MultiSelect';
-
-import StarRating from './StarRating';
+import StarRating from '@/components/StarRating';
 
 export const AROMA_MAP: Record<string, string> = {
   체리: 'CHERRY',
@@ -50,18 +55,17 @@ interface ReviewModalProps {
   wineId: number;
   wineName: string;
   onSuccess?: () => void;
-  onClose?: () => void;
   initialReview?: Review;
   isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 export default function ReviewModal({
+  isOpen,
+  setIsOpen,
   wineId,
   wineName,
   onSuccess,
-  onClose,
   initialReview,
-  isOpen,
 }: ReviewModalProps) {
   const [values, setValues] = useState({
     lightBold: 5,
@@ -146,7 +150,7 @@ export default function ReviewModal({
 
     if (result.success) {
       onSuccess?.();
-      onClose?.();
+      setIsOpen(false);
     } else {
       setErrorMessage(result.message || '리뷰 등록 중 오류가 발생했습니다.');
     }
@@ -154,33 +158,13 @@ export default function ReviewModal({
     setIsPending(false);
   };
 
-  const buttonText = isPending
-    ? reviewId
-      ? '수정 중...'
-      : '등록 중...'
-    : reviewId
-      ? '리뷰 수정하기'
-      : '리뷰 남기기';
-
-  if (!isOpen) return null;
-
   return (
-    <div
-      className='fixed inset-0 z-[999] flex items-center justify-center bg-black/50'
-      onClick={onClose}
-    >
-      <div
-        className='max-w-[375px] overflow-hidden rounded-xl bg-white p-6 transition-all duration-300 md:max-w-[520px]'
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className='max-w-[480px]'>
-          <div className='flex justify-between text-xl'>
-            <h2>{reviewId ? '리뷰 수정' : '리뷰 등록'}</h2>
-            <div className='cursor-pointer' onClick={onClose}>
-              <CloseIcon size='30' />
-            </div>
-          </div>
-
+    <Modal externalIsOpen={isOpen} onExternalChange={setIsOpen}>
+      <ModalContent className='xl:max-w-[50rem]'>
+        <ModalHeader>
+          <ModalTitle> {reviewId ? '리뷰 수정' : '리뷰 등록'}</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
           <div className='mt-6 flex items-center gap-4'>
             <WineIcon size='40' />
             <div className='flex flex-col text-xl'>
@@ -223,23 +207,36 @@ export default function ReviewModal({
               </div>
             </MultiSelect>
           </div>
+          {errorMessage && (
+            <p className='mt-3 text-sm text-red-500'>{errorMessage}</p>
+          )}
+        </ModalBody>
+        <ModalFooter>
+          <ModalClose />
 
-          <div className='mt-6'>
+          <ModalClose asChild>
             <Button
-              className='w-full'
-              disabled={isPending}
-              size='lg'
-              variant='primary'
-              onClick={handleSubmit}
+              className='flex-1'
+              loading={isPending}
+              size='sm'
+              variant='secondary'
+              onClick={() => setIsOpen(false)}
             >
-              {buttonText}
+              취소
             </Button>
-            {errorMessage && (
-              <p className='mt-3 text-sm text-red-500'>{errorMessage}</p>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+          </ModalClose>
+
+          <Button
+            className='flex-2'
+            loading={isPending}
+            size='sm'
+            variant='primary'
+            onClick={handleSubmit}
+          >
+            {reviewId ? '리뷰 수정' : '리뷰 등록'}
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
