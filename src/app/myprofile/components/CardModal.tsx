@@ -30,12 +30,8 @@ export default function Modal({ children }: { children: ReactNode }) {
 
       // 모달이 열리면 배경 페이지 스크롤을 비활성화
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     }
-
-    return () => {
-      // 모달이 닫히면 스크롤을 다시 활성화
-      document.body.style.overflow = '';
-    };
   }, []);
 
   /**
@@ -43,6 +39,8 @@ export default function Modal({ children }: { children: ReactNode }) {
    * - router.back()을 호출하여 이전 페이지로 이동
    */
   const handleClose = () => {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
     router.back();
   };
 
@@ -52,7 +50,7 @@ export default function Modal({ children }: { children: ReactNode }) {
       className='scrollbar-none fixed top-1/2 left-1/2 z-50 h-full w-[90vw] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border-0 p-10 shadow-xl backdrop:bg-[rgba(0,0,0,0.7)] md:w-[80vw] md:p-20'
       onClick={(e) => {
         if ((e.target as HTMLElement).nodeName === 'DIALOG') {
-          router.back();
+          handleClose();
         }
       }}
       onClose={() => router.back()}
