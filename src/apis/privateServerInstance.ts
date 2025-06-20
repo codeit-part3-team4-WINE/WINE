@@ -81,10 +81,6 @@ export const createPrivateServerInstance = async (): Promise<AxiosInstance> => {
 
         if (newAccessToken) {
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-          console.log(
-            '재요청 Authorization 헤더:',
-            originalRequest.headers.Authorization,
-          );
 
           return instance(originalRequest);
         }
