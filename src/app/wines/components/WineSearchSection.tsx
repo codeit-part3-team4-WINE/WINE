@@ -50,7 +50,7 @@ export default function WineSearchSection() {
     const params = {
       limit: 10,
       cursor: pageParam || 0,
-      name: filters.searchQuery || null,
+      name: filters.searchQuery?.trim() || null,
       rating: filters.selectedRating || null,
       type: filters.selectedWineType || null,
       minPrice: filters.selectedMinPrice || null,

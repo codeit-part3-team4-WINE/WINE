@@ -41,7 +41,7 @@ export default function Header() {
     <div>
       <header className='mt-7 h-[5rem] rounded-2xl bg-[#101318] text-white md:h-[7rem]'>
         <div className='flex h-full items-center justify-between px-[4rem] md:px-[8rem]'>
-          <Link aria-label='홈으로 이동' href='/'>
+          <Link aria-label='wines 이동' href='/wines'>
             <WineLogoIcon className='cursor-pointer' />
           </Link>
 
