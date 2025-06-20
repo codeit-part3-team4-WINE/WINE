@@ -1,3 +1,5 @@
+'use client';
+
 import StarBadge from '@/components/Badge/StarBadge';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 
