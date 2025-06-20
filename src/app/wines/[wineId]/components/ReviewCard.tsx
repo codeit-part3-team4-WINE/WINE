@@ -61,23 +61,24 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
   const handleLike = async () => {
     setIsLiked(!isLiked);
   };
-  const performServerRequest = async () => {
-    try {
-      if (debouncedIsLiked) {
-        await privateInstance.post(`/wines/${id}/like`);
-      } else {
-        await privateInstance.delete(`/wines/${id}/like`);
-      }
-    } catch {
-      setIsLiked(review.isLiked);
-    }
-  };
 
   useEffect(() => {
+    const performServerRequest = async () => {
+      try {
+        if (debouncedIsLiked) {
+          await privateInstance.post(`/wines/${id}/like`);
+        } else {
+          await privateInstance.delete(`/wines/${id}/like`);
+        }
+      } catch {
+        setIsLiked(review.isLiked);
+      }
+    };
+
     if (debouncedIsLiked !== review.isLiked) {
       performServerRequest();
     }
-  }, [debouncedIsLiked]);
+  }, [debouncedIsLiked, review.isLiked, id]);
 
   useEffect(() => {
     if (userInfo?.id === user.id) {
