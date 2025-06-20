@@ -9,6 +9,7 @@ import StarBadge from '@/components/Badge/StarBadge';
 import Dropdown from '@/components/Dropdown';
 import InputRange from '@/components/InputRange';
 import ProfileImg from '@/components/ProfileImg';
+import useDebounce from '@/hooks/useDebounce';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
 import { getTimeAgo } from '@/utils/getTimeAgo';
@@ -23,6 +24,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
   const [isLiked, setIsLiked] = useState(review.isLiked);
   const userInfo = useUserStore((state) => state.user);
   const [isOwner, setIsOwner] = useState(false);
+  const debouncedIsLiked = useDebounce(isLiked, 1000);
 
   const {
     id,
@@ -52,28 +54,37 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
     softAcidic,
   });
 
-  useEffect(() => {
-    if (userInfo?.id === user.id) {
-      setIsOwner(true);
-    }
-  }, [userInfo?.id, user?.id]);
-
   const handleChange = (name: keyof typeof values, value: number) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleLike = async () => {
-    try {
-      if (isLiked) {
-        await privateInstance.delete(`/wines/${id}/like`);
-      } else {
-        await privateInstance.post(`/wines/${id}/like`);
-      }
-      setIsLiked(!isLiked);
-    } catch (error) {
-      console.error('Like post error:', error); // 토스트로 변경
-    }
+    setIsLiked(!isLiked);
   };
+
+  useEffect(() => {
+    const performServerRequest = async () => {
+      try {
+        if (debouncedIsLiked) {
+          await privateInstance.post(`/wines/${id}/like`);
+        } else {
+          await privateInstance.delete(`/wines/${id}/like`);
+        }
+      } catch {
+        setIsLiked(review.isLiked);
+      }
+    };
+
+    if (debouncedIsLiked !== review.isLiked) {
+      performServerRequest();
+    }
+  }, [debouncedIsLiked, review.isLiked, id]);
+
+  useEffect(() => {
+    if (userInfo?.id === user.id) {
+      setIsOwner(true);
+    }
+  }, [userInfo?.id, user?.id]);
 
   return (
     <div className='relative flex flex-col gap-5 rounded-2xl border border-gray-300 p-10'>
@@ -89,7 +100,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
           <div className='group size-[3.8rem]' onClick={handleLike}>
             <HeartIcon
               className={cn(
-                'cursor-pointer transition-all group-hover:fill-red-400 group-hover:stroke-red-400 hover:animate-pulse',
+                'cursor-pointer transition-all group-hover:stroke-red-400 hover:animate-pulse',
                 isLiked && 'fill-red-400 stroke-red-400',
               )}
             />
