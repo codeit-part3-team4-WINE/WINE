@@ -30,7 +30,7 @@ interface Review {
   isLiked: boolean;
 }
 
-export default function Favorite() {
+export default function Favorite({ modal }: { modal: React.ReactNode }) {
   const [likedReviews, setLikedReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -75,5 +75,10 @@ export default function Favorite() {
     fetchLikedReviews();
   }, []);
 
-  return <FavoriteContent isLoading={isLoading} likedReviews={likedReviews} />;
+  return (
+    <>
+      <FavoriteContent isLoading={isLoading} likedReviews={likedReviews} />
+      {modal}
+    </>
+  );
 }
