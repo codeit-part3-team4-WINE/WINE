@@ -22,7 +22,7 @@ interface Review {
   };
 }
 
-export default async function Reviews({ modal }: { modal: React.ReactNode }) {
+export default async function Reviews() {
   const axios = await createPrivateServerInstance();
 
   const { data } = await axios.get('/users/me/reviews', {
@@ -62,7 +62,6 @@ export default async function Reviews({ modal }: { modal: React.ReactNode }) {
         ))}
       </div>
       <LoadMoreButton initialCursor={data.nextCursor} type='review' />
-      {modal}
     </div>
   );
 }

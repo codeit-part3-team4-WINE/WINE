@@ -16,7 +16,7 @@ interface Wine {
   type: string;
 }
 
-export default async function Wines({ modal }: { modal: React.ReactNode }) {
+export default async function Wines() {
   const axios = await createPrivateServerInstance();
 
   const { data } = await axios.get('/users/me/wines', {
@@ -50,7 +50,6 @@ export default async function Wines({ modal }: { modal: React.ReactNode }) {
         ))}
       </div>
       <LoadMoreButton initialCursor={data.nextCursor} type='wine' />
-      {modal}
     </div>
   );
 }
