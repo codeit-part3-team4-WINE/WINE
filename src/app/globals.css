@@ -114,6 +114,15 @@
     scrollbar-width: thin;
   }
 
+  .scrollbar-none {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
   .range-slider {
     @apply absolute -top-[0.6rem] h-2 w-full appearance-none bg-transparent md:-top-[0.7rem];
     pointer-events: none;
