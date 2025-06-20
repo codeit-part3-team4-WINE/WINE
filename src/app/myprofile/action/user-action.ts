@@ -1,5 +1,7 @@
 'use server';
 
+import { AxiosError } from 'axios';
+
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 
 type UserProfileResult = {
@@ -22,6 +24,14 @@ export async function UserProfile(data: {
     return { success: true };
   } catch (error) {
     console.error('프로필 업데이트 실패:', error);
-    return { success: false, message: '프로필 업데이트 실패' };
+
+    const axiosError = error as AxiosError<{ message?: string }>;
+
+    const serverMessage = axiosError.response?.data?.message;
+
+    return {
+      success: false,
+      message: serverMessage || '프로필 업데이트 실패',
+    };
   }
 }
