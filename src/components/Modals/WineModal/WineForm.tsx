@@ -64,6 +64,7 @@ export default function WineForm({
   );
 
   const [priceError, setPriceError] = useState('');
+  const [imgError, setImgError] = useState('');
 
   // 이미지 미리보기를 위한 src 설정
   const imageSrc =
@@ -111,34 +112,14 @@ export default function WineForm({
     }
   };
 
-  // const handleUploadFile = async (file: File) => {
-  //   const form = new FormData();
-  //   form.append('file', file);
-
-  //   try {
-  //     const res = await privateInstance.post('/images/upload', form, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-
-  //     const { url } = res.data;
-
-  //     setFormData((prev) => ({ ...prev, image: url }));
-  //   } catch (err) {
-  //     console.error('이미지 업로드 실패:', err);
-  //     alert('이미지 업로드에 실패했습니다.');
-  //   }
-  // };
-
   const handleFileChange = (file: File) => {
     if (file.size > MAX_IMAGE_SIZE) {
-      alert('이미지 용량은 5MB 이하만 업로드 가능합니다.');
+      setImgError('이미지 용량은 5MB 이하만 업로드 가능합니다.');
       return;
     }
 
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      alert('지원하지 않는 파일 형식입니다. (jpg, png, webp만 가능)');
+      setImgError('지원하지 않는 파일 형식입니다. (jpg, png, webp만 가능)');
       return;
     }
 
@@ -229,6 +210,9 @@ export default function WineForm({
             <Image fill alt='사진을 업로드 해주세요' src={FileUpload} />
           )}
         </div>
+        {imgError && (
+          <p className='mt-1 ml-2 text-sm text-red-500'>{imgError}</p>
+        )}
       </InputFile>
     </form>
   );
