@@ -145,7 +145,7 @@ export default function LoginForm() {
                 onClick={handleKakaoLogin}
               >
                 <KakaoLoginIcon size={20} />
-                Kakao로 시작하기
+                Kakao로 로그인하기
               </Button>
             </div>
 

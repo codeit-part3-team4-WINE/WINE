@@ -6,6 +6,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useActionState } from 'react';
 
+import KakaoLoginIcon from '@/app/assets/icons/kakao-login';
 import WineLogoIcon from '@/app/assets/icons/wine-logo';
 import { SignUp } from '@/app/signup/action';
 import Button from '@/components/Button';
@@ -70,6 +71,12 @@ export default function SignUpForm() {
       console.log(state.error);
     }
   }, [state, setUser, router]);
+
+  const handleKakaoLogin = () => {
+    const redirectUrl = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL ?? '';
+    const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUrl)}&response_type=code`;
+    window.location.href = kakaoAuthUrl;
+  };
 
   return (
     <div className='flex min-h-screen items-center justify-center px-4 py-12'>
@@ -175,6 +182,19 @@ export default function SignUpForm() {
                 onClick={() => {}}
               >
                 회원가입
+              </Button>
+            </div>
+
+            <div className='mt-[2rem] flex items-center justify-center'>
+              <Button
+                className='w-full bg-yellow-300'
+                round='rounded'
+                size='lg'
+                variant='outline'
+                onClick={handleKakaoLogin}
+              >
+                <KakaoLoginIcon size={20} />
+                Kakao로 시작하기
               </Button>
             </div>
             <div className='mt-[4rem] flex items-center justify-center'>
