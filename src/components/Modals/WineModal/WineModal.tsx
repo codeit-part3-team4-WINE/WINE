@@ -153,32 +153,27 @@ export default function WineModal({
         </ModalBody>
         <ModalFooter>
           <ModalClose />
-          <div className='flex w-full justify-between'>
-            <div className='w-[3rem]'>
-              <ModalClose asChild>
-                <Button
-                  className='w-[10.8rem] md:w-[9rem] xl:w-[10rem]'
-                  disabled={isLoading}
-                  variant='secondary'
-                  onClick={() => setIsOpen(false)}
-                >
-                  취소
-                </Button>
-              </ModalClose>
-            </div>
-            <div>
-              <Button
-                className='w-[27rem] md:w-[24rem] xl:w-[35rem]'
-                loading={isLoading}
-                variant='primary'
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                {isLoading ? '처리 중...' : wineData ? '수정하기' : '등록하기'}
-              </Button>
-            </div>
-          </div>
+          <ModalClose asChild>
+            <Button
+              className='w-[10.8rem] flex-1 md:w-[9rem] xl:w-[10rem]'
+              disabled={isLoading}
+              variant='secondary'
+              onClick={() => setIsOpen(false)}
+            >
+              취소
+            </Button>
+          </ModalClose>
+
+          <Button
+            className='w-[27rem] flex-2 md:w-[24rem] xl:w-[35rem]'
+            loading={isLoading}
+            variant='primary'
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            {isLoading ? '처리 중...' : wineData ? '수정하기' : '등록하기'}
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
