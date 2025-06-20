@@ -9,17 +9,9 @@ import ChevronArrowIcon from '@/app/assets/icons/chevron-arrow';
 import HeartIcon from '@/app/assets/icons/heart';
 import VerticalMoreIcon from '@/app/assets/icons/vertical-more';
 import StarBadge from '@/components/Badge/StarBadge';
-import Button from '@/components/Button';
+import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
 import Dropdown from '@/components/Dropdown';
 import InputRange from '@/components/InputRange';
-import {
-  Modal,
-  ModalClose,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-} from '@/components/Modal';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
@@ -194,52 +186,20 @@ export default function ReviewCard({
         </div>
       </div>
       {isDeleteModalOpen && (
-        <Modal
-          externalIsOpen={isDeleteModalOpen}
-          onExternalChange={setIsDeleteModalOpen}
-        >
-          <ModalContent
-            className='flex w-[35rem] flex-col items-center'
-            variant='confirm'
-          >
-            <ModalHeader>
-              <ModalTitle className='py-8 font-medium'>
-                정말 삭제하시겠습니까?
-              </ModalTitle>
-            </ModalHeader>
-            <ModalFooter>
-              <ModalClose asChild>
-                <Button
-                  className='flex-1'
-                  size='sm'
-                  variant='outline'
-                  onClick={() => setIsDeleteModalOpen(false)}
-                >
-                  취소
-                </Button>
-              </ModalClose>
-              <Button
-                className='flex-1'
-                size='sm'
-                variant='primary'
-                onClick={async () => {
-                  const result = await deleteReview(id);
-                  if (result.success) {
-                    queryClient.invalidateQueries({
-                      queryKey: ['wine', wineId],
-                    });
-                    setIsDeleteModalOpen(false);
-                    onDelete?.();
-                  } else {
-                    alert(result.message || '리뷰 삭제에 실패했습니다.');
-                  }
-                }}
-              >
-                삭제하기
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <ConfirmDeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={async () => {
+            const result = await deleteReview(review.id);
+            if (result === null) {
+              queryClient.invalidateQueries({ queryKey: ['wine', wineId] });
+              onDelete?.(); // 선택적으로 콜백 실행
+              setIsDeleteModalOpen(false);
+            } else {
+              alert(result);
+            }
+          }}
+        />
       )}
     </div>
   );

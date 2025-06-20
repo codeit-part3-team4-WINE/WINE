@@ -1,21 +1,12 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { deleteWine } from '@/actions/wine';
 import PriceBadge from '@/components/Badge/PriceBadge';
-import Button from '@/components/Button';
-import {
-  Modal,
-  ModalClose,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-} from '@/components/Modal';
+import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
 import { cn } from '@/libs/cn';
 
 import CardDropdown from './CardDropdown';
@@ -49,7 +40,6 @@ export default function WineCard({
   isDropdown = true,
 }: WineCardProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const queryClient = useQueryClient();
   const router = useRouter();
   return (
     <article
@@ -86,50 +76,20 @@ export default function WineCard({
         </div>
       )}
       {isDeleteModalOpen && (
-        <Modal
-          externalIsOpen={isDeleteModalOpen}
-          onExternalChange={setIsDeleteModalOpen}
-        >
-          <ModalContent
-            className='flex w-[35rem] flex-col items-center'
-            variant='confirm'
-          >
-            <ModalHeader>
-              <ModalTitle className='py-8 font-medium'>
-                정말 삭제하시겠습니까?
-              </ModalTitle>
-            </ModalHeader>
-            <ModalFooter>
-              <ModalClose asChild>
-                <Button
-                  className='flex-1'
-                  size='sm'
-                  variant='outline'
-                  onClick={() => setIsDeleteModalOpen(false)}
-                >
-                  취소
-                </Button>
-              </ModalClose>
-              <Button
-                className='flex-1'
-                size='sm'
-                variant='primary'
-                onClick={async () => {
-                  const result = await deleteWine(wine.id);
-                  if (result.success) {
-                    queryClient.invalidateQueries({ queryKey: ['wines'] }); // 캐시 무효화 (선택)
-                    setIsDeleteModalOpen(false);
-                    router.push('/wines');
-                  } else {
-                    alert(result.message || '와인 삭제에 실패했습니다.');
-                  }
-                }}
-              >
-                삭제하기
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <ConfirmDeleteModal
+          isOpen={isDeleteModalOpen}
+          message='이 와인을 정말 삭제하시겠습니까?'
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={async () => {
+            const result = await deleteWine(wine.id);
+            if (result.success) {
+              router.push('/wines');
+            } else {
+              alert(result.message || '와인 삭제에 실패했습니다.');
+            }
+            setIsDeleteModalOpen(false);
+          }}
+        />
       )}
     </article>
   );

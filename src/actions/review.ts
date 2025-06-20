@@ -1,49 +1,53 @@
 'use server';
 
 import axios from 'axios';
-import { revalidatePath } from 'next/cache'; // ✅ 추가
 import { cookies } from 'next/headers';
 
 // ✅ 리뷰 등록/수정 서버 액션
 export async function submitReview(
-  _: undefined,
+  prevState: string | null,
   formData: FormData,
-): Promise<{ success: boolean; message?: string }> {
+): Promise<string | null> {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
+
+  if (!accessToken) {
+    return '로그인이 필요합니다.';
+  }
+
+  const reviewId = formData.get('reviewId');
+  const wineId = Number(formData.get('wineId'));
+  const content = formData.get('content')?.toString().trim() ?? '';
+  const rating = Number(formData.get('rating'));
+  const aroma = JSON.parse(String(formData.get('aroma') || '[]'));
+
+  // ✅ 유효성 검사 (에러 메시지 리턴)
+  if (!content) return '리뷰 내용을 입력해 주세요.';
+  if (rating === 0) return '별점을 최소 1점 이상 선택해 주세요.';
+  if (aroma.length === 0) return '기억에 남는 향을 하나 이상 선택해 주세요.';
+
+  const payload = {
+    content,
+    rating,
+    aroma,
+    lightBold: Number(formData.get('lightBold')),
+    smoothTannic: Number(formData.get('smoothTannic')),
+    drySweet: Number(formData.get('drySweet')),
+    softAcidic: Number(formData.get('softAcidic')),
+  };
+  console.log('[submitReview] payload:', payload);
+  if (!reviewId) {
+    payload['wineId'] = wineId; // 등록일 때만 wineId 포함
+  }
+
+  const endpoint = reviewId
+    ? `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reviews/${reviewId}`
+    : `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reviews`;
+
+  const method = reviewId ? 'patch' : 'post';
+
   try {
-    const cookieStore = await cookies();
-    const accessToken = cookieStore.get('accessToken')?.value;
-
-    if (!accessToken) {
-      return {
-        success: false,
-        message: '로그인이 필요합니다.',
-      };
-    }
-
-    const reviewId = formData.get('reviewId');
-    const wineId = Number(formData.get('wineId'));
-
-    const payload = {
-      content: String(formData.get('reviewText')),
-      rating: Number(formData.get('rating')),
-      aroma: JSON.parse(String(formData.get('aroma'))),
-      lightBold: Number(formData.get('lightBold')),
-      smoothTannic: Number(formData.get('smoothTannic')),
-      drySweet: Number(formData.get('drySweet')),
-      softAcidic: Number(formData.get('softAcidic')),
-    };
-
-    if (!reviewId) {
-      payload['wineId'] = wineId; // ✅ 등록일 때만 wineId 포함
-    }
-
-    const endpoint = reviewId
-      ? `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reviews/${reviewId}`
-      : `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reviews`;
-
-    const method = reviewId ? 'patch' : 'post';
-
-    const response = await axios.request({
+    await axios.request({
       method,
       url: endpoint,
       data: payload,
@@ -53,24 +57,12 @@ export async function submitReview(
       },
     });
 
-    // response 상태가 200번대일 때만 캐시 무효화
-    if (response.status >= 200 && response.status < 300) {
-      revalidatePath(`/wines/${wineId}`);
-      return { success: true };
-    } else {
-      console.error('[submitReview] 서버 오류:', response.status);
-      return {
-        success: false,
-        message: '리뷰 등록 중 오류 발생',
-      };
-    }
+    return null; // 성공
   } catch (error) {
     const err = error as Error;
     console.error('[submitReview] 에러 응답:', err.message);
-    return {
-      success: false,
-      message: '리뷰 등록 중 오류 발생',
-    };
+
+    return '리뷰 등록 중 오류가 발생했습니다.';
   }
 }
 
@@ -100,18 +92,14 @@ export async function getMyReview(reviewId: number) {
 }
 
 // ✅ 리뷰 삭제 서버 액션
-export async function deleteReview(
-  reviewId: number,
-): Promise<{ success: boolean; message?: string }> {
+export async function deleteReview(reviewId: number): Promise<string | null> {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get('accessToken')?.value;
 
-    if (!token) {
-      return { success: false, message: '로그인이 필요합니다.' };
-    }
+    if (!token) return '로그인이 필요합니다.';
 
-    const response = await axios.delete(
+    await axios.delete(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reviews/${reviewId}`,
       {
         headers: {
@@ -120,22 +108,10 @@ export async function deleteReview(
       },
     );
 
-    // response 상태가 200번대일 때만 성공으로 처리
-    if (response.status >= 200 && response.status < 300) {
-      return { success: true };
-    } else {
-      console.error('[deleteReview] 서버 오류:', response.status);
-      return {
-        success: false,
-        message: '리뷰 삭제 중 오류 발생',
-      };
-    }
+    return null; // 성공
   } catch (error) {
     const err = error as Error;
     console.error('[deleteReview] 실패:', err.message);
-    return {
-      success: false,
-      message: '리뷰 삭제 중 오류 발생',
-    };
+    return '리뷰 삭제 중 오류가 발생했습니다.';
   }
 }

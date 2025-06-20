@@ -41,7 +41,7 @@ export const AROMA_MAP: Record<string, string> = {
 
 export interface Review {
   id: number;
-  reviewText: string;
+  content: string;
   rating: number;
   aroma: string[];
   lightBold: number;
@@ -73,12 +73,13 @@ export default function ReviewModal({
     drySweet: 5,
     softAcidic: 5,
   });
-  const [reviewText, setReviewText] = useState('');
+
   const [selected, setSelected] = useState<string[]>([]);
   const [rating, setRating] = useState(0);
   const [reviewId, setReviewId] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [isPending, setIsPending] = useState(false);
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     if (!initialReview) return;
@@ -90,7 +91,7 @@ export default function ReviewModal({
       drySweet: initialReview.drySweet,
       softAcidic: initialReview.softAcidic,
     });
-    setReviewText(initialReview.reviewText);
+    setContent(initialReview.content);
     setRating(initialReview.rating);
 
     const reverseMap = Object.fromEntries(
@@ -111,32 +112,33 @@ export default function ReviewModal({
     setErrorMessage('');
     setIsPending(true);
 
-    if (!reviewText.trim()) {
-      setErrorMessage('리뷰 내용을 입력해 주세요.');
-      setIsPending(false);
-      return;
-    }
+    // if (!reviewText.trim()) {
+    //   setErrorMessage('리뷰 내용을 입력해 주세요.');
+    //   setIsPending(false);
+    //   return;
+    // }
 
-    if (rating === 0) {
-      setErrorMessage('별점을 최소 1점 이상 선택해 주세요.');
-      setIsPending(false);
-      return;
-    }
+    // if (rating === 0) {
+    //   setErrorMessage('별점을 최소 1점 이상 선택해 주세요.');
+    //   setIsPending(false);
+    //   return;
+    // }
 
-    if (selected.length === 0) {
-      setErrorMessage('기억에 남는 향을 하나 이상 선택해 주세요.');
-      setIsPending(false);
-      return;
-    }
+    // if (selected.length === 0) {
+    //   setErrorMessage('기억에 남는 향을 하나 이상 선택해 주세요.');
+    //   setIsPending(false);
+    //   return;
+    // }
 
     const formData = new FormData();
-    formData.append('wineId', String(wineId));
-    formData.append('reviewText', reviewText);
+    formData.append('content', content);
+
     formData.append('rating', String(rating));
     formData.append(
       'aroma',
       JSON.stringify(selected.map((kor) => AROMA_MAP[kor])),
     );
+    formData.append('wineId', String(wineId));
     formData.append('lightBold', String(values.lightBold));
     formData.append('smoothTannic', String(values.smoothTannic));
     formData.append('drySweet', String(values.drySweet));
@@ -146,13 +148,13 @@ export default function ReviewModal({
       formData.append('reviewId', String(reviewId));
     }
 
-    const result = await submitReview(undefined, formData);
+    const errorMessage = await submitReview(null, formData);
 
-    if (result.success) {
+    if (errorMessage === null) {
       onSuccess?.();
       setIsOpen(false);
     } else {
-      setErrorMessage(result.message || '리뷰 등록 중 오류가 발생했습니다.');
+      setErrorMessage(errorMessage);
     }
 
     setIsPending(false);
@@ -177,8 +179,8 @@ export default function ReviewModal({
             <InputTextArea
               placeholder='후기를 작성해 주세요'
               size='lg'
-              value={reviewText}
-              onChange={(e) => setReviewText(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
 
