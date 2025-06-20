@@ -1,5 +1,7 @@
 import './globals.css';
 
+import { Toaster } from 'sonner';
+
 import QueryProvider from '@/libs/queryProvider';
 
 import DynamicLayout from './DynamicLayout';
@@ -17,6 +19,7 @@ export default function RootLayout({
             <QueryProvider>{children}</QueryProvider>
           </main>
         </DynamicLayout>
+        <Toaster richColors position='top-center' />
         <div id='modal-root' />
       </body>
     </html>
