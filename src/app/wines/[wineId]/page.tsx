@@ -51,6 +51,7 @@ export default function WinePage() {
     }
   }, [wineId, userInfo?.id, wineInfo?.userId]);
 
+  console.log(wineInfo);
   if (status === 'pending')
     return (
       <div className='flex h-screen items-center justify-center'>
