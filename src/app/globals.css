@@ -139,11 +139,11 @@
   }
 
   .rolling-list-original {
-    animation: rollingleft1 25s linear infinite;
+    animation: rollingleft1 40s linear infinite;
   }
 
   .rolling-list-clone {
-    animation: rollingleft2 25s linear infinite;
+    animation: rollingleft2 40s linear infinite;
   }
 
   .outer-wrapper:hover .rolling-list-original,
