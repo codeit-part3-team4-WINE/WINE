@@ -73,12 +73,7 @@ export default function LoadMoreButton({ type, initialCursor }: Props) {
       const review = item as Review;
       return (
         <Link key={review.id} href={`/wines/${review.wine.id}`}>
-          <ReviewCard
-            content={review.content}
-            rating={review.rating}
-            time={review.updatedAt}
-            wine={review.wine.name}
-          />
+          <ReviewCard review={review} />
         </Link>
       );
     }
