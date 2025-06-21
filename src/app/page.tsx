@@ -508,7 +508,7 @@ export default function LandingPage() {
   const scaleMobile = useTransform(
     scrollYProgress,
     [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1],
-    [2.5, 2.6, 3.3, 1, 1, 1, 10, 7, 3],
+    [2.5, 2.6, 3.3, 1, 1, 1, 7, 7, 3],
   );
   const rotateMobile = useTransform(
     scrollYProgress,
