@@ -175,7 +175,9 @@ export default function WineForm({
           }
           {...(isEdit && { value: wineData.type })}
         >
-          <SelectBox.Trigger triggerClassName='w-full focus:border-2 focus:border-gray-500'>
+          <SelectBox.Trigger
+            triggerClassName={`w-full focus:border-2 text-md focus:border-gray-500 ${isEdit ? '' : 'text-gray-800'}`}
+          >
             <>
               {OPTION_LABELS[formData.type] || ''}
               <TriangleArrowIcon />
