@@ -4,6 +4,7 @@
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 import useUserStore from '@/stores/Auth-store/authStore';
 
@@ -27,12 +28,13 @@ export default function KakaoCallbackPage() {
             setUser(data.user);
             router.push('/wines');
           } else {
-            alert('카카오 로그인 실패');
+            toast.error('카카오 로그인 실패');
             router.push('/login');
           }
         })
         .catch(() => {
-          alert('카카오 로그인 에러');
+          toast.error('카카오 로그인 실패');
+
           router.push('/login');
         });
     }

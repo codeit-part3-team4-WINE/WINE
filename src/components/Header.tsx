@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import WineLogoIcon from '@/app/assets/icons/wine-logo';
 import useLogout from '@/hooks/useLogout';
@@ -22,7 +23,7 @@ export default function Header() {
       await logout();
       setUser(null);
     } catch (error) {
-      alert('로그아웃 실패');
+      toast.error('로그아웃 실패');
       console.error('로그아웃 실패:', error);
     }
   };
