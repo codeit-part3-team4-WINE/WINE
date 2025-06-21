@@ -5,7 +5,6 @@ import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import ReviewCard from '../../components/Card/ReviewCard';
 import LoadMoreButton from '../../components/LoadMoreBtn';
 import Nothing from '../../components/Nothing';
-import Tab from '../../components/Tab';
 
 interface Review {
   id: number;
@@ -37,7 +36,6 @@ export default async function Reviews() {
   if (!Array.isArray(reviews) || reviews.length === 0) {
     return (
       <div>
-        <Tab totalCount={0} />
         <div className='mt-[5rem] flex items-center justify-center'>
           <Nothing type='review' />
         </div>
@@ -46,8 +44,10 @@ export default async function Reviews() {
   }
 
   return (
-    <div className='flex flex-col'>
-      <Tab totalCount={data.totalCount} />
+    <div className='relative flex flex-col'>
+      <span className='text-primary-100 absolute top-[-5.2rem] right-0 shrink-0 text-xs font-medium'>
+        총{data.totalCount}개
+      </span>
       <div className='flex flex-col gap-10'>
         {reviews.map((review: Review) => (
           <Link key={review.id} href={`/wines/${review.wine.id}`}>

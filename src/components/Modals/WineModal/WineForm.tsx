@@ -3,10 +3,13 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-import { privateInstance } from '@/apis/privateInstance';
 import TriangleArrowIcon from '@/app/assets/icons/triangle-arrow';
 import FileUpload from '@/app/assets/svgs/wine-modal-file-upload.svg';
 import InputFile from '@/components/Inputs/InputFile';
+import {
+  ALLOWED_IMAGE_TYPES,
+  MAX_IMAGE_SIZE,
+} from '@/constants/fileValidation';
 import { cn } from '@/libs/cn';
 
 import InputPair from '../../Inputs/InputPair';
@@ -27,8 +30,10 @@ const OPTION_LABELS = {
   WHITE: '화이트와인',
   SPARKLING: '스파클링와인',
 } as const;
+
 const INPUT_CLASSNAME =
   'w-full border border-gray-300 rounded-[1.6rem], focus:border-2 focus:border-gray-500';
+
 const DEFAULT_DATA: WineFormData = {
   name: '',
   region: '',
@@ -59,6 +64,7 @@ export default function WineForm({
   );
 
   const [priceError, setPriceError] = useState('');
+  const [imgError, setImgError] = useState('');
 
   // 이미지 미리보기를 위한 src 설정
   const imageSrc =
@@ -106,24 +112,19 @@ export default function WineForm({
     }
   };
 
-  const handleUploadFile = async (file: File) => {
-    const form = new FormData();
-    form.append('file', file);
-
-    try {
-      const res = await privateInstance.post('/images/upload', form, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      const { url } = res.data;
-
-      setFormData((prev) => ({ ...prev, image: url }));
-    } catch (err) {
-      console.error('이미지 업로드 실패:', err);
-      alert('이미지 업로드에 실패했습니다.');
+  const handleFileChange = (file: File) => {
+    if (file.size > MAX_IMAGE_SIZE) {
+      setImgError('이미지 용량은 5MB 이하만 업로드 가능합니다.');
+      return;
     }
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      setImgError('지원하지 않는 파일 형식입니다. (jpg, png, webp만 가능)');
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, image: file }));
+    console.log(file);
   };
 
   return (
@@ -193,7 +194,7 @@ export default function WineForm({
           </SelectBox.Options>
         </SelectBox>
       </div>
-      <InputFile label='와인 사진' onChange={handleUploadFile}>
+      <InputFile label='와인 사진' onChange={handleFileChange}>
         <div className='relative h-[14rem] w-[14rem]'>
           {formData.image !== '' ? (
             <Image
@@ -209,6 +210,9 @@ export default function WineForm({
             <Image fill alt='사진을 업로드 해주세요' src={FileUpload} />
           )}
         </div>
+        {imgError && (
+          <p className='mt-1 ml-2 text-sm text-red-500'>{imgError}</p>
+        )}
       </InputFile>
     </form>
   );

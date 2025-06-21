@@ -13,6 +13,7 @@ import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
 import Dropdown from '@/components/Dropdown';
 import InputRange from '@/components/InputRange';
 import ProfileImg from '@/components/ProfileImg';
+import useDebounce from '@/hooks/useDebounce';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
 import { getTimeAgo } from '@/utils/getTimeAgo';
@@ -37,9 +38,12 @@ export default function ReviewCard({
   const [isOpen, setIsOpen] = useState(true);
   const [isLiked, setIsLiked] = useState(review.isLiked);
   const [isOwner, setIsOwner] = useState(false);
+
   const userInfo = useUserStore((state) => state.user);
   const queryClient = useQueryClient();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const debouncedIsLiked = useDebounce(isLiked, 1000);
+
 
   const {
     id,
@@ -60,6 +64,7 @@ export default function ReviewCard({
     drySweet,
     softAcidic,
   });
+
 
   useEffect(() => {
     setIsLiked(review.isLiked);
@@ -86,17 +91,32 @@ export default function ReviewCard({
   };
 
   const handleLike = async () => {
-    try {
-      if (isLiked) {
-        await privateInstance.delete(`/wines/${id}/like`);
-      } else {
-        await privateInstance.post(`/wines/${id}/like`);
-      }
-      setIsLiked(!isLiked);
-    } catch (error) {
-      console.error('Like post error:', error);
-    }
+    setIsLiked(!isLiked);
   };
+
+  useEffect(() => {
+    const performServerRequest = async () => {
+      try {
+        if (debouncedIsLiked) {
+          await privateInstance.post(`/wines/${id}/like`);
+        } else {
+          await privateInstance.delete(`/wines/${id}/like`);
+        }
+      } catch {
+        setIsLiked(review.isLiked);
+      }
+    };
+
+    if (debouncedIsLiked !== review.isLiked) {
+      performServerRequest();
+    }
+  }, [debouncedIsLiked, review.isLiked, id]);
+
+  useEffect(() => {
+    if (userInfo?.id === user.id) {
+      setIsOwner(true);
+    }
+  }, [userInfo?.id, user?.id]);
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
@@ -117,7 +137,7 @@ export default function ReviewCard({
           <div className='group size-[3.8rem]' onClick={handleLike}>
             <HeartIcon
               className={cn(
-                'cursor-pointer transition-all group-hover:fill-red-400 group-hover:stroke-red-400 hover:animate-pulse',
+                'cursor-pointer transition-all group-hover:stroke-red-400 hover:animate-pulse',
                 isLiked && 'fill-red-400 stroke-red-400',
               )}
             />

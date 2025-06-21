@@ -44,7 +44,7 @@ export default function ModalContent({
   const baseClass =
     variant === 'confirm'
       ? 'content-text min-w-[30rem] flex h-screen max-h-[80%] w-screen flex-col bg-white p-8 shadow-xl h-fit w-[40rem] max-w-[65rem] rounded-4xl'
-      : 'content-text min-w-[30rem] absolute bottom-0 flex h-fit max-h-[85%] w-screen flex-col rounded-t-4xl bg-white p-8 shadow-xl md:relative md:h-fit md:w-[50%] md:max-w-[60rem] md:rounded-4xl';
+      : 'relative content-text min-w-[30rem] mt-auto flex h-fit max-h-[85%] md:mt-0 w-screen flex-col rounded-t-4xl p-8 shadow-xl md:h-fit md:w-[50%] md:max-w-[60rem] md:rounded-4xl bg-white';
   const contentClassNames = cn(baseClass, className);
 
   // 애니메이션 설정

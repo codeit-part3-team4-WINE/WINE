@@ -1,8 +1,10 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { privateInstance } from '@/apis/privateInstance';
 import { WineData } from '@/app/api/action/wine-action';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal/Modal';
@@ -45,6 +47,7 @@ export default function WineModal({
   wineData?: WineFormData;
 }) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const user = useUserStore((state) => state.user);
 
   // 폼 입력 상태: 초기값은 수정 모드면 wineData, 등록 모드면 빈 값
@@ -86,17 +89,38 @@ export default function WineModal({
     try {
       setIsLoading(true);
 
+      let imageUrl = formData.image;
+
+      if (formData.image instanceof File) {
+        try {
+          const uploadForm = new FormData();
+          uploadForm.append('file', formData.image);
+
+          const res = await privateInstance.post('/images/upload', uploadForm, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+
+          imageUrl = res.data.url;
+        } catch (uploadErr) {
+          console.error('이미지 업로드 실패:', uploadErr);
+          alert('이미지 업로드에 실패했습니다.');
+          return;
+        }
+      }
+
       const payload = {
         name: formData.name,
         region: formData.region,
-        image: formData.image,
+        image: imageUrl,
         price: Number(formData.price),
         type: formData.type,
         ...(formData.id && { id: formData.id }), // PATCH용 id
       };
 
       await WineData(payload);
-
+      await queryClient.invalidateQueries({ queryKey: ['wines'] }); // 와인 목록 페이지에서 와인이 등록되었을 때 바로 반영되도록 하기 위해
       alert(
         wineData
           ? '와인이 성공적으로 수정되었습니다.'
@@ -106,8 +130,8 @@ export default function WineModal({
 
       // 수정/등록 후 페이지 새로고침
       router.refresh();
-    } catch (err) {
-      console.error('Wine 등록/수정 오류:', err);
+    } catch (e) {
+      console.error(e);
       alert(
         wineData
           ? '와인 수정 중 오류가 발생했습니다.'
@@ -129,32 +153,27 @@ export default function WineModal({
         </ModalBody>
         <ModalFooter>
           <ModalClose />
-          <div className='flex w-full justify-between'>
-            <div className='w-[3rem]'>
-              <ModalClose asChild>
-                <Button
-                  className='w-[10.8rem] md:w-[9rem] xl:w-[10rem]'
-                  disabled={isLoading}
-                  variant='secondary'
-                  onClick={() => setIsOpen(false)}
-                >
-                  취소
-                </Button>
-              </ModalClose>
-            </div>
-            <div>
-              <Button
-                className='w-[27rem] md:w-[24rem] xl:w-[35rem]'
-                loading={isLoading}
-                variant='primary'
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                {isLoading ? '처리 중...' : wineData ? '수정하기' : '등록하기'}
-              </Button>
-            </div>
-          </div>
+          <ModalClose asChild>
+            <Button
+              className='w-[10.8rem] flex-1 md:w-[9rem] xl:w-[10rem]'
+              disabled={isLoading}
+              variant='secondary'
+              onClick={() => setIsOpen(false)}
+            >
+              취소
+            </Button>
+          </ModalClose>
+
+          <Button
+            className='w-[27rem] flex-2 md:w-[24rem] xl:w-[35rem]'
+            loading={isLoading}
+            variant='primary'
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            {isLoading ? '처리 중...' : wineData ? '수정하기' : '등록하기'}
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

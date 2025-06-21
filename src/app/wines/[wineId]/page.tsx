@@ -133,7 +133,7 @@ export default function WinePage() {
               ))}
 
               {hasNextPage && (
-                <div ref={observerRef} className='h-20'>
+                <div ref={observerRef}>
                   <ReviewCardSkeleton />
                   <ReviewCardSkeleton />
                 </div>
