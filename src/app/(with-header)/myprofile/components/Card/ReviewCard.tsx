@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { deleteReview } from '@/actions/review';
 import StarBadge from '@/components/Badge/StarBadge';
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
+import { checkIsRecommendedWine } from '@/components/Modals/ReviewModal/ReviewModal';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 
 import ReviewCardDropdown from './ReviewCardDropdown';
@@ -52,6 +53,8 @@ export default function ReviewCard({
   const agoTime = getTimeAgo(review.updatedAt);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const queryClient = useQueryClient();
+  // 추천 와인인지 확인
+  const isRecommendedWine = checkIsRecommendedWine(review.wine.id);
 
   return (
     <article className='flex min-h-[18.7rem] w-full cursor-pointer flex-col gap-[1.7rem] rounded-[1.6rem] border border-gray-300 bg-white px-[2rem] py-[1.6rem] md:min-h-[19rem] md:px-[4em] md:py-[2.3rem] xl:min-h-[20rem] xl:gap-[2rem]'>
@@ -78,7 +81,7 @@ export default function ReviewCard({
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={async () => {
-            const result = await deleteReview(review.id);
+            const result = await deleteReview(review.id, isRecommendedWine);
             if (result === null) {
               queryClient.invalidateQueries({
                 queryKey: ['wine', review.wine.id],
