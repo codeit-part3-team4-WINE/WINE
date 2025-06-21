@@ -41,6 +41,15 @@ export default function WineCard({
 }: WineCardProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const router = useRouter();
+  const handleDeleteConfirm = async (wineId, router, setIsDeleteModalOpen) => {
+    const result = await deleteWine(wineId);
+    if (result.success) {
+      router.push('/wines');
+    } else {
+      alert(result.message || '와인 삭제에 실패했습니다.');
+    }
+    setIsDeleteModalOpen(false);
+  };
   return (
     <article
       className={cn(
@@ -80,15 +89,9 @@ export default function WineCard({
           isOpen={isDeleteModalOpen}
           message='이 와인을 정말 삭제하시겠습니까?'
           onClose={() => setIsDeleteModalOpen(false)}
-          onConfirm={async () => {
-            const result = await deleteWine(wine.id);
-            if (result.success) {
-              router.push('/wines');
-            } else {
-              alert(result.message || '와인 삭제에 실패했습니다.');
-            }
-            setIsDeleteModalOpen(false);
-          }}
+          onConfirm={() =>
+            handleDeleteConfirm(wine.id, router, setIsDeleteModalOpen)
+          }
         />
       )}
     </article>

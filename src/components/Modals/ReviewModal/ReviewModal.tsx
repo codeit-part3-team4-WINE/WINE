@@ -112,24 +112,6 @@ export default function ReviewModal({
     setErrorMessage('');
     setIsPending(true);
 
-    // if (!reviewText.trim()) {
-    //   setErrorMessage('리뷰 내용을 입력해 주세요.');
-    //   setIsPending(false);
-    //   return;
-    // }
-
-    // if (rating === 0) {
-    //   setErrorMessage('별점을 최소 1점 이상 선택해 주세요.');
-    //   setIsPending(false);
-    //   return;
-    // }
-
-    // if (selected.length === 0) {
-    //   setErrorMessage('기억에 남는 향을 하나 이상 선택해 주세요.');
-    //   setIsPending(false);
-    //   return;
-    // }
-
     const formData = new FormData();
     formData.append('content', content);
 
@@ -148,7 +130,7 @@ export default function ReviewModal({
       formData.append('reviewId', String(reviewId));
     }
 
-    const errorMessage = await submitReview(null, formData);
+    const errorMessage = await submitReview(formData);
 
     if (errorMessage === null) {
       onSuccess?.();

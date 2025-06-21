@@ -4,10 +4,7 @@ import axios from 'axios';
 import { cookies } from 'next/headers';
 
 // ✅ 리뷰 등록/수정 서버 액션
-export async function submitReview(
-  prevState: string | null,
-  formData: FormData,
-): Promise<string | null> {
+export async function submitReview(formData: FormData): Promise<string | null> {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
