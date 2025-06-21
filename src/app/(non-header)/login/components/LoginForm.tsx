@@ -136,10 +136,10 @@ export default function LoginForm() {
 
             <div className='mt-4 flex items-center justify-center sm:mt-[2rem]'>
               <Button
-                className='w-full bg-yellow-300'
+                className='w-full'
                 round='rounded'
                 size='lg'
-                variant='outline'
+                variant='kakao'
                 onClick={handleKakaoLogin}
               >
                 <KakaoLoginIcon size={20} />
@@ -148,11 +148,11 @@ export default function LoginForm() {
             </div>
 
             <div className='mt-6 flex items-center justify-center sm:mt-[4rem]'>
-              <div className='h-px flex-grow bg-gray-500' />
-              <span className='text-md mx-4 flex-shrink text-gray-600'>
+              <div className='h-px flex-grow bg-gray-400' />
+              <span className='text-md mx-4 flex-shrink text-gray-500'>
                 또는
               </span>
-              <div className='h-px flex-grow bg-gray-500' />
+              <div className='h-px flex-grow bg-gray-400' />
             </div>
 
             <div className='text-md mt-4 text-center text-gray-900 sm:mt-6 sm:text-lg'>

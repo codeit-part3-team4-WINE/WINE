@@ -132,7 +132,7 @@ export default function WineModal({
         });
       }
 
-      alert(
+      toast.success(
         wineData
           ? '와인이 성공적으로 수정되었습니다.'
           : '와인이 성공적으로 등록되었습니다.',

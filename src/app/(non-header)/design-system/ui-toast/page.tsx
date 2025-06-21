@@ -107,10 +107,12 @@ export default function SonnerDemo() {
               label: 'Undo',
               onClick: () => console.log('Undo'),
             },
+            // 큰 글씨 토스트
+            className: 'toast-large',
           })
         }
       >
-        Show Toast
+        Show Toast (큰 글씨)
       </Button>
       <div>성공 토스트</div>
       <Button
@@ -122,10 +124,12 @@ export default function SonnerDemo() {
               label: 'Undo',
               onClick: () => console.log('Undo'),
             },
+            // 작은 글씨 스타일
+            className: 'toast-small',
           })
         }
       >
-        나는 성공 토스트
+        나는 성공 토스트 (작은 글씨)
       </Button>
       <div>에러 토스트</div>
       <Button
@@ -228,6 +232,60 @@ export default function SonnerDemo() {
       >
         나는 메시지 토스트
       </Button>
+
+      <div className='mt-8 border-t pt-4'>
+        <h3 className='mb-4 text-lg font-bold'>글씨 크기별 토스트 예제</h3>
+
+        <div className='space-y-2'>
+          <Button
+            variant='outline'
+            onClick={() =>
+              toast('매우 큰 글씨 토스트', {
+                description: '설명도 큰 글씨로',
+                className: 'toast-large',
+              })
+            }
+          >
+            매우 큰 글씨 (24px)
+          </Button>
+
+          <Button
+            variant='outline'
+            onClick={() =>
+              toast('중간 글씨 토스트', {
+                description: '적당한 크기의 설명',
+                className: 'toast-medium',
+              })
+            }
+          >
+            중간 글씨 (16px)
+          </Button>
+
+          <Button
+            variant='outline'
+            onClick={() =>
+              toast('작은 글씨 토스트', {
+                description: '작은 크기의 설명',
+                className: 'toast-small',
+              })
+            }
+          >
+            작은 글씨 (12px)
+          </Button>
+
+          <Button
+            variant='outline'
+            onClick={() =>
+              toast('커스텀 스타일 토스트', {
+                description: '색상과 크기를 모두 변경',
+                className: 'toast-custom',
+              })
+            }
+          >
+            커스텀 스타일 (색상 + 크기)
+          </Button>
+        </div>
+      </div>
     </>
   );
 }

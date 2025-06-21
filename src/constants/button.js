@@ -19,6 +19,8 @@ const BUTTON_VARIANTS = {
     'bg-white text-gray-800 border border-gray-300 enabled:hover:bg-gray-50',
   ghost: 'bg-white text-gray-600 enabled:hover:bg-gray-100',
   danger: 'bg-red-500 text-white border border-red-500',
+  kakao:
+    'bg-white text-black border border-gray-300 hover:bg-yellow-300 hover:opacity-100',
 };
 
 const LOADER_VARIANTS = {

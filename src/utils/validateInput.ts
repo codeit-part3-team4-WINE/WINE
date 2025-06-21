@@ -19,7 +19,7 @@ const validatePassword = (value: string) => {
     return '비밀번호는 최소 8자 최대16자입니다.';
   const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
   if (!regex.test(value))
-    return '비밀번호는 숫자, 영문, 특수문자가 조합되야합니다.';
+    return '비밀번호는 숫자, 영문, 특수문자가 조합돼야 합니다.';
   return '';
 };
 

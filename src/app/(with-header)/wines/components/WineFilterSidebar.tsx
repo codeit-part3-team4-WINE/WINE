@@ -100,24 +100,26 @@ function MobileFilterButton({
           </ModalBody>
           <ModalFooter>
             <ModalClose />
-            <Button
-              className='flex-1'
-              size='sm'
-              variant='secondary'
-              onClick={() => {
-                const resetState: FilterState = {
-                  selectedRating: 0,
-                  selectedWineType: '',
-                  selectedMinPrice: 0,
-                  selectedMaxPrice: priceMaxRange ?? DEFAULT_MAX_PRICE,
-                  searchQuery: filterState.searchQuery, // 검색어는 유지
-                };
-                onFilterChange(resetState);
-                setTempFilterState(resetState);
-              }}
-            >
-              초기화
-            </Button>
+            <ModalClose asChild>
+              <Button
+                className='flex-1'
+                size='sm'
+                variant='secondary'
+                onClick={() => {
+                  const resetState: FilterState = {
+                    selectedRating: 0,
+                    selectedWineType: '',
+                    selectedMinPrice: 0,
+                    selectedMaxPrice: priceMaxRange ?? DEFAULT_MAX_PRICE,
+                    searchQuery: filterState.searchQuery, // 검색어는 유지
+                  };
+                  onFilterChange(resetState);
+                  setTempFilterState(resetState);
+                }}
+              >
+                초기화
+              </Button>
+            </ModalClose>
             <ModalClose asChild>
               <Button
                 className='flex-2'
