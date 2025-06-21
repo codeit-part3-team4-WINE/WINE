@@ -5,7 +5,7 @@ import React from 'react';
 import { cn } from '@/libs/cn';
 
 const BASIC_CLASSNAME =
-  'h-2.5 w-full cursor-pointer appearance-none rounded-md bg-gray-100 accent-blue-500 ' +
+  'h-2.5 w-full appearance-none rounded-md bg-gray-100 accent-blue-500 ' +
   '[&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none ' +
   '[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary-100';
 

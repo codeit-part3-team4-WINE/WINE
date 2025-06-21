@@ -39,7 +39,9 @@ export class ResourceNotFoundError extends CustomError {
 }
 
 export class InternalServerError extends CustomError {
-  constructor(message = '서버에 문제가 발생했습니다.') {
+  constructor(
+    message = '서버에 문제가 발생하였거나 이미 등록된 닉네임입니다.',
+  ) {
     super(message, 500);
   }
 }

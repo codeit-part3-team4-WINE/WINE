@@ -1,4 +1,9 @@
+import withPWAInit from '@ducanh2912/next-pwa';
 import type { NextConfig } from 'next';
+
+const withPWA = withPWAInit({
+  dest: 'public',
+});
 
 const nextConfig: NextConfig = {
   env: {
@@ -21,8 +26,32 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'img1.kakaocdn.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img1.kakaocdn.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 't1.kakaocdn.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 't1.kakaocdn.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
 
-export default nextConfig;
+export default withPWA(nextConfig);

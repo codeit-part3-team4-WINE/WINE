@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import WineLogoIcon from '@/app/assets/icons/wine-logo';
 import useLogout from '@/hooks/useLogout';
@@ -22,7 +23,7 @@ export default function Header() {
       await logout();
       setUser(null);
     } catch (error) {
-      alert('로그아웃 실패');
+      toast.error('로그아웃 실패');
       console.error('로그아웃 실패:', error);
     }
   };
@@ -41,7 +42,7 @@ export default function Header() {
     <div>
       <header className='mt-7 h-[5rem] rounded-2xl bg-[#101318] text-white md:h-[7rem]'>
         <div className='flex h-full items-center justify-between px-[4rem] md:px-[8rem]'>
-          <Link aria-label='홈으로 이동' href='/'>
+          <Link aria-label='wines 이동' href='/wines'>
             <WineLogoIcon className='cursor-pointer' />
           </Link>
 

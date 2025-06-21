@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import useDeviceSize from '@/hooks/useDeviceSize';
 import { cn } from '@/libs/cn';
 
 import { useModalContext } from './ModalContext';
@@ -28,8 +27,6 @@ export default function ModalContent({
 }: ModalBaseProps & { variant?: ModalVariant }) {
   const { isOpen, close } = useModalContext();
   const mountedRef = useRef(false);
-  const { isMobile } = useDeviceSize();
-  const shouldAnimate = variant === 'default' && isMobile;
 
   useEffect(() => {
     mountedRef.current = true;
@@ -47,7 +44,7 @@ export default function ModalContent({
   const baseClass =
     variant === 'confirm'
       ? 'content-text min-w-[30rem] flex h-screen max-h-[80%] w-screen flex-col bg-white p-8 shadow-xl h-fit w-[40rem] max-w-[65rem] rounded-4xl'
-      : 'content-text min-w-[30rem] absolute bottom-0 flex h-fit max-h-[85%] w-screen flex-col rounded-t-4xl bg-white p-8 shadow-xl md:relative md:h-fit md:w-[50%] md:max-w-[60rem] md:rounded-4xl';
+      : 'relative content-text min-w-[30rem] mt-auto flex h-fit max-h-[85%] md:mt-0 w-screen flex-col rounded-t-4xl p-8 shadow-xl md:h-fit md:w-[50%] md:max-w-[60rem] md:rounded-4xl bg-white';
   const contentClassNames = cn(baseClass, className);
 
   // 애니메이션 설정
@@ -56,28 +53,6 @@ export default function ModalContent({
     visible: { y: 0 },
     exit: { y: '100%' },
   };
-
-  // 모바일 default 모달 (애니메이션)
-  const animatedContent = (
-    <motion.div
-      animate='visible'
-      className={contentClassNames}
-      exit='exit'
-      initial='hidden'
-      transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
-      variants={mobileVariants}
-      onClick={(e) => e.stopPropagation()}
-    >
-      {children}
-    </motion.div>
-  );
-
-  // animatedContent 외의 모든 모달
-  const staticContent = (
-    <div className={contentClassNames} onClick={(e) => e.stopPropagation()}>
-      {children}
-    </div>
-  );
 
   return isOpen
     ? createPortal(
@@ -89,7 +64,17 @@ export default function ModalContent({
           transition={{ duration: 0.3 }}
           onClick={close}
         >
-          {shouldAnimate ? animatedContent : staticContent}
+          <motion.div
+            animate='visible'
+            className={contentClassNames}
+            exit='exit'
+            initial='hidden'
+            transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
+            variants={mobileVariants}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {children}
+          </motion.div>
         </motion.div>,
         modalRoot,
       )

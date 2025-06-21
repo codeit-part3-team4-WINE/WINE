@@ -41,7 +41,7 @@ export default function InputTextArea({
     'resize-none overflow-hidden rounded-xl border border-gray-300 px-4 py-2';
 
   return (
-    <div className='relative mx-auto flex w-full'>
+    <div className='relative mx-auto flex w-full max-w-[480px]'>
       <textarea
         className={cn(baseStyle, SIZE_STYLE[size], className)}
         placeholder={placeholder}
