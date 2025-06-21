@@ -49,8 +49,6 @@ export const viewport: Viewport = {
 };
 import QueryProvider from '@/libs/queryProvider';
 
-import DynamicLayout from './DynamicLayout';
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,11 +57,10 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body>
-        <DynamicLayout>
-          <main className='mx-auto my-10 min-h-screen w-full max-w-[350rem] px-[5vw] md:px-[10vw] xl:px-[15vw]'>
-            <QueryProvider>{children}</QueryProvider>
-          </main>
-        </DynamicLayout>
+        <main>
+          <QueryProvider>{children}</QueryProvider>
+        </main>
+
         <Toaster richColors position='top-center' />
         <div id='modal-root' />
       </body>
