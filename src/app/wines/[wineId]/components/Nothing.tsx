@@ -1,12 +1,18 @@
+'use client';
+
 import ExclamationMark from '@/app/assets/icons/exclamation-mark';
 import Button from '@/components/Button';
 
-export default function Nothing() {
+interface NothingProps {
+  onClick?: () => void;
+}
+
+export default function Nothing({ onClick }: NothingProps) {
   return (
     <div className='flex flex-col items-center justify-center gap-4'>
       <ExclamationMark className='size-[10rem]' />
       <p className='text-sm text-gray-500'>작성된 리뷰가 없습니다.</p>
-      <Button onClick={() => {}}>리뷰 남기기</Button>
+      <Button onClick={() => onClick?.()}>리뷰 남기기</Button>
     </div>
   );
 }

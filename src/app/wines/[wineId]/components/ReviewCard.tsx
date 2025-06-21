@@ -1,11 +1,15 @@
 'use client';
+
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
-import { privateInstance } from '@/apis/privateInstance';
+import { deleteReview } from '@/actions/review';
+import { privateInstance } from '@/apis/privateInstance'; // 좋아요 기능 요청용
 import ChevronArrowIcon from '@/app/assets/icons/chevron-arrow';
 import HeartIcon from '@/app/assets/icons/heart';
 import VerticalMoreIcon from '@/app/assets/icons/vertical-more';
 import StarBadge from '@/components/Badge/StarBadge';
+import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
 import Dropdown from '@/components/Dropdown';
 import InputRange from '@/components/InputRange';
 import ProfileImg from '@/components/ProfileImg';
@@ -18,13 +22,28 @@ import { ReviewType } from '../types';
 import { AromaType } from './AromaAnalysis/types';
 import { getAromaLabel } from './AromaAnalysis/utils';
 
-export default function ReviewCard({ review }: { review: ReviewType }) {
-  const [isOpen, setIsOpen] = useState(true);
+interface ReviewCardProps {
+  review: ReviewType;
+  onEdit?: (review: ReviewType) => void;
+  onDelete?: () => void;
+  wineId: number;
+}
 
+export default function ReviewCard({
+  review,
+  onEdit,
+  onDelete,
+  wineId,
+}: ReviewCardProps) {
+  const [isOpen, setIsOpen] = useState(true);
   const [isLiked, setIsLiked] = useState(review.isLiked);
-  const userInfo = useUserStore((state) => state.user);
   const [isOwner, setIsOwner] = useState(false);
+
+  const userInfo = useUserStore((state) => state.user);
+  const queryClient = useQueryClient();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const debouncedIsLiked = useDebounce(isLiked, 1000);
+
 
   const {
     id,
@@ -38,24 +57,37 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
     createdAt,
     user,
   } = review;
-  const handleOpen = () => {
-    setIsOpen(!isOpen);
-  };
 
-  const [values, setValues] = useState<{
-    lightBold: number;
-    smoothTannic: number;
-    drySweet: number;
-    softAcidic: number;
-  }>({
+  const [values, setValues] = useState({
     lightBold,
     smoothTannic,
     drySweet,
     softAcidic,
   });
 
+
+  useEffect(() => {
+    setIsLiked(review.isLiked);
+    setValues({
+      lightBold: review.lightBold,
+      smoothTannic: review.smoothTannic,
+      drySweet: review.drySweet,
+      softAcidic: review.softAcidic,
+    });
+  }, [review]);
+
+  useEffect(() => {
+    if (userInfo?.id === user.id) {
+      setIsOwner(true);
+    }
+  }, [userInfo?.id, user?.id]);
+
   const handleChange = (name: keyof typeof values, value: number) => {
     setValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleEdit = () => {
+    onEdit?.(review);
   };
 
   const handleLike = async () => {
@@ -86,6 +118,10 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
     }
   }, [userInfo?.id, user?.id]);
 
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   return (
     <div className='relative flex flex-col gap-5 rounded-2xl border border-gray-300 p-10'>
       <div className='flex items-start justify-between'>
@@ -96,6 +132,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
             <p className='text-md text-gray-500'>{getTimeAgo(createdAt)}</p>
           </div>
         </div>
+
         <div className='flex items-center gap-2 pt-2'>
           <div className='group size-[3.8rem]' onClick={handleLike}>
             <HeartIcon
@@ -105,6 +142,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
               )}
             />
           </div>
+
           {isOwner && (
             <div className='size-[3.8rem]'>
               <Dropdown>
@@ -112,14 +150,17 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
                   <VerticalMoreIcon className='cursor-pointer' />
                 </Dropdown.Trigger>
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => {}}>수정하기</Dropdown.Item>
-                  <Dropdown.Item onClick={() => {}}>삭제하기</Dropdown.Item>
+                  <Dropdown.Item onClick={handleEdit}>수정하기</Dropdown.Item>
+                  <Dropdown.Item onClick={() => setIsDeleteModalOpen(true)}>
+                    삭제하기
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
           )}
         </div>
       </div>
+
       <div className='flex items-center justify-between gap-2'>
         <div
           className='hide-scrollbar flex flex-1 items-center gap-2 overflow-x-scroll'
@@ -136,6 +177,7 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
         </div>
         <StarBadge className='flex-shrink-0' rating={rating} />
       </div>
+
       <div
         className={cn(
           'space-y-10 overflow-hidden transition-all duration-300 ease-in-out',
@@ -146,17 +188,39 @@ export default function ReviewCard({ review }: { review: ReviewType }) {
           <p className='text-gray-900'>{content}</p>
         </div>
         <div>
-          <InputRange disabled values={values} onChange={handleChange} />
+          <InputRange
+            disabled
+            className=''
+            values={values}
+            onChange={handleChange}
+          />
         </div>
       </div>
+
       <div
         className='flex cursor-pointer justify-center transition-all'
-        onClick={handleOpen}
+        onClick={handleToggle}
       >
         <div className='animate-bounce'>
           <ChevronArrowIcon direction={isOpen ? 'top' : 'bottom'} />
         </div>
       </div>
+      {isDeleteModalOpen && (
+        <ConfirmDeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={async () => {
+            const result = await deleteReview(review.id);
+            if (result === null) {
+              queryClient.invalidateQueries({ queryKey: ['wine', wineId] });
+              onDelete?.(); // 선택적으로 콜백 실행
+              setIsDeleteModalOpen(false);
+            } else {
+              alert(result);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -1,6 +1,12 @@
-import Image from 'next/image';
+'use client';
 
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import { deleteWine } from '@/actions/wine';
 import PriceBadge from '@/components/Badge/PriceBadge';
+import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
 import { cn } from '@/libs/cn';
 
 import CardDropdown from './CardDropdown';
@@ -33,6 +39,17 @@ export default function WineCard({
   className,
   isDropdown = true,
 }: WineCardProps) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const router = useRouter();
+  const handleDeleteConfirm = async (wineId, router, setIsDeleteModalOpen) => {
+    const result = await deleteWine(wineId);
+    if (result.success) {
+      router.push('/wines');
+    } else {
+      alert(result.message || '와인 삭제에 실패했습니다.');
+    }
+    setIsDeleteModalOpen(false);
+  };
   return (
     <article
       className={cn(
@@ -61,8 +78,21 @@ export default function WineCard({
       </div>
       {isDropdown && (
         <div className='absolute top-12 right-5 md:top-15 md:right-10 xl:right-15'>
-          <CardDropdown wine={wine} />
+          <CardDropdown
+            wine={wine}
+            onDeleteClick={() => setIsDeleteModalOpen(true)}
+          />
         </div>
+      )}
+      {isDeleteModalOpen && (
+        <ConfirmDeleteModal
+          isOpen={isDeleteModalOpen}
+          message='이 와인을 정말 삭제하시겠습니까?'
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={() =>
+            handleDeleteConfirm(wine.id, router, setIsDeleteModalOpen)
+          }
+        />
       )}
     </article>
   );

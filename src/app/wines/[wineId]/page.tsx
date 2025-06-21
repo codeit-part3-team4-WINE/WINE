@@ -1,10 +1,12 @@
 'use client';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
 import WineCard from '@/app/myprofile/components/Card/WineCard';
+import ReviewModal from '@/components/Modals/ReviewModal/ReviewModal';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
@@ -22,6 +24,11 @@ export default function WinePage() {
   const { wineId } = useParams();
   const [isOwner, setIsOwner] = useState(false);
   const userInfo = useUserStore((state) => state.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const [selectedReview, setSelectedReview] = useState<
+    (ReviewType & { wineId: number }) | null
+  >(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
@@ -53,7 +60,16 @@ export default function WinePage() {
     }
   }, [wineId, userInfo?.id, wineInfo?.userId]);
 
+  const handleEdit = (review: ReviewType) => {
+    setSelectedReview({
+      ...review,
+      wineId: wineInfo?.id ?? 0,
+    });
+    setIsModalOpen(true);
+  };
+
   if (status === 'pending') return <WinePageSkeleton />;
+
   if (status === 'error') {
     return (
       <div className='flex h-screen items-center justify-center'>
@@ -103,7 +119,17 @@ export default function WinePage() {
           {allReviews.length > 0 ? (
             <div className='flex flex-col gap-5'>
               {allReviews.map((review) => (
-                <ReviewCard key={review.id} review={review} />
+                <ReviewCard
+                  key={review.id}
+                  review={review}
+                  wineId={wineInfo.id}
+                  onDelete={() => {
+                    queryClient.invalidateQueries({
+                      queryKey: ['wine', wineId],
+                    });
+                  }}
+                  onEdit={handleEdit}
+                />
               ))}
 
               {hasNextPage && (
@@ -115,7 +141,12 @@ export default function WinePage() {
             </div>
           ) : (
             <div className='mt-10'>
-              <Nothing />
+              <Nothing
+                onClick={() => {
+                  setSelectedReview(null); // 등록용 초기화
+                  setIsModalOpen(true); // 모달 열기
+                }}
+              />
             </div>
           )}
         </div>
@@ -125,9 +156,29 @@ export default function WinePage() {
               data={wineInfo.avgRatings}
               rating={wineInfo.avgRating || 0}
               reviewNumber={totalReviews}
+              wineId={wineInfo.id}
+              wineName={wineInfo.name}
+              onWriteReview={() => {
+                setSelectedReview(null); // 등록용으로 초기화
+                setIsModalOpen(true); // 모달 열기
+              }}
             />
           </div>
         ) : null}
+        {isModalOpen && (
+          <ReviewModal
+            initialReview={selectedReview || undefined}
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+            wineId={wineInfo?.id || 0}
+            wineName={wineInfo?.name || ''}
+            onSuccess={() => {
+              queryClient.invalidateQueries({ queryKey: ['wine', wineId] });
+              setIsModalOpen(false);
+              setSelectedReview(null);
+            }}
+          />
+        )}
       </div>
     </div>
   );

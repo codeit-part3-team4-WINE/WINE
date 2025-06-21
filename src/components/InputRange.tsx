@@ -71,7 +71,7 @@ export default function InputRange({
   ...props
 }: InputRangeProps) {
   return (
-    <div className={cn('mx-auto w-full space-y-4', className)}>
+    <div className={cn('w-full space-y-4', className)}>
       {rangeItems.map((item) => (
         <div key={item.name} className='flex items-center gap-4'>
           <span className='md:text-md w-[48px] rounded-xl bg-gray-100 text-center text-xs whitespace-nowrap text-gray-500 md:w-[56px]'>

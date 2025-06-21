@@ -3,13 +3,17 @@
 import Button from '@/components/Button';
 import { cn } from '@/libs/cn';
 
+interface ReviewRatingButtonProps {
+  className?: string;
+  onClick?: () => void;
+}
+
 export default function ReviewRatingButton({
   className,
-}: {
-  className?: string;
-}) {
+  onClick,
+}: ReviewRatingButtonProps) {
   const handleClick = () => {
-    console.log('clicked');
+    if (onClick) onClick();
   };
 
   return (
