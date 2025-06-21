@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { submitReview } from '@/actions/review';
@@ -48,7 +49,7 @@ export interface Review {
   smoothTannic: number;
   drySweet: number;
   softAcidic: number;
-  wineId: number;
+  wineId?: number;
 }
 
 interface ReviewModalProps {
@@ -80,6 +81,7 @@ export default function ReviewModal({
   const [errorMessage, setErrorMessage] = useState('');
   const [isPending, setIsPending] = useState(false);
   const [content, setContent] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     if (!initialReview) return;
@@ -138,7 +140,7 @@ export default function ReviewModal({
     } else {
       setErrorMessage(errorMessage);
     }
-
+    router.refresh();
     setIsPending(false);
   };
 
