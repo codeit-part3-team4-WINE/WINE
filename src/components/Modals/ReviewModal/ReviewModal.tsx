@@ -60,6 +60,13 @@ interface ReviewModalProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+// 추천 와인인지 확인
+export function checkIsRecommendedWine(wineId: number): boolean {
+  const storedIds = useRecommendedWineStore.getState().ids;
+  return storedIds.includes(wineId);
+}
+
 export default function ReviewModal({
   isOpen,
   setIsOpen,
@@ -83,8 +90,7 @@ export default function ReviewModal({
   const [content, setContent] = useState('');
 
   // 추천 와인인지 확인
-  const storedIds = useRecommendedWineStore.getState().ids;
-  const isRecommendedWine = storedIds.includes(wineId);
+  const isRecommendedWine = checkIsRecommendedWine(wineId);
 
   useEffect(() => {
     if (!initialReview) return;

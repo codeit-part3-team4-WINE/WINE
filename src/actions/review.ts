@@ -3,6 +3,16 @@
 import axios from 'axios';
 import { cookies } from 'next/headers';
 
+export async function invalidateRecommendedWinesCache(): Promise<void> {
+  try {
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/wines/revalidate-recommended-wines`,
+    );
+  } catch (error) {
+    console.error('추천 와인 캐시 무효화 요청 중 오류 발생:', error);
+  }
+}
+
 // ✅ 리뷰 등록/수정 서버 액션
 export async function submitReview(
   formData: FormData,
@@ -58,11 +68,7 @@ export async function submitReview(
     });
 
     // 추천 와인 캐시 무효화
-    if (isRecommendedWine) {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/wines/revalidate-recommended-wines`,
-      );
-    }
+    if (isRecommendedWine) await invalidateRecommendedWinesCache();
 
     return null; // 성공
   } catch (error) {
@@ -99,7 +105,10 @@ export async function getMyReview(reviewId: number) {
 }
 
 // ✅ 리뷰 삭제 서버 액션
-export async function deleteReview(reviewId: number): Promise<string | null> {
+export async function deleteReview(
+  reviewId: number,
+  isRecommendedWine: boolean,
+): Promise<string | null> {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get('accessToken')?.value;
@@ -114,6 +123,9 @@ export async function deleteReview(reviewId: number): Promise<string | null> {
         },
       },
     );
+
+    // 추천 와인 캐시 무효화
+    if (isRecommendedWine) await invalidateRecommendedWinesCache();
 
     return null; // 성공
   } catch (error) {

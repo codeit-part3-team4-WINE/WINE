@@ -5,8 +5,11 @@ import axios from 'axios';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
+import { invalidateRecommendedWinesCache } from './review';
+
 export async function deleteWine(
   wineId: number,
+  isRecommendedWine: boolean,
 ): Promise<{ success: boolean; message?: string }> {
   try {
     const cookieStore = await cookies();
@@ -26,6 +29,9 @@ export async function deleteWine(
     );
 
     if (response.status >= 200 && response.status < 300) {
+      // 추천 와인 캐시 무효화
+      if (isRecommendedWine) await invalidateRecommendedWinesCache();
+
       // ✅ 삭제 후 해당 와인 페이지 경로나 목록 경로 무효화
       revalidatePath('/myprofile'); // 또는 `/wines` 목록이 있는 경로로
       return { success: true };

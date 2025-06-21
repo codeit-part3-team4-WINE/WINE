@@ -12,6 +12,7 @@ import StarBadge from '@/components/Badge/StarBadge';
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
 import Dropdown from '@/components/Dropdown';
 import InputRange from '@/components/InputRange';
+import { checkIsRecommendedWine } from '@/components/Modals/ReviewModal/ReviewModal';
 import ProfileImg from '@/components/ProfileImg';
 import useDebounce from '@/hooks/useDebounce';
 import { cn } from '@/libs/cn';
@@ -63,6 +64,9 @@ export default function ReviewCard({
     drySweet,
     softAcidic,
   });
+
+  // 추천 와인인지 확인
+  const isRecommendedWine = checkIsRecommendedWine(wineId);
 
   useEffect(() => {
     setIsLiked(review.isLiked);
@@ -208,7 +212,7 @@ export default function ReviewCard({
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={async () => {
-            const result = await deleteReview(review.id);
+            const result = await deleteReview(review.id, isRecommendedWine);
             if (result === null) {
               queryClient.invalidateQueries({ queryKey: ['wine', wineId] });
               onDelete?.(); // 선택적으로 콜백 실행
