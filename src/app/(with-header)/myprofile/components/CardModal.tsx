@@ -41,7 +41,7 @@ export default function Modal({ children }: { children: ReactNode }) {
       onClick={handleClose}
     >
       <div
-        className='relative max-h-[90vh] w-[90vw] overflow-y-auto rounded-2xl bg-white p-10 shadow-xl md:w-[80vw] md:p-20'
+        className='scrollbar-none relative max-h-[90vh] w-[90vw] overflow-y-auto rounded-2xl bg-white p-10 shadow-xl md:w-[80vw] md:p-20'
         onClick={(e) => e.stopPropagation()}
       >
         {/* 모달 닫기 버튼 */}
