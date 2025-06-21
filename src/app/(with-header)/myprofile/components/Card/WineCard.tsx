@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { deleteWine } from '@/actions/wine';
 import PriceBadge from '@/components/Badge/PriceBadge';
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
+import { checkIsRecommendedWine } from '@/components/Modals/ReviewModal/ReviewModal';
 import { cn } from '@/libs/cn';
 
 import WineCardDropdown from './WineCardDropdown';
@@ -41,8 +42,12 @@ export default function WineCard({
 }: WineCardProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const router = useRouter();
+
   const handleDeleteConfirm = async (wineId, router, setIsDeleteModalOpen) => {
-    const result = await deleteWine(wineId);
+    // 추천 와인인지 확인
+    const isRecommendedWine = checkIsRecommendedWine(wineId);
+
+    const result = await deleteWine(wineId, isRecommendedWine);
     if (result.success) {
       router.push('/wines');
     } else {
@@ -50,6 +55,7 @@ export default function WineCard({
     }
     setIsDeleteModalOpen(false);
   };
+
   return (
     <article
       className={cn(

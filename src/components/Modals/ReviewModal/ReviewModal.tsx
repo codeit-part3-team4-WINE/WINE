@@ -16,6 +16,7 @@ import ModalHeader from '@/components/Modal/ModalHeader';
 import ModalTitle from '@/components/Modal/ModalTitle';
 import MultiSelect from '@/components/MultiSelect';
 import StarRating from '@/components/StarRating';
+import { useRecommendedWineStore } from '@/stores/recommendedWines';
 
 export const AROMA_MAP: Record<string, string> = {
   체리: 'CHERRY',
@@ -59,6 +60,13 @@ interface ReviewModalProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+// 추천 와인인지 확인
+export function checkIsRecommendedWine(wineId: number): boolean {
+  const storedIds = useRecommendedWineStore.getState().ids;
+  return storedIds.includes(wineId);
+}
+
 export default function ReviewModal({
   isOpen,
   setIsOpen,
@@ -80,6 +88,9 @@ export default function ReviewModal({
   const [errorMessage, setErrorMessage] = useState('');
   const [isPending, setIsPending] = useState(false);
   const [content, setContent] = useState('');
+
+  // 추천 와인인지 확인
+  const isRecommendedWine = checkIsRecommendedWine(wineId);
 
   useEffect(() => {
     if (!initialReview) return;
@@ -130,7 +141,7 @@ export default function ReviewModal({
       formData.append('reviewId', String(reviewId));
     }
 
-    const errorMessage = await submitReview(formData);
+    const errorMessage = await submitReview(formData, isRecommendedWine);
 
     if (errorMessage === null) {
       onSuccess?.();

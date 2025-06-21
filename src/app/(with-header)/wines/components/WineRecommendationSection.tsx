@@ -1,7 +1,8 @@
 import { ApiErrorClass } from '@/libs/errors/apis/ApiError';
-import { useRecommendedWineStore } from '@/stores/recommendedWines';
 import { ApiErrorResponse } from '@/types/apiErrorResponse';
 
+import { Wine } from '../types';
+import StoreInitializer from './RecommendedStoreInitializer';
 import RecommendedWineItem from './RecommendedWineItem';
 
 async function getRecommendedWineList() {
@@ -16,17 +17,6 @@ async function getRecommendedWineList() {
       },
     );
     const data = await response.json();
-    const ids = data.map((wine) => {
-      return wine.id;
-    });
-
-    useRecommendedWineStore.getState().setWineIds(ids); // zustand 전역 상태로 저장
-    /*
-     * [zustand에서 가져오기]
-     * const storedIds = useRecommendedWineStore.getState().ids;
-     * 리뷰 등록시 위와 같은 방법으로 추천 와인 id들을 받아와, 현재 리뷰가 등록된 와인이 추천 중인 와인이라면 캐시를 무효화합니다.
-     */
-
     return data;
   } catch (error: unknown) {
     console.error('추천 와인 데이터 불러오기 실패:', error);
@@ -42,9 +32,7 @@ async function getRecommendedWineList() {
   }
 }
 
-async function RecommendedWineList() {
-  const monthlyRecommendedWines = await getRecommendedWineList();
-
+async function RecommendedWineList({ wines }: { wines: Wine[] }) {
   return (
     <div className='rounded-3xl bg-gray-100 p-8'>
       <h2 className='sub-title-text mb-6'>이런 와인은 어떠세요?</h2>
@@ -58,7 +46,7 @@ async function RecommendedWineList() {
 
         <div className='rolling-list-original'>
           <ul className='flex'>
-            {monthlyRecommendedWines.map((item, index) => (
+            {wines.map((item, index) => (
               <li
                 key={`${item.id}-${index}`}
                 className='mx-[0.75rem] w-[22rem] flex-shrink-0 md:w-[26rem]'
@@ -75,7 +63,7 @@ async function RecommendedWineList() {
         </div>
         <div className='rolling-list-clone'>
           <ul className='flex'>
-            {monthlyRecommendedWines.map((item, index) => (
+            {wines.map((item, index) => (
               <li
                 key={`clone-${item.id}-${index}`}
                 className='mx-[0.75rem] w-[22rem] flex-shrink-0 md:w-[26rem]'
@@ -95,10 +83,14 @@ async function RecommendedWineList() {
   );
 }
 
-export default function WineRecommendationSection() {
+export default async function WineRecommendationSection() {
+  const monthlyRecommendedWines = await getRecommendedWineList();
+  const wineIds = monthlyRecommendedWines.map((wine) => wine.id);
+
   return (
     <section className='col-start-1 col-end-4 row-start-1 row-end-2'>
-      <RecommendedWineList />
+      <StoreInitializer wineIds={wineIds} />
+      <RecommendedWineList wines={monthlyRecommendedWines} />
     </section>
   );
 }
