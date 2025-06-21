@@ -1,7 +1,7 @@
 // app/design-system/layout.tsx
 import Link from 'next/link';
 
-import ArrowIcon from '../assets/icons/arrow';
+import ArrowIcon from '@/app/assets/icons/arrow';
 
 export default function DesignSystemLayout({
   children,
