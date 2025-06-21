@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useActionState } from 'react';
+import { toast } from 'sonner';
 
 import { SignIn } from '@/app/(non-header)/login/action';
 import KakaoLoginIcon from '@/app/assets/icons/kakao-login';
@@ -11,11 +12,7 @@ import WineLogoIcon from '@/app/assets/icons/wine-logo';
 import Button from '@/components/Button';
 import InputPair from '@/components/Inputs/InputPair';
 import useUserStore, { User } from '@/stores/Auth-store/authStore';
-
-import {
-  validateEmail,
-  validatePassword,
-} from '../../../../utils/validateInput';
+import { validateEmail, validatePassword } from '@/utils/validateInput';
 
 interface LoginState {
   error?: string;
@@ -62,6 +59,7 @@ export default function LoginForm() {
     }
     if (state.error) {
       console.log(state.error);
+      toast.error(state.error);
     }
   }, [state, setUser, router]);
 
@@ -72,9 +70,9 @@ export default function LoginForm() {
   };
 
   return (
-    <div className='flex min-h-screen items-center justify-center bg-white px-4 py-12'>
-      <div className='w-full max-w-3xl space-y-8 rounded-xl bg-white p-6 shadow-2xl inset-shadow-sm inset-shadow-gray-200 sm:p-8'>
-        <div className='py-8 text-center'>
+    <div className='flex min-h-screen items-center justify-center bg-gray-100 px-2 py-4 sm:px-4 sm:py-12'>
+      <div className='w-full max-w-3xl space-y-4 rounded-xl bg-white p-4 shadow-2xl inset-shadow-sm inset-shadow-gray-200 sm:space-y-8 sm:p-6 md:p-8'>
+        <div className='py-4 text-center sm:py-8'>
           <Link aria-label='홈으로 이동' href='/wines'>
             <WineLogoIcon
               className='mx-auto h-12 w-auto cursor-pointer'
@@ -83,14 +81,11 @@ export default function LoginForm() {
           </Link>
         </div>
 
-        {state.error && (
-          <div className='text-md mx-auto text-center font-bold text-red-600'>
-            {state.error}
-          </div>
-        )}
-
-        <form action={formAction} className='mt-8 space-y-6 pb-[6rem]'>
-          <div className='space-y-6 px-8'>
+        <form
+          action={formAction}
+          className='mt-4 space-y-4 pb-4 sm:mt-8 sm:space-y-6 sm:pb-[6rem]'
+        >
+          <div className='space-y-3 px-4 sm:space-y-4 sm:px-8'>
             <div>
               <InputPair
                 required
@@ -125,7 +120,7 @@ export default function LoginForm() {
               />
             </div>
 
-            <div className='mt-[4rem] flex items-center justify-center'>
+            <div className='mt-6 flex items-center justify-center sm:mt-[4rem]'>
               <Button
                 className='w-full'
                 disabled={isDisabled}
@@ -139,7 +134,7 @@ export default function LoginForm() {
               </Button>
             </div>
 
-            <div className='mt-[2rem] flex items-center justify-center'>
+            <div className='mt-4 flex items-center justify-center sm:mt-[2rem]'>
               <Button
                 className='w-full bg-yellow-300'
                 round='rounded'
@@ -152,7 +147,7 @@ export default function LoginForm() {
               </Button>
             </div>
 
-            <div className='mt-[4rem] flex items-center justify-center'>
+            <div className='mt-6 flex items-center justify-center sm:mt-[4rem]'>
               <div className='h-px flex-grow bg-gray-500' />
               <span className='text-md mx-4 flex-shrink text-gray-600'>
                 또는
@@ -160,7 +155,7 @@ export default function LoginForm() {
               <div className='h-px flex-grow bg-gray-500' />
             </div>
 
-            <div className='mt-6 text-center text-lg text-gray-900'>
+            <div className='text-md mt-4 text-center text-gray-900 sm:mt-6 sm:text-lg'>
               계정이 없으신가요?{' '}
               <Link
                 className='text-primary-100 hover:text-primary-100 font-medium hover:underline'
