@@ -59,7 +59,7 @@ export default function FavoriteContent({
         <>
           <div className='flex flex-col gap-10'>
             {visibleReviews.map((review) => (
-              <Link href={`/wines/${review.wineId}`}>
+              <Link key={review.id} href={`/wines/${review.wineId}`}>
                 <ReviewCard key={review.id} review={review} />
               </Link>
             ))}
