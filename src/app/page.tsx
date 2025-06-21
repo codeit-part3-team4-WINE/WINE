@@ -70,7 +70,7 @@ function LandingSection_2() {
       initial='hidden'
       variants={containerVariants}
     >
-      <div className='border-primary-100 absolute bottom-0 flex h-[10vh] w-screen items-center justify-center border-t-1'>
+      <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-20 flex h-[10vh] w-screen items-center justify-center border-t-1'>
         <p className='text-primary-100 flex flex-col items-center text-[2rem] font-[300] md:flex-row md:text-[3rem]'>
           <span>추천은 우리가 할게요.</span>
           <span> 당신은 고르기만 하세요.</span>
@@ -81,7 +81,7 @@ function LandingSection_2() {
         RECOMMEND
       </p>
 
-      <div className='absolute top-[67vh] left-[40vw] flex w-[19vw] flex-col items-center justify-center md:top-[27vh]'>
+      <div className='absolute top-[67vh] left-[40vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] xl:top-[27vh]'>
         <div className='h-[25vw] w-fit' />
         <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
           <div className='flex gap-[0.2vw]'>
@@ -95,7 +95,7 @@ function LandingSection_2() {
         </div>
       </div>
 
-      <div className='absolute top-[50vh] left-[12vw] flex w-[19vw] flex-col items-center justify-center md:top-[27vh] md:left-[10vw]'>
+      <div className='absolute top-[50vh] left-[12vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] md:left-[10vw] xl:top-[27vh]'>
         <div className='h-[36vh] w-[47vw] md:h-[25vw] md:w-fit'>
           <Image
             alt='bottle'
@@ -115,7 +115,7 @@ function LandingSection_2() {
         </div>
       </div>
 
-      <div className='absolute top-[27vh] left-[25vw] hidden w-[19vw] flex-col items-center justify-center md:flex'>
+      <div className='absolute left-[25vw] hidden w-[19vw] flex-col items-center justify-center md:top-[40vh] md:flex xl:top-[27vh]'>
         <div className='h-[25vw] w-fit'>
           <Image
             alt='bottle'
@@ -135,7 +135,7 @@ function LandingSection_2() {
         </div>
       </div>
 
-      <div className='absolute top-[27vh] left-[55vw] hidden w-[19vw] flex-col items-center justify-center md:flex'>
+      <div className='absolute left-[55vw] hidden w-[19vw] flex-col items-center justify-center md:top-[40vh] md:flex xl:top-[27vh]'>
         <div className='h-[25vw] w-fit'>
           <Image
             alt='bottle'
@@ -155,7 +155,7 @@ function LandingSection_2() {
         </div>
       </div>
 
-      <div className='absolute top-[50vh] left-[70vw] flex w-[19vw] flex-col items-center justify-center md:top-[27vh]'>
+      <div className='absolute top-[50vh] left-[70vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] xl:top-[27vh]'>
         <div className='h-[36vh] w-[47vw] md:h-[25vw] md:w-fit'>
           <Image
             alt='bottle'
@@ -181,7 +181,7 @@ function LandingSection_2() {
 function LandingSection_3() {
   return (
     <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
-      <div className='absolute top-[20vh] flex items-center gap-[1vw] md:top-[13vh]'>
+      <div className='absolute top-[17vh] flex items-center gap-[1vw] md:top-[13vh]'>
         <p className='font-archivo text-primary-100 text-[7vh] font-[700] md:text-[11vw]'>
           SEARCH
         </p>
@@ -196,22 +196,22 @@ function LandingSection_3() {
         />
       </div>
 
-      <div className='absolute top-[60vh] left-[18vw] flex w-[25vw] flex-col gap-[1vh] md:top-[45vh] md:left-[70vw] md:gap-[0.7vw]'>
+      <div className='absolute top-[60vh] left-[15vw] flex w-[25vw] flex-col gap-[1vh] md:top-[45vh] md:left-[63vw] md:gap-[0.7vw] xl:left-[70vw]'>
         <p className='text-[1.6rem] text-gray-500'>TYPES</p>
         <div className='flex gap-[1vw]'>
-          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] text-gray-500 md:text-[2rem]'>
+          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] text-gray-500 md:text-[1.8rem] xl:text-[2rem]'>
             RED
           </p>
-          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] text-gray-500 md:text-[2rem]'>
+          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] text-gray-500 md:text-[1.8rem] xl:text-[2rem]'>
             WHITE
           </p>
-          <p className='bg-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 px-8 py-3 text-[1.4rem] text-white md:text-[2rem]'>
+          <p className='bg-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 px-8 py-3 text-[1.4rem] text-white md:text-[1.8rem] xl:text-[2rem]'>
             SPARKLING
           </p>
         </div>
       </div>
 
-      <div className='absolute top-[72vh] left-[18vw] flex w-[70vw] flex-col gap-[1vh] md:top-[60vh] md:left-[70vw] md:w-[25vw] md:gap-[0.7vw]'>
+      <div className='absolute top-[72vh] left-[15vw] flex w-[70vw] flex-col gap-[1vh] md:top-[60vh] md:left-[63vw] md:w-[30vw] md:gap-[0.7vw] xl:left-[70vw] xl:w-[25vw]'>
         <p className='text-[1.6rem] text-gray-500'>PRICE</p>
         <div className='flex gap-[1vw]'>
           <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
@@ -222,17 +222,17 @@ function LandingSection_3() {
         </div>
       </div>
 
-      <div className='absolute top-[80vh] left-[18vw] flex w-[25vw] flex-col gap-[1vh] md:top-[70vh] md:left-[70vw] md:gap-[0.7vw]'>
+      <div className='absolute top-[80vh] left-[15vw] flex w-[25vw] flex-col gap-[1vh] md:top-[70vh] md:left-[63vw] md:gap-[0.7vw] xl:left-[70vw]'>
         <p className='text-[1.6rem] text-gray-500'>RATING</p>
         <div className='flex gap-[2vh] md:flex-col md:gap-[1vw]'>
-          <div className='flex gap-[1vw]'>
+          <div className='flex items-center gap-[1vw]'>
             <div className='flex size-[2.5vh] items-center justify-center rounded-md border-1 border-gray-200 bg-gray-100 md:size-[2vw]'>
               <div className='bg-primary-100 size-[1.3vh] rounded-sm border-1 border-gray-200 md:size-[1vw]' />
             </div>
             <p className='text-[1.4rem] text-gray-500 md:text-[2rem]'>ALL</p>
           </div>
 
-          <div className='flex gap-[1vw]'>
+          <div className='flex items-center gap-[1vw]'>
             <div className='size-[2.5vh] rounded-md border-1 border-gray-200 bg-gray-100 md:size-[2vw]' />
             <p className='text-[1.4rem] whitespace-nowrap text-gray-500 md:text-[2rem]'>
               4.0 - 4.5
@@ -241,7 +241,7 @@ function LandingSection_3() {
         </div>
       </div>
 
-      <div className='border-primary-100 absolute bottom-0 flex h-[10vh] w-screen items-center justify-center border-t-1'>
+      <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-20 flex h-[10vh] w-screen items-center justify-center border-t-1'>
         <p className='text-primary-100 text-[2rem] font-[300] whitespace-nowrap md:text-[3rem]'>
           찾고 있는 와인, 이미 알고 있어요.
         </p>
@@ -257,7 +257,7 @@ function LandingSection_4() {
         REVIEW
       </p>
 
-      <div className='absolute top-[33vh] left-[10vw] flex flex-wrap gap-[0.5vh] md:top-[45vh] md:gap-3'>
+      <div className='absolute top-[33vh] left-[9vw] flex flex-wrap gap-[0.5vh] md:top-[45vh] md:gap-3'>
         <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:text-[2rem]'>
           CHERRY
         </p>
@@ -272,24 +272,24 @@ function LandingSection_4() {
         </p>
       </div>
 
-      <div className='absolute top-[40vh] left-[12vw] flex w-[80vw] flex-col gap-2 md:top-[53vh] md:w-[40vw]'>
-        <p className='text-[1.8rem] font-[500] text-gray-500 md:text-[2.4rem]'>
+      <div className='absolute top-[40vh] left-[10vw] flex w-[80vw] flex-col gap-2 md:top-[53vh] md:left-[10vw] md:w-[50vw] xl:w-[40vw]'>
+        <p className='text-[1.8rem] font-[500] text-gray-500 md:text-[2rem] xl:text-[2.4rem]'>
           La Vigne Noire Pinot Noir 2020
         </p>
-        <p className='text-[1.4rem] text-gray-500 md:text-[2rem]'>
+        <p className='text-[1.4rem] font-[300] text-gray-500 md:text-[1.6rem] xl:text-[2rem]'>
           Rich notes of cherry and mixed berries lead the palate, supported by
           layers of dark chocolate and smooth vanilla. The finish is long and
           balanced, leaving a soft, fruity warmth.
         </p>
       </div>
 
-      <div className='absolute top-[58vh] left-[12vw] flex w-[80vw] flex-col gap-[4vh] md:left-[10vw] md:w-[40vw]'>
+      <div className='absolute top-[58vh] left-[10vw] flex w-[80vw] flex-col gap-[4vh] md:top-[74vh] md:left-[10vw] md:w-[40vw]'>
         <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
-          <div className='bg-primary-100 absolute left-[10vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[40rem] md:size-[2.5vw]' />
+          <div className='bg-primary-100 absolute left-[10vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[30vw] md:size-[2.5vw]' />
         </div>
 
         <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
-          <div className='bg-primary-100 absolute left-[68vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[15rem] md:size-[2.5vw]' />
+          <div className='bg-primary-100 absolute left-[68vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[15vw] md:size-[2.5vw]' />
         </div>
       </div>
 
@@ -316,11 +316,6 @@ export default function LandingPage() {
     [0, 0.25, 0.5, 0.75, 1],
     [0, 0, 0, -600, 400],
   );
-  // const x = useTransform(
-  //   scrollYProgress,
-  //   [0.125, 0.375, 0.625, 0.875],
-  //   [0, 0, -300, 400],
-  // );
 
   const y = useTransform(
     scrollYProgress,
@@ -349,12 +344,12 @@ export default function LandingPage() {
   const yTablet = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
-    [200, 0, 0, 100, 50],
+    [150, 0, 0, 100, 50],
   );
   const scaleTablet = useTransform(
     scrollYProgress,
     [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1],
-    [2.1, 0.7, 0.5, 1, 1, 1, 8, 1, 2.8],
+    [2.1, 1, 1, 1, 1, 1, 8, 1, 2.8],
   );
   const rotateTablet = useTransform(
     scrollYProgress,
@@ -406,7 +401,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      <div className='bg-primary-10 border-primary-100 fixed right-0 z-90 h-screen w-[5vw] border-l-1 md:hidden' />
+      <div className='bg-primary-10 border-primary-100 fixed right-0 z-80 h-screen w-[5vw] border-l-1 md:hidden' />
 
       <div className='border-primary-100 bg-primary-10 fixed top-0 z-100 flex h-[10vh] w-screen items-center justify-between border-b-1 px-[5vw]'>
         <Link href='/wines'>
