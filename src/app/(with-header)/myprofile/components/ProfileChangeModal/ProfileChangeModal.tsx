@@ -230,11 +230,7 @@ export default function ProfileChangeModal({
 
         router.refresh();
       } else {
-        if (result.message === '이미 사용중인 닉네임입니다.') {
-          toast.warning(result.message);
-        } else {
-          toast.error('프로필 변경에 실패했습니다.');
-        }
+        toast.error(result.message);
       }
     } catch (err) {
       console.error(err);
