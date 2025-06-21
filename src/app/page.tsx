@@ -388,7 +388,7 @@ export function LandingSection_4() {
         ))}
       </div>
 
-      <div className='absolute top-[40vh] left-[10vw] flex w-[80vw] flex-col gap-2 md:top-[53vh] md:left-[10vw] md:w-[50vw] xl:w-[40vw]'>
+      <div className='absolute top-[40vh] left-[10vw] flex w-[80vw] flex-col gap-2 md:top-[53vh] md:left-[10vw] md:w-[55vw] xl:w-[40vw]'>
         <motion.p
           animate={isInView ? 'visible' : 'hidden'}
           className='text-[1.8rem] font-[500] text-gray-500 md:text-[2rem] xl:text-[2.4rem]'
