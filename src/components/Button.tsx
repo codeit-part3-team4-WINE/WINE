@@ -27,7 +27,7 @@ interface ButtonProps
   /** 버튼의 타입 - 기본값: 'button' */
   type?: 'button' | 'submit' | 'reset';
   /** 버튼 스타일 타입 */
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'kakao';
   /** 버튼 크기 */
   size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs';
   /** 버튼 모서리 스타일 */
