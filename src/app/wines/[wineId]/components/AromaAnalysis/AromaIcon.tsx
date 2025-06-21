@@ -7,7 +7,6 @@ import CitrusIcon from '@/app/assets/tastes/citrus';
 import CoconutIcon from '@/app/assets/tastes/coconut';
 import EarthyIcon from '@/app/assets/tastes/earthy';
 import FloralIcon from '@/app/assets/tastes/floral';
-import HerbalIcon from '@/app/assets/tastes/herbal';
 import HoneyIcon from '@/app/assets/tastes/honey';
 import LeatherIcon from '@/app/assets/tastes/leather';
 import MineralIcon from '@/app/assets/tastes/mineral';
@@ -32,49 +31,45 @@ export default function AromaIcon({ aroma, className }: AromaIconProps) {
   const iconProps = { className };
 
   switch (aroma) {
-    case 'APPLE':
-      return <AppleIcon {...iconProps} />;
-    case 'BERRY':
-      return <BerryIcon {...iconProps} />;
     case 'CHERRY':
       return <CherryIcon {...iconProps} />;
-    case 'CHOCOLATE':
-      return <ChocolateIcon {...iconProps} />;
+    case 'BERRY':
+      return <BerryIcon {...iconProps} />;
+    case 'OAK':
+      return <OakIcon {...iconProps} />;
+    case 'VANILLA':
+      return <VanillaIcon {...iconProps} />;
+    case 'PEPPER':
+      return <PepperIcon {...iconProps} />;
+    case 'BAKING':
+      return <ToastyIcon {...iconProps} />;
+    case 'GRASS':
+      return <WildFlowerIcon {...iconProps} />;
+    case 'APPLE':
+      return <AppleIcon {...iconProps} />;
+    case 'PEACH':
+      return <PeachIcon {...iconProps} />;
     case 'CITRUS':
       return <CitrusIcon {...iconProps} />;
-    case 'COCONUT':
-      return <CoconutIcon {...iconProps} />;
-    case 'EARTHY':
-      return <EarthyIcon {...iconProps} />;
-    case 'FLORAL':
+    case 'TROPICAL':
+      return <TropicalIcon {...iconProps} />;
+    case 'MINERAL':
+      return <MineralIcon {...iconProps} />;
+    case 'FLOWER':
       return <FloralIcon {...iconProps} />;
-    case 'HERBAL':
-      return <HerbalIcon {...iconProps} />;
-    case 'HONEY':
+    case 'TOBACCO':
+      return <MintIcon {...iconProps} />;
+    case 'EARTH':
+      return <EarthyIcon {...iconProps} />;
+    case 'CHOCOLATE':
+      return <ChocolateIcon {...iconProps} />;
+    case 'SPICE':
+      return <SpicyIcon {...iconProps} />;
+    case 'CARAMEL':
       return <HoneyIcon {...iconProps} />;
     case 'LEATHER':
       return <LeatherIcon {...iconProps} />;
-    case 'MINERAL':
-      return <MineralIcon {...iconProps} />;
-    case 'MINT':
-      return <MintIcon {...iconProps} />;
-    case 'OAK':
-      return <OakIcon {...iconProps} />;
-    case 'PEACH':
-      return <PeachIcon {...iconProps} />;
-    case 'PEPPER':
-      return <PepperIcon {...iconProps} />;
-    case 'SPICY':
-      return <SpicyIcon {...iconProps} />;
-    case 'TOASTY':
-      return <ToastyIcon {...iconProps} />;
-    case 'TROPICAL':
-      return <TropicalIcon {...iconProps} />;
-    case 'VANILLA':
-      return <VanillaIcon {...iconProps} />;
-    case 'WILDFLOWER':
-      return <WildFlowerIcon {...iconProps} />;
     default:
-      return <FloralIcon {...iconProps} />; // 기본 아이콘
+      return <CoconutIcon {...iconProps} />; // 기본 아이콘
   }
 }

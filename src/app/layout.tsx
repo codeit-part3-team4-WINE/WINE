@@ -1,6 +1,7 @@
 import './globals.css';
 
 import type { Metadata, Viewport } from 'next';
+import { Toaster } from 'sonner';
 
 const APP_NAME = 'WINE';
 const APP_DEFAULT_TITLE = 'WINE APP';
@@ -63,7 +64,7 @@ export default function RootLayout({
             <QueryProvider>{children}</QueryProvider>
           </main>
         </DynamicLayout>
-
+        <Toaster richColors position='top-center' />
         <div id='modal-root' />
       </body>
     </html>
