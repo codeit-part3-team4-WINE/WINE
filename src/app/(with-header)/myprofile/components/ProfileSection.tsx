@@ -2,7 +2,6 @@
 
 import { StaticImageData } from 'next/image';
 
-// import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
 import useUserStore from '@/stores/Auth-store/authStore';
@@ -20,9 +19,6 @@ import ProfileChangeModal, {
  * ```
  */
 export default function ProfileSection() {
-  // const axios = await createPrivateServerInstance();
-  // const { data: user } = await axios.get('/users/me');
-
   const user = useUserStore((state) => state.user);
 
   if (!user) return null;
@@ -36,7 +32,7 @@ export default function ProfileSection() {
     >
       <div className={cn('flex items-center gap-[1.6rem]', 'xl:flex-col')}>
         <ProfileImg size='lg' src={user.image as string | StaticImageData} />
-        <span className='text-xl font-bold text-gray-800 md:text-2xl'>
+        <span className='px-8 text-xl font-bold text-gray-800 md:text-2xl'>
           {user.nickname}
         </span>
       </div>
