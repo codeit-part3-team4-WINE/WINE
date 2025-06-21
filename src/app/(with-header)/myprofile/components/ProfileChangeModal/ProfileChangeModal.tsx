@@ -233,7 +233,7 @@ export default function ProfileChangeModal({
         if (result.message === '이미 사용중인 닉네임입니다.') {
           toast.warning(result.message);
         } else {
-          toast.warning('프로필 변경에 실패했습니다.');
+          toast.error('프로필 변경에 실패했습니다.');
         }
       }
     } catch (err) {
