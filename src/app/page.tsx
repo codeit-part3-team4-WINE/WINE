@@ -33,7 +33,7 @@ function TopButton({ containerRef }) {
   );
 }
 
-function LandingSection_1() {
+export function LandingSection_1() {
   return (
     <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
       <p className='text-primary-100 font-modak absolute left-[20vw] text-[22vw] leading-none'>
@@ -49,14 +49,18 @@ function LandingSection_1() {
   );
 }
 
-const containerVariants = {
-  hidden: {},
+const riseUp = (delay = 0) => ({
+  hidden: { y: 40, opacity: 0 },
   visible: {
+    y: 0,
+    opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      duration: 0.5,
+      delay,
+      ease: 'easeOut' as const,
     },
   },
-};
+});
 
 function LandingSection_2() {
   const ref = useRef(null);
@@ -68,7 +72,6 @@ function LandingSection_2() {
       animate={isInView ? 'visible' : 'hidden'}
       className='border-primary-100 bg-primary-10 relative flex h-screen w-screen snap-center items-center justify-center border-b'
       initial='hidden'
-      variants={containerVariants}
     >
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-20 flex h-[10vh] w-screen items-center justify-center border-t-1'>
         <p className='text-primary-100 flex flex-col items-center text-[2rem] font-[300] md:flex-row md:text-[3rem]'>
@@ -81,106 +84,169 @@ function LandingSection_2() {
         RECOMMEND
       </p>
 
-      <div className='absolute top-[67vh] left-[40vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] xl:top-[27vh]'>
+      {/* ⭐ 와인 1 */}
+      <motion.div
+        animate={isInView ? 'visible' : 'hidden'}
+        className='absolute top-[67vh] left-[40vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] xl:top-[27vh]'
+        initial='hidden'
+        variants={riseUp(0)}
+      >
         <div className='h-[25vw] w-fit' />
-        <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
+        <motion.div
+          className='mt-[0.3vw] flex flex-col items-center gap-3'
+          variants={riseUp(0.2)}
+        >
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
+            {[...Array(5)].map((_, i) => (
+              <StarIcon key={i} filled color='#6a42db' size={20} />
+            ))}
           </div>
           <p className='text-primary-100 text-[3rem]'>5.0</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className='absolute top-[50vh] left-[12vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] md:left-[10vw] xl:top-[27vh]'>
-        <div className='h-[36vh] w-[47vw] md:h-[25vw] md:w-fit'>
+      {/* ⭐ 와인 2 */}
+      <motion.div
+        animate={isInView ? 'visible' : 'hidden'}
+        className='absolute top-[50vh] left-[12vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] md:left-[10vw] xl:top-[27vh]'
+        initial='hidden'
+        variants={riseUp(0)}
+      >
+        <motion.div
+          className='h-[36vh] w-[47vw] md:h-[25vw] md:w-fit'
+          variants={riseUp(0)}
+        >
           <Image
             alt='bottle'
             className='h-full w-full object-contain grayscale'
             src={bottle2Image}
           />
-        </div>
-        <div className='mt-[0.3vw] hidden flex-col items-center gap-3 md:flex'>
+        </motion.div>
+        <motion.div
+          className='mt-[0.3vw] hidden flex-col items-center gap-3 md:flex'
+          variants={riseUp(0.2)}
+        >
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon color='#6a42db' size={20} />
-            <StarIcon color='#6a42db' size={20} />
+            {[...Array(3)].map((_, i) => (
+              <StarIcon key={i} filled color='#6a42db' size={20} />
+            ))}
+            {[...Array(2)].map((_, i) => (
+              <StarIcon key={i + 3} color='#6a42db' size={20} />
+            ))}
           </div>
           <p className='text-[2rem] text-gray-500'>3.2</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className='absolute left-[25vw] hidden w-[19vw] flex-col items-center justify-center md:top-[40vh] md:flex xl:top-[27vh]'>
-        <div className='h-[25vw] w-fit'>
+      {/* ⭐ 와인 3 */}
+      <motion.div
+        animate={isInView ? 'visible' : 'hidden'}
+        className='absolute left-[25vw] hidden w-[19vw] flex-col items-center justify-center md:top-[40vh] md:flex xl:top-[27vh]'
+        initial='hidden'
+        variants={riseUp(0.1)}
+      >
+        <motion.div className='h-[25vw] w-fit' variants={riseUp(0.1)}>
           <Image
             alt='bottle'
             className='h-full w-full object-contain grayscale'
             src={bottle2Image}
           />
-        </div>
-        <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
+        </motion.div>
+        <motion.div
+          className='mt-[0.3vw] flex flex-col items-center gap-3'
+          variants={riseUp(0.3)}
+        >
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon color='#6a42db' size={20} />
-            <StarIcon color='#6a42db' size={20} />
+            {[...Array(3)].map((_, i) => (
+              <StarIcon key={i} filled color='#6a42db' size={20} />
+            ))}
+            {[...Array(2)].map((_, i) => (
+              <StarIcon key={i + 3} color='#6a42db' size={20} />
+            ))}
           </div>
           <p className='text-[2rem] text-gray-500'>3.4</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className='absolute left-[55vw] hidden w-[19vw] flex-col items-center justify-center md:top-[40vh] md:flex xl:top-[27vh]'>
-        <div className='h-[25vw] w-fit'>
+      {/* ⭐ 와인 4 */}
+      <motion.div
+        animate={isInView ? 'visible' : 'hidden'}
+        className='absolute left-[55vw] hidden w-[19vw] flex-col items-center justify-center md:top-[40vh] md:flex xl:top-[27vh]'
+        initial='hidden'
+        variants={riseUp(0.2)}
+      >
+        <motion.div className='h-[25vw] w-fit' variants={riseUp(0.2)}>
           <Image
             alt='bottle'
             className='h-full w-full object-contain grayscale'
             src={bottle2Image}
           />
-        </div>
-        <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
+        </motion.div>
+        <motion.div
+          className='mt-[0.3vw] flex flex-col items-center gap-3'
+          variants={riseUp(0.4)}
+        >
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
+            {[...Array(4)].map((_, i) => (
+              <StarIcon key={i} filled color='#6a42db' size={20} />
+            ))}
             <StarIcon color='#6a42db' size={20} />
           </div>
           <p className='text-[2rem] text-gray-500'>4.1</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <div className='absolute top-[50vh] left-[70vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] xl:top-[27vh]'>
-        <div className='h-[36vh] w-[47vw] md:h-[25vw] md:w-fit'>
+      {/* ⭐ 와인 5 */}
+      <motion.div
+        animate={isInView ? 'visible' : 'hidden'}
+        className='absolute top-[50vh] left-[70vw] flex w-[19vw] flex-col items-center justify-center md:top-[40vh] xl:top-[27vh]'
+        initial='hidden'
+        variants={riseUp(0.3)}
+      >
+        <motion.div
+          className='h-[36vh] w-[47vw] md:h-[25vw] md:w-fit'
+          variants={riseUp(0.3)}
+        >
           <Image
             alt='bottle'
             className='h-full w-full object-contain grayscale'
             src={bottle2Image}
           />
-        </div>
-        <div className='mt-[0.3vw] hidden flex-col items-center gap-3 md:flex'>
+        </motion.div>
+        <motion.div
+          className='mt-[0.3vw] hidden flex-col items-center gap-3 md:flex'
+          variants={riseUp(0.5)}
+        >
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon filled color='#6a42db' size={20} />
-            <StarIcon color='#6a42db' size={20} />
-            <StarIcon color='#6a42db' size={20} />
+            {[...Array(3)].map((_, i) => (
+              <StarIcon key={i} filled color='#6a42db' size={20} />
+            ))}
+            {[...Array(2)].map((_, i) => (
+              <StarIcon key={i + 3} color='#6a42db' size={20} />
+            ))}
           </div>
           <p className='text-[2rem] text-gray-500'>3.0</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 }
 
 function LandingSection_3() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { amount: 0.5 });
+
   return (
-    <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
+    <motion.div
+      ref={ref}
+      animate={isInView ? 'visible' : 'hidden'}
+      className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'
+      initial='hidden'
+      variants={{
+        visible: { transition: { staggerChildren: 0.1 } },
+        hidden: {},
+      }}
+    >
       <div className='absolute top-[17vh] flex items-center gap-[1vw] md:top-[13vh]'>
         <p className='font-archivo text-primary-100 text-[7vh] font-[700] md:text-[11vw]'>
           SEARCH
@@ -196,7 +262,17 @@ function LandingSection_3() {
         />
       </div>
 
-      <div className='absolute top-[60vh] left-[15vw] flex w-[25vw] flex-col gap-[1vh] md:top-[45vh] md:left-[63vw] md:gap-[0.7vw] xl:left-[70vw]'>
+      <motion.div
+        className='absolute top-[60vh] left-[15vw] flex w-[25vw] flex-col gap-[1vh] md:top-[45vh] md:left-[63vw] md:gap-[0.7vw] xl:left-[70vw]'
+        variants={{
+          hidden: { x: 40, opacity: 0 },
+          visible: {
+            x: 0,
+            opacity: 1,
+            transition: { duration: 0.6, ease: 'easeOut' },
+          },
+        }}
+      >
         <p className='text-[1.6rem] text-gray-500'>TYPES</p>
         <div className='flex gap-[1vw]'>
           <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] text-gray-500 md:text-[1.8rem] xl:text-[2rem]'>
@@ -209,9 +285,19 @@ function LandingSection_3() {
             SPARKLING
           </p>
         </div>
-      </div>
+      </motion.div>
 
-      <div className='absolute top-[72vh] left-[15vw] flex w-[70vw] flex-col gap-[1vh] md:top-[60vh] md:left-[63vw] md:w-[30vw] md:gap-[0.7vw] xl:left-[70vw] xl:w-[25vw]'>
+      <motion.div
+        className='absolute top-[72vh] left-[15vw] flex w-[70vw] flex-col gap-[1vh] md:top-[60vh] md:left-[63vw] md:w-[30vw] md:gap-[0.7vw] xl:left-[70vw] xl:w-[25vw]'
+        variants={{
+          hidden: { x: 40, opacity: 0 },
+          visible: {
+            x: 0,
+            opacity: 1,
+            transition: { duration: 0.6, ease: 'easeOut', delay: 0.1 },
+          },
+        }}
+      >
         <p className='text-[1.6rem] text-gray-500'>PRICE</p>
         <div className='flex gap-[1vw]'>
           <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
@@ -220,9 +306,19 @@ function LandingSection_3() {
             <div className='absolute left-[30vw] size-[2.5vh] rounded-full border-1 border-gray-200 bg-gray-100 md:left-[19vw] md:size-[2.5vw]' />
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className='absolute top-[80vh] left-[15vw] flex w-[25vw] flex-col gap-[1vh] md:top-[70vh] md:left-[63vw] md:gap-[0.7vw] xl:left-[70vw]'>
+      <motion.div
+        className='absolute top-[80vh] left-[15vw] flex w-[25vw] flex-col gap-[1vh] md:top-[70vh] md:left-[63vw] md:gap-[0.7vw] xl:left-[70vw]'
+        variants={{
+          hidden: { x: 40, opacity: 0 },
+          visible: {
+            x: 0,
+            opacity: 1,
+            transition: { duration: 0.6, ease: 'easeOut', delay: 0.2 },
+          },
+        }}
+      >
         <p className='text-[1.6rem] text-gray-500'>RATING</p>
         <div className='flex gap-[2vh] md:flex-col md:gap-[1vw]'>
           <div className='flex items-center gap-[1vw]'>
@@ -239,14 +335,14 @@ function LandingSection_3() {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-20 flex h-[10vh] w-screen items-center justify-center border-t-1'>
         <p className='text-primary-100 text-[2rem] font-[300] whitespace-nowrap md:text-[3rem]'>
           찾고 있는 와인, 이미 알고 있어요.
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -262,33 +358,10 @@ export function LandingSection_4() {
       transition: {
         duration: 0.5,
         delay,
-        ease: 'easeOut' as const, // 혹은 ease: ['easeOut']
-      },
-    },
-  });
-
-  const slideRight = {
-    hidden: { x: -30 },
-    visible: {
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut' as const, // ✅ 이 부분이 핵심입니다
-      },
-    },
-  };
-
-  const slideDown = {
-    hidden: { x: 30, y: -20 },
-    visible: {
-      x: 0,
-      y: 0,
-      transition: {
-        duration: 0.6,
         ease: 'easeOut' as const,
       },
     },
-  };
+  });
 
   return (
     <div
@@ -338,25 +411,23 @@ export function LandingSection_4() {
       </div>
 
       <div className='absolute top-[58vh] left-[10vw] flex w-[80vw] flex-col gap-[4vh] md:top-[68vh] md:left-[10vw] md:w-[40vw] xl:top-[74vh]'>
-        {/* 왼쪽 → 오른쪽 */}
-        <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
+        {[0, 1].map((_, i) => (
           <motion.div
+            key={i}
             animate={isInView ? 'visible' : 'hidden'}
-            className='bg-primary-100 absolute left-[10vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[30vw] md:size-[2.5vw]'
+            className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'
             initial='hidden'
-            variants={slideRight}
-          />
-        </div>
-
-        {/* 오른쪽 → 아래로 */}
-        <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
-          <motion.div
-            animate={isInView ? 'visible' : 'hidden'}
-            className='bg-primary-100 absolute left-[68vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[15vw] md:size-[2.5vw]'
-            initial='hidden'
-            variants={slideDown}
-          />
-        </div>
+            variants={fadeLeft(0.3 + i * 0.1)} // 순차 등장
+          >
+            <div
+              className={`bg-primary-100 absolute size-[2.5vh] rounded-full border-1 border-gray-200 md:size-[2.5vw] ${
+                i === 0
+                  ? 'left-[10vw] md:left-[30vw]'
+                  : 'left-[68vw] md:left-[15vw]'
+              }`}
+            />
+          </motion.div>
+        ))}
       </div>
 
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-100 flex h-[10vh] w-screen items-center justify-center border-t-1'>
@@ -499,7 +570,9 @@ export default function LandingPage() {
 
       {/* 데스크탑용 */}
       <motion.div
+        animate={{ opacity: 1, y: 300 }}
         className='pointer-events-none fixed top-[50vh] left-[50vw] z-50 hidden h-[60vh] w-[12vw] xl:block'
+        initial={{ opacity: 0, y: 400 }}
         style={{
           x,
           y,
@@ -508,6 +581,7 @@ export default function LandingPage() {
           translateX: '-50%',
           translateY: '-50%',
         }}
+        transition={{ duration: 1, ease: 'easeOut' }}
       >
         <Image
           alt='bottle'
@@ -517,7 +591,9 @@ export default function LandingPage() {
       </motion.div>
       {/* 태블릿용 */}
       <motion.div
+        animate={{ opacity: 1, y: 150 }}
         className='pointer-events-none fixed top-[50vh] left-[50vw] z-50 hidden h-[60vh] w-[12vw] md:block xl:hidden'
+        initial={{ opacity: 0, y: 250 }}
         style={{
           x: xTablet,
           y: yTablet,
@@ -526,6 +602,7 @@ export default function LandingPage() {
           translateX: '-50%',
           translateY: '-50%',
         }}
+        transition={{ duration: 1, ease: 'easeOut' }}
       >
         <Image
           alt='bottle'
@@ -535,7 +612,9 @@ export default function LandingPage() {
       </motion.div>
       {/* 모바일용 */}
       <motion.div
+        animate={{ opacity: 1, y: 180 }}
         className='pointer-events-none fixed top-[50vh] left-[52vw] z-50 block h-[30vh] w-[20vw] md:hidden'
+        initial={{ opacity: 0, y: 280 }}
         style={{
           x: xMobile,
           y: yMobile,
@@ -544,6 +623,7 @@ export default function LandingPage() {
           translateX: '-50%',
           translateY: '-50%',
         }}
+        transition={{ duration: 1, ease: 'easeOut' }}
       >
         <Image
           alt='bottle'
