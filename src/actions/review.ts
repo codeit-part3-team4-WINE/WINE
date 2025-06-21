@@ -4,7 +4,10 @@ import axios from 'axios';
 import { cookies } from 'next/headers';
 
 // ✅ 리뷰 등록/수정 서버 액션
-export async function submitReview(formData: FormData): Promise<string | null> {
+export async function submitReview(
+  formData: FormData,
+  isRecommendedWine: boolean,
+): Promise<string | null> {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
@@ -53,6 +56,13 @@ export async function submitReview(formData: FormData): Promise<string | null> {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+
+    // 추천 와인 캐시 무효화
+    if (isRecommendedWine) {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/wines/revalidate-recommended-wines`,
+      );
+    }
 
     return null; // 성공
   } catch (error) {
