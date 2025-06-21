@@ -94,7 +94,6 @@ export default function ReviewCard({
 
   const handleLike = async (e) => {
     e.preventDefault();
-    e.stopPropagation();
     setIsLiked(!isLiked);
   };
 
@@ -124,7 +123,6 @@ export default function ReviewCard({
 
   const handleToggle = (e) => {
     e.preventDefault();
-    e.stopPropagation();
     setIsOpen((prev) => !prev);
   };
 
