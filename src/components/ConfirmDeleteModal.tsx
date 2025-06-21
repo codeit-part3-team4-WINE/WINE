@@ -1,6 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import Button from '@/components/Button';
 import {
@@ -30,11 +32,19 @@ export default function ConfirmDeleteModal({
   cancelText = '취소',
 }: ConfirmDeleteModalProps) {
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const handleConfirm = async () => {
     setLoading(true);
-    await onConfirm(); // 외부에서 넘긴 삭제 핸들러 실행
-    setLoading(false);
+    try {
+      await onConfirm();
+      toast.success('삭제에 성공했습니다.');
+    } catch (error) {
+      toast.error('삭제에 실패했습니다.');
+      console.log(error);
+    } finally {
+      setLoading(false);
+      router.refresh();
+    }
   };
 
   return (
