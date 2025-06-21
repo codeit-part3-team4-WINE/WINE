@@ -26,6 +26,11 @@ interface Review {
   content: string;
   rating: number;
   updatedAt: string;
+  aroma: string[];
+  lightBold: number;
+  smoothTannic: number;
+  drySweet: number;
+  softAcidic: number;
   wine: {
     id: number;
     name: string;
