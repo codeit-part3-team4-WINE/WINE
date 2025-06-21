@@ -64,7 +64,11 @@ export default function LoadMoreButton({ type, initialCursor }: Props) {
   const renderItem = (item: Wine | Review) => {
     if (type === 'wine') {
       const wine = item as Wine;
-      return <WineCard key={wine.id} className='cursor-pointer' wine={wine} />;
+      return (
+        <Link key={wine.id} href={`/wines/${wine.id}`}>
+          <WineCard key={wine.id} className='cursor-pointer' wine={wine} />
+        </Link>
+      );
     } else {
       const review = item as Review;
       return (
@@ -80,22 +84,22 @@ export default function LoadMoreButton({ type, initialCursor }: Props) {
     }
   };
 
-  if (!cursor) return null;
-
   return (
     <>
       <div className='mt-10 flex flex-col gap-10'>{items.map(renderItem)}</div>
-      <div className='mt-8 mb-15 self-center'>
-        <Button
-          loading={loading}
-          round='rounded'
-          size='md'
-          variant='outline'
-          onClick={handleLoadMore}
-        >
-          더 보기
-        </Button>
-      </div>
+      {cursor && (
+        <div className='mt-8 mb-15 self-center'>
+          <Button
+            loading={loading}
+            round='rounded'
+            size='md'
+            variant='outline'
+            onClick={handleLoadMore}
+          >
+            더 보기
+          </Button>
+        </div>
+      )}
     </>
   );
 }

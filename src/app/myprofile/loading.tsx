@@ -1,5 +1,5 @@
-import LoadingAnimation from '@/components/LoadingAnimation';
+import SkeletonMyprofile from './components/Skeleton/SkeletonMyprofile';
 
 export default function Loading() {
-  return <LoadingAnimation />;
+  return <SkeletonMyprofile />;
 }

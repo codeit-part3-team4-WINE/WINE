@@ -86,6 +86,12 @@ export default function DesignSystem() {
           slug='ui-toast'
           title='Toast Components'
         />
+
+        <LinkButton
+          description='View wine card skeleton component examples'
+          slug='ui-skeleton'
+          title='Wine Card Skeleton Components'
+        />
       </div>
     </div>
   );

@@ -1,10 +1,15 @@
+'use client';
+
 import { StaticImageData } from 'next/image';
 
-import { createPrivateServerInstance } from '@/apis/privateServerInstance';
+// import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 import ProfileImg from '@/components/ProfileImg';
 import { cn } from '@/libs/cn';
+import useUserStore from '@/stores/Auth-store/authStore';
 
-import ProfileChangeModal from './ProfileChangeModal/ProfileChangeModal';
+import ProfileChangeModal, {
+  DEFAULT_IMAGE_URL,
+} from './ProfileChangeModal/ProfileChangeModal';
 
 /**
  * 프로필 섹션 컴포넌트
@@ -14,9 +19,13 @@ import ProfileChangeModal from './ProfileChangeModal/ProfileChangeModal';
  * <ProfileSection />
  * ```
  */
-export default async function ProfileSection() {
-  const axios = await createPrivateServerInstance();
-  const { data: user } = await axios.get('/users/me');
+export default function ProfileSection() {
+  // const axios = await createPrivateServerInstance();
+  // const { data: user } = await axios.get('/users/me');
+
+  const user = useUserStore((state) => state.user);
+
+  if (!user) return null;
 
   return (
     <section
@@ -31,7 +40,12 @@ export default async function ProfileSection() {
           {user.nickname}
         </span>
       </div>
-      <ProfileChangeModal user={user} />
+      <ProfileChangeModal
+        user={{
+          image: user.image ?? DEFAULT_IMAGE_URL, // null이면 기본 이미지
+          nickname: user.nickname,
+        }}
+      />
     </section>
   );
 }

@@ -1,62 +1,53 @@
-import { unstable_cache } from 'next/cache';
+import { ApiErrorClass } from '@/libs/errors/apis/ApiError';
+import { useRecommendedWineStore } from '@/stores/recommendedWines';
+import { ApiErrorResponse } from '@/types/apiErrorResponse';
 
-import { Wine } from '../types';
 import RecommendedWineItem from './RecommendedWineItem';
 
-/**
- * @param array 아이템 리스트
- * @param cnt 뽑을 아이템 개수
- * @returns 랜덤으로 추출된 아이템 리스트
- */
-const getItemRandomly = (array: Wine[], cnt: number): Wine[] => {
-  const copyArr = [...array]; // splice로 인해 원본 배열이 바뀌는 것을 방지하기 위해 복사본 생성
-  if (copyArr.length < cnt) return copyArr;
-  const result: Wine[] = [];
-  while (result.length < cnt) {
-    const randomIndex = Math.floor(Math.random() * copyArr.length);
-    const item = copyArr.splice(randomIndex, 1)[0];
-    if (item !== undefined && !!item) {
-      result.push(item);
-    }
+async function getRecommendedWineList() {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/wines/recommended?limit=8`,
+      {
+        next: {
+          revalidate: 259200, // 3일
+          tags: ['recommended-wines'],
+        },
+      },
+    );
+    const data = await response.json();
+    const ids = data.map((wine) => {
+      return wine.id;
+    });
+
+    useRecommendedWineStore.getState().setWineIds(ids); // zustand 전역 상태로 저장
+    /*
+     * [zustand에서 가져오기]
+     * const storedIds = useRecommendedWineStore.getState().ids;
+     * 리뷰 등록시 위와 같은 방법으로 추천 와인 id들을 받아와, 현재 리뷰가 등록된 와인이 추천 중인 와인이라면 캐시를 무효화합니다.
+     */
+
+    return data;
+  } catch (error: unknown) {
+    console.error('추천 와인 데이터 불러오기 실패:', error);
+
+    const status = (error as ApiErrorResponse)?.response?.status;
+
+    const userMessageMap = {
+      404: '해당 유저를 찾을 수 없습니다.',
+      401: '로그인이 필요합니다.',
+      500: '서버 오류가 발생했습니다.',
+    };
+    throw new ApiErrorClass(status, userMessageMap, '기본 메시지');
   }
-  return result;
-};
-
-/**
- * getCachedRandomWines
- * @description
- * 이번 달 추천 와인에 사용될 데이터를 캐시합니다. (캐시 기간 : 3일)
- * 전체 와인 데이터를 받아와서, 특정 rating 이상의 와인을 최대 8개까지 랜덤으로 선별하여 추천 와인을 반환합니다.
- */
-const getMonthlyRecommendedWines = unstable_cache(
-  async () => {
-    const totalCountResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/wines?limit=1`,
-    );
-    const totalCountData = await totalCountResponse.json();
-    const allWinesResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/wines?limit=${totalCountData.totalCount}`,
-    );
-    const allWinesData = await allWinesResponse.json();
-
-    const topRatedWines = allWinesData.list.filter(
-      (wine) => wine.avgRating >= 3.5,
-    );
-    return getItemRandomly(topRatedWines, Math.min(8, topRatedWines.length));
-  },
-  ['recommended-wines-random-8'],
-  {
-    revalidate: 259200, // 캐시 3일
-    tags: ['recommended-wines'],
-  },
-);
+}
 
 async function RecommendedWineList() {
-  const monthlyRecommendedWines = await getMonthlyRecommendedWines();
+  const monthlyRecommendedWines = await getRecommendedWineList();
 
   return (
     <div className='rounded-3xl bg-gray-100 p-8'>
-      <h2 className='sub-title-text mb-4'>이번 달 추천 와인</h2>
+      <h2 className='sub-title-text mb-6'>이런 와인은 어떠세요?</h2>
 
       <div className='outer-wrapper relative flex overflow-hidden'>
         {/* 왼쪽 그라데이션 */}

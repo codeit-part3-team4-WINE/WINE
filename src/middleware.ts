@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // 로그인이 필요한 페이지에 접근할 때 두 토큰 모두 없으면 로그인 페이지로
-  const protectedPaths = ['/myprofile', '/authlogictest', '/wines'];
+  const protectedPaths = ['/myprofile', '/authlogictest', '/wines/'];
   const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
 
   if (isProtected && !accessToken && !refreshToken) {

@@ -16,6 +16,10 @@ const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   eslintConfigPrettier,
 
+  { ignores: ['public/**'] }, // public 폴더 전체 무시
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  eslintConfigPrettier,
+
   // 커스텀 규칙
   {
     files: ['**/*.{js,jsx,ts,tsx}'],

@@ -11,6 +11,7 @@ interface Wine {
 }
 
 interface Review {
+  wineId: number;
   id: number;
   rating: number;
   aroma: string[];
@@ -53,8 +54,12 @@ export default function Favorite() {
             `/wines/${wine.id}`,
           );
           const wineLikedReviews: Review[] =
-            wineDetail.reviews?.filter((review: Review) => review.isLiked) ??
-            [];
+            wineDetail.reviews
+              ?.filter((review: Review) => review.isLiked)
+              .map((review: Review) => ({
+                ...review,
+                wineId: wine.id,
+              })) ?? [];
 
           allLikedReviews.push(...wineLikedReviews);
         }

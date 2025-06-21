@@ -25,7 +25,7 @@ export default function KakaoCallbackPage() {
           const data = res.data;
           if (data.user) {
             setUser(data.user);
-            router.push('/');
+            router.push('/wines');
           } else {
             alert('카카오 로그인 실패');
             router.push('/login');

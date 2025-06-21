@@ -1,5 +1,7 @@
 'use server';
 
+import { cookies } from 'next/headers';
+
 import { createPrivateServerInstance } from '@/apis/privateServerInstance';
 
 type WineFormData = {
@@ -24,12 +26,12 @@ type WineFormData = {
  * @param {WineFormData} data - 와인 정보
  */
 export async function WineData(data: WineFormData) {
-  const axios = await createPrivateServerInstance();
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
 
-  const { data: user } = await axios
-    .get('/users/me')
-    .catch(() => ({ data: null }));
-  if (!user) throw new Error('로그인 정보가 없습니다.');
+  if (!accessToken) throw new Error('로그인 정보가 없습니다.');
+
+  const axios = await createPrivateServerInstance();
 
   const payload = {
     name: data.name,
@@ -41,8 +43,12 @@ export async function WineData(data: WineFormData) {
 
   // id가 있으면 PATCH (수정), 없으면 POST (등록)
   if (data.id) {
-    await axios.patch(`/wines/${data.id}`, payload);
+    await axios.patch(`/wines/${data.id}`, payload, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
   } else {
-    await axios.post('/wines', payload);
+    await axios.post('/wines', payload, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
   }
 }
