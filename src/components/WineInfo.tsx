@@ -93,14 +93,14 @@ export default function WineInfo({
       <div className='flex h-full w-full gap-4'>
         <div
           className={cn(
-            'relative aspect-[3/4] w-full max-w-xs',
+            'relative aspect-[10/26] h-[22rem] w-[10rem] md:h-[22rem] md:w-[10rem] xl:h-[26rem] xl:w-[10rem]',
             wineImageClassName,
           )}
         >
           <Image
             fill
             alt='wine Image'
-            className='object-cover'
+            className='object-cover px-6 xl:px-5'
             src={wineImage}
           />
         </div>
