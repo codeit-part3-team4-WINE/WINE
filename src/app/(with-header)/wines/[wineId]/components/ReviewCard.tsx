@@ -2,6 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import { deleteReview } from '@/actions/review';
 import { privateInstance } from '@/apis/privateInstance'; // 좋아요 기능 요청용
@@ -101,6 +102,7 @@ export default function ReviewCard({
           await privateInstance.delete(`/wines/${id}/like`);
         }
       } catch {
+        toast.error('자신의 리뷰에는 좋아요를 누를 수 없습니다.');
         setIsLiked(review.isLiked);
       }
     };
