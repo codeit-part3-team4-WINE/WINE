@@ -85,7 +85,7 @@ export default function InputRange({
             id={item.name}
             label={item.label}
             max={5}
-            min={0}
+            min={1}
             name={item.name}
             step={1}
             value={values[item.name as keyof Option]}

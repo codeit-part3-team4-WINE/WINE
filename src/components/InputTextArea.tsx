@@ -5,9 +5,9 @@ import React from 'react';
 import { cn } from '@/libs/cn';
 
 const SIZE_STYLE = {
-  lg: 'w-full max-w-[412px] h-fit text-lg',
-  md: 'w-full max-w-[327px] h-fit text-lg',
-  sm: 'w-full max-w-[210px] h-fit text-sm',
+  lg: 'w-full h-fit text-lg',
+  md: 'w-full  h-fit text-lg',
+  sm: 'w-full  h-fit text-sm',
 } as const;
 
 /**
@@ -38,16 +38,21 @@ export default function InputTextArea({
   rows = 3,
 }: TextAreaProps) {
   const baseStyle =
-    'resize-none overflow-hidden rounded-xl border border-gray-300 px-4 py-2';
+    'resize-none overflow-auto rounded-xl border border-gray-300 px-4 py-2';
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length <= 1000) {
+      onChange(e);
+    }
+  };
 
   return (
-    <div className='relative mx-auto flex w-full max-w-[480px]'>
+    <div className='relative flex w-full'>
       <textarea
         className={cn(baseStyle, SIZE_STYLE[size], className)}
         placeholder={placeholder}
         rows={rows}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
       />
     </div>
   );
