@@ -3,6 +3,7 @@
 import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import { privateInstance } from '@/apis/privateInstance';
 import DEFAULT_PROFILE_IMG from '@/app/assets/svgs/profile-default.svg';
@@ -114,13 +115,13 @@ export default function ProfileChangeModal({
   const handleImageChange = async (file: File) => {
     // 5MB 제한
     if (file.size > MAX_IMAGE_SIZE) {
-      alert('5MB 이하 이미지만 업로드 가능합니다.');
+      toast.warning('5MB 이하 이미지만 업로드 가능합니다.');
       return;
     }
 
     // 확장자 제한
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      alert('지원하지 않는 파일 형식입니다. (jpg, png, webp만 가능)');
+      toast.warning('지원하지 않는 파일 형식입니다. (jpg, png, webp만 가능)');
       return;
     }
 
@@ -178,7 +179,7 @@ export default function ProfileChangeModal({
         (typeof originalImageUrl === 'string' ? originalImageUrl.trim() : '');
 
     if (!nicknameChanged && !imageChanged) {
-      alert('변경된 항목이 없습니다.');
+      toast.warning('변경된 항목이 없습니다.');
       return;
     }
 
@@ -220,19 +221,19 @@ export default function ProfileChangeModal({
         });
 
         if (nicknameChanged && imageChanged) {
-          alert('닉네임과 이미지가 변경되었습니다.');
+          toast.success('닉네임과 이미지가 변경되었습니다.');
         } else if (nicknameChanged) {
-          alert('닉네임이 변경되었습니다.');
+          toast.success('닉네임이 변경되었습니다.');
         } else if (imageChanged) {
-          alert('이미지가 변경되었습니다.');
+          toast.success('이미지가 변경되었습니다.');
         }
 
         router.refresh();
       } else {
         if (result.message === '이미 사용중인 닉네임입니다.') {
-          alert(result.message);
+          toast.warning(result.message);
         } else {
-          alert('프로필 변경에 실패했습니다.');
+          toast.warning('프로필 변경에 실패했습니다.');
         }
       }
     } catch (err) {
@@ -276,6 +277,7 @@ export default function ProfileChangeModal({
               className='h-[4.3rem]'
               disabled={loading}
               size='sm'
+              type='submit'
               variant='outline'
               onClick={handleSubmit}
             >

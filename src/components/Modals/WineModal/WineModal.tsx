@@ -3,6 +3,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import { privateInstance } from '@/apis/privateInstance';
 import { WineData } from '@/app/api/action/wine-action';
@@ -66,14 +67,14 @@ export default function WineModal({
    */
   const handleSubmit = async () => {
     if (!user) {
-      alert('로그인이 필요합니다.');
+      toast.error('로그인이 필요합니다.');
       return;
     }
 
     const { name, region, image, price, type } = formData;
 
     if (!name || !region || !image || !price || !type) {
-      alert('모든 값을 입력해주세요.');
+      toast.warning('모든 값을 입력해주세요.');
       return;
     }
 
@@ -81,7 +82,7 @@ export default function WineModal({
       const isUnchanged = JSON.stringify(wineData) === JSON.stringify(formData);
 
       if (isUnchanged) {
-        alert('변경된 사항이 없습니다.');
+        toast.warning('변경된 사항이 없습니다.');
         return;
       }
     }
@@ -105,7 +106,7 @@ export default function WineModal({
           imageUrl = res.data.url;
         } catch (uploadErr) {
           console.error('이미지 업로드 실패:', uploadErr);
-          alert('이미지 업로드에 실패했습니다.');
+          toast.error('이미지 업로드에 실패했습니다.');
           return;
         }
       }
@@ -142,7 +143,7 @@ export default function WineModal({
       router.refresh();
     } catch (e) {
       console.error(e);
-      alert(
+      toast.error(
         wineData
           ? '와인 수정 중 오류가 발생했습니다.'
           : '와인 등록 중 오류가 발생했습니다.',
@@ -177,6 +178,7 @@ export default function WineModal({
           <Button
             className='w-[27rem] flex-2 md:w-[24rem] xl:w-[35rem]'
             loading={isLoading}
+            type='submit'
             variant='primary'
             onClick={() => {
               handleSubmit();
