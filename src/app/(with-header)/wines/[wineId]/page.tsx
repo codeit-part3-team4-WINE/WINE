@@ -145,7 +145,7 @@ export default function WinePage() {
               ))}
 
               {hasNextPage && (
-                <div ref={observerRef}>
+                <div ref={observerRef} className='flex flex-col gap-5'>
                   <ReviewCardSkeleton />
                   <ReviewCardSkeleton />
                 </div>
@@ -163,7 +163,7 @@ export default function WinePage() {
           )}
         </div>
         {allReviews.length > 0 ? (
-          <div className='col-span1 order-1 xl:order-2 xl:col-span-2'>
+          <div className='top-0 order-1 col-span-1 w-full self-start xl:sticky xl:order-2 xl:col-span-2'>
             <ReviewOverview
               data={wineInfo.avgRatings}
               rating={wineInfo.avgRating || 0}
