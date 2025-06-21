@@ -307,6 +307,7 @@ export default function LandingPage() {
     offset: ['start start', 'end end'],
   });
 
+  // PC
   const x = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
@@ -324,20 +325,6 @@ export default function LandingPage() {
     [300, 0, 0, 100, 50],
   );
 
-  // tablet
-  const xTablet = useTransform(
-    scrollYProgress,
-    [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  );
-
-  // 모바일용 x축 이동 범위 줄이기
-  const xMobile = useTransform(
-    scrollYProgress,
-    [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  );
-
   const scale = useTransform(
     scrollYProgress,
     [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1],
@@ -350,34 +337,97 @@ export default function LandingPage() {
     [0, 0, 0, 135, 20], // 단위: deg (자동 적용)
   );
 
+  // tablet
+  const xTablet = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, 0, 0, -600, 350],
+  );
+  const yTablet = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [200, 0, 0, 100, 50],
+  );
+  const scaleTablet = useTransform(
+    scrollYProgress,
+    [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1],
+    [2.1, 0.7, 0.5, 1, 1, 1, 8, 1, 2.8],
+  );
+  const rotateTablet = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, 0, 0, 135, 20], // 단위: deg (자동 적용)
+  );
+
+  // Mobile
+  const xMobile = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [-10, 0, 0, -200, 0],
+  );
+  const yMobile = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [180, 0, 0, 0, 150],
+  );
+  const scaleMobile = useTransform(
+    scrollYProgress,
+    [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1],
+    [2.5, 2, 2, 1, 1, 1, 16, 7, 3],
+  );
+  const rotateMobile = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, 0, 0, 152, 20], // 단위: deg (자동 적용)
+  );
+
   return (
     <div
       ref={containerRef}
       className='fixed inset-0 snap-y snap-mandatory [scroll-snap-stop:always] overflow-y-scroll [scroll-behavior:smooth]'
     >
-      <div className='border-primary-100 bg-primary-10 fixed top-0 z-90 flex h-screen w-[5vw] flex-col items-center justify-start gap-[5vh] border-r-1 pt-[15vh]'>
-        <a
-          aria-label='GitHub repository'
-          className='flex items-center'
-          href='https://github.com/codeit-part3-team4-WINE/WINE'
-          rel='noopener noreferrer'
-          target='_blank'
-        >
-          <GitHub color='#6A42DB' />
-        </a>
-        <Link href='/design-system'>
-          <BerryIcon color='#6A42DB' />
-        </Link>
+      <div className='border-primary-100 bg-primary-10 fixed top-0 z-90 flex h-screen w-[5vw] justify-center border-r-1 pt-[15vh]'>
+        <div className='hidden flex-col items-center justify-start gap-[5vh] md:flex'>
+          <a
+            aria-label='GitHub repository'
+            className='flex items-center'
+            href='https://github.com/codeit-part3-team4-WINE/WINE'
+            rel='noopener noreferrer'
+            target='_blank'
+          >
+            <GitHub color='#6A42DB' />
+          </a>
+          <Link href='/design-system'>
+            <BerryIcon color='#6A42DB' />
+          </Link>
+        </div>
       </div>
 
       <div className='border-primary-100 bg-primary-10 fixed top-0 z-100 flex h-[10vh] w-screen items-center justify-between border-b-1 px-[5vw]'>
         <Link href='/wines'>
           <WineLogoIcon color='#6A42DB' />
         </Link>
-        <div className='flex gap-[2vw]'>
-          <p className='text-primary-100 text-[1.6rem]'>CODEIT FRONTEND 15</p>
-          <p className='text-primary-100 text-[1.6rem]'>TAEILWIND</p>
-          <p className='text-primary-100 text-[1.6rem]'> V20.08</p>
+        <div className='hidden items-center justify-center md:flex'>
+          <div className='flex gap-[2vw]'>
+            <p className='text-primary-100 text-[1.6rem]'>CODEIT FRONTEND 15</p>
+            <p className='text-primary-100 text-[1.6rem]'>TAEILWIND</p>
+            <p className='text-primary-100 text-[1.6rem]'> V20.08</p>
+          </div>
+        </div>
+
+        <div className='flex items-center justify-start gap-[4vw] md:hidden'>
+          <a
+            aria-label='GitHub repository'
+            className='flex items-center'
+            href='https://github.com/codeit-part3-team4-WINE/WINE'
+            rel='noopener noreferrer'
+            target='_blank'
+          >
+            <GitHub color='#6A42DB' />
+          </a>
+          <Link href='/design-system'>
+            <BerryIcon color='#6A42DB' />
+          </Link>
         </div>
       </div>
 
@@ -401,24 +451,40 @@ export default function LandingPage() {
       </motion.div>
       {/* 태블릿용 */}
       <motion.div
-        className='pointer-events-none fixed top-[50vh] left-[43vw] z-50 hidden size-48 bg-purple-600 md:block xl:hidden'
+        className='pointer-events-none fixed top-[50vh] left-[50vw] z-50 hidden h-[60vh] w-[12vw] md:block xl:hidden'
         style={{
           x: xTablet,
-          scale,
-          y: '-50%',
+          y: yTablet,
+          scale: scaleTablet,
+          rotate: rotateTablet,
           translateX: '-50%',
+          translateY: '-50%',
         }}
-      />
+      >
+        <Image
+          alt='bottle'
+          className='h-full w-full object-contain'
+          src={bottleImage}
+        />
+      </motion.div>
       {/* 모바일용 */}
       <motion.div
-        className='pointer-events-none fixed top-1/2 left-1/2 z-50 block size-32 bg-red-600 md:hidden'
+        className='pointer-events-none fixed top-[50vh] left-[55vw] z-50 block h-[30vh] w-[20vw] md:hidden'
         style={{
           x: xMobile,
-          scale,
-          y: '-50%',
+          y: yMobile,
+          rotate: rotateMobile,
+          scale: scaleMobile,
           translateX: '-50%',
+          translateY: '-50%',
         }}
-      />
+      >
+        <Image
+          alt='bottle'
+          className='h-full w-full object-contain'
+          src={bottleImage}
+        />
+      </motion.div>
       <LandingSection_1 />
       <LandingSection_2 />
       <LandingSection_3 />
