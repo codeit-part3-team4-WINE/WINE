@@ -250,46 +250,112 @@ function LandingSection_3() {
   );
 }
 
-function LandingSection_4() {
+export function LandingSection_4() {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { amount: 0.3 });
+
+  const fadeLeft = (delay = 0) => ({
+    hidden: { opacity: 0, x: -40 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        delay,
+        ease: 'easeOut' as const, // 혹은 ease: ['easeOut']
+      },
+    },
+  });
+
+  const slideRight = {
+    hidden: { x: -30 },
+    visible: {
+      x: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut' as const, // ✅ 이 부분이 핵심입니다
+      },
+    },
+  };
+
+  const slideDown = {
+    hidden: { x: 30, y: -20 },
+    visible: {
+      x: 0,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut' as const,
+      },
+    },
+  };
+
   return (
-    <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
+    <div
+      ref={sectionRef}
+      className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'
+    >
       <p className='font-archivo text-primary-100 absolute top-[20vh] text-[7vh] font-[700] md:top-[13vh] md:text-[11vw]'>
         REVIEW
       </p>
 
       <div className='absolute top-[33vh] left-[9vw] flex flex-wrap gap-[0.5vh] md:top-[45vh] md:gap-3'>
-        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:text-[2rem]'>
-          CHERRY
-        </p>
-        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:text-[2rem]'>
-          CHOCOLATE
-        </p>
-        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:text-[2rem]'>
-          VANILLA
-        </p>
-        <p className='text-primary-100 hidden h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:block md:text-[2rem]'>
-          BERRY
-        </p>
+        {['CHERRY', 'CHOCOLATE', 'VANILLA', 'BERRY'].map((label, i) => (
+          <motion.p
+            key={label}
+            animate={isInView ? 'visible' : 'hidden'}
+            className={`text-primary-100 ${
+              label === 'BERRY' ? 'hidden md:block' : ''
+            } h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:text-[2rem]`}
+            initial='hidden'
+            variants={fadeLeft(0.1 * i)}
+          >
+            {label}
+          </motion.p>
+        ))}
       </div>
 
       <div className='absolute top-[40vh] left-[10vw] flex w-[80vw] flex-col gap-2 md:top-[53vh] md:left-[10vw] md:w-[50vw] xl:w-[40vw]'>
-        <p className='text-[1.8rem] font-[500] text-gray-500 md:text-[2rem] xl:text-[2.4rem]'>
+        <motion.p
+          animate={isInView ? 'visible' : 'hidden'}
+          className='text-[1.8rem] font-[500] text-gray-500 md:text-[2rem] xl:text-[2.4rem]'
+          initial='hidden'
+          variants={fadeLeft(0.4)}
+        >
           La Vigne Noire Pinot Noir 2020
-        </p>
-        <p className='text-[1.4rem] font-[300] text-gray-500 md:text-[1.6rem] xl:text-[2rem]'>
+        </motion.p>
+
+        <motion.p
+          animate={isInView ? 'visible' : 'hidden'}
+          className='text-[1.4rem] font-[300] text-gray-500 md:text-[1.6rem] xl:text-[2rem]'
+          initial='hidden'
+          variants={fadeLeft(0.5)}
+        >
           Rich notes of cherry and mixed berries lead the palate, supported by
           layers of dark chocolate and smooth vanilla. The finish is long and
           balanced, leaving a soft, fruity warmth.
-        </p>
+        </motion.p>
       </div>
 
-      <div className='absolute top-[58vh] left-[10vw] flex w-[80vw] flex-col gap-[4vh] md:top-[74vh] md:left-[10vw] md:w-[40vw]'>
+      <div className='absolute top-[58vh] left-[10vw] flex w-[80vw] flex-col gap-[4vh] md:top-[68vh] md:left-[10vw] md:w-[40vw] xl:top-[74vh]'>
+        {/* 왼쪽 → 오른쪽 */}
         <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
-          <div className='bg-primary-100 absolute left-[10vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[30vw] md:size-[2.5vw]' />
+          <motion.div
+            animate={isInView ? 'visible' : 'hidden'}
+            className='bg-primary-100 absolute left-[10vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[30vw] md:size-[2.5vw]'
+            initial='hidden'
+            variants={slideRight}
+          />
         </div>
 
+        {/* 오른쪽 → 아래로 */}
         <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
-          <div className='bg-primary-100 absolute left-[68vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[15vw] md:size-[2.5vw]' />
+          <motion.div
+            animate={isInView ? 'visible' : 'hidden'}
+            className='bg-primary-100 absolute left-[68vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[15vw] md:size-[2.5vw]'
+            initial='hidden'
+            variants={slideDown}
+          />
         </div>
       </div>
 
