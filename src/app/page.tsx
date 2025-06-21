@@ -25,7 +25,7 @@ function TopButton({ containerRef }) {
 
   return (
     <div
-      className='fixed right-16 bottom-16 z-100 cursor-pointer rounded-full bg-white p-6 shadow-2xs'
+      className='fixed right-16 bottom-12 z-100 hidden cursor-pointer rounded-full bg-white p-6 shadow-2xs md:bottom-16 md:block'
       onClick={handleScrollToTop}
     >
       <ArrowIcon direction='top' />
@@ -71,16 +71,17 @@ function LandingSection_2() {
       variants={containerVariants}
     >
       <div className='border-primary-100 absolute bottom-0 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-primary-100 text-[3rem] font-[300]'>
-          추천은 우리가 할게요. 당신은 고르기만 하세요.
+        <p className='text-primary-100 flex flex-col items-center text-[2rem] font-[300] md:flex-row md:text-[3rem]'>
+          <span>추천은 우리가 할게요.</span>
+          <span> 당신은 고르기만 하세요.</span>
         </p>
       </div>
 
-      <p className='font-archivo text-primary-100 absolute top-[13vh] text-[11vw] font-[700]'>
+      <p className='font-archivo text-primary-100 absolute top-[20vh] text-[7vh] font-[700] md:top-[13vh] md:text-[11vw]'>
         RECOMMEND
       </p>
 
-      <div className='absolute top-[27vh] left-[40vw] flex w-[19vw] flex-col items-center justify-center'>
+      <div className='absolute top-[67vh] left-[40vw] flex w-[19vw] flex-col items-center justify-center md:top-[27vh]'>
         <div className='h-[25vw] w-fit' />
         <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
           <div className='flex gap-[0.2vw]'>
@@ -94,15 +95,15 @@ function LandingSection_2() {
         </div>
       </div>
 
-      <div className='absolute top-[27vh] left-[10vw] flex w-[19vw] flex-col items-center justify-center'>
-        <div className='h-[25vw] w-fit'>
+      <div className='absolute top-[50vh] left-[12vw] flex w-[19vw] flex-col items-center justify-center md:top-[27vh] md:left-[10vw]'>
+        <div className='h-[36vh] w-[47vw] md:h-[25vw] md:w-fit'>
           <Image
             alt='bottle'
             className='h-full w-full object-contain grayscale'
             src={bottle2Image}
           />
         </div>
-        <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
+        <div className='mt-[0.3vw] hidden flex-col items-center gap-3 md:flex'>
           <div className='flex gap-[0.2vw]'>
             <StarIcon filled color='#6a42db' size={20} />
             <StarIcon filled color='#6a42db' size={20} />
@@ -114,7 +115,7 @@ function LandingSection_2() {
         </div>
       </div>
 
-      <div className='absolute top-[27vh] left-[25vw] flex w-[19vw] flex-col items-center justify-center'>
+      <div className='absolute top-[27vh] left-[25vw] hidden w-[19vw] flex-col items-center justify-center md:flex'>
         <div className='h-[25vw] w-fit'>
           <Image
             alt='bottle'
@@ -134,7 +135,7 @@ function LandingSection_2() {
         </div>
       </div>
 
-      <div className='absolute top-[27vh] left-[55vw] flex w-[19vw] flex-col items-center justify-center'>
+      <div className='absolute top-[27vh] left-[55vw] hidden w-[19vw] flex-col items-center justify-center md:flex'>
         <div className='h-[25vw] w-fit'>
           <Image
             alt='bottle'
@@ -154,15 +155,15 @@ function LandingSection_2() {
         </div>
       </div>
 
-      <div className='absolute top-[27vh] left-[70vw] flex w-[19vw] flex-col items-center justify-center'>
-        <div className='h-[25vw] w-fit'>
+      <div className='absolute top-[50vh] left-[70vw] flex w-[19vw] flex-col items-center justify-center md:top-[27vh]'>
+        <div className='h-[36vh] w-[47vw] md:h-[25vw] md:w-fit'>
           <Image
             alt='bottle'
             className='h-full w-full object-contain grayscale'
             src={bottle2Image}
           />
         </div>
-        <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
+        <div className='mt-[0.3vw] hidden flex-col items-center gap-3 md:flex'>
           <div className='flex gap-[0.2vw]'>
             <StarIcon filled color='#6a42db' size={20} />
             <StarIcon filled color='#6a42db' size={20} />
@@ -180,8 +181,8 @@ function LandingSection_2() {
 function LandingSection_3() {
   return (
     <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
-      <div className='absolute top-[13vh] flex items-center gap-[1vw]'>
-        <p className='font-archivo text-primary-100 text-[11vw] font-[700]'>
+      <div className='absolute top-[20vh] flex items-center gap-[1vw] md:top-[13vh]'>
+        <p className='font-archivo text-primary-100 text-[7vh] font-[700] md:text-[11vw]'>
           SEARCH
         </p>
         <motion.div
@@ -195,51 +196,53 @@ function LandingSection_3() {
         />
       </div>
 
-      <div className='absolute top-[45vh] left-[70vw] flex w-[25vw] flex-col gap-[0.7vw]'>
+      <div className='absolute top-[60vh] left-[18vw] flex w-[25vw] flex-col gap-[1vh] md:top-[45vh] md:left-[70vw] md:gap-[0.7vw]'>
         <p className='text-[1.6rem] text-gray-500'>TYPES</p>
         <div className='flex gap-[1vw]'>
-          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem] text-gray-500'>
+          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] text-gray-500 md:text-[2rem]'>
             RED
           </p>
-          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem] text-gray-500'>
+          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] text-gray-500 md:text-[2rem]'>
             WHITE
           </p>
-          <p className='bg-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 px-8 py-3 text-[2rem] text-white'>
+          <p className='bg-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 px-8 py-3 text-[1.4rem] text-white md:text-[2rem]'>
             SPARKLING
           </p>
         </div>
       </div>
 
-      <div className='absolute top-[60vh] left-[70vw] flex w-[25vw] flex-col gap-[0.7vw]'>
+      <div className='absolute top-[72vh] left-[18vw] flex w-[70vw] flex-col gap-[1vh] md:top-[60vh] md:left-[70vw] md:w-[25vw] md:gap-[0.7vw]'>
         <p className='text-[1.6rem] text-gray-500'>PRICE</p>
         <div className='flex gap-[1vw]'>
-          <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200'>
-            <div className='bg-primary-100 absolute left-[11vw] h-[1vw] w-[10vw] border-1 border-gray-200' />
-            <div className='absolute left-[10vw] size-[2.5vw] rounded-full border-1 border-gray-200 bg-gray-100' />
-            <div className='absolute left-[19vw] size-[2.5vw] rounded-full border-1 border-gray-200 bg-gray-100' />
+          <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
+            <div className='bg-primary-100 absolute left-[11vw] h-[1vh] w-[20vw] border-1 border-gray-200 md:h-[1vw] md:w-[10vw]' />
+            <div className='absolute left-[10vw] size-[2.5vh] rounded-full border-1 border-gray-200 bg-gray-100 md:size-[2.5vw]' />
+            <div className='absolute left-[30vw] size-[2.5vh] rounded-full border-1 border-gray-200 bg-gray-100 md:left-[19vw] md:size-[2.5vw]' />
           </div>
         </div>
       </div>
 
-      <div className='absolute top-[70vh] left-[70vw] flex w-[25vw] flex-col gap-[0.7vw]'>
+      <div className='absolute top-[80vh] left-[18vw] flex w-[25vw] flex-col gap-[1vh] md:top-[70vh] md:left-[70vw] md:gap-[0.7vw]'>
         <p className='text-[1.6rem] text-gray-500'>RATING</p>
-        <div className='flex flex-col gap-[1vw]'>
+        <div className='flex gap-[2vh] md:flex-col md:gap-[1vw]'>
           <div className='flex gap-[1vw]'>
-            <div className='flex size-[2vw] items-center justify-center rounded-md border-1 border-gray-200 bg-gray-100'>
-              <div className='bg-primary-100 size-[1vw] rounded-sm border-1 border-gray-200' />
+            <div className='flex size-[2.5vh] items-center justify-center rounded-md border-1 border-gray-200 bg-gray-100 md:size-[2vw]'>
+              <div className='bg-primary-100 size-[1.3vh] rounded-sm border-1 border-gray-200 md:size-[1vw]' />
             </div>
-            <p className='text-[2rem] text-gray-500'>ALL</p>
+            <p className='text-[1.4rem] text-gray-500 md:text-[2rem]'>ALL</p>
           </div>
 
           <div className='flex gap-[1vw]'>
-            <div className='size-[2vw] rounded-md border-1 border-gray-200 bg-gray-100' />
-            <p className='text-[2rem] text-gray-500'>4.0 - 4.5</p>
+            <div className='size-[2.5vh] rounded-md border-1 border-gray-200 bg-gray-100 md:size-[2vw]' />
+            <p className='text-[1.4rem] whitespace-nowrap text-gray-500 md:text-[2rem]'>
+              4.0 - 4.5
+            </p>
           </div>
         </div>
       </div>
 
       <div className='border-primary-100 absolute bottom-0 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-primary-100 text-[3rem] font-[300]'>
+        <p className='text-primary-100 text-[2rem] font-[300] whitespace-nowrap md:text-[3rem]'>
           찾고 있는 와인, 이미 알고 있어요.
         </p>
       </div>
@@ -250,48 +253,48 @@ function LandingSection_3() {
 function LandingSection_4() {
   return (
     <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
-      <p className='font-archivo text-primary-100 absolute top-[13vh] text-[11vw] font-[700]'>
+      <p className='font-archivo text-primary-100 absolute top-[20vh] text-[7vh] font-[700] md:top-[13vh] md:text-[11vw]'>
         REVIEW
       </p>
 
-      <div className='absolute top-[45vh] left-[10vw] flex flex-wrap gap-3'>
-        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
+      <div className='absolute top-[33vh] left-[10vw] flex flex-wrap gap-[0.5vh] md:top-[45vh] md:gap-3'>
+        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:text-[2rem]'>
           CHERRY
         </p>
-        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
+        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:text-[2rem]'>
           CHOCOLATE
         </p>
-        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
+        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:text-[2rem]'>
           VANILLA
         </p>
-        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
+        <p className='text-primary-100 hidden h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[1.4rem] md:block md:text-[2rem]'>
           BERRY
         </p>
       </div>
 
-      <div className='absolute top-[53vh] left-[10vw] flex w-[40vw] flex-col gap-2'>
-        <p className='text-[2.4rem] font-[500] text-gray-500'>
+      <div className='absolute top-[40vh] left-[12vw] flex w-[80vw] flex-col gap-2 md:top-[53vh] md:w-[40vw]'>
+        <p className='text-[1.8rem] font-[500] text-gray-500 md:text-[2.4rem]'>
           La Vigne Noire Pinot Noir 2020
         </p>
-        <p className='text-[2rem] text-gray-500'>
+        <p className='text-[1.4rem] text-gray-500 md:text-[2rem]'>
           Rich notes of cherry and mixed berries lead the palate, supported by
           layers of dark chocolate and smooth vanilla. The finish is long and
           balanced, leaving a soft, fruity warmth.
         </p>
       </div>
 
-      <div className='absolute top-[74vh] left-[10vw] flex w-[40vw] flex-col gap-[4vh]'>
-        <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200'>
-          <div className='bg-primary-100 absolute left-[40rem] size-[2.5vw] rounded-full border-1 border-gray-200' />
+      <div className='absolute top-[58vh] left-[12vw] flex w-[80vw] flex-col gap-[4vh] md:left-[10vw] md:w-[40vw]'>
+        <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
+          <div className='bg-primary-100 absolute left-[10vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[40rem] md:size-[2.5vw]' />
         </div>
 
-        <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200'>
-          <div className='bg-primary-100 absolute left-[15rem] size-[2.5vw] rounded-full border-1 border-gray-200' />
+        <div className='relative flex h-[1vh] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200 md:h-[1vw]'>
+          <div className='bg-primary-100 absolute left-[68vw] size-[2.5vh] rounded-full border-1 border-gray-200 md:left-[15rem] md:size-[2.5vw]' />
         </div>
       </div>
 
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-100 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-primary-100 text-[3rem] font-[300]'>
+        <p className='text-primary-100 text-[2rem] font-[300] md:text-[3rem]'>
           한 잔의 감각을 그대로 기록하세요.
         </p>
       </div>
@@ -363,28 +366,28 @@ export default function LandingPage() {
   const xMobile = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
-    [-10, 0, 0, -200, 0],
+    [0, 0, 0, -100, 0],
   );
   const yMobile = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
-    [180, 0, 0, 0, 150],
+    [180, 150, -100, 0, 150],
   );
   const scaleMobile = useTransform(
     scrollYProgress,
     [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1],
-    [2.5, 2, 2, 1, 1, 1, 16, 7, 3],
+    [2.5, 2.6, 3.3, 1, 1, 1, 10, 7, 3],
   );
   const rotateMobile = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
-    [0, 0, 0, 152, 20], // 단위: deg (자동 적용)
+    [0, 0, 0, 100, 20], // 단위: deg (자동 적용)
   );
 
   return (
     <div
       ref={containerRef}
-      className='fixed inset-0 snap-y snap-mandatory [scroll-snap-stop:always] overflow-y-scroll [scroll-behavior:smooth]'
+      className='fixed inset-0 snap-y snap-mandatory [scroll-snap-stop:always] overflow-x-hidden overflow-y-scroll [scroll-behavior:smooth]'
     >
       <div className='border-primary-100 bg-primary-10 fixed top-0 z-90 flex h-screen w-[5vw] justify-center border-r-1 pt-[15vh]'>
         <div className='hidden flex-col items-center justify-start gap-[5vh] md:flex'>
@@ -402,6 +405,8 @@ export default function LandingPage() {
           </Link>
         </div>
       </div>
+
+      <div className='bg-primary-10 border-primary-100 fixed right-0 z-90 h-screen w-[5vw] border-l-1 md:hidden' />
 
       <div className='border-primary-100 bg-primary-10 fixed top-0 z-100 flex h-[10vh] w-screen items-center justify-between border-b-1 px-[5vw]'>
         <Link href='/wines'>
@@ -469,7 +474,7 @@ export default function LandingPage() {
       </motion.div>
       {/* 모바일용 */}
       <motion.div
-        className='pointer-events-none fixed top-[50vh] left-[55vw] z-50 block h-[30vh] w-[20vw] md:hidden'
+        className='pointer-events-none fixed top-[50vh] left-[52vw] z-50 block h-[30vh] w-[20vw] md:hidden'
         style={{
           x: xMobile,
           y: yMobile,
@@ -484,6 +489,7 @@ export default function LandingPage() {
           className='h-full w-full object-contain'
           src={bottleImage}
         />
+        <div />
       </motion.div>
       <LandingSection_1 />
       <LandingSection_2 />
