@@ -36,13 +36,13 @@ function TopButton({ containerRef }) {
 function LandingSection_1() {
   return (
     <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
-      <p className='text-primary-100 font-modak absolute left-[23vw] text-[20vw] leading-none'>
+      <p className='text-primary-100 font-modak absolute left-[20vw] text-[22vw] leading-none'>
         W
       </p>
-      <p className='text-primary-100 font-modak absolute left-[57vw] text-[20vw] leading-none'>
+      <p className='text-primary-100 font-modak absolute left-[57vw] text-[22vw] leading-none'>
         N
       </p>
-      <p className='text-primary-100 font-modak absolute left-[71vw] text-[20vw] leading-none'>
+      <p className='text-primary-100 font-modak absolute left-[72vw] text-[22vw] leading-none'>
         E
       </p>
     </div>
@@ -71,8 +71,8 @@ function LandingSection_2() {
       variants={containerVariants}
     >
       <div className='border-primary-100 absolute bottom-0 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-[3rem] font-[700] text-gray-600'>
-          매달 새롭게 만나는 와인 추천 콘텐츠
+        <p className='text-primary-100 text-[3rem] font-[300]'>
+          추천은 우리가 할게요. 당신은 고르기만 하세요.
         </p>
       </div>
 
@@ -84,13 +84,13 @@ function LandingSection_2() {
         <div className='h-[25vw] w-fit' />
         <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
           </div>
-          <p className='text-[3rem] text-gray-500'>5.0</p>
+          <p className='text-primary-100 text-[3rem]'>5.0</p>
         </div>
       </div>
 
@@ -104,11 +104,11 @@ function LandingSection_2() {
         </div>
         <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon color='#9facbd' size={20} />
-            <StarIcon color='#9facbd' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon color='#6a42db' size={20} />
+            <StarIcon color='#6a42db' size={20} />
           </div>
           <p className='text-[2rem] text-gray-500'>3.2</p>
         </div>
@@ -124,11 +124,11 @@ function LandingSection_2() {
         </div>
         <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon color='#9facbd' size={20} />
-            <StarIcon color='#9facbd' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon color='#6a42db' size={20} />
+            <StarIcon color='#6a42db' size={20} />
           </div>
           <p className='text-[2rem] text-gray-500'>3.4</p>
         </div>
@@ -144,11 +144,11 @@ function LandingSection_2() {
         </div>
         <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon color='#9facbd' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon color='#6a42db' size={20} />
           </div>
           <p className='text-[2rem] text-gray-500'>4.1</p>
         </div>
@@ -164,11 +164,11 @@ function LandingSection_2() {
         </div>
         <div className='mt-[0.3vw] flex flex-col items-center gap-3'>
           <div className='flex gap-[0.2vw]'>
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon filled color='#9facbd' size={20} />
-            <StarIcon color='#9facbd' size={20} />
-            <StarIcon color='#9facbd' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon filled color='#6a42db' size={20} />
+            <StarIcon color='#6a42db' size={20} />
+            <StarIcon color='#6a42db' size={20} />
           </div>
           <p className='text-[2rem] text-gray-500'>3.0</p>
         </div>
@@ -180,20 +180,31 @@ function LandingSection_2() {
 function LandingSection_3() {
   return (
     <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
-      <p className='font-archivo text-primary-100 absolute top-[13vh] text-[11vw] font-[700]'>
-        SEARCH
-      </p>
+      <div className='absolute top-[13vh] flex items-center gap-[1vw]'>
+        <p className='font-archivo text-primary-100 text-[11vw] font-[700]'>
+          SEARCH
+        </p>
+        <motion.div
+          animate={{ opacity: [0, 0.7, 0, 0.7] }}
+          className='bg-primary-100 h-[8.5vw] w-[0.1vw]'
+          initial={{ opacity: 0 }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+          }}
+        />
+      </div>
 
       <div className='absolute top-[45vh] left-[70vw] flex w-[25vw] flex-col gap-[0.7vw]'>
         <p className='text-[1.6rem] text-gray-500'>TYPES</p>
         <div className='flex gap-[1vw]'>
-          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
+          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem] text-gray-500'>
             RED
           </p>
-          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
+          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem] text-gray-500'>
             WHITE
           </p>
-          <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-200 px-8 py-3 text-[2rem]'>
+          <p className='bg-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 px-8 py-3 text-[2rem] text-white'>
             SPARKLING
           </p>
         </div>
@@ -202,8 +213,8 @@ function LandingSection_3() {
       <div className='absolute top-[60vh] left-[70vw] flex w-[25vw] flex-col gap-[0.7vw]'>
         <p className='text-[1.6rem] text-gray-500'>PRICE</p>
         <div className='flex gap-[1vw]'>
-          <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-100'>
-            <div className='absolute left-[11vw] h-[1vw] w-[10vw] border-1 border-gray-200 bg-gray-200' />
+          <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200'>
+            <div className='bg-primary-100 absolute left-[11vw] h-[1vw] w-[10vw] border-1 border-gray-200' />
             <div className='absolute left-[10vw] size-[2.5vw] rounded-full border-1 border-gray-200 bg-gray-100' />
             <div className='absolute left-[19vw] size-[2.5vw] rounded-full border-1 border-gray-200 bg-gray-100' />
           </div>
@@ -215,7 +226,7 @@ function LandingSection_3() {
         <div className='flex flex-col gap-[1vw]'>
           <div className='flex gap-[1vw]'>
             <div className='flex size-[2vw] items-center justify-center rounded-md border-1 border-gray-200 bg-gray-100'>
-              <div className='size-[1vw] rounded-sm border-1 border-gray-200 bg-gray-200' />
+              <div className='bg-primary-100 size-[1vw] rounded-sm border-1 border-gray-200' />
             </div>
             <p className='text-[2rem] text-gray-500'>ALL</p>
           </div>
@@ -228,8 +239,8 @@ function LandingSection_3() {
       </div>
 
       <div className='border-primary-100 absolute bottom-0 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-[3rem] font-[700] text-gray-600'>
-          다양한 필터로 찾는 내 맞춤 와인
+        <p className='text-primary-100 text-[3rem] font-[300]'>
+          찾고 있는 와인, 이미 알고 있어요.
         </p>
       </div>
     </div>
@@ -244,44 +255,44 @@ function LandingSection_4() {
       </p>
 
       <div className='absolute top-[45vh] left-[10vw] flex flex-wrap gap-3'>
-        <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem] text-gray-600'>
+        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
           CHERRY
         </p>
-        <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem] text-gray-600'>
+        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
           CHOCOLATE
         </p>
-        <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem] text-gray-600'>
+        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
           VANILLA
         </p>
-        <p className='h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem] text-gray-600'>
+        <p className='text-primary-100 h-fit w-fit rounded-full border-1 border-gray-200 bg-gray-100 px-8 py-3 text-[2rem]'>
           BERRY
         </p>
       </div>
 
       <div className='absolute top-[53vh] left-[10vw] flex w-[40vw] flex-col gap-2'>
-        <p className='text-[3rem] font-[500] text-gray-400'>
-          Sentinel Carbernet Sauvignon 2016
+        <p className='text-[2.4rem] font-[500] text-gray-500'>
+          La Vigne Noire Pinot Noir 2020
         </p>
-        <p className='text-[2rem] text-gray-300'>
-          Cherry, cocoa, vanilla and clove - beautiful red fruit driven Amarone.
-          Low acidity and medium tannins. Nice long velvety finish. Cherry,
-          cocoa, vanilla and clove.
+        <p className='text-[2rem] text-gray-500'>
+          Rich notes of cherry and mixed berries lead the palate, supported by
+          layers of dark chocolate and smooth vanilla. The finish is long and
+          balanced, leaving a soft, fruity warmth.
         </p>
       </div>
 
       <div className='absolute top-[74vh] left-[10vw] flex w-[40vw] flex-col gap-[4vh]'>
-        <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-100'>
-          <div className='absolute left-[40rem] size-[2.5vw] rounded-full border-1 border-gray-200 bg-gray-100' />
+        <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200'>
+          <div className='bg-primary-100 absolute left-[40rem] size-[2.5vw] rounded-full border-1 border-gray-200' />
         </div>
 
-        <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-100'>
-          <div className='absolute left-[15rem] size-[2.5vw] rounded-full border-1 border-gray-200 bg-gray-100' />
+        <div className='relative flex h-[1vw] w-full items-center justify-center rounded-4xl border-1 border-gray-200 bg-gray-200'>
+          <div className='bg-primary-100 absolute left-[15rem] size-[2.5vw] rounded-full border-1 border-gray-200' />
         </div>
       </div>
 
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-100 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-[3rem] font-[700] text-gray-600'>
-          직관적인 리뷰 시스템
+        <p className='text-primary-100 text-[3rem] font-[300]'>
+          한 잔의 감각을 그대로 기록하세요.
         </p>
       </div>
     </div>
