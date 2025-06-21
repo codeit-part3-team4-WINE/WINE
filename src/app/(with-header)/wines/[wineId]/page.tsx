@@ -1,5 +1,5 @@
 'use client';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -30,11 +30,19 @@ export default function WinePage() {
     (ReviewType & { wineId: number }) | null
   >(null);
 
+  // 분석용 데이터 (모든 리뷰 포함)
+  const { data: analysisData, status: analysisStatus } = useQuery({
+    queryKey: ['wine-analysis', wineId],
+    queryFn: async () => {
+      return privateInstance.get(`/wines/${wineId}/analysis`);
+    },
+  });
+
+  // 리뷰 목록용 데이터 (무한스크롤)
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
-      queryKey: ['wine', wineId],
+      queryKey: ['wine-reviews', wineId],
       queryFn: async ({ pageParam = 1 }) => {
-        // 스켈레톤 UI 확인용 지연
         return privateInstance.get(
           `/wines/${wineId}?page=${pageParam}&limit=5`,
         );
@@ -49,8 +57,8 @@ export default function WinePage() {
     !hasNextPage,
   );
 
-  const wineInfo = data?.pages[0]?.data;
-  const allReviews = data?.pages.flatMap((page) => page.data.reviews) || [];
+  const wineInfo = analysisData?.data; // 분석용 데이터 (모든 리뷰 포함)
+  const allReviews = data?.pages.flatMap((page) => page.data.reviews) || []; // 무한스크롤용 리뷰
 
   useEffect(() => {
     if (userInfo?.id && wineInfo?.userId && userInfo.id === wineInfo.userId) {
@@ -68,9 +76,10 @@ export default function WinePage() {
     setIsModalOpen(true);
   };
 
-  if (status === 'pending') return <WinePageSkeleton />;
+  if (status === 'pending' || analysisStatus === 'pending')
+    return <WinePageSkeleton />;
 
-  if (status === 'error') {
+  if (status === 'error' || analysisStatus === 'error') {
     return (
       <div className='flex h-screen items-center justify-center'>
         <p>Error fetching wine data</p>
@@ -113,7 +122,7 @@ export default function WinePage() {
           <div className='flex items-center justify-between'>
             <h3 className='mt-10 mb-10 text-xl font-bold'>리뷰 목록</h3>
             <span className='text-sm text-gray-500'>
-              {allReviews.length || 0}개 리뷰
+              {wineInfo?.reviews.length || 0}개 리뷰
             </span>
           </div>
           {allReviews.length > 0 ? (
@@ -125,7 +134,10 @@ export default function WinePage() {
                   wineId={wineInfo.id}
                   onDelete={() => {
                     queryClient.invalidateQueries({
-                      queryKey: ['wine', wineId],
+                      queryKey: ['wine-analysis', wineId],
+                    });
+                    queryClient.invalidateQueries({
+                      queryKey: ['wine-reviews', wineId],
                     });
                   }}
                   onEdit={handleEdit}
@@ -173,7 +185,12 @@ export default function WinePage() {
             wineId={wineInfo?.id || 0}
             wineName={wineInfo?.name || ''}
             onSuccess={() => {
-              queryClient.invalidateQueries({ queryKey: ['wine', wineId] });
+              queryClient.invalidateQueries({
+                queryKey: ['wine-analysis', wineId],
+              });
+              queryClient.invalidateQueries({
+                queryKey: ['wine-reviews', wineId],
+              });
               setIsModalOpen(false);
               setSelectedReview(null);
             }}
