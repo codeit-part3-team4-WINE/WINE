@@ -3,7 +3,7 @@
 import StarBadge from '@/components/Badge/StarBadge';
 import { getTimeAgo } from '@/utils/getTimeAgo';
 
-import ReviewCardDropdown from './ReveiwCardDropdown';
+import ReviewCardDropdown from './ReviewCardDropdown';
 
 interface Review {
   id: number;
