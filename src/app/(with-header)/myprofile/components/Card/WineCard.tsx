@@ -9,7 +9,7 @@ import PriceBadge from '@/components/Badge/PriceBadge';
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal';
 import { cn } from '@/libs/cn';
 
-import CardDropdown from './CardDropdown';
+import WineCardDropdown from './WineCardDropdown';
 
 interface WineCardProps {
   wine: {
@@ -78,7 +78,7 @@ export default function WineCard({
       </div>
       {isDropdown && (
         <div className='absolute top-12 right-5 md:top-15 md:right-10 xl:right-15'>
-          <CardDropdown
+          <WineCardDropdown
             wine={wine}
             onDeleteClick={() => setIsDeleteModalOpen(true)}
           />

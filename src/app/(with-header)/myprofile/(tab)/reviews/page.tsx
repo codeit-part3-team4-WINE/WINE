@@ -51,13 +51,7 @@ export default async function Reviews() {
       <div className='flex flex-col gap-10'>
         {reviews.map((review: Review) => (
           <Link key={review.id} href={`/wines/${review.wine.id}`}>
-            <ReviewCard
-              key={review.id}
-              content={review.content}
-              rating={review.rating}
-              time={review.updatedAt}
-              wine={review.wine.name}
-            />
+            <ReviewCard key={review.id} review={review} />
           </Link>
         ))}
       </div>
