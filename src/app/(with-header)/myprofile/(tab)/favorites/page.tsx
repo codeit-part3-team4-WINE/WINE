@@ -47,22 +47,25 @@ export default function Favorite() {
         });
         const wines: Wine[] = data.list;
 
-        const allLikedReviews: Review[] = [];
+        // 각 와인 상세를 병렬로 요청
+        const wineDetails = await Promise.all(
+          wines.map((wine) => privateInstance.get(`/wines/${wine.id}`)),
+        );
 
-        for (const wine of wines) {
-          const { data: wineDetail } = await privateInstance.get(
-            `/wines/${wine.id}`,
-          );
-          const wineLikedReviews: Review[] =
-            wineDetail.reviews
-              ?.filter((review: Review) => review.isLiked)
-              .map((review: Review) => ({
-                ...review,
-                wineId: wine.id,
-              })) ?? [];
-
-          allLikedReviews.push(...wineLikedReviews);
-        }
+        // 각 와인에서 좋아요한 리뷰만 추출
+        const allLikedReviews: Review[] = wineDetails.flatMap(
+          ({ data: wineDetail }, idx) => {
+            const wineId = wines[idx].id;
+            return (
+              wineDetail.reviews
+                ?.filter((review: Review) => review.isLiked)
+                .map((review: Review) => ({
+                  ...review,
+                  wineId,
+                })) ?? []
+            );
+          },
+        );
 
         setLikedReviews(allLikedReviews);
       } catch (error) {
