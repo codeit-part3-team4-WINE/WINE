@@ -168,7 +168,7 @@ export default function ReviewCard({
       </div>
 
       <div className='flex items-center justify-between gap-2'>
-        <div className='relative w-9/10 flex-1'>
+        <div className='relative w-1/2 flex-1'>
           <div
             className='hide-scrollbar flex items-center gap-2 overflow-x-scroll'
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}

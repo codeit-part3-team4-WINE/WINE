@@ -524,7 +524,7 @@ export default function LandingPage() {
     >
       <div className='border-primary-100 bg-primary-10 fixed top-0 z-90 flex h-screen w-[5vw] justify-center border-r-1 pt-[15vh]'>
         <div className='hidden flex-col items-center justify-start gap-[5vh] md:flex'>
-          <Link href='/design-system'>
+          <Link href='/wines'>
             <HomeIcon className='text-primary-100' size={30} />
           </Link>
 
@@ -564,7 +564,7 @@ export default function LandingPage() {
         </div>
 
         <div className='flex items-center justify-start gap-[4vw] md:hidden'>
-          <Link href='/design-system'>
+          <Link href='/wines'>
             <HomeIcon className='text-primary-100' size={30} />
           </Link>
 
