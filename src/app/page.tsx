@@ -564,7 +564,7 @@ export default function LandingPage() {
         </div>
 
         <div className='flex items-center justify-start gap-[4vw] md:hidden'>
-          <Link href='/design-system'>
+          <Link href='/wines'>
             <HomeIcon className='text-primary-100' size={30} />
           </Link>
 
