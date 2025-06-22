@@ -30,6 +30,14 @@ export default function WinePage() {
     (ReviewType & { wineId: number }) | null
   >(null);
 
+  // 와인 기본 정보용 쿼리 (수정 시 즉시 반영)
+  const { data: wineData, status: wineStatus } = useQuery({
+    queryKey: ['wine', wineId],
+    queryFn: async () => {
+      return privateInstance.get(`/wines/${wineId}`);
+    },
+  });
+
   // 분석용 데이터 (모든 리뷰 포함)
   const { data: analysisData, status: analysisStatus } = useQuery({
     queryKey: ['wine-analysis', wineId],
@@ -58,28 +66,41 @@ export default function WinePage() {
   );
 
   const wineInfo = analysisData?.data; // 분석용 데이터 (모든 리뷰 포함)
+  const basicWineInfo = wineData?.data; // 기본 와인 정보
   const allReviews = data?.pages.flatMap((page) => page.data.reviews) || []; // 무한스크롤용 리뷰
 
   useEffect(() => {
-    if (userInfo?.id && wineInfo?.userId && userInfo.id === wineInfo.userId) {
+    if (
+      userInfo?.id &&
+      basicWineInfo?.userId &&
+      userInfo.id === basicWineInfo.userId
+    ) {
       setIsOwner(true);
     } else {
       setIsOwner(false);
     }
-  }, [wineId, userInfo?.id, wineInfo?.userId]);
+  }, [wineId, userInfo?.id, basicWineInfo?.userId]);
 
   const handleEdit = (review: ReviewType) => {
     setSelectedReview({
       ...review,
-      wineId: wineInfo?.id ?? 0,
+      wineId: basicWineInfo?.id ?? 0,
     });
     setIsModalOpen(true);
   };
 
-  if (status === 'pending' || analysisStatus === 'pending')
+  if (
+    status === 'pending' ||
+    analysisStatus === 'pending' ||
+    wineStatus === 'pending'
+  )
     return <WinePageSkeleton />;
 
-  if (status === 'error' || analysisStatus === 'error') {
+  if (
+    status === 'error' ||
+    analysisStatus === 'error' ||
+    wineStatus === 'error'
+  ) {
     return (
       <div className='flex h-screen items-center justify-center'>
         <p>Error fetching wine data</p>
@@ -94,12 +115,12 @@ export default function WinePage() {
       <WineCard
         isDropdown={isOwner}
         wine={{
-          id: wineInfo?.id || 0,
-          name: wineInfo?.name || '',
-          region: wineInfo?.region || '',
-          image: wineInfo?.image || '',
-          price: wineInfo?.price || 0,
-          type: wineInfo?.type || '',
+          id: basicWineInfo?.id || 0,
+          name: basicWineInfo?.name || '',
+          region: basicWineInfo?.region || '',
+          image: basicWineInfo?.image || '',
+          price: basicWineInfo?.price || 0,
+          type: basicWineInfo?.type || '',
         }}
       />
 
@@ -133,6 +154,9 @@ export default function WinePage() {
                   review={review}
                   wineId={wineInfo.id}
                   onDelete={() => {
+                    queryClient.invalidateQueries({
+                      queryKey: ['wine', wineId],
+                    });
                     queryClient.invalidateQueries({
                       queryKey: ['wine-analysis', wineId],
                     });
@@ -182,9 +206,12 @@ export default function WinePage() {
             initialReview={selectedReview || undefined}
             isOpen={isModalOpen}
             setIsOpen={setIsModalOpen}
-            wineId={wineInfo?.id || 0}
-            wineName={wineInfo?.name || ''}
+            wineId={basicWineInfo?.id || 0}
+            wineName={basicWineInfo?.name || ''}
             onSuccess={() => {
+              queryClient.invalidateQueries({
+                queryKey: ['wine', wineId],
+              });
               queryClient.invalidateQueries({
                 queryKey: ['wine-analysis', wineId],
               });
