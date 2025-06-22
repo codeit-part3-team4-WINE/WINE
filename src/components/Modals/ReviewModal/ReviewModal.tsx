@@ -161,7 +161,7 @@ export default function ReviewModal({
         <ModalHeader>
           <ModalTitle> {reviewId ? '리뷰 수정' : '리뷰 등록'}</ModalTitle>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className='flex flex-col gap-4'>
           <div className='mt-6 flex items-center gap-4'>
             <WineIcon size='60' />
             <div className='flex flex-col text-xl'>
