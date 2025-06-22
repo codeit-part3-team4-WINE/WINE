@@ -122,13 +122,17 @@ export default function WineModal({
 
       await WineData(payload);
 
+      await queryClient.invalidateQueries({
+        queryKey: ['wines'], // 와인 목록 페이지에서 와인이 등록되었을 때 바로 반영되도록 하기 위해
+      });
+
       if (wineData) {
         await queryClient.invalidateQueries({
           queryKey: ['wine', String(wineData.id)], // 와인 상세 페이지에서 와인이 수정되었을 때 바로 반영되도록 하기 위해
         });
-      } else {
+
         await queryClient.invalidateQueries({
-          queryKey: ['wines'], // 와인 목록 페이지에서 와인이 등록되었을 때 바로 반영되도록 하기 위해
+          queryKey: ['wine-analysis', String(wineData.id)], // 수정된 와인 분석 데이터 무효화
         });
       }
 
