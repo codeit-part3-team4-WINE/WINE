@@ -7,11 +7,12 @@ import { useRef } from 'react';
 
 import GitHub from '../app/assets/icons/github-logo';
 import ArrowIcon from './assets/icons/arrow';
+import DesignIcon from './assets/icons/desgin';
+import HomeIcon from './assets/icons/home';
 import StarIcon from './assets/icons/star';
 import WineLogoIcon from './assets/icons/wine-logo';
 import bottleImage from './assets/images/bottle.png';
 import bottle2Image from './assets/images/bottle2.png';
-import BerryIcon from './assets/tastes/berry';
 
 function TopButton({ containerRef }) {
   const handleScrollToTop = () => {
@@ -253,7 +254,7 @@ function LandingSection_3() {
         </p>
         <motion.div
           animate={{ opacity: [0, 0.7, 0, 0.7] }}
-          className='bg-primary-100 h-[8.5vw] w-[0.1vw]'
+          className='bg-primary-100 ml-[0.7vw] h-[8.5vw] w-[0.1vw]'
           initial={{ opacity: 0 }}
           transition={{
             duration: 2,
@@ -523,6 +524,14 @@ export default function LandingPage() {
     >
       <div className='border-primary-100 bg-primary-10 fixed top-0 z-90 flex h-screen w-[5vw] justify-center border-r-1 pt-[15vh]'>
         <div className='hidden flex-col items-center justify-start gap-[5vh] md:flex'>
+          <Link href='/wines'>
+            <HomeIcon className='text-primary-100' size={30} />
+          </Link>
+
+          <Link href='/design-system'>
+            <DesignIcon className='text-primary-100' size={28} />
+          </Link>
+
           <a
             aria-label='GitHub repository'
             className='flex items-center'
@@ -532,9 +541,6 @@ export default function LandingPage() {
           >
             <GitHub color='#6A42DB' />
           </a>
-          <Link href='/design-system'>
-            <BerryIcon color='#6A42DB' />
-          </Link>
         </div>
       </div>
 
@@ -546,13 +552,26 @@ export default function LandingPage() {
         </Link>
         <div className='hidden items-center justify-center md:flex'>
           <div className='flex gap-[2vw]'>
-            <p className='text-primary-100 text-[1.6rem]'>CODEIT FRONTEND 15</p>
-            <p className='text-primary-100 text-[1.6rem]'>TAEILWIND</p>
-            <p className='text-primary-100 text-[1.6rem]'> V20.08</p>
+            {/* <p className='text-primary-100 text-[1.6rem]'>CODEIT FRONTEND 15</p> */}
+            {/* <p className='text-primary-100 text-[1.6rem]'>TAEILWIND</p> */}
+            {/* <p className='text-primary-100 text-[1.6rem]'> V20.08</p> */}
+            <Link href='/wines'>
+              <p className='text-primary-100 text-[1.6rem] hover:opacity-50'>
+                HOME
+              </p>
+            </Link>
           </div>
         </div>
 
         <div className='flex items-center justify-start gap-[4vw] md:hidden'>
+          <Link href='/wines'>
+            <HomeIcon className='text-primary-100' size={30} />
+          </Link>
+
+          <Link href='/design-system'>
+            <DesignIcon className='text-primary-100' size={28} />
+          </Link>
+
           <a
             aria-label='GitHub repository'
             className='flex items-center'
@@ -562,9 +581,6 @@ export default function LandingPage() {
           >
             <GitHub color='#6A42DB' />
           </a>
-          <Link href='/design-system'>
-            <BerryIcon color='#6A42DB' />
-          </Link>
         </div>
       </div>
 

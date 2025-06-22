@@ -132,7 +132,7 @@ export default function ReviewCard({
     <div className='relative flex flex-col gap-5 rounded-2xl border border-gray-300 p-10'>
       <div className='flex items-start justify-between'>
         <div className='flex items-center gap-5'>
-          <ProfileImg className='md:size-[4.2rem]' />
+          <ProfileImg className='md:size-[4.2rem]' src={review.user.image} />
           <div className='flex flex-col justify-center'>
             <p className='text-lg font-bold'>{user.nickname}</p>
             <p className='text-md text-gray-500'>{getTimeAgo(createdAt)}</p>
@@ -168,7 +168,7 @@ export default function ReviewCard({
       </div>
 
       <div className='flex items-center justify-between gap-2'>
-        <div className='relative w-9/10 flex-1'>
+        <div className='relative w-1/2 flex-1'>
           <div
             className='hide-scrollbar flex items-center gap-2 overflow-x-scroll'
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}

@@ -38,6 +38,7 @@ export function RangeSlider({
           className,
           disabled ? 'cursor-not-allowed' : 'cursor-pointer',
         )}
+        disabled={disabled}
         id={id}
         name={name}
         type='range'
