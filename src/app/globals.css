@@ -29,6 +29,7 @@
   --font-pacifico: var(--font-pacifico), 'Pretendard', sans-serif;
   --font-vibur: var(--font-vibur), 'Pretendard', sans-serif;
   --font-shrikhand: var(--font-shrikhand), 'Pretendard', sans-serif;
+  --font-gowun: var(--font-gowun), 'Pretendard', sans-serif;
 
   /* 커스텀 폰트 크기 */
   --text-3xl: 3.2rem;

@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import {
   Archivo_Narrow,
   Bagel_Fat_One,
+  Gowun_Batang,
   Modak,
   Orbit,
   Shrikhand,
@@ -45,6 +46,12 @@ const shrikhand = Shrikhand({
   weight: ['400'],
   subsets: ['latin'],
   variable: '--font-shrikhand',
+});
+
+const gowun = Gowun_Batang({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-gowun',
 });
 
 const APP_NAME = 'WINE';
@@ -100,7 +107,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={`${archivo.variable} ${bagel.variable} ${orbit.variable} ${modak.variable} ${vibur.variable} ${shrikhand.variable}`}
+      className={`${archivo.variable} ${bagel.variable} ${orbit.variable} ${modak.variable} ${vibur.variable} ${shrikhand.variable} ${gowun.variable}`}
       lang='ko'
     >
       <body>

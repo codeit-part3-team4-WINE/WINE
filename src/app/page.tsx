@@ -74,7 +74,7 @@ function LandingSection_2() {
       initial='hidden'
     >
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-20 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-primary-100 flex flex-col items-center text-[2rem] font-[300] md:flex-row md:text-[3rem]'>
+        <p className='text-primary-100 font-gowun flex flex-col items-center text-[2rem] font-[300] md:flex-row md:text-[3rem]'>
           <span className='mr-[0.7vw]'>추천은 우리가 할게요.</span>
           <span> 당신은 고르기만 하세요.</span>
         </p>
@@ -338,7 +338,7 @@ function LandingSection_3() {
       </motion.div>
 
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-20 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-primary-100 text-[2rem] font-[300] whitespace-nowrap md:text-[3rem]'>
+        <p className='text-primary-100 font-gowun text-[2rem] font-[300] whitespace-nowrap md:text-[3rem]'>
           찾고 있는 와인, 이미 알고 있어요.
         </p>
       </div>
@@ -431,7 +431,7 @@ function LandingSection_4() {
       </div>
 
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-100 flex h-[10vh] w-screen items-center justify-center border-t-1'>
-        <p className='text-primary-100 text-[2rem] font-[300] md:text-[3rem]'>
+        <p className='text-primary-100 font-gowun text-[2rem] font-[300] md:text-[3rem]'>
           한 잔의 감각을 그대로 기록하세요.
         </p>
       </div>
