@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -42,6 +43,7 @@ export default function WineCard({
 }: WineCardProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const handleDeleteConfirm = async (wineId, router, setIsDeleteModalOpen) => {
     // 추천 와인인지 확인
@@ -49,6 +51,22 @@ export default function WineCard({
 
     const result = await deleteWine(wineId, isRecommendedWine);
     if (result.success) {
+      await queryClient.invalidateQueries({
+        queryKey: ['wines'], // 모든 와인 목록 쿼리 무효화
+      });
+
+      await queryClient.invalidateQueries({
+        queryKey: ['wine', wineId], // 삭제된 와인 정보 무효화
+      });
+
+      await queryClient.invalidateQueries({
+        queryKey: ['wine-reviews', wineId], // 삭제된 와인의 리뷰들 무효화
+      });
+
+      await queryClient.invalidateQueries({
+        queryKey: ['wine-analysis', wineId], // 삭제된 와인의 분석 데이터 무효화
+      });
+
       router.push('/wines');
     } else {
       alert(result.message || '와인 삭제에 실패했습니다.');
