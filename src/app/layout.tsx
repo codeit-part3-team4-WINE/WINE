@@ -1,7 +1,58 @@
 import './globals.css';
 
 import type { Metadata, Viewport } from 'next';
+import {
+  Archivo_Narrow,
+  Bagel_Fat_One,
+  Gowun_Batang,
+  Modak,
+  Orbit,
+  Shrikhand,
+  Vibur,
+} from 'next/font/google';
 import { Toaster } from 'sonner';
+
+const archivo = Archivo_Narrow({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-archivo',
+});
+
+const bagel = Bagel_Fat_One({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-bagel',
+});
+
+const orbit = Orbit({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-orbit',
+});
+
+const modak = Modak({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-modak',
+});
+
+const vibur = Vibur({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-vibur',
+});
+
+const shrikhand = Shrikhand({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-shrikhand',
+});
+
+const gowun = Gowun_Batang({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-gowun',
+});
 
 const APP_NAME = 'WINE';
 const APP_DEFAULT_TITLE = 'WINE APP';
@@ -55,7 +106,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko'>
+    <html
+      className={`${archivo.variable} ${bagel.variable} ${orbit.variable} ${modak.variable} ${vibur.variable} ${shrikhand.variable} ${gowun.variable}`}
+      lang='ko'
+    >
       <body>
         <main>
           <QueryProvider>{children}</QueryProvider>

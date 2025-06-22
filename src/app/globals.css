@@ -21,6 +21,15 @@
 
   /* 폰트 설정 */
   --font-sans: 'Pretendard', system-ui, sans-serif;
+  --font-archivo: var(--font-archivo), 'Pretendard', sans-serif;
+  --font-bagel: var(--font-bagel), 'Pretendard', sans-serif;
+  --font-orbit: var(--font-orbit), 'Pretendard', sans-serif;
+  --font-modak: var(--font-modak), 'Pretendard', sans-serif;
+  --font-chango: var(--font-chango), 'Pretendard', sans-serif;
+  --font-pacifico: var(--font-pacifico), 'Pretendard', sans-serif;
+  --font-vibur: var(--font-vibur), 'Pretendard', sans-serif;
+  --font-shrikhand: var(--font-shrikhand), 'Pretendard', sans-serif;
+  --font-gowun: var(--font-gowun), 'Pretendard', sans-serif;
 
   /* 커스텀 폰트 크기 */
   --text-3xl: 3.2rem;
