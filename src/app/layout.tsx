@@ -1,7 +1,14 @@
 import './globals.css';
 
 import type { Metadata, Viewport } from 'next';
-import { Archivo_Narrow, Bagel_Fat_One, Modak, Orbit } from 'next/font/google';
+import {
+  Archivo_Narrow,
+  Bagel_Fat_One,
+  Modak,
+  Orbit,
+  Shrikhand,
+  Vibur,
+} from 'next/font/google';
 import { Toaster } from 'sonner';
 
 const archivo = Archivo_Narrow({
@@ -26,6 +33,18 @@ const modak = Modak({
   weight: ['400'],
   subsets: ['latin'],
   variable: '--font-modak',
+});
+
+const vibur = Vibur({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-vibur',
+});
+
+const shrikhand = Shrikhand({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-shrikhand',
 });
 
 const APP_NAME = 'WINE';
@@ -81,7 +100,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={`${archivo.variable} ${bagel.variable} ${orbit.variable} ${modak.variable}`}
+      className={`${archivo.variable} ${bagel.variable} ${orbit.variable} ${modak.variable} ${vibur.variable} ${shrikhand.variable}`}
       lang='ko'
     >
       <body>

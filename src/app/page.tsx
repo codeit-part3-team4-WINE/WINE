@@ -33,16 +33,16 @@ function TopButton({ containerRef }) {
   );
 }
 
-export function LandingSection_1() {
+function LandingSection_1() {
   return (
     <div className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'>
-      <p className='text-primary-100 font-modak absolute left-[20vw] text-[22vw] leading-none'>
+      <p className='text-primary-100 font-vibur absolute left-[19vw] text-[22vw] leading-none font-[700]'>
         W
       </p>
-      <p className='text-primary-100 font-modak absolute left-[57vw] text-[22vw] leading-none'>
+      <p className='text-primary-100 font-vibur absolute left-[57vw] text-[22vw] leading-none font-[700]'>
         N
       </p>
-      <p className='text-primary-100 font-modak absolute left-[72vw] text-[22vw] leading-none'>
+      <p className='text-primary-100 font-vibur absolute left-[72vw] text-[22vw] leading-none font-[700]'>
         E
       </p>
     </div>
@@ -75,12 +75,12 @@ function LandingSection_2() {
     >
       <div className='border-primary-100 bg-primary-10 absolute bottom-0 z-20 flex h-[10vh] w-screen items-center justify-center border-t-1'>
         <p className='text-primary-100 flex flex-col items-center text-[2rem] font-[300] md:flex-row md:text-[3rem]'>
-          <span>추천은 우리가 할게요.</span>
+          <span className='mr-[0.7vw]'>추천은 우리가 할게요.</span>
           <span> 당신은 고르기만 하세요.</span>
         </p>
       </div>
 
-      <p className='font-archivo text-primary-100 absolute top-[20vh] text-[7vh] font-[700] md:top-[13vh] md:text-[11vw]'>
+      <p className='font-shrikhand text-primary-100 absolute top-[20vh] text-[7vh] font-[400] md:top-[13vh] md:text-[11vw]'>
         RECOMMEND
       </p>
 
@@ -248,7 +248,7 @@ function LandingSection_3() {
       }}
     >
       <div className='absolute top-[17vh] flex items-center gap-[1vw] md:top-[13vh]'>
-        <p className='font-archivo text-primary-100 text-[7vh] font-[700] md:text-[11vw]'>
+        <p className='font-shrikhand text-primary-100 text-[7vh] font-[400] md:text-[11vw]'>
           SEARCH
         </p>
         <motion.div
@@ -346,7 +346,7 @@ function LandingSection_3() {
   );
 }
 
-export function LandingSection_4() {
+function LandingSection_4() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { amount: 0.3 });
 
@@ -368,7 +368,7 @@ export function LandingSection_4() {
       ref={sectionRef}
       className='bg-primary-10 border-primary-100 relative flex h-screen w-screen snap-center items-center justify-center border-b-1'
     >
-      <p className='font-archivo text-primary-100 absolute top-[20vh] text-[7vh] font-[700] md:top-[13vh] md:text-[11vw]'>
+      <p className='font-shrikhand text-primary-100 absolute top-[20vh] text-[7vh] font-[400] md:top-[13vh] md:text-[11vw]'>
         REVIEW
       </p>
 
