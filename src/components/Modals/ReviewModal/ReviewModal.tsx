@@ -77,10 +77,10 @@ export default function ReviewModal({
   initialReview,
 }: ReviewModalProps) {
   const [values, setValues] = useState({
-    lightBold: 5,
-    smoothTannic: 5,
-    drySweet: 5,
-    softAcidic: 5,
+    lightBold: 3,
+    smoothTannic: 3,
+    drySweet: 3,
+    softAcidic: 3,
   });
 
   const [selected, setSelected] = useState<string[]>([]);
@@ -161,9 +161,9 @@ export default function ReviewModal({
         <ModalHeader>
           <ModalTitle> {reviewId ? '리뷰 수정' : '리뷰 등록'}</ModalTitle>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className='flex flex-col gap-4'>
           <div className='mt-6 flex items-center gap-4'>
-            <WineIcon size='40' />
+            <WineIcon size='60' />
             <div className='flex flex-col text-xl'>
               <h2 className='font-semibold'>{wineName || '와인 이름 없음'}</h2>
               <StarRating size={24} value={rating} onChange={setRating} />
@@ -181,11 +181,7 @@ export default function ReviewModal({
 
           <div className='mt-6 flex flex-col gap-4 text-lg'>
             <h2>와인의 맛은 어땠나요?</h2>
-            <InputRange
-              className='max-w-[452px]'
-              values={values}
-              onChange={handleChange}
-            />
+            <InputRange className='' values={values} onChange={handleChange} />
           </div>
 
           <div className='mt-6 flex flex-col gap-4 text-lg'>
