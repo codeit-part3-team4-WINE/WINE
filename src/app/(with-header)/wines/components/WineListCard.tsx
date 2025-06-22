@@ -71,7 +71,7 @@ export default function WineListCard({
           wineCountry={country}
           wineCountryClassName='max-sm:text-[1.2rem] line-clamp-1 max-sm:mb-3'
           wineImage={image}
-          wineImageClassName='h-[22rem] w-[10rem] sm:w-[12rem]'
+          wineImageClassName='mr-8'
           wineName={name}
           wineNameClassName='text-[2rem] mb-2 sm:text-[2.7rem] md:text-[3rem] font-medium line-clamp-2 sm:line-clamp-2'
         />

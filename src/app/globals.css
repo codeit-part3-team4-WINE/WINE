@@ -21,6 +21,15 @@
 
   /* 폰트 설정 */
   --font-sans: 'Pretendard', system-ui, sans-serif;
+  --font-archivo: var(--font-archivo), 'Pretendard', sans-serif;
+  --font-bagel: var(--font-bagel), 'Pretendard', sans-serif;
+  --font-orbit: var(--font-orbit), 'Pretendard', sans-serif;
+  --font-modak: var(--font-modak), 'Pretendard', sans-serif;
+  --font-chango: var(--font-chango), 'Pretendard', sans-serif;
+  --font-pacifico: var(--font-pacifico), 'Pretendard', sans-serif;
+  --font-vibur: var(--font-vibur), 'Pretendard', sans-serif;
+  --font-shrikhand: var(--font-shrikhand), 'Pretendard', sans-serif;
+  --font-gowun: var(--font-gowun), 'Pretendard', sans-serif;
 
   /* 커스텀 폰트 크기 */
   --text-3xl: 3.2rem;
@@ -110,6 +119,65 @@
   .caption-text {
     @apply text-[1.2rem] font-normal; /* 12px */
   }
+
+  /* === Toast 스타일 커스터마이징 === */
+  .toaster {
+    /* 토스트 제목 글씨 크기 */
+    --toast-title-font-size: 1.6rem; /* 16px */
+    /* 토스트 설명 글씨 크기 */
+    --toast-description-font-size: 1.4rem; /* 14px */
+  }
+
+  /* Sonner 토스트 스타일 오버라이드 - 더 구체적인 선택자 사용 */
+  [data-sonner-toast] [data-title] {
+    font-size: var(--toast-title-font-size) !important;
+  }
+
+  [data-sonner-toast] [data-description] {
+    font-size: var(--toast-description-font-size) !important;
+  }
+
+  /* 토스트 액션 버튼 글씨 크기 */
+  [data-sonner-toast] [data-button] {
+    font-size: 1.3rem !important; /* 13px */
+  }
+
+  /* 커스텀 클래스별 토스트 스타일 */
+  [data-sonner-toast].toast-large [data-title] {
+    font-size: 2.4rem !important;
+    font-weight: bold !important;
+  }
+
+  [data-sonner-toast].toast-large [data-description] {
+    font-size: 1.8rem !important;
+  }
+
+  [data-sonner-toast].toast-medium [data-title] {
+    font-size: 1.6rem !important;
+  }
+
+  [data-sonner-toast].toast-medium [data-description] {
+    font-size: 1.4rem !important;
+  }
+
+  [data-sonner-toast].toast-small [data-title] {
+    font-size: 1.2rem !important;
+  }
+
+  [data-sonner-toast].toast-small [data-description] {
+    font-size: 1rem !important;
+  }
+
+  [data-sonner-toast].toast-custom [data-title] {
+    font-size: 2rem !important;
+    color: #6a42db !important;
+    font-weight: 800 !important;
+  }
+
+  [data-sonner-toast].toast-custom [data-description] {
+    font-size: 1.6rem !important;
+    color: #9170ee !important;
+  }
 }
 
 @layer utilities {
@@ -139,11 +207,11 @@
   }
 
   .rolling-list-original {
-    animation: rollingleft1 25s linear infinite;
+    animation: rollingleft1 40s linear infinite;
   }
 
   .rolling-list-clone {
-    animation: rollingleft2 25s linear infinite;
+    animation: rollingleft2 40s linear infinite;
   }
 
   .outer-wrapper:hover .rolling-list-original,

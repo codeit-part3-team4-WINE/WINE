@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { privateInstance } from '@/apis/privateInstance';
 import Button from '@/components/Button';
@@ -51,6 +51,11 @@ export default function LoadMoreButton({ type, initialCursor }: Props) {
   const [items, setItems] = useState<Wine[] | Review[]>([]);
   const [cursor, setCursor] = useState(initialCursor);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setItems([]);
+    setCursor(initialCursor);
+  }, [initialCursor]);
 
   const handleLoadMore = async () => {
     if (!cursor) return;

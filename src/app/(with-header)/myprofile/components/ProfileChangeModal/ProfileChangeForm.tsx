@@ -39,9 +39,9 @@ export default function ProfileChangeForm({
             src={imageSrc || undefined}
           />
         </InputFile>
-        <span className='text-[1.2rem] text-gray-500'>
-          {imgState === 'preview' ? '미리보기 이미지' : '프로필 사진 변경'}
-        </span>
+        {imgState === 'preview' && (
+          <span className='text-[1.2rem] text-gray-500'>미리보기 이미지</span>
+        )}
         <div className='flex gap-[0.3rem]'>
           {isDeletable && (
             <Button

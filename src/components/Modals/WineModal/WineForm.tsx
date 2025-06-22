@@ -24,6 +24,24 @@ export type WineFormData = {
   type: string;
 };
 
+const WINE_NAME_PLACEHOLDERS = [
+  'Château Margaux',
+  'Louis Latour Pinot Noir',
+  'Tenuta San Guido Sassicaia',
+  'Opus One',
+  'Pfeiffer Going for Broke',
+];
+
+const REGION_PLACEHOLDERS = [
+  'Bordeaux, France',
+  'Tuscany, Italy',
+  'Sonoma County, California, USA',
+  'Barossa Valley, Australia',
+  'Mendoza, Argentina',
+];
+
+const PRICE_PLACEHOLDERS = ['49,000', '64,900', '120,000', '89,500', '230,000'];
+
 const OPTIONS = ['RED', 'WHITE', 'SPARKLING'];
 const OPTION_LABELS = {
   RED: '레드와인',
@@ -39,7 +57,7 @@ const DEFAULT_DATA: WineFormData = {
   region: '',
   image: '',
   price: 0,
-  type: 'RED',
+  type: OPTIONS[Math.floor(Math.random() * OPTIONS.length)],
 };
 
 /**
@@ -58,6 +76,14 @@ export default function WineForm({
   wineData?: WineFormData;
   onChange?: (data: WineFormData) => void;
 }) {
+  const DEFAULT_DATA: WineFormData = {
+    name: '',
+    region: '',
+    image: '',
+    price: 0,
+    type: OPTIONS[Math.floor(Math.random() * OPTIONS.length)],
+  };
+
   const isEdit = !!wineData;
   const [formData, setFormData] = useState<WineFormData>(
     wineData ?? DEFAULT_DATA,
@@ -65,6 +91,19 @@ export default function WineForm({
 
   const [priceError, setPriceError] = useState('');
   const [imgError, setImgError] = useState('');
+
+  // placeholder 랜덤 값
+  const [randomPlaceholders] = useState(() => ({
+    name: WINE_NAME_PLACEHOLDERS[
+      Math.floor(Math.random() * WINE_NAME_PLACEHOLDERS.length)
+    ],
+    region:
+      REGION_PLACEHOLDERS[
+        Math.floor(Math.random() * REGION_PLACEHOLDERS.length)
+      ],
+    price:
+      PRICE_PLACEHOLDERS[Math.floor(Math.random() * PRICE_PLACEHOLDERS.length)],
+  }));
 
   // 이미지 미리보기를 위한 src 설정
   const imageSrc =
@@ -132,7 +171,7 @@ export default function WineForm({
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='와인 이름'
-        placeholder={isEdit ? wineData.name : '페이덜트 고잉 포 브로크'}
+        placeholder={isEdit ? wineData.name : randomPlaceholders.name}
         type='text'
         value={formData.name}
         onChange={handleChange('name')}
@@ -144,7 +183,9 @@ export default function WineForm({
             priceError && 'border-red-500 focus:border-2 focus:border-red-500',
           )}
           label='가격'
-          placeholder={isEdit ? String(wineData.price) : '64,900'}
+          placeholder={
+            isEdit ? String(wineData.price) : randomPlaceholders.price
+          }
           type='text'
           value={
             formData.price === 0 ? '' : formData.price.toLocaleString('ko-KR')
@@ -159,9 +200,7 @@ export default function WineForm({
       <InputPair
         inputClassName={INPUT_CLASSNAME}
         label='원산지'
-        placeholder={
-          isEdit ? wineData.region : 'Sonoma County, California, USA'
-        }
+        placeholder={isEdit ? wineData.region : randomPlaceholders.region}
         type='text'
         value={formData.region}
         onChange={handleChange('region')}
@@ -175,7 +214,9 @@ export default function WineForm({
           }
           {...(isEdit && { value: wineData.type })}
         >
-          <SelectBox.Trigger triggerClassName='w-full focus:border-2 focus:border-gray-500'>
+          <SelectBox.Trigger
+            triggerClassName={`w-full focus:border-2 text-md focus:border-gray-500 ${isEdit ? '' : 'text-gray-800'}`}
+          >
             <>
               {OPTION_LABELS[formData.type] || ''}
               <TriangleArrowIcon />

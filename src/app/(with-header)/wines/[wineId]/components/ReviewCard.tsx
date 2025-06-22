@@ -2,6 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import { deleteReview } from '@/actions/review';
 import { privateInstance } from '@/apis/privateInstance'; // 좋아요 기능 요청용
@@ -92,7 +93,8 @@ export default function ReviewCard({
     onEdit?.(review);
   };
 
-  const handleLike = async () => {
+  const handleLike = async (e) => {
+    e.preventDefault();
     setIsLiked(!isLiked);
   };
 
@@ -105,6 +107,7 @@ export default function ReviewCard({
           await privateInstance.delete(`/wines/${id}/like`);
         }
       } catch {
+        toast.error('자신의 리뷰에는 좋아요를 누를 수 없습니다.');
         setIsLiked(review.isLiked);
       }
     };
@@ -120,7 +123,8 @@ export default function ReviewCard({
     }
   }, [userInfo?.id, user?.id]);
 
-  const handleToggle = () => {
+  const handleToggle = (e) => {
+    e.preventDefault();
     setIsOpen((prev) => !prev);
   };
 
@@ -128,7 +132,7 @@ export default function ReviewCard({
     <div className='relative flex flex-col gap-5 rounded-2xl border border-gray-300 p-10'>
       <div className='flex items-start justify-between'>
         <div className='flex items-center gap-5'>
-          <ProfileImg className='size-[4.2rem]' size='md' />
+          <ProfileImg className='md:size-[4.2rem]' />
           <div className='flex flex-col justify-center'>
             <p className='text-lg font-bold'>{user.nickname}</p>
             <p className='text-md text-gray-500'>{getTimeAgo(createdAt)}</p>
@@ -164,18 +168,22 @@ export default function ReviewCard({
       </div>
 
       <div className='flex items-center justify-between gap-2'>
-        <div
-          className='hide-scrollbar flex flex-1 items-center gap-2 overflow-x-scroll'
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {aroma.map((flavor) => (
-            <div
-              key={flavor}
-              className='text-md flex-shrink-0 rounded-full border border-gray-300 px-5 py-2 text-center text-gray-900'
-            >
-              {getAromaLabel(flavor as AromaType)}
-            </div>
-          ))}
+        <div className='relative w-9/10 flex-1'>
+          <div
+            className='hide-scrollbar flex items-center gap-2 overflow-x-scroll'
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {aroma.map((flavor) => (
+              <div
+                key={flavor}
+                className='text-md flex-shrink-0 rounded-full border border-gray-300 px-5 py-2 text-center text-gray-900'
+              >
+                {getAromaLabel(flavor as AromaType)}
+              </div>
+            ))}
+          </div>
+          {/* 오른쪽 그라데이션 오버레이 */}
+          <div className='pointer-events-none absolute top-0 right-0 h-full w-8 bg-gradient-to-l from-white to-transparent' />
         </div>
         <StarBadge className='flex-shrink-0' rating={rating} />
       </div>
@@ -186,7 +194,7 @@ export default function ReviewCard({
           isOpen ? 'max-h-[50rem] opacity-100' : 'max-h-0 opacity-0',
         )}
       >
-        <div className='text-lg'>
+        <div className='max-h-40 overflow-y-auto text-lg'>
           <p className='text-gray-900'>{content}</p>
         </div>
         <div>
