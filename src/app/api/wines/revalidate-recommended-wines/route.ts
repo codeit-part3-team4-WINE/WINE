@@ -1,4 +1,4 @@
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 /**
  * @description
@@ -6,7 +6,7 @@ import { revalidateTag } from 'next/cache';
  */
 export async function POST() {
   try {
-    revalidateTag('recommended-wines');
+    revalidatePath('/wines');
     return new Response('Revalidated', { status: 200 });
   } catch (error) {
     console.error('캐시 무효화 실패:', error);
