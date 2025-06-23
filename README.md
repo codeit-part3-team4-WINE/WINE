@@ -1,15 +1,17 @@
-# 🍷 Wine 🍇
+<<div style="text-align: center;"><h1> WINE PICK – 취향 기반 와인 셀렉션 🍇</h1></div>
 
-<!-- ### 소개
-### 배포주소
-### 주요기능
-### 폴더구조
-### 개발스택
-### R R
-### 프로세스
-### 깃 전략 -->
+<div style="text-align: center;">
+  <br/>
+  <img src="https://img.shields.io/badge/2025.06.05 ~ 2025.06.24-6A42DB?style=flat"/>
+  <br/><br/>
+  <p>처음 마시는 와인, 어디서부터 시작해야 할지 막막하셨죠?</p>
+<p>이곳에서는 수많은 와인 중 당신에게 맞는 한 잔을 쉽고 재미있게 찾을 수 있어요.</p>
+<p>취향이 비슷한 사람들과 소통하고, 다양한 와인을 경험하며 나만의 취향을 만들어보세요.</p>
+<p>오늘의 한 모금이 내일의 이야기가 됩니다. 지금, 와인의 세계로 한 걸음 들어오세요. 🍷</p>
+</div>
 
-🎈 프로젝트 소개
+## 🎈 프로젝트 소개
+
 WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통할 수 있도록 만든 웹애플리케이션입니다.
 다양한 와인을 쉽게 검색하고, 가격대나 종류별로 필터링하며, 원하는 와인을 빠르게 찾을 수 있어요.
 나만의 와인 창고를 관리하며, 좋아하는 와인을 등록하고, 자유롭게 리뷰를 남길 수 있어요.
@@ -20,19 +22,91 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 
 ## 🚀 배포 서비스
 
-[지금 바로 당신의 와인 취향을 발견하고, 함께 나눠보세요! 🍷](https://wine-nu.vercel.app)
+[다양한 와인을 경험해보고, 당신의 취향을 공유해주세요! 🍷](https://wine-nu.vercel.app)
 
 ## ✨ 주요 기능
 
-✅ **구글/카카오 로그인** : 구글 및 카카오 계정을 통해 간편하게 로그인할 수 있어요.</br>
-✅ **와인 검색** : 키워드로 원하는 와인을 빠르게 찾을 수 있어요.</br>
-✅ **필터링 기능** : 종류, 가격, 평점 등 다양한 기준으로 와인을 쉽게 탐색해요.</br>
-✅ **와인 등록** : 로그인 후 직접 와인을 등록해 나만의 와인 컬렉션을 만들어 보세요.</br>
-✅ **리뷰 작성** : 각 와인에 대한 나만의 리뷰를 작성하고, 다른 사용자와 의견을 나눌 수 있어요.</br>
-✅ **와인 관리** : 등록한 와인은 언제든 수정하거나 삭제할 수 있어요.</br>
-✅ **리뷰 관리** : 등록한 리뷰는 언제든 수정하거나 삭제할 수 있어요.</br>
-✅ **반응형 디자인** : PC, 태블릿, 모바일 어디서든 사용 가능해요.</br>
-어디서든 사용 가능해요.
+## 🛠 주요 기능 및 기술 스택
+
+## 📄 페이지별 기능 정리
+
+---
+
+### 1️⃣ API 통신 구조
+
+- 클라이언트 → Next.js 서버 → API 서버로 요청을 위임하는 구조
+- 클라이언트에서 직접 API 요청을 차단하고 서버 측에서 처리함으로써 보안 강화
+- Axios 인터셉터를 통해 401 응답 시 토큰 자동 재발급 및 재요청 처리
+
+---
+
+### 2️⃣ 로그인 / 회원가입 페이지
+
+#### ✅ 카카오
+
+- OAuth 2.0 기반 소셜 로그인 구현 (카카오)
+- Access/Refresh 토큰을 HTTP Only + Secure 쿠키에 저장하여 보안 강화
+- Zustand의 `persist` 기능을 통해 새로고침 후에도 로그인 상태 유지
+
+---
+
+### 3️⃣ 와인 목록 페이지
+
+#### ✅ 와인 검색
+
+- 키워드 기반 검색 기능 구현
+- 와인 삭제, 리뷰 등록/수정/삭제 시 캐싱 무효화
+- 디바운싱 적용으로 API 요청 최소화
+
+#### ✅ 필터링 기능
+
+- 와인 종류, 가격대, 평점 등 다양한 조건으로 필터링 가능
+
+#### ✅ SSR & CSR 전략 병행
+
+- 추천 와인은 SSR 기반 렌더링으로 초기 로딩 속도 개선
+- 검색 및 필터링은 CSR로 처리하여 사용자 경험 향상
+- `revalidateTag`로 캐시된 데이터 자동 무효화 처리
+
+---
+
+### 4️⃣ 와인 상세 페이지
+
+#### ✅ 리뷰 작성 / 관리
+
+- 별점, 향 선택(MultiSelect), 텍스트 입력 등 리뷰 작성 기능 제공
+- 작성한 리뷰는 수정/삭제 가능하며, 등록 후 `invalidateQueries`로 즉시 반영
+- 리뷰 수정 시 기존 데이터 prefill 처리로 UX 향상
+- useInfiniteQuery 기반 무한 스크롤 리뷰 로딩
+- 리뷰 통계 시각화 제공
+
+---
+
+### 5️⃣ 마이페이지
+
+#### ✅ 반응형 디자인
+
+- Tailwind CSS 기반 반응형 UI 구성
+- grid/flex 기반 레이아웃으로 PC/태블릿/모바일 대응
+
+### ✅ 페이지
+
+- 초기 성능을 고려해 SSR 적용하여 인터렉션이 적은 페이지로 구성
+
+#### ✅ 페이지 전환 UX
+
+- Parallel Routes + Intercept Routing 적용으로 탭 간 자연스러운 전환 구현
+- 중첩 라우트 및 공통 Layout을 활용해 마이페이지 영역 유지
+
+---
+
+### 6️⃣ 공통 모달 시스템
+
+#### ✅ 모달 시스템 (와인/리뷰)
+
+- Slot 패턴 기반의 재사용 가능한 컴포넌트 설계
+- Tanstack Query 연동으로 모달 내 데이터 변경도 자동 반영
+- 반응형 디자인 적용으로 모든 디바이스에서 최적화된 UX 제공
 
 ## 📁 디렉토리 구조
 
@@ -125,100 +199,189 @@ WHYNE/
 [#789] fix(api): 응답 필드 누락 수정함
 ```
 
-wine-nu.vercel.app
-
 ## 👥 팀원 소개
 
-<div className="flex my-8 gap-x-1">
+<div style="display: flex; gap: 0.2rem; margin: 2rem 0;">
 
-{/_ 명지우 _/}
-
-  <div className="flex-1 text-center p-6 rounded-xl shadow-lg text-white bg-gradient-to-br from-[#f093fb] to-[#f5576c]">
-    <img src="public/dog1.png" className="w-20 aspect-square object-contain rounded-full mb-4 mx-auto border-[3px] border-white/30"/>
-    <h3 className="mb-4 text-lg font-bold">명지우</h3>
-    <ul className="text-left list-none p-0 m-0">
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>팀장, 프로젝트 총괄</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>프로젝트 초기 세팅</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>프로젝트 컨벤션 작성</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>수행 계획서 작성</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>메인 랜딩 페이지 구현</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>공통 컴포넌트 작업</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>PPT 제작</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>디자인 시스템</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>와인 목록 페이지</li>
+  <!-- 명지우 -->
+ <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <img src="public/dog1.png"  width="80" 
+  height="80" style=" width: 80px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 3px solid rgba(255,255,255,0.3);
+    "/>
+    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">명지우</h3>
+    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        팀장, 프로젝트 총괄
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        프로젝트 초기 세팅
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        프로젝트 컨벤션 작성
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        수행 계획서 작성
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        메인 랜딩 페이지 구현
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        공통 컴포넌트 작업
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        PPT 제작
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        디자인 시스템
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        와인 목록 페이지
+      </li>
     </ul>
   </div>
 
-{/_ 유용민 _/}
-
-  <div className="flex-1 text-center p-6 rounded-xl shadow-lg text-white bg-gradient-to-br from-[#667eea] to-[#764ba2]">
-    <img src="public/dog3.png" className="w-20 aspect-square object-contain rounded-full mb-4 mx-auto border-[3px] border-white/30"/>
-    <h3 className="mb-4 text-lg font-bold">유용민</h3>
-    <ul className="text-left list-none p-0 m-0">
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>와인 상세 페이지 구현</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>공통 컴포넌트 작업</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>Github 세팅</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>토스트 메시지</li>
+  <!-- 유용민 -->
+   <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px;  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <img src="public/dog3.png" width="80" style="border-radius: 50%; margin-bottom: 1rem; border: 3px solid rgba(255,255,255,0.3);"/>
+    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">유용민</h3>
+    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        와인 상세 페이지 구현
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        공통 컴포넌트 작업
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        Github 세팅
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        토스트 메시지
+      </li>
     </ul>
   </div>
 
-{/_ 맹은빈 _/}
-
-  <div className="flex-1 text-center p-6 rounded-xl shadow-lg text-white bg-gradient-to-br from-[#4facfe] to-[#00f2fe]">
-    <img src="public/dog3.png" className="w-20 aspect-square object-contain rounded-full mb-4 mx-auto border-[3px] border-white/30"/>
-    <h3 className="mb-4 text-lg font-bold">맹은빈</h3>
-    <ul className="text-left list-none p-0 m-0">
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>회원가입 페이지 구현</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>공통 컴포넌트 작업</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>에러페이지 구현</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>API 통신</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>PWA 구축</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>배포</li>
+  <!-- 맹은빈 -->
+  <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+     <img src="public/dog2.png"  width="80" 
+  height="80" style=" width: 80px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 3px solid rgba(255,255,255,0.3);
+    "/>
+    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">맹은빈</h3>
+    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        로그인 페이지 구현
+      </li>
+        <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+    회원가입 페이지 구현
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        공통 컴포넌트 작업
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        에러페이지 구현
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        API 통신
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        PWA 구축
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        배포
+      </li>
     </ul>
   </div>
 
-{/_ 김서연 _/}
-
-  <div className="flex-1 text-center p-6 rounded-xl shadow-lg text-white bg-gradient-to-br from-[#43e97b] to-[#38f9d7]">
-    <img src="public/dog4.png" className="w-20 aspect-square object-contain rounded-full mb-4 mx-auto border-[3px] border-white/30"/>
-    <h3 className="mb-4 text-lg font-bold">김서연</h3>
-    <ul className="text-left list-none p-0 m-0">
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>마이페이지 구현</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>공통 컴포넌트 작업</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>와인모달 컴포넌트</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>발표 준비</li>
+  <!-- 김서연 -->
+  <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <img src="public/dog4.png" width="80" height="80" style="border-radius: 50%; margin-bottom: 1rem; border: 3px solid rgba(255,255,255,0.3);"/>
+    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">김서연</h3>
+    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        마이페이지 구현
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        공통 컴포넌트 작업
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        와인모달 컴포넌트
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        발표 준비
+      </li>
     </ul>
   </div>
 
-{/_ 김태일 _/}
-
-  <div className="flex-1 text-center p-6 rounded-xl shadow-lg text-white bg-gradient-to-br from-[#fa709a] to-[#fee140]">
-    <img src="public/dog2.png" className="w-20 aspect-square object-contain rounded-full mb-4 mx-auto border-[3px] border-white/30"/>
-    <h3 className="mb-4 text-lg font-bold">김태일</h3>
-    <ul className="text-left list-none p-0 m-0">
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>공통 컴포넌트 작업</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>프로젝트 초기 세팅</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>리뷰 모달 컴포넌트</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>리뷰 삭제 모달</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>와인 삭제 모달</li>
-      <li className="relative mb-2 pl-4"><span className="absolute left-0 text-[#ffd700]">•</span>README 작성</li>
+  <!-- 김태일 -->
+  <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <img src="public/dog5.png"  width="80" 
+  height="80" style=" width: 80px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 3px solid rgba(255,255,255,0.3);
+    "/>
+    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">김태일</h3>
+    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        공통 컴포넌트 작업
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        프로젝트 초기 세팅
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        리뷰 모달 컴포넌트
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        리뷰 삭제 모달
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        와인 삭제 모달
+      </li>
+      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
+        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
+        README 작성
+      </li>
     </ul>
   </div>
 
 </div>
-
-<!-- |                              이름                               | 역할                                                                                                                                                                                                                                 |
-| :-------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="public/dog1.png" alt="명지우" width="60"><br/>명지우  | <ul><li>팀장, 프로젝트 총괄</li><li>프로젝트 초기 세팅</li><li>프로젝트 컨벤션, 수행 계획서 작성</li><li>메인 랜딩 페이지 구현</li><li>공통 컴포넌트 작업</li><li>PPT 제작</li> <li>디자인 시스템</li><li>와인 목록 페이지</li></ul> |
-| <img src="public/dog3.png" alt="유용민" width="80" ><br/>유용민 | <ul><li>와인 상세 페이지 구현</li><li>공통 컴포넌트 작업</li><li>Github 세팅</li><li>토스트 메시지</li></ul>                                                                                                                         |
-| <img src="public/dog3.png" alt="맹은빈" width="90"><br/>맹은빈  | <ul><li>회원가입 페이지 구현</li><li>공통 컴포넌트 작업</li><li>에러페이지 구현</li><li>API 통신</li><li>PWA 구축</li><li>배포</li><ul>                                                                                              |
-| <img src="public/dog4.png" alt="김서연" width="60"><br/>김서연  | <ul><li>마이페이지 구현<li>공통 컴포넌트 작업 <li>와인모달 컴포넌트</li><li>발표 준비</li><li></li></ul>                                                                                                                             |
-| <img src="public/dog2.png" alt="김태일" width="90"><br/>김태일  | <ul><li>공통 컴포넌트 작업</li><li>프로젝트 초기 세팅</li><li>리뷰 모달 컴포넌트</li><li>리뷰 삭제 모달</li><li>와인 삭제 모달</li><li>READEME 작성</li></ul>                                                                        | -->
-
-<!-- - **React** v19.0.0
-- **TypeScript** v5
-- **TailwindCSS** v4
-- **Zustand**
-- **Framer Motion**
-- **Axios + React Query**
- -->
