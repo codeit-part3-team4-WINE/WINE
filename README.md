@@ -1,4 +1,4 @@
-<<div style="text-align: center;"><h1> WINE PICK – 취향 기반 와인 셀렉션 🍇</h1></div>
+<<div style="text-align: center;"><h1> WINE PICK – 취향 기반 와인 셀렉션 🍇</h1></div
 
 <div style="text-align: center;">
   <br/>
@@ -110,6 +110,8 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 
 ![시연 화면](./public/gifs/common-modal.gif)
 
+
+
 ## ⚙️ 커밋 컨벤션
 
 ```bash
@@ -204,3 +206,4 @@ WHYNE/
 ## 👥 팀원 소개
 
 <img src="public/R&R.png">
+
