@@ -1,4 +1,4 @@
-<<div style="text-align: center;"><h1> WINE PICK – 취향 기반 와인 셀렉션 🍇</h1></div>
+<<div style="text-align: center;"><h1> WINE PICK – 취향 기반 와인 셀렉션 🍇</h1></div
 
 <div style="text-align: center;">
   <br/>
@@ -24,13 +24,7 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 
 [다양한 와인을 경험해보고, 당신의 취향을 공유해주세요! 🍷](https://wine-nu.vercel.app)
 
-## ✨ 주요 기능
-
-## 🛠 주요 기능 및 기술 스택
-
 ## 📄 페이지별 기능 정리
-
----
 
 ### 1️⃣ API 통신 구조
 
@@ -38,7 +32,7 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 - 클라이언트에서 직접 API 요청을 차단하고 서버 측에서 처리함으로써 보안 강화
 - Axios 인터셉터를 통해 401 응답 시 토큰 자동 재발급 및 재요청 처리
 
----
+## <img src="public/api.png" width="915" >
 
 ### 2️⃣ 로그인 / 회원가입 페이지
 
@@ -47,6 +41,8 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 - OAuth 2.0 기반 소셜 로그인 구현 (카카오)
 - Access/Refresh 토큰을 HTTP Only + Secure 쿠키에 저장하여 보안 강화
 - Zustand의 `persist` 기능을 통해 새로고침 후에도 로그인 상태 유지
+
+![시연 화면](./public/gifs/auth-flow.gif)
 
 ---
 
@@ -68,7 +64,7 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 - 검색 및 필터링은 CSR로 처리하여 사용자 경험 향상
 - `revalidateTag`로 캐시된 데이터 자동 무효화 처리
 
----
+## ![시연 화면](./public/gifs/wine-list.gif)
 
 ### 4️⃣ 와인 상세 페이지
 
@@ -79,6 +75,8 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 - 리뷰 수정 시 기존 데이터 prefill 처리로 UX 향상
 - useInfiniteQuery 기반 무한 스크롤 리뷰 로딩
 - 리뷰 통계 시각화 제공
+
+![시연 화면](./public/gifs/wine-detail.gif)
 
 ---
 
@@ -98,6 +96,8 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 - Parallel Routes + Intercept Routing 적용으로 탭 간 자연스러운 전환 구현
 - 중첩 라우트 및 공통 Layout을 활용해 마이페이지 영역 유지
 
+![시연 화면](./public/gifs/my-page.gif)
+
 ---
 
 ### 6️⃣ 공통 모달 시스템
@@ -107,6 +107,18 @@ WINE은 와인을 탐색하고 와인을 사랑하는 사람들이 모여 소통
 - Slot 패턴 기반의 재사용 가능한 컴포넌트 설계
 - Tanstack Query 연동으로 모달 내 데이터 변경도 자동 반영
 - 반응형 디자인 적용으로 모든 디바이스에서 최적화된 UX 제공
+
+![시연 화면](./public/gifs/common-modal.gif)
+
+
+
+## ⚙️ 커밋 컨벤션
+
+```bash
+[#123] feat: 로그인 기능 구현함
+[#456] fix(api): 응답 필드 누락 수정함
+[#789] fix(api): 응답 필드 누락 수정함
+```
 
 ## 📁 디렉토리 구조
 
@@ -135,7 +147,7 @@ WHYNE/
     └── types/                   # TypeScript 타입 정의
 ```
 
-### 🛠️ 기술 스택
+## 🛠 기술 스택
 
 ### 🖥️ 프론트엔드
 
@@ -191,197 +203,7 @@ WHYNE/
 <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white"/>
 </div>
 
-## ⚙️ 커밋 컨벤션
-
-```bash
-[#123] feat: 로그인 기능 구현함
-[#456] fix(api): 응답 필드 누락 수정함
-[#789] fix(api): 응답 필드 누락 수정함
-```
-
 ## 👥 팀원 소개
 
-<div style="display: flex; gap: 0.2rem; margin: 2rem 0;">
+<img src="public/R&R.png">
 
-  <!-- 명지우 -->
- <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <img src="public/dog1.png"  width="80" 
-  height="80" style=" width: 80px;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    border: 3px solid rgba(255,255,255,0.3);
-    "/>
-    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">명지우</h3>
-    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        팀장, 프로젝트 총괄
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        프로젝트 초기 세팅
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        프로젝트 컨벤션 작성
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        수행 계획서 작성
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        메인 랜딩 페이지 구현
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        공통 컴포넌트 작업
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        PPT 제작
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        디자인 시스템
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        와인 목록 페이지
-      </li>
-    </ul>
-  </div>
-
-  <!-- 유용민 -->
-   <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px;  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <img src="public/dog3.png" width="80" style="border-radius: 50%; margin-bottom: 1rem; border: 3px solid rgba(255,255,255,0.3);"/>
-    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">유용민</h3>
-    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        와인 상세 페이지 구현
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        공통 컴포넌트 작업
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        Github 세팅
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        토스트 메시지
-      </li>
-    </ul>
-  </div>
-
-  <!-- 맹은빈 -->
-  <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-     <img src="public/dog2.png"  width="80" 
-  height="80" style=" width: 80px;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    border: 3px solid rgba(255,255,255,0.3);
-    "/>
-    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">맹은빈</h3>
-    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        로그인 페이지 구현
-      </li>
-        <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-    회원가입 페이지 구현
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        공통 컴포넌트 작업
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        에러페이지 구현
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        API 통신
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        PWA 구축
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        배포
-      </li>
-    </ul>
-  </div>
-
-  <!-- 김서연 -->
-  <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <img src="public/dog4.png" width="80" height="80" style="border-radius: 50%; margin-bottom: 1rem; border: 3px solid rgba(255,255,255,0.3);"/>
-    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">김서연</h3>
-    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        마이페이지 구현
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        공통 컴포넌트 작업
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        와인모달 컴포넌트
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        발표 준비
-      </li>
-    </ul>
-  </div>
-
-  <!-- 김태일 -->
-  <div style="flex: 1; text-align: center; padding: 1.5rem; border-radius: 12px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <img src="public/dog5.png"  width="80" 
-  height="80" style=" width: 80px;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    border: 3px solid rgba(255,255,255,0.3);
-    "/>
-    <h3 style="margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: bold;">김태일</h3>
-    <ul style="text-align: left; list-style: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        공통 컴포넌트 작업
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        프로젝트 초기 세팅
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        리뷰 모달 컴포넌트
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        리뷰 삭제 모달
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        와인 삭제 모달
-      </li>
-      <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-        <span style="position: absolute; left: 0; color: #ffd700;">•</span>
-        README 작성
-      </li>
-    </ul>
-  </div>
-
-</div>
